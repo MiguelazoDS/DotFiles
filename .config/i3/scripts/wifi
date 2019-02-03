@@ -1,0 +1,8 @@
+#Add the following lines to sudoers file. Don't close before you sure "sudo su" works.
+
+#Hidden SSID
+#Cmnd_Alias	PASSWORDLESS = /home/arch/.config/i3/scripts/wifi
+#arch ALL=(ALL) 	ALL
+#arch ALL=(ALL)	NOPASSWD: PASSWORDLESS
+
+iwlist wlp2s0 scan essid Motorola

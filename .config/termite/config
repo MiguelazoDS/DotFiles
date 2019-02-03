@@ -1,0 +1,76 @@
+[options]
+resize_grip = false
+scroll_on_output = false
+scroll_on_keystroke = true
+audible_bell = false
+mouse_autohide = false
+allow_bold = true
+dynamic_title = true
+urgent_on_bell = true
+clickable_url = true
+font = Inconsolata Nerd Font Medium 12
+scrollback_lines = 10000
+search_wrap = true
+# icon_name = terminal
+# geometry = 640x480
+
+# "system", "on" or "off"
+cursor_blink = system
+
+# "block", "underline" or "ibeam"
+cursor_shape = block
+
+# set size hints for the window
+# size_hints = false
+
+# emit escape sequences for other keys modified by Control
+# modify_other_keys = false
+
+[colors]
+background = rgba(16, 16, 16, 0.90)
+foreground = #e6e6e6
+foreground_bold = #ffffff
+cursor =  #ffaa3e
+highlight = #585858
+
+# Black
+color0 = #073642
+color8 = #585858
+
+# Red
+color1 = #93350D
+color9 = #76583D
+
+# Green
+color2 = #3C6F24
+color10 = #689E7E
+
+# Yellow
+color3 = #8B6911
+color11 = #DC8D17
+
+# Blue
+color4 = #638ea0
+color12 = #41addb
+
+# Magenta
+color5 = #5D407A
+color13 = #a289ba
+
+# Cyan
+color6 = #1CB3C3
+color14 = #4DC5DC
+
+# White
+color7 = #b3b3b3
+color15 = #e6e6e6
+
+
+[hints]
+font = Inconsolata Nerd Font Medium 12
+# padding = 2
+# border = #3f3f3f
+# border_width = 0.5
+# roundness = 2.0
+
+# vim: ft=dosini cms=#%s
