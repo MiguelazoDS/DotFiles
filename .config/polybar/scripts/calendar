@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-x=800
+x=900
 y=25
 DATE="$(date +"%a %d %H:%M")"
 
