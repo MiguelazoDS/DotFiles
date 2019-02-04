@@ -223,7 +223,7 @@ format-underline = #dd7d2e
 [module/weather]
 type = custom/script
 exec = ~/.config/polybar/scripts/weather
-interval = 30
+interval = 15
 label-font = 2
 format-underline = #55aa55
 
