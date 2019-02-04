@@ -265,4 +265,5 @@ bindsym $mod+p mode "Polybar (U)pdates, (C)alendar"
 mode "Polybar (U)pdates, (C)alendar"{
 	bindsym u exec --no-startup-id $HOME/.config/polybar/scripts/updates --updates; mode "default"
 	bindsym c exec --no-startup-id $HOME/.config/polybar/scripts/calendar --popup; mode "default"
+	bindsym Escape mode "default"
 }
