@@ -153,6 +153,7 @@ label = %percentage:2%%
 [module/memory]
 type = custom/script
 exec = ~/.config/polybar/scripts/mem
+click-left = ~/.config/polybar/scripts/mem --details
 interval = 2
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
