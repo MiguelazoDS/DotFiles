@@ -261,9 +261,10 @@ default_border pixel 0
 exec_always --no-startup-id "killall -q compton; compton --config ~/.config/compton/compton.conf"
 
 #Show polybar clickable icons
-bindsym $mod+p mode "Polybar (U)pdates, (C)alendar"
-mode "Polybar (U)pdates, (C)alendar"{
+bindsym $mod+p mode "Polybar (U)pdates, (C)alendar, (M)emory"
+mode "Polybar (U)pdates, (C)alendar, (M)emory"{
 	bindsym u exec --no-startup-id $HOME/.config/polybar/scripts/updates --updates; mode "default"
 	bindsym c exec --no-startup-id $HOME/.config/polybar/scripts/calendar --popup; mode "default"
+	bindsym m exec --no-startup-id $HOME/.config/polybar/scripts/mem --details; mode "default"
 	bindsym Escape mode "default"
 }
