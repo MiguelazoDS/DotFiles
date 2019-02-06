@@ -1,6 +1,7 @@
-"Enable syntax highlights
-syntax on
-set number
+syntax on 
+set number 
+set showcmd "Show commands
+set incsearch "Highlight text in searches
 
 "Remapping
 imap hh <Esc>
