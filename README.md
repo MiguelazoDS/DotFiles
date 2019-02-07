@@ -8,7 +8,7 @@ My configuration files.
 
 _You can get this wallpaper and more from here_
 
-[Wallpaperscraft](wallpaperscraft.com)
+[Wallpaperscraft](https://wallpaperscraft.com)
 
 # DotFiles management
 
