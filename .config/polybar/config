@@ -50,7 +50,7 @@ module-margin-right = 1
 
 modules-left = logo i3
 modules-center = 
-modules-right = calendar weather pulseaudio xkeyboard arch-updates wlan eth filesystem memory cpu usb
+modules-right = calendar weather pulseaudio xkeyboard arch-updates wlan eth filesystem memory cpu 
 
 tray-position = right
 tray-padding = 2

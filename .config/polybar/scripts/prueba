@@ -1,6 +1,0 @@
-a=$(checkupdates)
-b=$(echo "$a" | sed '/^$/d' | wc -l)
-d=$(var=`yay -Qum`  | wc -l)
-c=$(printf "%s\n%d\n%d" "$a" "$b" "$d")
-
-echo $c
