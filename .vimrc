@@ -31,3 +31,25 @@ set t_Co=256
 :autocmd BufNewFile *.pl 0r ~/.vim/templates/template.pl
 :autocmd BufNewFile *.py 0r ~/.vim/templates/template.py
 :autocmd BufNewFile *.sh 0r ~/.vim/templates/template.sh
+
+"Syntastic configuration
+"------------Default----------------------
+"------------------------------------------
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"------------------------------------------
+
+let g:syntastic_c_checkers = ['gcc', 'cppcheck', 'cppclean'] "Done
+let g:syntastic_cpp_checkers = ['gcc', 'cppcheck', 'cppclean'] "Done
+let g:syntastic_enable_perl_checker = 1
+let g:syntastic_perl_checkers = ['perlcritic', 'perl'] "Done 
+let g:syntastic_haskell_checkers = ['hlint'] "Doesn't check errors
+let g:syntastic_python_checkers = ['python', 'pylint'] "Done
+let g:syntastic_java_checkers = ['checkstyle', 'javac'] "Done
+let g:syntastic_bash_checkers = ['shellcheck', 'checkbashisms', 'bashate'] "Done
