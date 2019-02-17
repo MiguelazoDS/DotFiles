@@ -44,12 +44,12 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 "------------------------------------------
-
-let g:syntastic_c_checkers = ['gcc', 'cppcheck', 'cppclean'] "Done
-let g:syntastic_cpp_checkers = ['gcc', 'cppcheck', 'cppclean'] "Done
+" First for syntax, second for code analysis
+let g:syntastic_c_checkers = ['gcc', 'splint'] 
+let g:syntastic_cpp_checkers = ['gcc', 'clang_check'] 
 let g:syntastic_enable_perl_checker = 1
-let g:syntastic_perl_checkers = ['perlcritic', 'perl'] "Done 
-let g:syntastic_haskell_checkers = ['hlint', 'scan'] "Doesn't check errors
-let g:syntastic_python_checkers = ['python', 'pylint'] "Done
-let g:syntastic_java_checkers = ['checkstyle', 'javac'] "Done
-let g:syntastic_bash_checkers = ['shellcheck', 'checkbashisms', 'bashate'] "Done
+let g:syntastic_perl_checkers = ['perl', 'perlcritic'] 
+let g:syntastic_haskell_checkers = ['scan', 'hlint'] "scan doesn't check all syntax errors
+let g:syntastic_python_checkers = ['python', 'pylint'] 
+let g:syntastic_java_checkers = ['javac', 'checkstyle'] 
+let g:syntastic_bash_checkers = ['sh', 'shellcheck', 'checkbashisms'] "sh doesn't check all syntax errors
