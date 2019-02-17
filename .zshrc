@@ -7,7 +7,8 @@ export PROMPT_EOL_MARK=""
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/miguel/.oh-my-zsh"
-
+#scan Haskell
+export PATH=~/.local/bin:$PATH
 function cd {
         builtin cd $@
         pwd > ~/.last_dir
