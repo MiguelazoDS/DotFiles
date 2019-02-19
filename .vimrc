@@ -53,3 +53,5 @@ let g:syntastic_haskell_checkers = ['scan', 'hlint'] "scan doesn't check all syn
 let g:syntastic_python_checkers = ['python', 'pylint'] 
 let g:syntastic_java_checkers = ['javac', 'checkstyle'] 
 let g:syntastic_bash_checkers = ['sh', 'shellcheck', 'checkbashisms'] "sh doesn't check all syntax errors
+let g:syntastic_tex_checkers = ['chktex', 'lacheck', 'proselint'] 
+let g:syntastic_zsh_checkers = ['zsh']
