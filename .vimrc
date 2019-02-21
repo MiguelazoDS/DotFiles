@@ -6,10 +6,10 @@ set tabstop=4 "tab 4 spaces
 
 "Remapping
 imap hh <Esc>
-map h <insert>
 map i <Up>
 map j <Left>
 map k <Down>
+noremap h i
 map yy "+y<CR>
 
 "Enable plugins
