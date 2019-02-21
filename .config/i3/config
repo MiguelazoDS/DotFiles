@@ -196,8 +196,8 @@ exec_always --no-startup-id numlockx on
 exec_always --no-startup-id flux
 
 #Add gaps
-gaps inner 5
-gaps outer 3
+gaps inner 3
+gaps outer 1
 
 #Move windows
 bindsym $mod+m mode "Move"
