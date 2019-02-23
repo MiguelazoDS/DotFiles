@@ -178,8 +178,8 @@ bindsym XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
 
 #Brightness control
 #install https://github.com/haikarainen/light and bindsym XF86MonBrightnessUp exec light -A 5, bindsym XF86MonBrightnessDown exec light -U 5
-bindsym XF86MonBrightnessUp exec light -A 5 
-bindsym XF86MonBrightnessDown exec light -U 5
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5 
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
 
 # Touchpad controls
 bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
