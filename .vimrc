@@ -4,6 +4,13 @@ set showcmd "Show commands
 set incsearch "Highlight text in searches
 set tabstop=4 "tab 4 spaces
 
+"Color scheme
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set background=dark
+colorscheme office-dark
+
 "Remapping
 imap hh <Esc>
 map i <Up>
