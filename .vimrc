@@ -42,23 +42,23 @@ set t_Co=256
 "Syntastic configuration
 "------------Default----------------------
 "------------------------------------------
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 "------------------------------------------
 " First for syntax, second for code analysis
-let g:syntastic_c_checkers = ['gcc', 'splint'] 
-let g:syntastic_cpp_checkers = ['gcc', 'clang_check'] 
-let g:syntastic_enable_perl_checker = 1
-let g:syntastic_perl_checkers = ['perl', 'perlcritic'] 
-let g:syntastic_haskell_checkers = ['scan', 'hlint'] "scan doesn't check all syntax errors
-let g:syntastic_python_checkers = ['python', 'pylint'] 
-let g:syntastic_java_checkers = ['javac', 'checkstyle'] 
-let g:syntastic_bash_checkers = ['sh', 'shellcheck', 'checkbashisms'] "sh doesn't check all syntax errors
-let g:syntastic_tex_checkers = ['chktex', 'lacheck', 'proselint'] 
-let g:syntastic_zsh_checkers = ['zsh']
+"let g:syntastic_c_checkers = ['gcc', 'splint'] 
+"let g:syntastic_cpp_checkers = ['gcc', 'clang_check'] 
+"let g:syntastic_enable_perl_checker = 1
+"let g:syntastic_perl_checkers = ['perl', 'perlcritic'] 
+"let g:syntastic_haskell_checkers = ['scan', 'hlint'] "scan doesn't check all syntax errors
+"let g:syntastic_python_checkers = ['python', 'pylint'] 
+"let g:syntastic_java_checkers = ['javac', 'checkstyle'] 
+"let g:syntastic_bash_checkers = ['sh', 'shellcheck', 'checkbashisms'] "sh doesn't check all syntax errors
+"let g:syntastic_tex_checkers = ['chktex', 'lacheck', 'proselint'] 
+"let g:syntastic_zsh_checkers = ['zsh']
