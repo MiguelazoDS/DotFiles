@@ -30,6 +30,9 @@ let g:powerline_pycmd="py3"
 set laststatus=2            
 set t_Co=256
 
+"Open tag in new tab
+map <C-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+
 "Languages templates
 :autocmd BufNewFile *.c 0r ~/.vim/templates/template.c
 :autocmd BufNewFile *.cpp 0r ~/.vim/templates/template.cpp
