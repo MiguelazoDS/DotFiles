@@ -41,6 +41,7 @@ map <C-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 :autocmd BufNewFile *.pl 0r ~/.vim/templates/template.pl
 :autocmd BufNewFile *.py 0r ~/.vim/templates/template.py
 :autocmd BufNewFile *.sh 0r ~/.vim/templates/template.sh
+:autocmd BufNewFile Makefile 0r ~/.vim/templates/Makefile
 
 "Syntastic configuration
 "------------Default----------------------
