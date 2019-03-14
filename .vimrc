@@ -66,3 +66,9 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 "let g:syntastic_bash_checkers = ['sh', 'shellcheck', 'checkbashisms'] "sh doesn't check all syntax errors
 "let g:syntastic_tex_checkers = ['chktex', 'lacheck', 'proselint'] 
 "let g:syntastic_zsh_checkers = ['zsh']
+
+call plug#begin()
+Plug 'lervag/vimtex'
+Plug 'flazz/vim-colorschemes'
+Plug 'w0rp/ale'
+call plug#end()
