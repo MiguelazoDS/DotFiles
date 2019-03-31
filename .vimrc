@@ -1,8 +1,41 @@
+"Vim-plug configuration
+"-------------------------------------
+
 call plug#begin('~/.vim/plugged')
 Plug 'lervag/vimtex'
 Plug 'nightsense/office'
 Plug 'w0rp/ale'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 call plug#end()
+
+"----------------------------------
+
+"Ultisnips configuration
+"------------------------------------------
+"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltisnipsJumpForwardTrigger="<C-j>"
+let g:UltisnipsJumpBackwardTrigger="<C-k>"
+
+" Required for tex files, type the following 
+" when the file is opened
+" :setf tex
+
+:autocmd BufNewFile *.tex setf tex
+
+"------------------------------------------
+
+"Vimtex configuration
+"--------------------------------------------
+
+let g:vimtex_view_general_viewer = 'mupdf'
+
+"------------------------------------------
+
+"Required
+set nocompatible
+filetype off
 
 syntax on 
 set number 
@@ -72,3 +105,5 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 "let g:syntastic_bash_checkers = ['sh', 'shellcheck', 'checkbashisms'] "sh doesn't check all syntax errors
 "let g:syntastic_tex_checkers = ['chktex', 'lacheck', 'proselint'] 
 "let g:syntastic_zsh_checkers = ['zsh']
+
+"flake8 para python
