@@ -29,8 +29,8 @@ let g:UltisnipsJumpBackwardTrigger="<C-k>"
 "Vimtex configuration
 "--------------------------------------------
 
-let g:vimtex_view_general_viewer = 'mupdf'
-
+"let g:vimtex_view_general_viewer = 'mupdf'
+let g:vimtex_view_method = 'mupdf'
 "------------------------------------------
 
 "Required
