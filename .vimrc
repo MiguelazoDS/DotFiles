@@ -6,7 +6,6 @@ Plug 'lervag/vimtex'
 Plug 'nightsense/office'
 Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 call plug#end()
 
 "----------------------------------
@@ -17,6 +16,7 @@ call plug#end()
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltisnipsJumpForwardTrigger="<C-j>"
 let g:UltisnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsSnippetDirectories = ['.vim/UltiSnips', 'UltiSnips']
 
 " Required for tex files, type the following 
 " when the file is opened
@@ -29,8 +29,8 @@ let g:UltisnipsJumpBackwardTrigger="<C-k>"
 "Vimtex configuration
 "--------------------------------------------
 
-"let g:vimtex_view_general_viewer = 'mupdf'
 let g:vimtex_view_method = 'mupdf'
+
 "------------------------------------------
 
 "Required
