@@ -231,6 +231,9 @@ bindsym $mod+period exec --no-startup-id i3lock -i $HOME/.Wallpapers/arch_linux_
 #Keybinding for Opera
 bindsym $mod+o exec --no-startup-id opera
 
+#Keybinding for Clementine
+bindsym $mod+c exec --no-startup-id clementine
+
 #Keybinding for Dolphin
 bindsym $mod+n exec --no-startup-id dolphin
 
