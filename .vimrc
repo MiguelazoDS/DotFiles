@@ -6,6 +6,10 @@ Plug 'lervag/vimtex'
 Plug 'nightsense/office'
 Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips'
+Plug 'Chiel92/vim-autoformat'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 "----------------------------------
@@ -66,9 +70,15 @@ filetype plugin on
 filetype plugin indent on
 
 "Powerline
-let g:powerline_pycmd="py3" 
-set laststatus=2            
-set t_Co=256
+"let g:powerline_pycmd="py3" 
+"set laststatus=2            
+"set t_Co=256
+
+"Airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline_theme='powerlineish'
+let g:airline_powerline_fonts = 1
 
 "Open tag in new tab
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
