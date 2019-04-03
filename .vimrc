@@ -92,6 +92,10 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 :autocmd BufNewFile *.sh 0r ~/.vim/templates/template.sh
 :autocmd BufNewFile Makefile 0r ~/.vim/templates/Makefile
 
+"File type configuration
+autocmd FileType haskell setlocal tabstop=4 expandtab softtabstop=4 shiftwidth=4 shiftround
+autocmd FileType java setlocal tabstop=2 softtabstop=2 shiftwidth=2 shiftround
+
 "Syntastic configuration
 "------------Default----------------------
 "------------------------------------------
@@ -117,3 +121,15 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 "let g:syntastic_zsh_checkers = ['zsh']
 
 "flake8 para python
+"
+"Vim-ale checkers
+
+"Bash = shellcheck, sh
+"C = gcc, clang, cppcheck
+"Cpp = gcc, clang, cppcheck
+"Haskell = ghc, hlint, stylish-haskell
+"Java = checkstyle, javac, google-java-format
+"Latex = chktex, lacheck
+"Perl = perl-critic, perltidy
+"Python = flake8, yapf
+"Vim = vint
