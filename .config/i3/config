@@ -228,14 +228,11 @@ mode "Exit (L)ogout, (S)uspend, (R)eboot, (P)oweroff"{
 #Lock screen
 bindsym $mod+period exec --no-startup-id i3lock -i $HOME/.Wallpapers/arch_linux_desktop.png
 
-#Keybinding for Opera
+#Shortcuts
 bindsym $mod+o exec --no-startup-id opera
-
-#Keybinding for Clementine
 bindsym $mod+c exec --no-startup-id clementine
-
-#Keybinding for Dolphin
 bindsym $mod+n exec --no-startup-id dolphin
+bindsym $mod+Shift+v exec --no-startup-id termite -e vim
 
 #Contraints for floating windows as "save as" windows
 floating_minimum_size 75 x 50
