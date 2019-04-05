@@ -9,6 +9,7 @@ Plug 'SirVer/ultisnips'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
+Plug 'scrooloose/nerdtree'
 call plug#end()
 
 "----------------------------------
@@ -48,6 +49,14 @@ set incsearch "Highlight text in searches
 set tabstop=4 "tab 4 spaces
 set shiftwidth=4 "indent
 
+"Switch beetwen buffer without saving them
+"ctrl+] go to definition.
+set hidden
+map bn :bn<cr>
+map bp :bp<cr>
+"Close buffer and fixed unexpected nerdtree behavior
+map bd :bp\|bd#<cr>
+
 "Color scheme
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -80,8 +89,13 @@ let g:airline#extensions#tabline#formatter = 'default'
 let g:airline_theme='powerlineish'
 let g:airline_powerline_fonts = 1
 
+"NerdTree
+map <c-n> :NERDTreeToggle<CR>
+"Let you to use 'i' to jump up
+let NERDTreeMapOpenSplit='x'
+
 "Open tag in new tab
-map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+"map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 "Languages templates
 :autocmd BufNewFile *.c 0r ~/.vim/templates/template.c
