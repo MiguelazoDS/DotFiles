@@ -17,7 +17,6 @@ if [ -f ~/.last_dir ]; then
         cd "`cat ~/.last_dir`"
 fi
 
-
 ZSH_DISABLE_COMPFIX=true
 DISABLE_AUTO_TITLE=true
 
@@ -25,7 +24,8 @@ DISABLE_AUTO_TITLE=true
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel9k/powerlevel9k"
+#ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_icon custom_root custom_name dir vcs custom_arrow)
@@ -135,6 +135,7 @@ branch(){
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  fast-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
