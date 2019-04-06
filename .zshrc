@@ -81,7 +81,29 @@ arrow(){
 branch(){
 	if [ ! $USER = "root" ]
 	then
-		echo `dotfile status | head -1 | cut -d ' ' -f3`
+		all=$(dotfile status)
+		branch=$(echo $all | head -1 | cut -d ' ' -f3)
+		stage="Changes not staged"
+		commit="Changes to be"
+		push="Your branch is ahead"
+		pull="Your branch is behind"
+		printf $branch
+		if [[ $all =~ $stage ]]
+		then
+			printf " \uf06a"
+		fi
+		if [[ $all =~ $commit ]]
+		then
+			printf " \uf055"
+		fi
+		if [[ $all =~ $push ]]
+		then
+			printf " \uf0aa"
+		fi
+		if [[ $all =~ $pull ]]
+		then
+			printf " \uf0ab"
+		fi
 	fi
 }
 # Set list of themes to load
