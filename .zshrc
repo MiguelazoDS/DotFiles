@@ -1,14 +1,21 @@
+#Wine32 
 export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
+
+#Bare repository
 alias dotfile='/usr/bin/git --git-dir=/home/miguel/.dotfiles/ --work-tree=/home/miguel'
+
 export TERM="screen-256color" 
+
+#Fixed % symbol after print
 export PROMPT_EOL_MARK=""
+
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/miguel/.oh-my-zsh"
-#scan Haskell
-export PATH=~/.local/bin:$PATH
+
+#Open new terminal same directory
 function cd {
         builtin cd $@
         pwd > ~/.last_dir
@@ -17,18 +24,17 @@ if [ -f ~/.last_dir ]; then
         cd "`cat ~/.last_dir`"
 fi
 
+#Disable warnings
 ZSH_DISABLE_COMPFIX=true
+
+#Disable autosetting terminal title.
 DISABLE_AUTO_TITLE=true
 
 alias ls=lsd
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
-#ZSH_THEME="powerlevel9k/powerlevel9k"
+#Powerlevel10k configuration
+#-------------------------------------------------------------------------------------------
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_icon custom_root custom_name dir vcs custom_arrow)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_branch background_jobs)
@@ -108,6 +114,7 @@ branch(){
 		fi
 	fi
 }
+#-----------------------------------------------------------------------------
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
 # cause zsh load theme from this variable instead of
@@ -198,4 +205,3 @@ PERL5LIB="/home/miguel/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LI
 PERL_LOCAL_LIB_ROOT="/home/miguel/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/miguel/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/miguel/perl5"; export PERL_MM_OPT;
-

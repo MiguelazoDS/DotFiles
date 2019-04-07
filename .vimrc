@@ -1,6 +1,5 @@
 "Vim-plug configuration
 "-------------------------------------
-
 call plug#begin('~/.vim/plugged')
 Plug 'lervag/vimtex'
 Plug 'nightsense/office'
@@ -11,35 +10,32 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 call plug#end()
-
 "----------------------------------
 
 "Ultisnips configuration
 "------------------------------------------
-"
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltisnipsJumpForwardTrigger="<C-j>"
-let g:UltisnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltisnipsJumpForwardTrigger='<C-j>'
+let g:UltisnipsJumpBackwardTrigger='<C-k>'
 let g:UltiSnipsSnippetDirectories = ['.vim/UltiSnips', 'UltiSnips']
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit='vertical'
 
 " Required for tex files, type the following 
 " when the file is opened
 " :setf tex
 
-:autocmd BufNewFile *.tex setf tex
-
+:augroup texfiles
+:	autocmd BufNewFile *.tex setf tex
+:augroup END
 "------------------------------------------
 
 "Vimtex configuration
 "--------------------------------------------
-
 let g:vimtex_view_method = 'mupdf'
-
 "------------------------------------------
 
 "Required
-set nocompatible
+"uset nocompatible
 filetype off
 
 syntax on 
@@ -52,6 +48,8 @@ set shiftwidth=4 "indent
 "Switch beetwen buffer without saving them
 "ctrl+] go to definition.
 set hidden
+
+"Mapping keys for switching between buffers.
 map bn :bn<cr>
 map bp :bp<cr>
 "Close buffer and fixed unexpected nerdtree behavior
@@ -98,18 +96,22 @@ let NERDTreeMapOpenSplit='x'
 "map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 "Languages templates
-:autocmd BufNewFile *.c 0r ~/.vim/templates/template.c
-:autocmd BufNewFile *.cpp 0r ~/.vim/templates/template.cpp
-:autocmd BufNewFile *.java 0r ~/.vim/templates/template.java
-:autocmd BufNewFile *.hs 0r ~/.vim/templates/template.hs
-:autocmd BufNewFile *.pl 0r ~/.vim/templates/template.pl
-:autocmd BufNewFile *.py 0r ~/.vim/templates/template.py
-:autocmd BufNewFile *.sh 0r ~/.vim/templates/template.sh
-:autocmd BufNewFile Makefile 0r ~/.vim/templates/Makefile
+:augroup languages
+:	autocmd BufNewFile *.c 0r ~/.vim/templates/template.c
+:	autocmd BufNewFile *.cpp 0r ~/.vim/templates/template.cpp
+:	autocmd BufNewFile *.java 0r ~/.vim/templates/template.java
+:	autocmd BufNewFile *.hs 0r ~/.vim/templates/template.hs
+:	autocmd BufNewFile *.pl 0r ~/.vim/templates/template.pl
+:	autocmd BufNewFile *.py 0r ~/.vim/templates/template.py
+:	autocmd BufNewFile *.sh 0r ~/.vim/templates/template.sh
+:	autocmd BufNewFile Makefile 0r ~/.vim/templates/Makefile
+:augroup END
 
 "File type configuration
-autocmd FileType haskell setlocal tabstop=4 expandtab softtabstop=4 shiftwidth=4 shiftround
-autocmd FileType java setlocal tabstop=2 softtabstop=2 shiftwidth=2 shiftround
+:augroup indentation
+:	autocmd FileType haskell setlocal tabstop=4 expandtab softtabstop=4 shiftwidth=4 shiftround
+:	autocmd FileType java setlocal tabstop=2 softtabstop=2 shiftwidth=2 shiftround
+:augroup END
 
 "Syntastic configuration
 "------------Default----------------------
@@ -117,7 +119,7 @@ autocmd FileType java setlocal tabstop=2 softtabstop=2 shiftwidth=2 shiftround
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
-"
+
 "let g:syntastic_always_populate_loc_list = 1
 "let g:syntastic_auto_loc_list = 1
 "let g:syntastic_check_on_open = 1
@@ -135,8 +137,6 @@ autocmd FileType java setlocal tabstop=2 softtabstop=2 shiftwidth=2 shiftround
 "let g:syntastic_tex_checkers = ['chktex', 'lacheck', 'proselint'] 
 "let g:syntastic_zsh_checkers = ['zsh']
 
-"flake8 para python
-"
 "Vim-ale checkers
 
 "Bash = shellcheck, sh
