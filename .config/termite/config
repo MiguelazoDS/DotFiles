@@ -25,86 +25,47 @@ cursor_shape = block
 
 # emit escape sequences for other keys modified by Control
 # modify_other_keys = false
+
+#From terminal.sexy
 [colors]
 
 # special
-foreground      = #d0d0d0
-foreground_bold = #d0d0d0
-cursor          = #d0d0d0
-#background      = #151515
-background = rgba(0, 0, 0, 0.85)
+foreground      = #ffffff
+foreground_bold = #ffffff
+cursor          = #ffffff
+background      = rgba(10,10,10,0.85)
+
 # black
-color0  = #151515
-color8  = #505050
+color0  = #111111
+color8  = #666666
 
 # red
-color1  = #ac4142
-color9  = #ac4142
+color1  = #d36265
+color9  = #ef8171
 
 # green
-color2  = #90a959
-color10 = #90a959
+color2  = #aece91
+color10 = #cfefb3
 
 # yellow
-color3  = #f4bf75
-color11 = #f4bf75
+color3  = #e7e18c
+color11 = #fff796
 
 # blue
-color4  = #6a9fb5
-color12 = #6a9fb5
+color4  = #5297cf
+color12 = #74b8ef
 
 # magenta
-color5  = #aa759f
-color13 = #aa759f
+color5  = #963c59
+color13 = #b85e7b
 
 # cyan
-color6  = #75b5aa
-color14 = #75b5aa
+color6  = #5e7175
+color14 = #a3babf
 
 # white
-color7  = #d0d0d0
-color15 = #f5f5f5
-
-#[colors]
-#background = rgba(0, 0, 0, 0.85)
-#foreground = #e6e6e6
-#foreground_bold = #ffffff
-#cursor =  #ffaa3e
-#highlight = #585858
-#
-## Black
-#color0 = #073642
-#color8 = #585858
-#
-## Red
-#color1 = #93350D
-#color9 = #76583D
-#
-## Green
-#color2 = #3C6F24
-#color10 = #689E7E
-#
-## Yellow
-#color3 = #8B6911
-#color11 = #DC8D17
-#
-## Blue
-#color4 = #638ea0
-#color12 = #41addb
-#
-## Magenta
-#color5 = #5D407A
-#color13 = #a289ba
-#
-## Cyan
-#color6 = #1CB3C3
-#color14 = #4DC5DC
-#
-## White
-#color7 = #b3b3b3
-#color15 = #e6e6e6
-
-
+color7  = #bebebe
+color15 = #ffffff
 [hints]
 font = Inconsolata Nerd Font Medium 12
 # padding = 2
