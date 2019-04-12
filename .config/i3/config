@@ -254,11 +254,12 @@ for_window [class="smplayer"] floating enable
 for_window [title="JDownloader 2"] floating enable
 for_window [title="Clementine"] floating enable
 for_window [class="ffplay"] floating enable
+for_window [class="gwenview"] floating enable
 
 #No window title
 for_window [class="^.*"] border pixel 3
 # class                 border  backgr. text    indicator child_border
-client.focused          #4c7899 #285577 #ffffff #1d9300   #1d9300
+client.focused          #4c7899 #285577 #ffffff #699200   #699200
 client.focused_inactive #333333 #5f676a #ffffff #000000   #000000
 client.unfocused        #333333 #222222 #888888 #000000   #000000
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
