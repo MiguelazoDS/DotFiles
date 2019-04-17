@@ -1,4 +1,1 @@
-rofi.combi-modi: window,drun,ssh
-rofi.theme: arthur
-rofi.font: hack 10
-rofi.modi: combi
+rofi.theme: ~/.config/rofi/themes/arthur.rasi
