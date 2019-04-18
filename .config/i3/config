@@ -194,7 +194,6 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 exec_always --no-startup-id dropbox
 exec_always --no-startup-id numlockx on
 exec_always --no-startup-id flux
-exec_always --no-startup-id "dotfile remote update"
 
 #Add gaps
 gaps inner 3
