@@ -278,3 +278,8 @@ mode "Polybar (U)pdates, (C)alendar, (M)emory"{
 	bindsym m exec --no-startup-id $HOME/.config/polybar/scripts/mem --details; mode "default"
 	bindsym Escape mode "default"
 }
+#Scratchpad terminal
+for_window [instance="update"] floating enable
+for_window [instance="update"] move scratchpad
+exec --no-startup-id termite --name=update
+bindsym $mod+u [instance="update"] scratchpad show; [instance="update"] move position center
