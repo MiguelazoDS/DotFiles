@@ -254,7 +254,7 @@ for_window [title="JDownloader 2"] floating enable
 for_window [title="Clementine"] floating enable
 for_window [class="ffplay"] floating enable
 for_window [class="gwenview"] floating enable
-
+for_window [instance="output"] floating enable
 #No window title
 for_window [class="^.*"] border pixel 3
 # class                 border  backgr. text    indicator child_border
