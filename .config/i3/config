@@ -82,7 +82,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+#bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -126,6 +126,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
+
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
@@ -255,6 +256,7 @@ for_window [title="Clementine"] floating enable
 for_window [class="ffplay"] floating enable
 for_window [class="gwenview"] floating enable
 for_window [instance="output"] floating enable
+for_window [instance="output"] move position center
 #No window title
 for_window [class="^.*"] border pixel 3
 # class                 border  backgr. text    indicator child_border
@@ -278,7 +280,7 @@ mode "Polybar (U)pdates, (C)alendar, (M)emory"{
 	bindsym Escape mode "default"
 }
 #Scratchpad terminal
-for_window [instance="update"] floating enable
-for_window [instance="update"] move scratchpad
-exec --no-startup-id termite --name=update
-bindsym $mod+u [instance="update"] scratchpad show; [instance="update"] move position center
+for_window [instance="terminal"] floating enable
+for_window [instance="terminal"] move scratchpad
+bindsym $mod+u [instance="terminal"] scratchpad show; [instance="terminal"] move position center
+bindsym $mod+Shift+u exec --no-startup-id termite --name=terminal
