@@ -10,6 +10,7 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $mod2 Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -186,10 +187,17 @@ bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
 bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
 
 # Media player controls
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioStop exec --no-startup-id playerctl stop
-bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+#bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+#bindsym XF86AudioStop exec --no-startup-id playerctl stop
+#bindsym XF86AudioNext exec --no-startup-id playerctl next
+#bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+#moc
+bindcode 172 exec "mocp -G"
+bindcode 174 exec "mocp -s"
+bindcode 171 exec "mocp -f"
+bindcode 173 exec "mocp -r"
+
 
 #Start applications
 exec_always --no-startup-id dropbox
@@ -284,3 +292,9 @@ for_window [instance="terminal"] floating enable
 for_window [instance="terminal"] move scratchpad
 bindsym $mod+u [instance="terminal"] scratchpad show; [instance="terminal"] move position center
 bindsym $mod+Shift+u exec --no-startup-id termite --name=terminal
+
+#Scratchpad moc player
+for_window [instance="moc"] floating enable
+for_window [instance="moc"] move scratchpad
+bindsym $mod2+m [instance="moc"] scratchpad show; [instance="moc"] move position center
+bindsym $mod2+Shift+m exec --no-startup-id termite --name=moc -e mocp
