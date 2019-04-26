@@ -1,0 +1,51 @@
+# Set playback toggles.
+Repeat = yes
+Shuffle = yes
+
+# Show time played as a percentage in the time progress bar.
+ShowTimePercent = yes
+
+# Theme file to use.  This can be absolute path or relative to
+# /usr/share/moc/themes/ (depends on installation prefix) or
+# ~/.moc/themes/ .
+#
+# Example:    Theme = laras_theme
+#
+Theme = transparent-background
+
+# The theme used when running on an xterm.
+#
+# Example:    XTermTheme = transparent-background
+#
+XTermTheme = transparent-background  
+
+# How fast to seek (in number of seconds per keystroke).  The first
+# option is for normal seek and the second for silent seek.
+SeekTime = 5
+SilentSeekTime = 10
+
+# Which resampling method to use.  There are a few methods of resampling
+# sound supported by libresamplerate.  The default is 'Linear') which is
+# also the fastest.  A better description can be found at:
+#
+#    http://www.mega-nerd.com/libsamplerate/api_misc.html#Converters
+#
+# but briefly, the following methods are based on bandlimited interpolation
+# and are higher quality, but also slower:
+#
+#    SincBestQuality   - really slow (I know you probably have an xx GHz
+#                        processor, but it's still not enough to not see
+#                        this in the top output :)  The worst case
+#                        Signal-to-Noise Ratio is 97dB.
+#    SincMediumQuality - much faster.
+#    SincFastest       - the fastest bandlimited interpolation.
+#
+# And these are lower quality, but much faster methods:
+#
+#    ZeroOrderHold - really poor quality, but it's really fast.
+#    Linear - a bit better and a bit slower.
+#
+#ResampleMethod = Linear
+
+# Display full paths instead of just file names in the playlist.
+PlaylistFullPaths = no
