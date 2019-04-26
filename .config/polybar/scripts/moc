@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ "$(mocp -Q %state)" != "STOP" ];then
+    SONG=$(mocp -Q %song)
+        
+    if [ -n "$SONG" ]; then
+        echo "$SONG - $(mocp -Q %album)"
+    else
+		name=$(basename "$(mocp -Q %file)")
+		printf " %s" "$name"
+    fi
+else
+    echo ""
+fi

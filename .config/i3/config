@@ -298,3 +298,4 @@ for_window [instance="moc"] floating enable
 for_window [instance="moc"] move scratchpad
 bindsym $mod2+m [instance="moc"] scratchpad show; [instance="moc"] move position center
 bindsym $mod2+Shift+m exec --no-startup-id termite --name=moc -e mocp
+bindsym $mod+x exec --no-startup-id termite -e "mocp -x"

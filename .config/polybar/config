@@ -50,7 +50,7 @@ module-margin-right = 1
 
 modules-left = logo i3
 modules-center = 
-modules-right = calendar weather pulseaudio xkeyboard arch-updates wlan eth filesystem memory cpu 
+modules-right = moc calendar weather pulseaudio xkeyboard arch-updates wlan eth filesystem memory cpu 
 
 tray-position = right
 tray-padding = 2
@@ -78,6 +78,11 @@ label-indicator-underline = #b23030
 type = custom/script
 exec = ~/.config/polybar/scripts/typing
 tail = true
+
+[module/moc]
+type = custom/script
+exec = ~/.config/polybar/scripts/moc
+interval = 1
 
 [module/filesystem]
 type = internal/fs
