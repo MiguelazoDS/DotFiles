@@ -74,11 +74,6 @@ label-indicator-margin = 1
 label-indicator-background = #77aa70
 label-indicator-underline = #b23030
 
-[module/typing]
-type = custom/script
-exec = ~/.config/polybar/scripts/typing
-tail = true
-
 [module/moc]
 type = custom/script
 exec = ~/.config/polybar/scripts/moc
@@ -170,14 +165,6 @@ exec = ~/.config/polybar/scripts/updates
 click-left = ~/.config/polybar/scripts/updates --updates
 interval = 10
 format-underline = #72b1cc
-
-[module/usb]
-type = custom/script
-exec = ~/.config/polybar/scripts/system-usb-mount.sh
-interval = 5
-click-left = ~/.config/polybar/scripts/system-usb-mount.sh --mount
-click-right = ~/.config/polybar/scripts/system-usb-mount.sh --unmount
-format-underline = #ffedab
 
 [module/logo]
 type = custom/script
