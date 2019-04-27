@@ -11,14 +11,8 @@ set $term termite
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
-bindsym $mod+Return exec --no-startup-id $term
-
 # kill focused window
 bindsym $mod+q kill
-
-# start rofi 
-bindsym $mod+d exec rofi -show drun -show-icons -drun-icon-theme arthur.rasi
 
 # change focus
 bindsym $mod+j focus left
@@ -148,10 +142,12 @@ bindcode 173 exec "mocp -r"
 #Autostart applications
 exec_always --no-startup-id dropbox
 exec_always --no-startup-id numlockx on
-exec_always --no-startup-id flux
+exec_always --no-startup-id $HOME/.config/i3/scripts/flux
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec --no-startup-id nitrogen --restore
+exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id "killall -q compton; compton --config ~/.config/compton/compton.conf"
+exec_always --no-startup-id sudo $HOME/.config/i3/scripts/wifi
+exec_always --no-startup-id $HOME/.config/i3/scripts/keyboard
 
 #Add gaps
 gaps inner 3
@@ -185,12 +181,13 @@ mode "Exit (L)ogout, (S)uspend, (R)eboot, (P)oweroff"{
 	bindsym $mod+Shift+e mode "default"
 }
 
-#Lock screen
-bindsym $mod+period exec --no-startup-id i3lock -i $HOME/.Wallpapers/arch_linux_desktop.png
 
 #Shortcuts
 bindsym $mod+o exec --no-startup-id opera
 bindsym $mod+n exec --no-startup-id nautilus
+bindsym $mod+Return exec --no-startup-id $term
+bindsym $mod+d exec rofi -show drun -show-icons -drun-icon-theme arthur.rasi
+bindsym $mod+period exec --no-startup-id i3lock -i $HOME/.Wallpapers/arch_linux_desktop.png
 
 #Contraints for floating windows as "save as" windows
 floating_minimum_size 200 x 100
@@ -198,14 +195,8 @@ floating_maximum_size 1000 x 700
 
 #Apparently it needs to be one single command to make "--no-startup-id" to work.
 
-#Hidden SSID
-exec_always --no-startup-id sudo $HOME/.config/i3/scripts/wifi
-
-#Spanish layout. 
-exec_always --no-startup-id $HOME/.config/i3/scripts/keyboard
-
 #Enable floating for yad
-#Use class="" or title=""
+#Use class="", title="" or instance=""
 #i3-get-window-criteria
 for_window [class="Yad"] floating enable
 for_window [title="gitk"] floating enable
@@ -214,9 +205,10 @@ for_window [title="JDownloader 2"] floating enable
 for_window [title="Clementine"] floating enable
 for_window [class="ffplay"] floating enable
 for_window [class="gwenview"] floating enable
+for_window [instance="nomacs"] floating enable
 for_window [instance="output"] floating enable
-for_window [instance="output"] move position center
 for_window [class="^.*"] border pixel 3
+for_window [class="^.*"] move position center
 
 #Colors
 # class                 border  backgr. text    indicator child_border

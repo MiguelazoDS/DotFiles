@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+xflux -l -31.388705 - g -64.153619
