@@ -13,7 +13,7 @@ export PROMPT_EOL_MARK=""
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/miguel/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 #Open new terminal same directory
 function cd {
@@ -21,7 +21,7 @@ function cd {
         pwd > ~/.last_dir
 }
 if [ -f ~/.last_dir ]; then
-        cd "`cat ~/.last_dir`"
+        cd "$(cat ~/.last_dir)"
 fi
 
 #Disable warnings
@@ -32,6 +32,12 @@ DISABLE_AUTO_TITLE=true
 
 #Aliases
 alias ls=lsd
+alias cp="cp -v"
+alias mv="mv -v"
+alias copy=cpv
+alias move="copy --remove-source-files"
+alias rm="rm -v"
+alias vifm="$HOME/.config/vifm/scripts/vifm"
 
 #Powerlevel10k configuration
 #-------------------------------------------------------------------------------------------
@@ -123,6 +129,7 @@ branch(){
 plugins=(
   git
   fast-syntax-highlighting
+  cp
 )
 
 source $ZSH/oh-my-zsh.sh

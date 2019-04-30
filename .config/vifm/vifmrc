@@ -172,7 +172,7 @@ command! reload :write | restart
 
 " Pdf
 filextype *.pdf zathura %c %i &, apvlv %c, xpdf %c
-fileviewer *.pdf pdftotext -nopgbrk %c -
+" fileviewer *.pdf pdftotext -nopgbrk %c -
 
 " PostScript
 filextype *.ps,*.eps,*.ps.gz
@@ -194,7 +194,7 @@ filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
        \ ffplay -nodisp -autoexit %c,
        \ {Play using MPlayer}
        \ mplayer %f,
-fileviewer *.mp3 mp3info
+fileviewer *.mp3 mediainfo
 fileviewer *.flac soxi
 
 " Video
@@ -207,10 +207,10 @@ filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
         \ dragon %f:p,
         \ {View using mplayer}
         \ mplayer %f,
-fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
-          \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
-          \*.as[fx]
-         \ ffprobe -pretty %c 2>&1
+"fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
+"          \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+"          \*.as[fx]
+"         \ ffprobe -pretty %c 2>&1
 
 " Web
 filextype *.html,*.htm
@@ -237,8 +237,30 @@ filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ gpicview %c,
         \ {View in shotwell}
         \ shotwell,
-fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-         \ convert -identify %f -verbose /dev/null
+"fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+"         \ convert -identify %f -verbose /dev/null
+
+
+fileviewer *.pdf
+       \ vifmpreview pdfpreview %px %py %pw %ph %c
+       \ %pc
+       \ vifmpreview clear
+
+ fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
+        \ vifmpreview draw %px %py %pw %ph %c
+        \ %pc
+        \ vifmpreview clear
+
+fileviewer *.gif
+       \ vifmpreview gifpreview %px %py %pw %ph %c
+       \ %pc
+       \ vifmpreview clear
+
+fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
+       \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+       \ vifmpreview videopreview %px %py %pw %ph %c
+       \ %pc
+       \ vifmpreview clear
 
 " OpenRaster
 filextype *.ora
