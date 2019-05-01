@@ -1,7 +1,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-To make previews to work you have to install python-ueberzug-git packages from AUR
-in case packages conflict appears, delete each using sudo pip uninstall "..."
-Otherwise image previews are gonna fill the entire pane breaking image proportions
+"To make previews to work you have to install python-ueberzug-git packages from AUR
+"in case packages conflict appears, delete each using sudo pip uninstall "..."
+"Otherwise image previews are gonna fill the entire pane breaking image proportions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " vim: filetype=vifm :
