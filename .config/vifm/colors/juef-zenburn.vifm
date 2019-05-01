@@ -9,7 +9,7 @@ highlight Border cterm=none ctermfg=default ctermbg=235
 
 highlight Win cterm=none ctermfg=188 ctermbg=none
 highlight Directory cterm=none ctermfg=108 ctermbg=default
-highlight CurrLine cterm=none ctermfg=223 ctermbg=235
+highlight CurrLine cterm=none ctermfg=223 ctermbg=240
 highlight Selected cterm=none ctermfg=116 ctermbg=238
 
 highlight StatusLine cterm=bold ctermfg=144 ctermbg=235
