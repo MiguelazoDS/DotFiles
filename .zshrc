@@ -37,7 +37,6 @@ alias mv="mv -v"
 alias copy=cpv
 alias move="copy --remove-source-files"
 alias rm="rm -v"
-alias vifm="$HOME/.config/vifm/scripts/vifm"
 
 #Powerlevel10k configuration
 #-------------------------------------------------------------------------------------------
