@@ -231,6 +231,18 @@ mode "Polybar (U)pdates, (C)alendar, (M)emory"{
 	bindsym $mod+p mode "default"
 }
 
+#Mount
+bindsym $mod+Shift+m mode "Mount-Umount (A-S)Smartphone, (D-F)Pendrive"
+mode "Mount-Umount (A-S)Smartphone, (D-F)Pendrive"{
+	bindsym a exec --no-startup-id $HOME/.config/i3/scripts/mount mountAndroid; mode "default"
+	bindsym s exec --no-startup-id $HOME/.config/i3/scripts/mount umountAndroid; mode "default"
+	bindsym d exec --no-startup-id $HOME/.config/i3/scripts/mount mountPendrive; mode "default"
+	bindsym f exec --no-startup-id $HOME/.config/i3/scripts/mount umountPendrive; mode "default"
+
+	bindsym Escape mode "default"
+	bindsym $mod+Shift+m mode "default"
+}
+
 #Scratchpad terminal
 for_window [instance="terminal"] floating enable
 for_window [instance="terminal"] move scratchpad
