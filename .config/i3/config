@@ -184,13 +184,13 @@ mode "Exit (L)ogout, (S)uspend, (R)eboot, (P)oweroff"{
 
 #Shortcuts
 bindsym $mod+o exec --no-startup-id opera
-bindsym $mod+n exec --no-startup-id termite -e "$HOME/.config/vifm/scripts/vifm"
+bindsym $mod+n exec --no-startup-id $term -e "$HOME/.config/vifm/scripts/vifm"
 bindsym $mod+Return exec --no-startup-id $term
 bindsym $mod+d exec rofi -show drun -show-icons -drun-icon-theme arthur.rasi
 bindsym $mod+period exec --no-startup-id i3lock -i $HOME/.Wallpapers/arch_linux_desktop.png
 
 #Contraints for floating windows as "save as" windows
-floating_minimum_size 200 x 100
+floating_minimum_size 500 x 250
 floating_maximum_size 1000 x 700
 
 #Apparently it needs to be one single command to make "--no-startup-id" to work.
@@ -246,12 +246,14 @@ mode "Mount-Umount (A-S)Smartphone, (D-F)Pendrive"{
 #Scratchpad terminal
 for_window [instance="terminal"] floating enable
 for_window [instance="terminal"] move scratchpad
+for_window [instance="terminal"] resize set 640 480
 bindsym $mod+u [instance="terminal"] scratchpad show; [instance="terminal"] move position center
-bindsym $mod+Shift+u exec --no-startup-id $term --name=terminal
+bindsym $mod+Shift+u exec --no-startup-id $term --name=terminal -e tmux
 
 #Scratchpad moc player
 for_window [instance="moc"] floating enable
 for_window [instance="moc"] move scratchpad
+for_window [instance="moc"] resize set 640 480
 bindsym $mod+a [instance="moc"] scratchpad show; [instance="moc"] move position center
 bindsym $mod+Shift+a exec --no-startup-id $term --name=moc -e mocp
 bindsym $mod+x exec --no-startup-id $term -e "mocp -x"
