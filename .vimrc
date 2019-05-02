@@ -52,10 +52,10 @@ set shiftwidth=4 "indent
 set hidden
 
 "Mapping keys for switching between buffers.
-map bn :bn<cr>
-map bp :bp<cr>
+map gn :bn<cr>
+map gp :bp<cr>
 "Close buffer and fixed unexpected nerdtree behavior
-map bd :bp\|bd#<cr>
+map gd :bp\|bd#<cr>
 
 "Color scheme
 set termguicolors
