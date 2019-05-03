@@ -34,6 +34,16 @@ snippet beginend "$1.begin(), $1.end() (beginend)"
 ${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}end()
 endsnippet
 
+snippet in "include"
+#include <$1>
+$0
+endsnippet
+
+snippet inc "include"
+#include "$1"
+$0
+endsnippet
+
 snippet cl "class .. (class)"
 class ${1:`!p snip.rv = snip.basename or "name"`}
 {
@@ -44,6 +54,13 @@ class ${1:`!p snip.rv = snip.basename or "name"`}
  private:
 	${0:/* data */}
 };
+endsnippet
+
+snippet forit "for iterator"
+for (vector<${1:type}>::iterator it=${2:vector}.begin(); it != $2.end(); ++it) {
+	${3:Body...}
+}
+$0
 endsnippet
 
 snippet ns "namespace .. (namespace)"
