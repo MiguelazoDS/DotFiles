@@ -129,6 +129,7 @@ plugins=(
   git
   fast-syntax-highlighting
   cp
+  rake-fast
 )
 
 source $ZSH/oh-my-zsh.sh
