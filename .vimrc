@@ -50,7 +50,7 @@ set hidden
 map gn :bn<cr>
 map gp :bp<cr>
 "Close buffer and fixed unexpected nerdtree behavior
-map gd :bp\|bd#<cr>
+map gc :bp\|bd#<cr>
 
 "Color scheme
 set termguicolors
