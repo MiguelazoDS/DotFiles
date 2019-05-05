@@ -56,6 +56,7 @@ snippet fun "function"
 function ${1:name} {
 	${2:body}
 }
+$0
 endsnippet
 
 snippet case "case .. esac (case)"
@@ -71,15 +72,17 @@ elif ${2:[[ ${1:condition} ]]}; then
 endsnippet
 
 snippet for "for ... done (for)"
-for (( i = 0; i < ${1:10}; i++ )); do
-	${0:#statements}
+for (( ${1:i} = 0; $1 ${4:<} ${2:10}; ${3:++$1} )); do
+	${5:#statements}
 done
+$0
 endsnippet
 
 snippet forin "for ... in ... done (forin)"
 for ${1:i}${2/.+/ in /}${2:words}; do
-	${0:#statements}
+	${3:#statements}
 done
+$0
 endsnippet
 
 snippet here "here document (here)"
@@ -90,20 +93,23 @@ endsnippet
 
 snippet if "if ... then (if)"
 if ${2:[[ ${1:condition} ]]}; then
-	${0:#statements}
+	${3:#statements}
 fi
+$0
 endsnippet
 
 snippet until "until ... (done)"
 until ${2:[[ ${1:condition} ]]}; do
-	${0:#statements}
+	${3:#statements}
 done
+$0
 endsnippet
 
 snippet while "while ... (done)"
 while ${2:[[ ${1:condition} ]]}; do
-	${0:#statements}
+	${3:#statements}
 done
+$0
 endsnippet
 
 # vim:ft=snippets:
