@@ -82,24 +82,34 @@ snippet table "Table environment" b
 endsnippet
 
 snippet fig "Figure environment" b
-\begin{figure}[${2:htpb}]
+\begin{figure}[${2:H}]
 	\centering
-	\includegraphics[width=${3:0.8}\linewidth]{${4:name.ext}}
-	\caption{${4/(\w+)\.\w+/\u$1/}$0}
+	\includegraphics[width=${3:10}cm]{${4:name.ext}}
+	\caption{${4/(\w+)\.\w+/\u$1/}}
 	\label{fig:${4/(\w+)\.\w+/$1/}}
 \end{figure}
+$0
+endsnippet
+
+snippet lst "listings" b 
+\begin{lstlisting}[language=$1]
+	$2
+\end{lstlisting}
+$0
 endsnippet
 
 snippet enum "Enumerate" b
 \begin{enumerate}
-	\item $0
+	\item $1
 \end{enumerate}
+$0
 endsnippet
 
 snippet item "Itemize" b
 \begin{itemize}
-	\item $0
+	\item $1
 \end{itemize}
+$0
 endsnippet
 
 snippet desc "Description" b
@@ -109,7 +119,8 @@ snippet desc "Description" b
 endsnippet
 
 snippet it "Individual item" b
-\item $0
+\item $1
+$0
 endsnippet
 
 snippet part "Part" b
@@ -193,8 +204,6 @@ snippet acl "Acroynm expanded" b
 $0
 endsnippet
 
-
-
 snippet ni "Non-indented paragraph" b
 \noindent
 $0
@@ -222,7 +231,7 @@ $0
 endsnippet
 
 snippet " "Quotes" A
-\`\`${1}''${0}
+\`\`${1}'' ${0}
 endsnippet
 
 # vim:ft=snippets:
