@@ -22,19 +22,14 @@ let g:UltisnipsJumpBackwardTrigger='<C-k>'
 let g:UltiSnipsSnippetDirectories = ['.vim/UltiSnips', 'UltiSnips']
 let g:UltiSnipsEditSplit='vertical'
 
-" Required for tex files, type the following 
-" when the file is opened
-" :setf tex
-
-:augroup texfiles
-:	autocmd BufNewFile *.tex setf tex
-:augroup END
 "------------------------------------------
 
 "Vimtex configuration
 "--------------------------------------------
 let g:vimtex_view_method = 'mupdf'
 "------------------------------------------
+
+let g:tex_flavor='tex'
 
 "Required
 "uset nocompatible
