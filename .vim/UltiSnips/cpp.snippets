@@ -56,6 +56,19 @@ class ${1:`!p snip.rv = snip.basename or "name"`}
 };
 endsnippet
 
+snippet clean "mem leak clean"
+void clean(int **m, int rows)
+{
+	for (int i = 0; i < rows; ++i) {
+		delete[] m[i];
+	}
+
+	delete[] m;
+}
+$0
+endsnippet
+
+
 snippet forit "for iterator"
 for (vector<${1:type}>::iterator it=${2:vector}.begin(); it != $2.end(); ++it) {
 	${3:Body...}

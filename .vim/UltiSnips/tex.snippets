@@ -82,13 +82,32 @@ snippet table "Table environment" b
 endsnippet
 
 snippet fig "Figure environment" b
-\begin{figure}[${2:H}]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=${3:10}cm]{${4:name.ext}}
-	\caption{${4/(\w+)\.\w+/\u$1/}}
-	\label{fig:${4/(\w+)\.\w+/$1/}}
+	\includegraphics[width=${1:10}cm]{${2:name.ext}}
+	\caption{${2/(\w+)\.\w+/\u$1/}}\label{fig:${2/(\w+)\.\w+/$1/}}
 \end{figure}
 $0
+endsnippet
+
+snippet figm "Figure minipage" b
+\begin{minipage}{\linewidth}
+	\centering
+	\begin{minipage}{0.45\linewidth}
+    	\begin{figure}[H]
+			\centering
+           	\includegraphics[width=${1:5}cm]{${2:name.ext}}
+            \caption{${2/(\w+)\.\w+/\u$1/}}\label{fig:${2/(\w+)\.\w+/\u$1/}}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+		   	\centering
+           	\includegraphics[width=${3:5}cm]{${4:name.ext}}
+			\caption{${4/(\w+)\.\w+/\u$1/}}\label{fig:${4/(\w+)\.\w+/\u$1/}}
+        \end{figure}
+	\end{minipage}
+\end{minipage}
 endsnippet
 
 snippet lst "listings" b 
@@ -138,45 +157,32 @@ $0
 endsnippet
 
 snippet sec "Section"
-\section{${1:${VISUAL:section name}}}%
-\label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
-
+\section{${1:${VISUAL:section name}}}
 $0
 endsnippet
 
 snippet sec* "Section"
-\section*{${1:${VISUAL:section name}}}%
-\label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
-
-${0}
+\section*{${1:${VISUAL:section name}}}
+$0
 endsnippet
 
-
 snippet sub "Subsection"
-\subsection{${1:${VISUAL:subsection name}}}%
-\label{sub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
-
+\subsection{${1:${VISUAL:subsection name}}}
 $0
 endsnippet
 
 snippet sub* "Subsection"
-\subsection*{${1:${VISUAL:subsection name}}}%
-\label{sub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
-
+\subsection*{${1:${VISUAL:subsection name}}}
 ${0}
 endsnippet
 
 snippet ssub "Subsubsection"
-\subsubsection{${1:${VISUAL:subsubsection name}}}%
-\label{ssub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
-
+\subsubsection{${1:${VISUAL:subsubsection name}}}
 $0
 endsnippet
 
 snippet ssub* "Subsubsection"
-\subsubsection*{${1:${VISUAL:subsubsection name}}}%
-\label{ssub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
-
+\subsubsection*{${1:${VISUAL:subsubsection name}}}
 ${0}
 endsnippet
 
