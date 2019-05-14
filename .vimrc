@@ -11,6 +11,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'idanarye/vim-vebugger'
+Plug 'ervandew/supertab'
+Plug 'Rip-Rip/clang_complete'
 call plug#end()
 "----------------------------------
 
@@ -28,6 +30,12 @@ let g:UltiSnipsEditSplit='vertical'
 "--------------------------------------------
 let g:vimtex_view_method = 'mupdf'
 "------------------------------------------
+
+"Clang_complete configuration
+"--------------------------------------------
+let g:clang_close_preview = 1
+set completeopt=menu,longest
+"----------------------------------------------
 
 let g:tex_flavor='tex'
 
