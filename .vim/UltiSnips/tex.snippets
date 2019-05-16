@@ -71,12 +71,14 @@ snippet "tr(\d+)" "Add table row of dimension ..." r
 endsnippet
 
 snippet table "Table environment" b
-\begin{table}[${1:htpb}]
+\begin{table}[${1:H}]
 	\centering
 	\caption{${2:caption}}
 	\label{tab:${3:label}}
 	\begin{${4:t}${4/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}{${5:c}}
-	$0${5/(?<=.)(c|l|r)|./(?1: & )/g}
+	\hline
+	$0${5/(?<=.)(c|l|r)|./(?1:&)/g}\\
+	\hline
 	\end{$4${4/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}
 \end{table}
 endsnippet
