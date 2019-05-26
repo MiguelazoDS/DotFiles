@@ -37,6 +37,7 @@ alias mv="mv -v"
 alias copy=cpv
 alias move="copy --remove-source-files"
 alias rm="rm -v"
+alias rename='perl-rename'
 
 #Powerlevel10k configuration
 #-------------------------------------------------------------------------------------------
