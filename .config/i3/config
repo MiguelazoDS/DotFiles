@@ -257,3 +257,10 @@ for_window [instance="moc"] resize set 900 600
 bindsym $mod+a [instance="moc"] scratchpad show; [instance="moc"] move position center
 bindsym $mod+Shift+a exec --no-startup-id $term --name=moc -e mocp
 bindsym $mod+x exec --no-startup-id $term -e "mocp -x"
+
+#Scratchpad spectacle
+for_window [instance="spectacle"] floating enable
+for_window [instance="spectacle"] move scratchpad
+for_window [instance="spectacle"] resize set 900 600 
+bindsym $mod+t [instance="spectacle"] scratchpad show; [instance="spectacle"] move position center
+bindsym $mod+Shift+t exec --no-startup-id spectacle
