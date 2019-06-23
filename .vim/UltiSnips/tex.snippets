@@ -87,7 +87,7 @@ snippet fig "Figure environment" b
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=${1:10}cm]{${2:name.ext}}
-	\caption{${2/(\w+)\.\w+/\u$1/}}\label{fig:${3}}
+	\caption{${3}}\label{fig:${2/(w+)\.\w+/\u$1/}}
 \end{figure}
 $0
 endsnippet
@@ -244,6 +244,14 @@ endsnippet
 
 snippet " "Quotes" A
 \`\`${1:${VISUAL}}'' ${0}
+endsnippet
+
+snippet bf "bf" 
+\textbf{$1}$0
+endsnippet
+
+snippet itt "it" 
+\textit{$1}$0
 endsnippet
 
 # vim:ft=snippets:
