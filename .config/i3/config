@@ -184,7 +184,8 @@ mode "Exit (L)ogout, (S)uspend, (R)eboot, (P)oweroff"{
 
 #Shortcuts
 bindsym $mod+o exec --no-startup-id opera
-bindsym $mod+n exec --no-startup-id $term -e "$HOME/.config/vifm/scripts/vifm"
+#bindsym $mod+n exec --no-startup-id $term -e "$HOME/.config/vifm/scripts/vifm"
+bindsym $mod+n exec --no-startup-id xterm -e ranger
 bindsym $mod+Return exec --no-startup-id $term
 bindsym $mod+d exec rofi -show drun -show-icons -drun-icon-theme arthur.rasi
 bindsym $mod+period exec --no-startup-id i3lock -i $HOME/.Wallpapers/arch_linux_desktop.png
