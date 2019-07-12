@@ -1,8 +1,6 @@
 #Wine32 
 export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
 
-#Bare repository
-alias dotfile='/usr/bin/git --git-dir=/home/miguel/.dotfiles/ --work-tree=/home/miguel'
 
 export TERM="screen-256color" 
 
@@ -30,14 +28,6 @@ ZSH_DISABLE_COMPFIX=true
 #Disable autosetting terminal title.
 DISABLE_AUTO_TITLE=true
 
-#Aliases
-alias ls=lsd
-alias cp="cp -v"
-alias mv="mv -v"
-alias copy=cpv
-alias move="copy --remove-source-files"
-alias rm="rm -v"
-alias rename='perl-rename'
 
 #Powerlevel10k configuration
 #-------------------------------------------------------------------------------------------
@@ -134,6 +124,16 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+
+#Aliases
+alias ls=lsd
+alias cp="cp -v"
+alias mv="mv -v"
+alias copy=cpv
+alias move="copy --remove-source-files"
+alias rm="rm -v"
+alias rename='perl-rename'
+alias dotfile='/usr/bin/git --git-dir=/home/miguel/.dotfiles/ --work-tree=/home/miguel'
 
 # User configuration
 
