@@ -134,6 +134,7 @@ alias move="copy --remove-source-files"
 alias rm="rm -v"
 alias rename='perl-rename'
 alias dotfile='/usr/bin/git --git-dir=/home/miguel/.dotfiles/ --work-tree=/home/miguel'
+alias vim=nvim
 
 # User configuration
 
