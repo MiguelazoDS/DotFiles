@@ -21,7 +21,7 @@ call plug#end()
 let g:UltiSnipsExpandTrigger='<tab>'
 let g:UltisnipsJumpForwardTrigger='<C-j>'
 let g:UltisnipsJumpBackwardTrigger='<C-k>'
-let g:UltiSnipsSnippetDirectories = ['.vim/UltiSnips', 'UltiSnips']
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips']
 let g:UltiSnipsEditSplit='vertical'
 
 "------------------------------------------
