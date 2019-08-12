@@ -2,7 +2,6 @@
 !
 ! -----------------------------
 
-
 xterm*faceName: Inconsolata Nerd Font
 xterm*faceSize: 12
 
@@ -42,4 +41,3 @@ xterm*faceSize: 12
 ! white
 *.color7:       #bebebe
 *.color15:      #ffffff
-

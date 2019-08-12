@@ -1,7 +1,6 @@
 #Wine32 
 export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
 
-
 export TERM="screen-256color" 
 
 #Fixed % symbol after print
@@ -27,7 +26,6 @@ ZSH_DISABLE_COMPFIX=true
 
 #Disable autosetting terminal title.
 DISABLE_AUTO_TITLE=true
-
 
 #Powerlevel10k configuration
 #-------------------------------------------------------------------------------------------

@@ -11,20 +11,12 @@ clickable_url = true
 font = BitstreamVeraSansMono Nerd Font 11
 scrollback_lines = 10000
 search_wrap = true
-# icon_name = terminal
-# geometry = 640x480
 
 # "system", "on" or "off"
 cursor_blink = system
 
 # "block", "underline" or "ibeam"
 cursor_shape = block
-
-# set size hints for the window
-# size_hints = false
-
-# emit escape sequences for other keys modified by Control
-# modify_other_keys = false
 
 #From terminal.sexy
 [colors]
@@ -66,11 +58,6 @@ color14 = #a3babf
 # white
 color7  = #bebebe
 color15 = #ffffff
+
 [hints]
 font = Inconsolata Nerd Font Medium 12
-# padding = 2
-# border = #3f3f3f
-# border_width = 0.5
-# roundness = 2.0
-
-# vim: ft=dosini cms=#%s

@@ -1,5 +1,5 @@
 "Vim-plug configuration
-"-------------------------------------
+"------------------------------------------
 call plug#begin('~/.vim/plugged')
 Plug 'lervag/vimtex'
 Plug 'nightsense/office'
@@ -14,7 +14,7 @@ Plug 'idanarye/vim-vebugger'
 Plug 'ervandew/supertab'
 Plug 'Rip-Rip/clang_complete'
 call plug#end()
-"----------------------------------
+"------------------------------------------
 
 "Ultisnips configuration
 "------------------------------------------
@@ -23,7 +23,6 @@ let g:UltisnipsJumpForwardTrigger='<C-j>'
 let g:UltisnipsJumpBackwardTrigger='<C-k>'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips']
 let g:UltiSnipsEditSplit='vertical'
-
 "------------------------------------------
 
 "Vimtex configuration
@@ -81,11 +80,6 @@ filetype plugin on
 "Enable indent
 filetype plugin indent on
 
-"Powerline
-"let g:powerline_pycmd="py3" 
-"set laststatus=2            
-"set t_Co=256
-
 "Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
@@ -96,9 +90,6 @@ let g:airline_powerline_fonts = 1
 map <c-n> :NERDTreeToggle<CR>
 "Let you to use 'i' to jump up
 let NERDTreeMapOpenSplit='x'
-
-"Open tag in new tab
-"map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 "Languages templates
 :augroup languages
@@ -118,32 +109,8 @@ let NERDTreeMapOpenSplit='x'
 :	autocmd FileType java setlocal tabstop=2 softtabstop=2 shiftwidth=2 shiftround
 :augroup END
 
-"Syntastic configuration
-"------------Default----------------------
-"------------------------------------------
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"------------------------------------------
-" First for syntax, second for code analysis
-"let g:syntastic_c_checkers = ['gcc', 'splint'] 
-"let g:syntastic_cpp_checkers = ['gcc', 'clang_check'] 
-"let g:syntastic_enable_perl_checker = 1
-"let g:syntastic_perl_checkers = ['perl', 'perlcritic'] 
-"let g:syntastic_haskell_checkers = ['scan', 'hlint'] "scan doesn't check all syntax errors
-"let g:syntastic_python_checkers = ['python', 'pylint'] 
-"let g:syntastic_java_checkers = ['javac', 'checkstyle'] 
-"let g:syntastic_bash_checkers = ['sh', 'shellcheck', 'checkbashisms'] "sh doesn't check all syntax errors
-"let g:syntastic_tex_checkers = ['chktex', 'lacheck', 'proselint'] 
-"let g:syntastic_zsh_checkers = ['zsh']
-
 "Vim-ale checkers
-
+"--------------------------------------------------------------------
 "Bash = shellcheck, sh
 "C = gcc, clang, cppcheck
 "Cpp = gcc, clang, cppcheck
@@ -153,3 +120,4 @@ let NERDTreeMapOpenSplit='x'
 "Perl = perl-critic, perltidy
 "Python = flake8, yapf
 "Vim = vint
+"--------------------------------------------------------------------
