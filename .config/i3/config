@@ -20,18 +20,6 @@ bindsym $mod+k focus down
 bindsym $mod+i focus up
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
 # split in horizontal orientation
 bindsym $mod+h split h
 
@@ -49,7 +37,7 @@ bindsym $mod+e layout toggle split
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
-# change focus between tiling / floating windows
+# toggle floating / tiling 
 bindsym $mod+space focus mode_toggle
 
 # Define names for default workspaces for which we configure key bindings later on.
@@ -101,13 +89,7 @@ mode "resize" {
         bindsym k resize grow height 10 px or 10 ppt
         bindsym i resize shrink height 10 px or 10 ppt
         bindsym l resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
+        
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -146,8 +128,8 @@ exec_always --no-startup-id $HOME/.config/i3/scripts/flux
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id "killall -q compton; compton --config ~/.config/compton/compton.conf"
-exec_always --no-startup-id sudo $HOME/.config/i3/scripts/wifi
 exec_always --no-startup-id $HOME/.config/i3/scripts/keyboard
+exec_always --no-startup-id nm-applet
 
 #Add gaps
 gaps inner 3
@@ -181,7 +163,6 @@ mode "Exit (L)ogout, (S)uspend, (R)eboot, (P)oweroff"{
 	bindsym $mod+Shift+e mode "default"
 }
 
-
 #Shortcuts
 bindsym $mod+o exec --no-startup-id opera
 #bindsym $mod+n exec --no-startup-id $term -e "$HOME/.config/vifm/scripts/vifm"
@@ -201,13 +182,14 @@ floating_maximum_size 1200 x 900
 #i3-get-window-criteria
 for_window [class="Yad"] floating enable
 for_window [title="gitk"] floating enable
-for_window [class="smplayer"] floating enable
+#for_window [class="smplayer"] floating enable
+for_window [class="mpv"] floating enable
 for_window [title="JDownloader 2"] floating enable
-for_window [title="Clementine"] floating enable
+#for_window [title="Clementine"] floating enable
 for_window [class="ffplay"] floating enable
-for_window [class="gwenview"] floating enable
+#for_window [class="gwenview"] floating enable
 for_window [instance="nomacs"] floating enable
-for_window [instance="output"] floating enable
+#for_window [instance="output"] floating enable
 for_window [class="^.*"] border pixel 3
 for_window [class="^.*"] move position center
 
@@ -232,7 +214,7 @@ mode "Polybar (U)pdates, (C)alendar, (M)emory"{
 	bindsym $mod+p mode "default"
 }
 
-#Mount
+#Mount (experimental)
 bindsym $mod+Shift+m mode "Mount-Umount (A-S)Smartphone, (D-F)Pendrive"
 mode "Mount-Umount (A-S)Smartphone, (D-F)Pendrive"{
 	bindsym a exec --no-startup-id $HOME/.config/i3/scripts/mount mountAndroid; mode "default"
@@ -258,10 +240,3 @@ for_window [instance="moc"] resize set 1000 750
 bindsym $mod+a [instance="moc"] scratchpad show; [instance="moc"] move position center
 bindsym $mod+Shift+a exec --no-startup-id $term --name=moc -e mocp
 bindsym $mod+x exec --no-startup-id $term -e "mocp -x"
-
-#Scratchpad spectacle
-for_window [instance="spectacle"] floating enable
-for_window [instance="spectacle"] move scratchpad
-for_window [instance="spectacle"] resize set 1000 750 
-bindsym $mod+t [instance="spectacle"] scratchpad show; [instance="spectacle"] move position center
-bindsym $mod+Shift+t exec --no-startup-id spectacle
