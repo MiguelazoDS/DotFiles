@@ -233,6 +233,8 @@ myKeys =
         , ("M-g", runOrRaise "geany" (resource =? "geany"))
 
     -- Multimedia Keys
+        , ("<XF86MonBrightnessUp>", spawn "light -A 5")
+        , ("<XF86MonBrightnessDown>", spawn "light -U 5")
         , ("<XF86AudioPlay>", spawn "mocp -G")
         , ("<XF86AudioPrev>", spawn "mocp -r")
         , ("<XF86AudioNext>", spawn "mocp -f")
