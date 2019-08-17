@@ -1,8 +1,4 @@
--- http://projects.haskell.org/xmobar/
--- install xmobar with these flags: --flags="with_alsa" --flags="with_mpd" --flags="with_xft"  OR --flags="all_extensions"
--- you can find weather location codes here: http://weather.noaa.gov/index.html
-
-Config { font    = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=true"
+Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=true"
        , additionalFonts = [ "xft:FontAwesome:pixelsize=13" ]
        , bgColor = "#292d3e"
        , fgColor = "#bbc5ff"
@@ -11,18 +7,19 @@ Config { font    = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=t
        , hideOnStart = False
        , allDesktops = True
        , persistent = True
-       , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
-                    , Run Network "enp2s0" ["-t", "net: <rx>kb|<tx>kb"] 10
-                    , Run Cpu ["-t","cpu: <total>%","-H","50","--high","red"] 10
-                    , Run Memory ["-t","mem: <usedratio>%"] 10
-                    , Run DiskU [("/","hdd: <used>/<size>")] [] 3600
-					, Run Com "$HOME/.config/xmobar/scripts/volume" [] "volume" 10
-					, Run Com "$HOME/.config/xmobar/scripts/updates" [] "updates" 10
+       , commands = [ Run Date "%a %b %_d %Y %H:%M" "date" 1
+                    , Run Network "enp2s0" ["-t", "net: <rx>kb|<tx>kb"] 1
+                    , Run Cpu ["-t","cpu: <total>%","-H","50","--high","red"] 1
+                    , Run Memory ["-t","mem: <usedratio>%"] 1
+                    , Run DiskU [("/","hdd: <used>/<size>")] [] 1
+					, Run Com "/home/miguel/.config/xmobar/scripts/volume" [] "volume" 1
+					, Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 1
 	--		 		, Run Weather "SACO" "-t","<station>: <tempF>F","-L","18","-H","25","--normal","green","--high","red","--low","lightblue" [] 36000
-					, Run Com "$HOME/.config/xmobar/scripts/moc" [] "moc" 10
+					, Run Com "/home/miguel/.config/xmobar/scripts/moc" [] "moc" 1
+					, Run Locks
                     , Run UnsafeStdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%UnsafeStdinReader% }{ <fc=#91A0BD> : <fc=#FFE585>%moc%</fc> : <fc=#F07178>%SACO%</fc> : <fc=#82AAFF>%updates%</fc> : <fc=#A3F7FF>%volume%</fc> : <fc=#FFE585>%cpu%</fc> : <fc=#F07178>%memory%</fc> : <fc=#82AAFF>%disku%</fc> : <fc=#c3e88d>%enp3s0%</fc> : <fc=#A3F7FF>%date%</fc> </fc> "
+       , template = "%UnsafeStdinReader% }{ <fc=#91A0BD> : <fc=#c3e88d> %locks%</fc> : <fc=#FFE585>%moc%</fc> : <fc=#82AAFF>%updates%</fc> : <fc=#A3F7FF>%volume%</fc> : <fc=#FFE585> %cpu%</fc> : <fc=#F07178> %memory%</fc> : <fc=#82AAFF> %disku%</fc> : <fc=#c3e88d> %enp2s0%</fc> : <fc=#A3F7FF> %date%</fc> </fc> "
        }
