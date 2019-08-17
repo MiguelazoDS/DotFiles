@@ -12,13 +12,17 @@ Config { font    = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=t
        , allDesktops = True
        , persistent = True
        , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
-                    , Run Network "enp3s0" ["-t", "net: <rx>kb|<tx>kb"] 10
+                    , Run Network "enp2s0" ["-t", "net: <rx>kb|<tx>kb"] 10
                     , Run Cpu ["-t","cpu: <total>%","-H","50","--high","red"] 10
                     , Run Memory ["-t","mem: <usedratio>%"] 10
                     , Run DiskU [("/","hdd: <used>/<size>")] [] 3600
+					, Run Com "$HOME/.config/xmobar/scripts/volume" [] "volume" 10
+					, Run Com "$HOME/.config/xmobar/scripts/updates" [] "updates" 10
+	--		 		, Run Weather "SACO" "-t","<station>: <tempF>F","-L","18","-H","25","--normal","green","--high","red","--low","lightblue" [] 36000
+					, Run Com "$HOME/.config/xmobar/scripts/moc" [] "moc" 10
                     , Run UnsafeStdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%UnsafeStdinReader% }{ <fc=#91A0BD> <fc=#FFE585>%cpu%</fc> : <fc=#F07178>%memory%</fc> : <fc=#82AAFF>%disku%</fc> : <fc=#c3e88d>%enp3s0%</fc> : <fc=#A3F7FF>%date%</fc> </fc> "
+       , template = "%UnsafeStdinReader% }{ <fc=#91A0BD> : <fc=#FFE585>%moc%</fc> : <fc=#F07178>%SACO%</fc> : <fc=#82AAFF>%updates%</fc> : <fc=#A3F7FF>%volume%</fc> : <fc=#FFE585>%cpu%</fc> : <fc=#F07178>%memory%</fc> : <fc=#82AAFF>%disku%</fc> : <fc=#c3e88d>%enp3s0%</fc> : <fc=#A3F7FF>%date%</fc> </fc> "
        }

@@ -6,9 +6,13 @@ import XMonad
 import XMonad.Config.Desktop
 import Data.Monoid
 import Data.Maybe (isJust)
-import System.IO (hPutStrLn)
+import System.IO -- (hPutStrLn)
 import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
+import Data.Map as M
+import Data.List as L
+import XMonad.Actions.Submap
+import XMonad.Hooks.Place
 
     -- Utilities
 import XMonad.Util.Loggers
@@ -62,33 +66,31 @@ import XMonad.Layout.IM (withIM, Property(Role))
 
     -- Prompts
 import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1D(..))
-
 ------------------------------------------------------------------------
 ---CONFIG
 ------------------------------------------------------------------------
-myModMask       = mod4Mask  -- Sets modkey to super/windows key
-myTerminal      = "termite"      -- Sets default terminal
-myTextEditor    = "nvim"     -- Sets default text editor
-myBorderWidth   = 3         -- Sets border width for windows
+myModMask       = mod4Mask      -- Sets modkey to super/windows key
+myTerminal      = "termite"     -- Sets default terminal
+myTextEditor    = "nvim"        -- Sets default text editor
+myBorderWidth   = 2             -- Sets border width for windows
 windowCount     = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 main =   do
-    xmproc2 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc2"
+    xmproc2 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
     xmonad $ ewmh desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
-                        { -- ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
-                          ppOutput = \x -> hPutStrLn xmproc2 x
-                        , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#d0d0d0" "" . shorten 80     -- Title of active window in xmobar
-                        , ppSep =  "<fc=#9AEDFE> : </fc>"                     -- Separators in xmobar
-                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
-                        , ppExtras  = [windowCount]                           -- # of windows current workspace
-                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-                        }
+              {  ppOutput = hPutStrLn xmproc2
+              , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
+              , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
+              , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+              , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
+              , ppTitle = xmobarColor "#d0d0d0" "" . shorten 80     -- Title of active window in xmobar
+              , ppSep =  "<fc=#9AEDFE> : </fc>"                     -- Separators in xmobar
+              , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
+              , ppExtras  = [windowCount]                           -- # of windows current workspace
+              , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+              }
         , modMask            = myModMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
@@ -103,25 +105,49 @@ main =   do
 ---AUTOSTART
 ------------------------------------------------------------------------
 myStartupHook = do
-          spawnOnce "dropbox &"
-          -- spawnOnce "$HOME/.config/polybar/launch.sh &"
-          spawnOnce "numlockx on &"
+          spawnOnce "dropbox"
+          spawnOnce "numlockx on"
           spawnOnce "nm-applet"
-          spawnOnce "nitrogen --restore &" 
-          spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf &" 
+          spawnOnce "$HOME/.config/i3/scripts/flux"
+          spawnOnce "nitrogen --restore" 
+          spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf" 
           spawnOnce "setxkbmap es"
+          -- spawnOnce "stalonetray -geometry 2x1+800+0 -t -bg '#000000'"
 ------------------------------------------------------------------------
 ---KEYBINDINGS
 ------------------------------------------------------------------------
+--
+--
+--mySubmap = submap . M.fromList $
+--  [((0, xK_l), spawn "xmessage 'woohoo!'")
+--  ]
+--
+--dzen message action = do
+--  handle <- spawnPipe "sleep 1 && dzen2"
+--  io $ hPutStrLn handle message
+--  action
+--  io $ hClose handle
+
+
 myKeys =
     -- Xmonad
-        [ -- ("M-C-r", spawn "xmonad --recompile")  Recompiles xmonad
-         ("M-S-r", spawn "xmonad --recompile && xmonad --restart")    -- Restarts xmonad
-        , ("M-S-q", io exitSuccess)                  -- Quits xmonad
+        [ ("M-S-r", spawn "xmonad --recompile && xmonad --restart")    -- Restarts xmonad
+        , ("M-l", spawn "betterlockscreen -l $HOME./.Wallpapers/arch_linux_desktop.png")
+        , ("M-e l", io exitSuccess)                                    -- Logout
+        , ("M-e p", spawn "systemctl poweroff")
+        , ("M-e s", spawn "systemctl suspend")
+        , ("M-e r", spawn "systemctl reboot")
+        --, ((modMask, xK_period), submap . M.fromList $
+        --[ ((0, xK_r),     spawn "mpc next")
+        --, ((0, xK_p),     spawn "mpc prev")
+        --, ((0, xK_l),     spawn "mpc random")
+        --, ((0, xK_s),     spawn "mpc toggle")
+        --])
+    -- Applications
         , ("M-o", spawn "opera")
-        , ("M-S-a", spawn "moc")
         , ("M-x", spawn $ myTerminal ++ " -e 'mocp -x'")
         , ("M-d", spawn "rofi -show drun -show-icons -drun-icon-theme arthur.rasi")
+        , ("M-n", spawn "xterm -e ranger")
     
     -- Windows
         , ("M-q", kill1)                           -- Kill the currently focused client
@@ -191,7 +217,7 @@ myKeys =
         , ("M-u", namedScratchpadAction myScratchPads "terminal")
         
     -- Main Run Apps
-        , ("M-<Return>", spawn myTerminal)
+        , ("M-<Return>", spawn $ myTerminal ++ " -t Termite")
         , ("M-<KP_Insert>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
         
     -- Command Line Apps  (MOD + KEYPAD 1-9)
@@ -255,31 +281,40 @@ myKeys =
 ---WORKSPACES
 ------------------------------------------------------------------------
 
--- xmobarEscape = concatMap doubleLts
---   where
---         doubleLts '<' = "<<"
---         doubleLts x   = [x]
+xmobarEscape = concatMap doubleLts
+  where
+        -- doubleLts '<' = "<<"
+        doubleLts x   = [x]
         
 myWorkspaces :: [String]   
--- myWorkspaces = clickable . (map xmobarEscape) $ ["dev", "www", "sys", "doc", "vbox", "chat", "media", "gfx"]
-myWorkspaces = ["0","1","2","3","4","5","6","7","8","9","0"]
---   where                                                                      
---         clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
---                       (i,ws) <- zip [1..8] l,                                        
---                       let n = i ] 
+myWorkspaces = clickable . L.map xmobarEscape $ ["1","2","3","4","5","6","7","8","9"]
+   where                                                                      
+         clickable l = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>" |
+                       (i,ws) <- zip [1..9] l,                                        
+                       let n = i ] 
+
 myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
-     [
-        className =? "Firefox"     --> doShift "<action=xdotool key super+2>www</action>"
-      , title =? "Vivaldi"         --> doShift "<action=xdotool key super+2>www</action>"
-      , title =? "irssi"           --> doShift "<action=xdotool key super+6>chat</action>"
-      , className =? "cmus"        --> doShift "<action=xdotool key super+7>media</action>"
-      , className =? "vlc"         --> doShift "<action=xdotool key super+7>media</action>"
-      , className =? "Virtualbox"  --> doFloat
-      , className =? "Gimp"        --> doFloat
-      , className =? "Gimp"        --> doShift "<action=xdotool key super+8>gfx</action>"
-      , (className =? "Firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
-     ] <+> namedScratchpadManageHook myScratchPads
+    --  [ className =? "ffplay"             --> doFloat
+    --  --, placeHook $ fixed (0.5,0.5)
+    --  , appName =? "nomacs"              --> doFloat
+    --  , className =? "mpv"                --> doFloat
+    --  , title =? "gitk"                   --> doFloat
+    --  , className =? "JDownloader"        --> doFloat
+    --  ] 
+       [namedScratchpadManageHook myScratchPads]  --Must be first to avoid being affected by placeHook
+       <+> myManageHook'
+
+myManageHook' = composeAll
+    [ placeHook $ fixed (0.5,0.5)        -- Set floating windows at the center
+     , className =? "ffplay"             --> doFloat
+     --, placeHook $ fixed (0.5,0.5)
+     , appName =? "nomacs"              --> doFloat
+     , className =? "mpv"                --> doFloat
+     , title =? "gitk"                   --> doFloat
+     , className =? "JDownloader"        --> doFloat
+     ]
+
 
 ------------------------------------------------------------------------
 ---LAYOUTS
@@ -287,18 +322,18 @@ myManageHook = composeAll
 
 myLayoutHook = avoidStruts $ smartBorders $ mouseResize $ windowArrange $ T.toggleLayouts floats $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
               where 
-                  myDefaultLayout = tall ||| grid ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
+                  myDefaultLayout = grid ||| tall ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
 
 
 
 tall       = renamed [Replace "tall"]     $ limitWindows 12 $ spacing 6 $ ResizableTall 1 (3/100) (1/2) []
-grid       = renamed [Replace "grid"]     $ limitWindows 12 $ spacing 50 $ mkToggle (single MIRROR) $ Grid (16/10)
+grid       = renamed [Replace "grid"]     $ limitWindows 12 $ spacing 3 $ mkToggle (single MIRROR) $ Grid (16/10)
 threeCol   = renamed [Replace "threeCol"] $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
 threeRow   = renamed [Replace "threeRow"] $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
 oneBig     = renamed [Replace "oneBig"]   $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
-monocle    = renamed [Replace "monocle"]  $ limitWindows 20 $ Full
+monocle    = renamed [Replace "monocle"]  $ limitWindows 20 Full
 space      = renamed [Replace "space"]    $ limitWindows 4  $ spacing 12 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
-floats     = renamed [Replace "floats"]   $ limitWindows 20 $ simplestFloat
+floats     = renamed [Replace "floats"]   $ limitWindows 20 simplestFloat
 
 ------------------------------------------------------------------------
 ---SCRATCHPADS
@@ -308,19 +343,13 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 ]
 
     where
-    spawnTerm  = myTerminal ++  " --name=scratchpad"
+    spawnTerm  = myTerminal ++  " --name=scratchpad -e 'tmux' -t 'SP terminal'"
     findTerm   = resource =? "scratchpad"
     manageTerm = customFloating $ W.RationalRect l t w h
-                 where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w
-    spawnMocp  = myTerminal ++  " --name=moc -e 'mocp'"
+    spawnMocp  = myTerminal ++  " --name=moc -e 'mocp' -t 'MOC Player'"
     findMocp   = resource =? "moc"
     manageMocp = customFloating $ W.RationalRect l t w h
-                 where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w
+    h = 0.9
+    w = 0.9
+    t = 0.95 -h
+    l = 0.95 -w
