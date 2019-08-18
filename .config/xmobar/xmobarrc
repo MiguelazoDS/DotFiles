@@ -7,13 +7,13 @@ Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=tru
        , hideOnStart = False
        , allDesktops = True
        , persistent = True
-       , commands = [ Run Date "%a %b %_d %Y %H:%M" "date" 1
-                    , Run Network "enp2s0" ["-t", "net: <rx>kb|<tx>kb"] 1
-                    , Run Cpu ["-t","cpu: <total>%","-H","50","--high","red"] 1
-                    , Run Memory ["-t","mem: <usedratio>%"] 1
-                    , Run DiskU [("/","hdd: <used>/<size>")] [] 1
+       , commands = [ Run Date "%a %_d %b %Y %H:%M" "date" 10
+                    , Run Network "enp2s0" ["-t", "net: <rx>kb|<tx>kb"] 10
+                    , Run Cpu ["-t","cpu: <total>%","-H","50","--high","red"] 10
+                    , Run Memory ["-t","mem: <usedratio>%"] 10
+                    , Run DiskU [("/","hdd: <used>/<size>")] [] 10
 					, Run Com "/home/miguel/.config/xmobar/scripts/volume" [] "volume" 1
-					, Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 1
+					, Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 300
 	--		 		, Run Weather "SACO" "-t","<station>: <tempF>F","-L","18","-H","25","--normal","green","--high","red","--low","lightblue" [] 36000
 					, Run Com "/home/miguel/.config/xmobar/scripts/moc" [] "moc" 1
 					, Run Locks
