@@ -16,7 +16,7 @@ Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=tru
 					, Run Com "/home/miguel/.config/xmobar/scripts/volume" [] "volume" 1
 					, Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 300
 	--		 		, Run Weather "SACO" "-t","<station>: <tempF>F","-L","18","-H","25","--normal","green","--high","red","--low","lightblue" [] 36000
-					, Run Com "/home/miguel/.config/xmobar/scripts/moc" [] "moc" 1
+					, Run Com "/home/miguel/.config/xmobar/scripts/moc" [] "moc" 10
 					, Run Locks
                     , Run UnsafeStdinReader
                     ]
