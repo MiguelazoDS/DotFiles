@@ -148,6 +148,8 @@ myKeys =
         , ("M-x", spawn $ myTerminal ++ " -e 'mocp -x'")
         , ("M-d", spawn "rofi -show drun -show-icons -drun-icon-theme arthur.rasi")
         , ("M-n", spawn "xterm -e ranger")
+        , ("M-S-u", spawn "$HOME/.config/xmobar/scripts/updates --updates")
+        , ("M-m", spawn "$HOME/.config/xmobar/scripts/mem --details")
     
     -- Windows
         , ("M-q", kill1)                           -- Kill the currently focused client
@@ -158,7 +160,7 @@ myKeys =
         -- , ("M-S-<Delete>", sinkAll)                  -- Push ALL floating windows back to tile.
        --  , ("M-S-<Delete>", withFocused $ windows . W.float $ W.RationalRect  (0 0 1 0.42))
     -- Windows navigation
-        , ("M-m", windows W.focusMaster)             -- Move focus to the master window
+     --   , ("M-m", windows W.focusMaster)             -- Move focus to the master window
         , ("M-j", windows W.focusDown)               -- Move focus to the next window
         , ("M-k", windows W.focusUp)                 -- Move focus to the prev window
         , ("M-S-m", windows W.swapMaster)            -- Swap the focused window and the master window
@@ -313,6 +315,7 @@ myManageHook' = composeAll
      , className =? "mpv"                --> doFloat
      , title =? "gitk"                   --> doFloat
      , className =? "JDownloader"        --> doFloat
+     , className =? "Yad"                --> doFloat
      ]
 
 

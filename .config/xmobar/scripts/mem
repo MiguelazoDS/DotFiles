@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+x=1650
+y=25
+
+var=$(free | awk '/^Mem:/ {printf  "RAM:\n\nUsed: %.3f MiB, Total: %.3f MiB\n\n", $3/1024, $2/1024}'
+free | awk '/^Swap:/ {printf  "SWAP:\n\nUsed: %.3f MiB, Total: %.3f MiB\n\n", $3/1024, $2/1024}'
+total=$(free | awk '/^Mem:/ {printf "%.3f", $2/1024}')
+ps axch -o cmd,%mem --sort=-%mem | head -15 | while read i;
+do
+	program=`echo $i | cut -d ' ' -f1`;
+	mem=`echo $i | cut -d ' ' -f2`;
+	mem_usage=`echo $mem*$total/100 | bc -l`;
+	printf "%-25s     %.3f MiB\n" $program $mem_usage
+done)
+
+case "$1" in
+	--details)
+		yad --text "$var" --fixed --close-on-unfocus --no-buttons \
+    		    --refresh 0.5 --posx=$x --posy=$y > /dev/null
+	;;
+	*)
+		free | awk '/^Mem:/ { used=(100*$3)/($2); printf "  %.1f%/%.2fGi", used, $2/(1024*1024)}'
+	;;
+esac

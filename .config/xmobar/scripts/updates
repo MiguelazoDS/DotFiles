@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-x=1350
+x=1530
 y=25
 
 updates_arch=`checkupdates 2> /dev/null`
