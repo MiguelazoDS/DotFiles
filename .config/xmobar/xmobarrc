@@ -7,9 +7,9 @@ Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=tru
        , hideOnStart = False
        , allDesktops = True
        , persistent = True
-       , commands = [ Run Date "%a %_d %b %Y %H:%M" "date" 10
-                    , Run Network "enp2s0" ["-t", "net: <rx>kb|<tx>kb"] 10
-                    , Run Cpu ["-t","<total>%","-H","50","--high","#cc1212"] 10
+       , commands = [ Run Date " %a %_d %b %Y %H:%M" "date" 10
+					, Run Network "enp2s0" ["-t", "  <rx>kb| <tx>kb"] 10
+                    , Run Cpu ["-t"," <total>%","-H","50","--high","#cc1212"] 10
 				 	, Run Com "/home/miguel/.config/xmobar/scripts/mem" [] "memory" 10
 					, Run Com "/home/miguel/.config/xmobar/scripts/volume" [] "volume" 1
 					, Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 300
@@ -19,5 +19,5 @@ Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=tru
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%UnsafeStdinReader% }{ <fc=#91A0BD> <fc=#c3e88d>%locks%</fc> <fc=#FFE585>%moc%</fc> : <fc=#82AAFF>%updates%</fc> : <fc=#A3F7FF>%volume%</fc> : <fc=#FFE585> %cpu%</fc> : <fc=#82AAFF>%memory%</fc> : <fc=#c3e88d> %enp2s0%</fc> : <fc=#A3F7FF> %date%</fc> </fc> "
+       , template = "%UnsafeStdinReader% }{ <fc=#91A0BD> <fc=#c3e88d>%locks%</fc> <fc=#FFE585>%moc%</fc> : <fc=#82AAFF>%updates%</fc> : <fc=#A3F7FF>%volume%</fc> : <fc=#FFE585>%cpu%</fc> : <fc=#82AAFF>%memory%</fc> : <fc=#c3e88d>%enp2s0%</fc> : <fc=#A3F7FF>%date%</fc> </fc> "
        }
