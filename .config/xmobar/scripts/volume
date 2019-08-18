@@ -19,5 +19,5 @@ if [ "$MUTE" == "false" ]; then
 		echo " <fc=$COLOUR>$VALUE</fc>%"
 	fi
 else
-	echo "ﱝ <fc=$COLOUR>Mute</fc>%"
+	echo "ﱝ <fc=$COLOUR>Mute</fc>"
 fi
