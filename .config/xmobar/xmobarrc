@@ -12,7 +12,7 @@ Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=tru
                     , Run Cpu ["-t","cpu: <total>%","-H","50","--high","#cc1212"] 10
                  --   , Run Memory ["-t","mem: <usedratio>%"] 10
 				 	, Run Com "/home/miguel/.config/xmobar/scripts/mem" [] "memory" 10
-                    , Run DiskU [("/","hdd: <used>/<size>")] [] 10
+                    , Run DiskU [("/","hdd: <used>/<size>")] [] 600
 					, Run Com "/home/miguel/.config/xmobar/scripts/volume" [] "volume" 1
 					, Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 300
 	--		 		, Run Weather "SACO" "-t","<station>: <tempF>F","-L","18","-H","25","--normal","green","--high","red","--low","lightblue" [] 36000
