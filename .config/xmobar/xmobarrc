@@ -9,7 +9,7 @@ Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=tru
        , persistent = True
        , commands = [ Run Date "%a %_d %b %Y %H:%M" "date" 10
                     , Run Network "enp2s0" ["-t", "net: <rx>kb|<tx>kb"] 10
-                    , Run Cpu ["-t","cpu: <total>%","-H","50","--high","red"] 10
+                    , Run Cpu ["-t","cpu: <total>%","-H","50","--high","#cc1212"] 10
                  --   , Run Memory ["-t","mem: <usedratio>%"] 10
 				 	, Run Com "/home/miguel/.config/xmobar/scripts/mem" [] "memory" 10
                     , Run DiskU [("/","hdd: <used>/<size>")] [] 10

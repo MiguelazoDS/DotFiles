@@ -3,9 +3,9 @@
 MUTE=$(pamixer --get-mute)
 
 if [ "$MUTE" == "true" ]; then
-       COLOUR="red"
+       COLOUR="#cc1212"
 else
- 	COLOUR="green"
+ 	COLOUR="#49b545"
 fi
 
 VALUE=$(pamixer --get-volume)
