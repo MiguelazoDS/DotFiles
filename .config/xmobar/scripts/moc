@@ -1,14 +1,18 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-if [ "$(mocp -Q %state)" != "STOP" ];then
-    SONG=$(mocp -Q %song)
-        
-    if [ -n "$SONG" ]; then
-        echo "$SONG - $(mocp -Q %album)"
-    else
-		name=$(basename "$(mocp -Q %file)")
-		printf " %s" "$name"
-    fi
-else
-    echo ""
+state="$(mocp -Q %state 2>&1)"
+
+if [[ ! "$state" =~ "FATAL" ]]; then
+	if [ "$(mocp -Q %state)" != "STOP" ];then
+	    SONG=$(mocp -Q %song)
+	        
+	    if [ -n "$SONG" ]; then
+	        echo "$SONG - $(mocp -Q %album)"
+	    else
+			name=$(basename "$(mocp -Q %file)")
+			printf " %s" "$name"
+	    fi
+	else
+	    echo ""
+	fi
 fi
