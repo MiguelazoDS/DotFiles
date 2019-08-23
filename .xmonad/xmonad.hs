@@ -81,13 +81,13 @@ main =   do
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
               {  ppOutput = hPutStrLn xmproc2
-              , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
-              , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
-              , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-              , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
-              , ppTitle = xmobarColor "#d0d0d0" "" . shorten 80     -- Title of active window in xmobar
-              , ppSep =  "<fc=#9AEDFE> : </fc>"                     -- Separators in xmobar
-              , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
+              , ppCurrent = xmobarColor "#520c0c" "" . wrap "[" "]" -- Current workspace in xmobar
+              , ppVisible = xmobarColor "#000000" ""                -- Visible but not current workspace
+              , ppHidden = xmobarColor "#2d78ad" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+              , ppHiddenNoWindows = xmobarColor "#000000" ""        -- Hidden workspaces (no windows)
+              , ppTitle = xmobarColor "#000000" "" . shorten 70     -- Title of active window in xmobar
+              , ppSep =  "<fc=#000000> : </fc>"                     -- Separators in xmobar
+              , ppUrgent = xmobarColor "#000000" "" . wrap "!" "!"  -- Urgent workspace
               , ppExtras  = [windowCount]                           -- # of windows current workspace
               , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
               }
@@ -98,7 +98,7 @@ main =   do
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
         , normalBorderColor  = "#292d3e"
-        , focusedBorderColor = "#bbc5ff"
+        , focusedBorderColor = "#699200"
         } `additionalKeysP`         myKeys 
 
 ------------------------------------------------------------------------

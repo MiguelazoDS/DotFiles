@@ -1,7 +1,11 @@
 Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=true"
        , additionalFonts = [ "xft:FontAwesome:pixelsize=13" ]
-       , bgColor = "#292d3e"
-       , fgColor = "#bbc5ff"
+	   , bgColor = "#FFFFFF"
+       , fgColor = "#873d24"
+	   , alpha = 200
+	   , border = FullB
+	   , borderColor = "black"
+	   , borderWidth = 1
        , position = Top
        , lowerOnStart = True
        , hideOnStart = False
@@ -19,5 +23,5 @@ Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=tru
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%UnsafeStdinReader% }{ <fc=#91A0BD> <fc=#c3e88d>%locks%</fc> <fc=#FFE585>%moc%</fc> : <fc=#c3e88d>%date%</fc> : <fc=#82AAFF>%updates%</fc> : <fc=#A3F7FF>%volume%</fc> : <fc=#c3e88d>%enp2s0%</fc> : <fc=#A3F7FF>%cpu%</fc> : <fc=#82AAFF>%memory%</fc></fc> "
+       , template = "%UnsafeStdinReader% }{ <fc=#000000> <fc=#000000>%locks%</fc> <fc=#000000>%moc%</fc> : <fc=#000000>%date%</fc> : <fc=#000000>%updates%</fc> : <fc=#000000>%volume%</fc> : <fc=#000000>%enp2s0%</fc> : <fc=#000000>%cpu%</fc> : <fc=#000000>%memory%</fc></fc> "
        }
