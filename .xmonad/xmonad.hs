@@ -110,7 +110,7 @@ myStartupHook = do
           spawnOnce "nm-applet"
           spawnOnce "$HOME/.config/i3/scripts/flux"
           -- spawnOnce "nitrogen --restore" 
-          spawnOnce "feh --bg-fill ~/.Wallpaper/nature-3082832_1920.jpg"
+          spawnOnce "feh --bg-fill ~/.Wallpapers/nature-3082832_1920.jpg"
           spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf" 
           spawnOnce "setxkbmap es"
           spawnOnce "trayer --edge top --transparent true --alpha 55 --tint 0xFFFFFF --align right --width 4 --height 18 --margin 5 --distance 2"
