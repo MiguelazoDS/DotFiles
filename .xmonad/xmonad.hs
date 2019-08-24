@@ -85,7 +85,7 @@ main =   do
               , ppVisible = xmobarColor "#000000" ""                -- Visible but not current workspace
               , ppHidden = xmobarColor "#2d78ad" "" . wrap "*" ""   -- Hidden workspaces in xmobar
               , ppHiddenNoWindows = xmobarColor "#000000" ""        -- Hidden workspaces (no windows)
-              , ppTitle = xmobarColor "#000000" "" . shorten 70     -- Title of active window in xmobar
+              , ppTitle = xmobarColor "#000000" "" . shorten 50     -- Title of active window in xmobar
               , ppSep =  "<fc=#000000> : </fc>"                     -- Separators in xmobar
               , ppUrgent = xmobarColor "#000000" "" . wrap "!" "!"  -- Urgent workspace
               , ppExtras  = [windowCount]                           -- # of windows current workspace
@@ -109,10 +109,11 @@ myStartupHook = do
           spawnOnce "numlockx on"
           spawnOnce "nm-applet"
           spawnOnce "$HOME/.config/i3/scripts/flux"
-          spawnOnce "nitrogen --restore" 
+          -- spawnOnce "nitrogen --restore" 
+          spawnOnce "feh --bg-fill ~/.Wallpaper/nature-3082832_1920.jpg"
           spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf" 
           spawnOnce "setxkbmap es"
-          -- spawnOnce "stalonetray -geometry 2x1+800+0 -t -bg '#000000'"
+          spawnOnce "trayer --edge top --transparent true --alpha 55 --tint 0xFFFFFF --align right --width 5 --height 18 --margin 5 --distance 2"
 ------------------------------------------------------------------------
 ---KEYBINDINGS
 ------------------------------------------------------------------------
