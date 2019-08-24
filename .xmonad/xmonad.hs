@@ -113,7 +113,7 @@ myStartupHook = do
           spawnOnce "feh --bg-fill ~/.Wallpaper/nature-3082832_1920.jpg"
           spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf" 
           spawnOnce "setxkbmap es"
-          spawnOnce "trayer --edge top --transparent true --alpha 55 --tint 0xFFFFFF --align right --width 5 --height 18 --margin 5 --distance 2"
+          spawnOnce "trayer --edge top --transparent true --alpha 55 --tint 0xFFFFFF --align right --width 4 --height 18 --margin 5 --distance 2"
 ------------------------------------------------------------------------
 ---KEYBINDINGS
 ------------------------------------------------------------------------
