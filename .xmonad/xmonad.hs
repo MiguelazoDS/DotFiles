@@ -114,6 +114,7 @@ myStartupHook = do
           spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf" 
           spawnOnce "setxkbmap es"
           spawnOnce "trayer --edge top --transparent true --alpha 55 --tint 0xFFFFFF --align right --width 4 --height 18 --margin 5 --distance 2"
+          spawnOnce "xsetroot -cursor_name left_ptr"
 ------------------------------------------------------------------------
 ---KEYBINDINGS
 ------------------------------------------------------------------------
