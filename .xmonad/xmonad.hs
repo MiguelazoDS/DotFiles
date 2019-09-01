@@ -134,7 +134,7 @@ myStartupHook = do
 myKeys =
     -- Xmonad
         [ ("M-S-r", spawn "xmonad --recompile && xmonad --restart")    -- Restarts xmonad
-        , ("M-l", spawn "betterlockscreen -l $HOME./.Wallpapers/arch_linux_desktop.png")
+        , ("M-S-l", spawn "betterlockscreen -l $HOME./.Wallpapers/arch_linux_desktop.png")
         , ("M-e l", io exitSuccess)                                    -- Logout
         , ("M-e p", spawn "systemctl poweroff")
         , ("M-e s", spawn "systemctl suspend")
