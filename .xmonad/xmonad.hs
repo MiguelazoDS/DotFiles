@@ -146,7 +146,7 @@ myKeys =
         --, ((0, xK_s),     spawn "mpc toggle")
         --])
     -- Applications
-        , ("M-o", spawn "opera")
+        , ("M-o", spawn "brave")
         , ("M-x", spawn $ myTerminal ++ " -e 'mocp -x'")
         , ("M-d", spawn "rofi -show drun -show-icons -drun-icon-theme arthur.rasi")
         , ("M-n", spawn "xterm -e ranger")
