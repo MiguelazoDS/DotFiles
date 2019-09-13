@@ -69,10 +69,10 @@ import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1
 ------------------------------------------------------------------------
 ---CONFIG
 ------------------------------------------------------------------------
-myModMask       = mod4Mask      -- Sets modkey to super/windows key
-myTerminal      = "termite"     -- Sets default terminal
-myTextEditor    = "nvim"        -- Sets default text editor
-myBorderWidth   = 2             -- Sets border width for windows
+myModMask       = mod4Mask  
+myTerminal      = "termite" 
+myTextEditor    = "nvim"    
+myBorderWidth   = 2         
 windowCount     = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 main =   do
@@ -109,7 +109,6 @@ myStartupHook = do
           spawnOnce "numlockx on"
           spawnOnce "nm-applet"
           spawnOnce "$HOME/.config/i3/scripts/flux"
-          -- spawnOnce "nitrogen --restore" 
           spawnOnce "feh --bg-fill ~/.Wallpapers/nature-3082832_1920.jpg"
           spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf" 
           spawnOnce "setxkbmap es"
@@ -118,19 +117,6 @@ myStartupHook = do
 ------------------------------------------------------------------------
 ---KEYBINDINGS
 ------------------------------------------------------------------------
---
---
---mySubmap = submap . M.fromList $
---  [((0, xK_l), spawn "xmessage 'woohoo!'")
---  ]
---
---dzen message action = do
---  handle <- spawnPipe "sleep 1 && dzen2"
---  io $ hPutStrLn handle message
---  action
---  io $ hClose handle
-
-
 myKeys =
     -- Xmonad
         [ ("M-S-r", spawn "xmonad --recompile && xmonad --restart")    -- Restarts xmonad
@@ -139,14 +125,8 @@ myKeys =
         , ("M-e p", spawn "systemctl poweroff")
         , ("M-e s", spawn "systemctl suspend")
         , ("M-e r", spawn "systemctl reboot")
-        --, ((modMask, xK_period), submap . M.fromList $
-        --[ ((0, xK_r),     spawn "mpc next")
-        --, ((0, xK_p),     spawn "mpc prev")
-        --, ((0, xK_l),     spawn "mpc random")
-        --, ((0, xK_s),     spawn "mpc toggle")
-        --])
     -- Applications
-        , ("M-o", spawn "brave")
+        , ("M-o", spawn "chromium")
         , ("M-x", spawn $ myTerminal ++ " -e 'mocp -x'")
         , ("M-d", spawn "rofi -show drun -show-icons -drun-icon-theme arthur.rasi")
         , ("M-n", spawn "xterm -e ranger")
@@ -328,8 +308,6 @@ myManageHook' = composeAll
 myLayoutHook = avoidStruts $ smartBorders $ mouseResize $ windowArrange $ T.toggleLayouts floats $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
               where 
                   myDefaultLayout = grid ||| tall ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
-
-
 
 tall       = renamed [Replace "tall"]     $ limitWindows 12 $ spacing 6 $ ResizableTall 1 (3/100) (1/2) []
 grid       = renamed [Replace "grid"]     $ limitWindows 12 $ spacing 2 $ mkToggle (single MIRROR) $ Grid (16/10)
