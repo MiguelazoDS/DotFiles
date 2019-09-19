@@ -80,7 +80,7 @@ main =   do
     xmonad $ ewmh desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
-              {  ppOutput = hPutStrLn xmproc2
+              { ppOutput = hPutStrLn xmproc2
               , ppCurrent = xmobarColor "#520c0c" "" . wrap "[" "]" -- Current workspace in xmobar
               , ppVisible = xmobarColor "#000000" ""                -- Visible but not current workspace
               , ppHidden = xmobarColor "#2d78ad" "" . wrap "*" ""   -- Hidden workspaces in xmobar
@@ -89,7 +89,7 @@ main =   do
               , ppSep =  "<fc=#000000> : </fc>"                     -- Separators in xmobar
               , ppUrgent = xmobarColor "#000000" "" . wrap "!" "!"  -- Urgent workspace
               , ppExtras  = [windowCount]                           -- # of windows current workspace
-              , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+              , ppOrder  = \(ws:l:_:ex) -> [ws,l]++ex
               }
         , modMask            = myModMask
         , terminal           = myTerminal
