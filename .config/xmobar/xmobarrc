@@ -3,9 +3,9 @@ Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=tru
 	   , bgColor = "#FFFFFF"
        , fgColor = "#873d24"
 	   , alpha = 200
-	   , border = FullBM -1 
+	   , border = FullBM -2 
 	   , borderColor = "black"
-	   , borderWidth = 2
+	   , borderWidth = 3
        , position = Top
        , lowerOnStart = True
        , hideOnStart = False
