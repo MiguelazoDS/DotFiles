@@ -271,11 +271,10 @@ xmobarEscape = concatMap doubleLts
         doubleLts x   = [x]
         
 myWorkspaces :: [String]   
-myWorkspaces = clickable . L.map xmobarEscape $ ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces = clickable . L.map xmobarEscape $ replicate 5 "\63608"
    where                                                                      
          clickable l = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>" |
-                       (i,ws) <- zip [1..9] l,                                        
-                       let n = i ] 
+                       (i,ws) <- zip [1..5] l, let n = i ] 
 
 myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
@@ -307,15 +306,16 @@ myManageHook' = composeAll
 
 myLayoutHook = avoidStruts $ smartBorders $ mouseResize $ windowArrange $ T.toggleLayouts floats $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
               where 
-                  myDefaultLayout = grid ||| tall ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
+--                  myDefaultLayout = grid ||| tall ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
+                  myDefaultLayout = grid ||| oneBig ||| noBorders monocle ||| floats
 
-tall       = renamed [Replace "tall"]     $ limitWindows 12 $ spacing 6 $ ResizableTall 1 (3/100) (1/2) []
+--tall       = renamed [Replace "tall"]     $ limitWindows 12 $ spacing 6 $ ResizableTall 1 (3/100) (1/2) []
 grid       = renamed [Replace "grid"]     $ limitWindows 12 $ spacing 2 $ mkToggle (single MIRROR) $ Grid (16/10)
-threeCol   = renamed [Replace "threeCol"] $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
-threeRow   = renamed [Replace "threeRow"] $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
+--threeCol   = renamed [Replace "threeCol"] $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
+--threeRow   = renamed [Replace "threeRow"] $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
 oneBig     = renamed [Replace "oneBig"]   $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
 monocle    = renamed [Replace "monocle"]  $ limitWindows 20 Full
-space      = renamed [Replace "space"]    $ limitWindows 4  $ spacing 12 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
+--space      = renamed [Replace "space"]    $ limitWindows 4  $ spacing 12 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
 floats     = renamed [Replace "floats"]   $ limitWindows 20 simplestFloat
 
 ------------------------------------------------------------------------
