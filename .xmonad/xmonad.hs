@@ -81,12 +81,11 @@ main =   do
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
               { ppOutput = hPutStrLn xmproc2
-              , ppCurrent = xmobarColor "#520c0c" "" . wrap "[" "]" -- Current workspace in xmobar
-              , ppVisible = xmobarColor "#000000" ""                -- Visible but not current workspace
-              , ppHidden = xmobarColor "#2d78ad" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-              , ppHiddenNoWindows = xmobarColor "#000000" ""        -- Hidden workspaces (no windows)
-              , ppTitle = xmobarColor "#000000" "" . shorten 50     -- Title of active window in xmobar
-              , ppSep =  "<fc=#000000> : </fc>"                     -- Separators in xmobar
+              , ppCurrent = xmobarColor "#c41818" "" . wrap "[" "]" -- Current workspace in xmobar
+--              , ppVisible = xmobarColor "#bac8cf" ""                -- Visible but not current workspace (Xinerama)
+              , ppHidden = xmobarColor "#3c98c7" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+              , ppHiddenNoWindows = xmobarColor "#bac8cf" ""        -- Hidden workspaces (no windows)
+              , ppSep =  "<fc=#cca83f> \63196 </fc>"                     -- Separators in xmobar
               , ppUrgent = xmobarColor "#000000" "" . wrap "!" "!"  -- Urgent workspace
               , ppExtras  = [windowCount]                           -- # of windows current workspace
               , ppOrder  = \(ws:l:_:ex) -> [ws,l]++ex
