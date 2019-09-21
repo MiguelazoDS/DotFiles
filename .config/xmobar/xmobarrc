@@ -1,7 +1,7 @@
 Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=true"
        , additionalFonts = [ "xft:Inconsolata Nerd Font:size=16" ]
 	   , bgColor = "#1b1f21"
-       , fgColor = "#cca83f"
+	   , fgColor = "#bac8cf"
 	   , alpha = 255
 	   , border = FullBM 1 
 	   , borderColor = "#4a565c"
@@ -23,5 +23,5 @@ Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=tru
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "<fc=#3c98c7><fn=1>  </fn></fc>%UnsafeStdinReader% }{ <fc=#cca83f> <fc=#cca83f>%locks%</fc> <fc=#cca83f>%moc%</fc> : <fc=#cca83f>%date%</fc> : <fc=#cca83f>%updates%</fc> : <fc=#cca83f>%volume%</fc> : <fc=#cca83f>%enp2s0%</fc> : <fc=#cca83f>%cpu%</fc> : <fc=#cca83f>%memory%</fc></fc>           "
+       , template = "<fc=#3c98c7><fn=1>  </fn></fc><fc=#cca83f></fc>%UnsafeStdinReader% }{ <fc=#bac8cf> <fc=#bac8cf>%locks%</fc> <fc=#bac8cf>%moc%</fc> <fc=#cca83f></fc> <fc=#bac8cf>%date%</fc> <fc=#cca83f></fc> <fc=#bac8cf>%updates%</fc> <fc=#cca83f></fc> <fc=#bac8cf>%volume%</fc> <fc=#cca83f></fc> <fc=#bac8cf>%enp2s0%</fc> <fc=#cca83f></fc> <fc=#bac8cf>%cpu%</fc> <fc=#cca83f></fc> <fc=#bac8cf>%memory%</fc><fc=#cca83f></fc></fc>          "
        }
