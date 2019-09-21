@@ -6,7 +6,7 @@ Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=tru
 	   , border = FullBM -2 
 	   , borderColor = "black"
 	   , borderWidth = 3
-       , position = Top
+	   , position = Static{xpos = 0, ypos= 0, width = 1920, height = 30}
        , lowerOnStart = True
        , hideOnStart = False
        , allDesktops = True
@@ -23,5 +23,5 @@ Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=tru
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%UnsafeStdinReader% }{ <fc=#000000> <fc=#000000>%locks%</fc> <fc=#000000>%moc%</fc> : <fc=#000000>%date%</fc> : <fc=#000000>%updates%</fc> : <fc=#000000>%volume%</fc> : <fc=#000000>%enp2s0%</fc> : <fc=#000000>%cpu%</fc> : <fc=#000000>%memory%</fc></fc>           "
+       , template = " %UnsafeStdinReader% }{ <fc=#000000> <fc=#000000>%locks%</fc> <fc=#000000>%moc%</fc> : <fc=#000000>%date%</fc> : <fc=#000000>%updates%</fc> : <fc=#000000>%volume%</fc> : <fc=#000000>%enp2s0%</fc> : <fc=#000000>%cpu%</fc> : <fc=#000000>%memory%</fc></fc>           "
        }

@@ -112,7 +112,7 @@ myStartupHook = do
           spawnOnce "feh --bg-fill ~/.Wallpapers/nature-3082832_1920.jpg"
           spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf" 
           spawnOnce "setxkbmap es"
-          spawnOnce "trayer --edge top --transparent true --alpha 55 --tint 0xFFFFFF --align right --width 4 --height 18 --margin 5 --distance 2"
+          spawnOnce "trayer --edge top --transparent true --alpha 55 --tint 0xFFFFFF --align right --width 4 --height 18 --margin 5 --distance 5"
           spawnOnce "xsetroot -cursor_name left_ptr"
 ------------------------------------------------------------------------
 ---KEYBINDINGS
@@ -278,20 +278,12 @@ myWorkspaces = clickable . L.map xmobarEscape $ replicate 5 "\63608"
 
 myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
-    --  [ className =? "ffplay"             --> doFloat
-    --  --, placeHook $ fixed (0.5,0.5)
-    --  , appName =? "nomacs"              --> doFloat
-    --  , className =? "mpv"                --> doFloat
-    --  , title =? "gitk"                   --> doFloat
-    --  , className =? "JDownloader"        --> doFloat
-    --  ] 
        [namedScratchpadManageHook myScratchPads]  --Must be first to avoid being affected by placeHook
        <+> myManageHook'
 
 myManageHook' = composeAll
     [ placeHook $ fixed (0.5,0.5)        -- Set floating windows at the center
      , className =? "ffplay"             --> doFloat
-     --, placeHook $ fixed (0.5,0.5)
      , appName =? "nomacs"              --> doFloat
      , className =? "mpv"                --> doFloat
      , title =? "gitk"                   --> doFloat
@@ -310,11 +302,11 @@ myLayoutHook = avoidStruts $ smartBorders $ mouseResize $ windowArrange $ T.togg
                   myDefaultLayout = grid ||| oneBig ||| noBorders monocle ||| floats
 
 --tall       = renamed [Replace "tall"]     $ limitWindows 12 $ spacing 6 $ ResizableTall 1 (3/100) (1/2) []
-grid       = renamed [Replace "grid"]     $ limitWindows 12 $ spacing 2 $ mkToggle (single MIRROR) $ Grid (16/10)
+grid       = renamed [Replace "\63424"]     $ limitWindows 12 $ spacing 2 $ mkToggle (single MIRROR) $ Grid (16/10)
 --threeCol   = renamed [Replace "threeCol"] $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
 --threeRow   = renamed [Replace "threeRow"] $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
 oneBig     = renamed [Replace "oneBig"]   $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
-monocle    = renamed [Replace "monocle"]  $ limitWindows 20 Full
+monocle    = renamed [Replace "\63378"]  $ limitWindows 20 Full
 --space      = renamed [Replace "space"]    $ limitWindows 4  $ spacing 12 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
 floats     = renamed [Replace "floats"]   $ limitWindows 20 simplestFloat
 
