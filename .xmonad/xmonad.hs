@@ -1,7 +1,8 @@
 ------------------------------------------------------------------------
 ---IMPORTS
 ------------------------------------------------------------------------
-    -- Base
+
+-- Base
 import XMonad
 import XMonad.Config.Desktop
 import Data.Monoid
@@ -11,41 +12,31 @@ import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
 import Data.Map as M
 import Data.List as L
-import XMonad.Actions.Submap
 import XMonad.Hooks.Place
 
-    -- Utilities
-import XMonad.Util.Loggers
+-- Utilities
 import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
 import XMonad.Util.SpawnOnce
 
-    -- Hooks
+-- Hooks
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, defaultPP, wrap, pad, xmobarPP, xmobarColor, shorten, PP(..))
 import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat) 
 import XMonad.Hooks.Place (placeHook, withGaps, smart)
-import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops   -- required for xcomposite in obs to work
 
-    -- Actions
-import XMonad.Actions.Minimize (minimizeWindow)
+-- Actions
 import XMonad.Actions.Promote
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import XMonad.Actions.CopyWindow (kill1, copyToAll, killAllOtherCopies, runOrCopy)
-import XMonad.Actions.WindowGo (runOrRaise, raiseMaybe)
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shiftPrevScreen) 
-import XMonad.Actions.GridSelect (GSConfig(..), goToSelected, bringSelected, colorRangeFromClassName, buildDefaultGSConfig)
-import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeEmptyWorkspace)
 import XMonad.Actions.MouseResize
-import qualified XMonad.Actions.ConstrainedResize as Sqr
 
-    -- Layouts modifiers
-import XMonad.Layout.PerWorkspace (onWorkspace) 
+-- Layouts modifiers
 import XMonad.Layout.Renamed (renamed, Rename(CutWordsLeft, Replace))
-import XMonad.Layout.WorkspaceDir
 import XMonad.Layout.Spacing (spacing) 
 import XMonad.Layout.NoBorders
 import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
@@ -55,16 +46,14 @@ import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), Toggle(..), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 
-    -- Layouts
+-- Layouts
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.SimplestFloat
 import XMonad.Layout.OneBig
-import XMonad.Layout.ThreeColumns
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.ZoomRow (zoomRow, zoomIn, zoomOut, zoomReset, ZoomMessage(ZoomFullToggle))
-import XMonad.Layout.IM (withIM, Property(Role))
 
-    -- Prompts
+-- Prompts
 import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1D(..))
 ------------------------------------------------------------------------
 ---CONFIG
@@ -82,7 +71,6 @@ main =   do
         , logHook = dynamicLogWithPP xmobarPP
               { ppOutput = hPutStrLn xmproc2
               , ppCurrent = xmobarColor "#c41818" "" . wrap "[" "]" -- Current workspace in xmobar
---              , ppVisible = xmobarColor "#bac8cf" ""                -- Visible but not current workspace (Xinerama)
               , ppHidden = xmobarColor "#3c98c7" "" . wrap "*" ""   -- Hidden workspaces in xmobar
               , ppHiddenNoWindows = xmobarColor "#bac8cf" ""        -- Hidden workspaces (no windows)
               , ppSep =  "<fc=#cca83f> \63196 </fc>"                     -- Separators in xmobar
@@ -117,14 +105,15 @@ myStartupHook = do
 ---KEYBINDINGS
 ------------------------------------------------------------------------
 myKeys =
-    -- Xmonad
-        [ ("M-S-r", spawn "xmonad --recompile && xmonad --restart")    -- Restarts xmonad
+-- Xmonad
+        [ ("M-S-r", spawn "xmonad --recompile && xmonad --restart")                             -- Restarts xmonad
         , ("M-S-l", spawn "betterlockscreen -l $HOME./.Wallpapers/arch_linux_desktop.png")
-        , ("M-e l", io exitSuccess)                                    -- Logout
+        , ("M-e l", io exitSuccess)                                                             -- Logout
         , ("M-e p", spawn "systemctl poweroff")
         , ("M-e s", spawn "systemctl suspend")
         , ("M-e r", spawn "systemctl reboot")
-    -- Applications
+    
+-- Applications
         , ("M-o", spawn "chromium")
         , ("M-x", spawn $ myTerminal ++ " -e 'mocp -x'")
         , ("M-d", spawn "rofi -show drun -show-icons -drun-icon-theme arthur.rasi")
@@ -132,15 +121,15 @@ myKeys =
         , ("M-S-u", spawn "$HOME/.config/xmobar/scripts/updates --updates")
         , ("M-m", spawn "$HOME/.config/xmobar/scripts/mem --details")
     
-    -- Windows
+-- Windows
         , ("M-q", kill1)                           -- Kill the currently focused client
-        , ("M-S-a", killAll)                         -- Kill all the windows on current workspace
+        , ("M-S-q", killAll)                       -- Kill all the windows on current workspace
 
-    -- Floating windows
+-- Floating windows
         , ("M-<Delete>", withFocused $ windows . W.sink)  -- Push floating window back to tile.
-        -- , ("M-S-<Delete>", sinkAll)                  -- Push ALL floating windows back to tile.
-       --  , ("M-S-<Delete>", withFocused $ windows . W.float $ W.RationalRect  (0 0 1 0.42))
-    -- Windows navigation
+        , ("M-S-<Delete>", sinkAll)                  -- Push ALL floating windows back to tile.
+
+-- Windows navigation
      --   , ("M-m", windows W.focusMaster)             -- Move focus to the master window
         , ("M-j", windows W.focusDown)               -- Move focus to the next window
         , ("M-k", windows W.focusUp)                 -- Move focus to the prev window
@@ -168,7 +157,7 @@ myKeys =
         , ("M-C-<Right>", sendMessage (DecreaseRight 10)) --  Decrease size of focused window right
         , ("M-C-<Left>", sendMessage (DecreaseLeft 10))   --  Decrease size of focused window left
 
-    -- Layouts
+-- Layouts
         , ("M-<Space>", sendMessage NextLayout)                              -- Switch to next layout
         , ("M-S-<Space>", sendMessage ToggleStruts)                          -- Toggles struts
         , ("M-S-b", sendMessage $ Toggle NOBORDERS)                          -- Toggles noborder
@@ -189,59 +178,21 @@ myKeys =
         , ("M-S-;", sendMessage zoomReset)
         , ("M-;", sendMessage ZoomFullToggle)
 
-    -- Workspaces
+-- Workspaces
         , ("M-<KP_Add>", moveTo Next nonNSP)                                -- Go to next workspace
         , ("M-<KP_Subtract>", moveTo Prev nonNSP)                           -- Go to previous workspace
         , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next workspace
         , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to previous workspace
 
-    -- Scratchpads
+-- Scratchpads
         , ("M-a", namedScratchpadAction myScratchPads "moc")
         , ("M-u", namedScratchpadAction myScratchPads "terminal")
         
-    -- Main Run Apps
+-- Main Run Apps
         , ("M-<Return>", spawn $ myTerminal ++ " -t Termite")
         , ("M-<KP_Insert>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
         
-    -- Command Line Apps  (MOD + KEYPAD 1-9)
-        , ("M-<KP_End>", spawn (myTerminal ++ " -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube"))  -- Keypad 1
-        , ("M-<KP_Down>", spawn (myTerminal ++ " -e sh ./scripts/googler-script.sh"))  -- Keypad 2
-        , ("M-<KP_Page_Down>", spawn (myTerminal ++ " -e newsboat"))                   -- Keypad 3
-        , ("M-<KP_Left>", spawn (myTerminal ++ " -e rtv"))                             -- Keypad 4
-        , ("M-<KP_Begin>", spawn (myTerminal ++ " -e neomutt"))                        -- Keypad 5
-        , ("M-<KP_Right>", spawn (myTerminal ++ " -e twitch-curses"))                  -- Keypad 6
-        , ("M-<KP_Home>", spawn (myTerminal ++ " -e sh ./scripts/haxor-news.sh"))      -- Keypad 7
-        , ("M-<KP_Up>", spawn (myTerminal ++ " -e toot curses"))                       -- Keypad 8
-        , ("M-<KP_Page_Up>", spawn (myTerminal ++ " -e sh ./scripts/tig-script.sh"))   -- Keypad 9
-        
-    -- Command Line Apps  (MOD + SHIFT + KEYPAD 1-9)
-        , ("M-S-<KP_End>", spawn (myTerminal ++ " -e ~/.config/vifm/scripts/vifmrun"))                           -- Keypad 1
-        , ("M-S-<KP_Down>", spawn (myTerminal ++ " -e joplin"))                          -- Keypad 2
-        , ("M-S-<KP_Page_Down>", spawn (myTerminal ++ " -e cmus"))                     -- Keypad 3
-        , ("M-S-<KP_Left>", spawn (myTerminal ++ " -e irssi"))                         -- Keypad 4
-        , ("M-S-<KP_Begin>", spawn (myTerminal ++ " -e rtorrent"))                     -- Keypad 5
-        , ("M-S-<KP_Right>", spawn (myTerminal ++ " -e youtube-viewer"))               -- Keypad 6
-        , ("M-S-<KP_Home>", spawn (myTerminal ++ " -e ncpamixer"))                     -- Keypad 7
-        , ("M-S-<KP_Up>", spawn (myTerminal ++ " -e calcurse"))                        -- Keypad 8
-        , ("M-S-<KP_Page_Up>", spawn (myTerminal ++ " -e vim ~/.xmonad/xmonad.hs"))    -- Keypad 9
-        
-    -- Command Line Apps  (MOD + CTRL + KEYPAD 1-9)
-        , ("M-C-<KP_End>", spawn (myTerminal ++ " -e htop"))                           -- Keypad 1
-        , ("M-C-<KP_Down>", spawn (myTerminal ++ " -e gtop"))                       -- Keypad 2
-        , ("M-C-<KP_Page_Down>", spawn (myTerminal ++ " -e nmon"))                     -- Keypad 3
-        , ("M-C-<KP_Left>", spawn (myTerminal ++ " -e glances"))  -- Keypad 4
-        , ("M-C-<KP_Begin>", spawn (myTerminal ++ " -e s-tui"))                        -- Keypad 5
-        , ("M-C-<KP_Right>", spawn (myTerminal ++ " -e httping -KY --draw-phase localhost"))                     -- Keypad 6
-        , ("M-C-<KP_Home>", spawn (myTerminal ++ " -e cmatrix -C cyan"))               -- Keypad 7
-        , ("M-C-<KP_Up>", spawn (myTerminal ++ " -e pianobar"))                          -- Keypad 8
-        , ("M-C-<KP_Page_Up>", spawn (myTerminal ++ " -e wopr report.xml"))            -- Keypad 9
-        
-    -- GUI Apps
-        , ("M-b", spawn "surf http://www.youtube.com/c/DistroTube/")
-        , ("M-f", spawn "pcmanfm")
-        , ("M-g", runOrRaise "geany" (resource =? "geany"))
-
-    -- Multimedia Keys
+-- Multimedia Keys
         , ("<XF86MonBrightnessUp>", spawn "light -A 5")
         , ("<XF86MonBrightnessDown>", spawn "light -U 5")
         , ("<XF86AudioPlay>", spawn "mocp -G")
@@ -251,12 +202,6 @@ myKeys =
         , ("<XF86AudioMute>", spawn "pulseaudio-ctl mute")  
         , ("<XF86AudioLowerVolume>", spawn "pulseaudio-ctl down")
         , ("<XF86AudioRaiseVolume>", spawn "pulseaudio-ctl up")
-        , ("<XF86HomePage>", spawn "firefox")
-        , ("<XF86Search>", safeSpawn "firefox" ["https://www.google.com/"])
-        , ("<XF86Mail>", runOrRaise "geary" (resource =? "thunderbird"))
-        , ("<XF86Calculator>", runOrRaise "gcalctool" (resource =? "gcalctool"))
-        , ("<XF86Eject>", spawn "toggleeject")
-        , ("<Print>", spawn "scrotd 0")
         ] where nonNSP          = WSIs (return (\ws -> W.tag ws /= "nsp"))
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
                 
@@ -266,7 +211,6 @@ myKeys =
 
 xmobarEscape = concatMap doubleLts
   where
-        -- doubleLts '<' = "<<"
         doubleLts x   = [x]
         
 myWorkspaces :: [String]   
@@ -277,19 +221,18 @@ myWorkspaces = clickable . L.map xmobarEscape $ replicate 5 "\63608"
 
 myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
-       [namedScratchpadManageHook myScratchPads]  --Must be first to avoid being affected by placeHook
+       [namedScratchpadManageHook myScratchPads]                -- Must be first to avoid being affected by placeHook
        <+> myManageHook'
 
 myManageHook' = composeAll
-    [ placeHook $ fixed (0.5,0.5)        -- Set floating windows at the center
+    [ placeHook $ fixed (0.5,0.5)                               -- Set floating windows at the center
      , className =? "ffplay"             --> doFloat
-     , appName =? "nomacs"              --> doFloat
+     , appName =? "nomacs"               --> doFloat
      , className =? "mpv"                --> doFloat
      , title =? "gitk"                   --> doFloat
      , className =? "JDownloader"        --> doFloat
      , className =? "Yad"                --> doFloat
      ]
-
 
 ------------------------------------------------------------------------
 ---LAYOUTS
@@ -297,17 +240,12 @@ myManageHook' = composeAll
 
 myLayoutHook = avoidStruts $ smartBorders $ mouseResize $ windowArrange $ T.toggleLayouts floats $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
               where 
---                  myDefaultLayout = grid ||| tall ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
                   myDefaultLayout = grid ||| oneBig ||| noBorders monocle ||| floats
 
---tall       = renamed [Replace "tall"]     $ limitWindows 12 $ spacing 6 $ ResizableTall 1 (3/100) (1/2) []
-grid       = renamed [Replace "ﱖ "]     $ limitWindows 12 $ spacing 2 $ mkToggle (single MIRROR) $ Grid (16/10)
---threeCol   = renamed [Replace "threeCol"] $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
---threeRow   = renamed [Replace "threeRow"] $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
-oneBig     = renamed [Replace "oneBig"]   $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
-monocle    = renamed [Replace "\63378"]  $ limitWindows 20 Full
---space      = renamed [Replace "space"]    $ limitWindows 4  $ spacing 12 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
-floats     = renamed [Replace "floats"]   $ limitWindows 20 simplestFloat
+grid       = renamed [Replace "ﱖ"] $ limitWindows 12 $ spacing 2 $ mkToggle (single MIRROR) $ Grid (16/10)
+oneBig     = renamed [Replace "oneBig"] $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
+monocle    = renamed [Replace "\63378"] $ limitWindows 20 Full
+floats     = renamed [Replace "floats"] $ limitWindows 20 simplestFloat
 
 ------------------------------------------------------------------------
 ---SCRATCHPADS
