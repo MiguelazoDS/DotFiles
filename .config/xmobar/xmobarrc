@@ -6,7 +6,7 @@ Config { font    = "xft:Inconsolata Nerd Font:size=12:antialias=true:hinting=tru
 	   , border = FullBM 1 
 	   , borderColor = "#4a565c"
 	   , borderWidth = 2
-	   , position = Static{xpos = 2, ypos= 0, width = 1920, height = 30}
+	   , position = Static{xpos = 0, ypos= 0, width = 1920, height = 30}
        , lowerOnStart = True
        , hideOnStart = False
        , allDesktops = True
