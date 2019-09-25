@@ -6,7 +6,7 @@ Config { font    = "xft:BitstreamVeraSansMono Nerd Font:size=11:antialias=true:h
 	   , border = FullBM 1 
 	   , borderColor = "#4a565c"
 	   , borderWidth = 2
-	   , position = Static{xpos = 0, ypos= 0, width = 1920, height = 30}
+	   , position = Static{xpos = 0, ypos= 0, width = 1920, height = 32}
        , lowerOnStart = True
        , hideOnStart = False
        , allDesktops = True

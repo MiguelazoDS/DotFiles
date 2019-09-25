@@ -5,14 +5,14 @@ Plug 'lervag/vimtex'
 Plug 'nightsense/office'
 Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips'
-Plug 'vim=airline/vim=airline'
-Plug 'vim=airline/vim=airline=themes'
-Plug 'ryanoasis/vim=devicons'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'idanarye/vim=vebugger'
+Plug 'idanarye/vim-vebugger'
 Plug 'ervandew/supertab'
-Plug 'Rip=Rip/clang_complete'
+Plug 'Rip-Rip/clang_complete'
 call plug#end()
 "================================================
 
