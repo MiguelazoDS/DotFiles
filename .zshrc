@@ -27,8 +27,8 @@ ZSH_DISABLE_COMPFIX=true
 #Disable autosetting terminal title.
 DISABLE_AUTO_TITLE=true
 
-#Powerlevel10k configuration
-#-------------------------------------------------------------------------------------------
+#POWERLEVEL10K CONFIGURATION
+#===========================================================================================================================================================================
 ZSH_THEME="powerlevel10k/powerlevel10k"
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_icon custom_root custom_name dir vcs custom_arrow)
@@ -122,8 +122,10 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+#=================================================================================================================================================================================
 
-#Aliases
+#ALIASES
+#=================================================================================================================================================================================
 alias ls=lsd
 alias cp="cp -v"
 alias mv="mv -v"
@@ -131,8 +133,120 @@ alias copy=cpv
 alias move="copy --remove-source-files"
 alias rm="rm -v"
 alias rename='perl-rename'
-alias dotfile='/usr/bin/git --git-dir=/home/miguel/.dotfiles/ --work-tree=/home/miguel'
+#alias dotfile='/usr/bin/git --git-dir=/home/miguel/.dotfiles/ --work-tree=/home/miguel'
+alias dotfile='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=/home/miguel'
 alias vim=nvim
+
+function arch_update {
+	if [ -z $1 ]
+	then 
+		yay -Syyu --devel --noconfirm; xmonad --recompile && xmonad --restart
+	elif [ $1 = "-i" ]
+	then 
+		if [ -z $2 ]
+		then
+			echo "You must type a pkg name"
+		else
+			result=$(($#-1))
+			if [ $result -gt 1 ]
+			then
+				word="packages are"
+			else
+				word="package is"
+			fi 
+			echo
+			echo "|${@:2} $word not gonna be updated|"
+			echo 
+			yay -Syyu --devel --ignore ${@:2} --noconfirm; xmonad --recompile && xmonad --restart
+		fi
+	else
+		echo "Invalid option"
+	fi
+}
+
+function dependencies {
+	if [ -z $1 ]
+	then
+		echo "You must type the pkg name"
+	else
+		sudo pacman -Qi $1
+	fi
+}
+
+function pkglist {
+	sudo pacman -Qqe > /tmp/packages; nvim /tmp/packages
+}
+
+function arch_clean {
+	yay -Sc --noconfirm
+	sudo pacman -Rns $(pacman -Qtdq)
+	paccache -d
+}
+
+function infolinux {
+	masterpdfeditor5 ~/Dropbox/.Info\ Linux/main.pdf&
+}
+
+function fastest_mirrors {
+	sudo reflector --verbose -l 30 -f 10 --save /etc/pacman.d/mirrorlist
+}
+
+function clean_ram {
+	sudo sync; sudo sh -c 'echo "3" > /proc/sys/vm/drop_caches'
+	sudo swapoff -a; sudo swapon -a
+}
+
+function youtube-dl-mp3 {
+	command="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 -o %(title)s.%(ext)s"
+	if [ $# = 1 ]
+	then
+		$command "$1"
+	elif [ $# = 2 ]
+	then
+		$command "$1" "$2"
+	else
+		echo "Error"
+	fi
+}
+
+function youtube-dl-v {
+	command="youtube-dl -o %(title)s.%(ext)s"
+	if [ $# = 1 ]
+	then
+		$command "$1"
+	elif [ $# = 2 ]
+	then
+		$command "$1" "$2"
+	else
+		echo "Error"
+	fi
+}
+
+function reset_tmux {
+	tmux kill-session -a
+	tmux rename-session -t $(tmux display-message -p '#S' ) 0
+}
+
+function recent {
+	rm ~/.local/share/recently-used.xbel
+}
+
+function linters {
+	lints=("shellcheck" "sh" "gcc" "clang" "cppcheck" "ghc" "hlint" "stylish-haskell" "checkstyle" "google-java-format" "perl-critic" "flake8" "yapf" "vint")
+
+	for linter in ${lints[*]}
+	do
+		output=$(yay -Qi $linter 2>&1)
+		if [[ $output =~ "was not found" ]]
+		then
+			yay -S $linter	
+		else
+			echo "$linter already installed"
+		fi
+	done
+}
+
+#=====================================================================================================================================================================
 
 # User configuration
 

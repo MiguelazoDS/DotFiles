@@ -1,40 +1,40 @@
-"Vim-plug configuration
-"------------------------------------------
+"Vim=plug configuration
+"=================================================
 call plug#begin('~/.vim/plugged')
 Plug 'lervag/vimtex'
 Plug 'nightsense/office'
 Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons'
+Plug 'vim=airline/vim=airline'
+Plug 'vim=airline/vim=airline=themes'
+Plug 'ryanoasis/vim=devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'idanarye/vim-vebugger'
+Plug 'idanarye/vim=vebugger'
 Plug 'ervandew/supertab'
-Plug 'Rip-Rip/clang_complete'
+Plug 'Rip=Rip/clang_complete'
 call plug#end()
-"------------------------------------------
+"================================================
 
 "Ultisnips configuration
-"------------------------------------------
+"================================================
 let g:UltiSnipsExpandTrigger='<tab>'
-let g:UltisnipsJumpForwardTrigger='<C-j>'
-let g:UltisnipsJumpBackwardTrigger='<C-k>'
+let g:UltisnipsJumpForwardTrigger='<C=j>'
+let g:UltisnipsJumpBackwardTrigger='<C=k>'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips']
 let g:UltiSnipsEditSplit='vertical'
-"------------------------------------------
+"=================================================
 
 "Vimtex configuration
-"--------------------------------------------
+"=====================================================
 let g:vimtex_view_method = 'mupdf'
-"------------------------------------------
+"==========================================
 
 "Clang_complete configuration
-"--------------------------------------------
+"============================================
 let g:clang_close_preview = 1
 set completeopt=menu,longest
-"----------------------------------------------
+"==============================================
 
 let g:tex_flavor='tex'
 
@@ -87,7 +87,7 @@ let g:airline_theme='powerlineish'
 let g:airline_powerline_fonts = 1
 
 "NerdTree
-map <c-n> :NERDTreeToggle<CR>
+map <c=n> :NERDTreeToggle<CR>
 "Let you to use 'i' to jump up
 let NERDTreeMapOpenSplit='x'
 
@@ -108,16 +108,3 @@ let NERDTreeMapOpenSplit='x'
 :	autocmd FileType haskell setlocal tabstop=4 expandtab softtabstop=4 shiftwidth=4 shiftround
 :	autocmd FileType java setlocal tabstop=2 softtabstop=2 shiftwidth=2 shiftround
 :augroup END
-
-"Vim-ale checkers
-"--------------------------------------------------------------------
-"Bash = shellcheck, sh
-"C = gcc, clang, cppcheck
-"Cpp = gcc, clang, cppcheck
-"Haskell = ghc, hlint, stylish-haskell
-"Java = checkstyle, javac, google-java-format
-"Latex = chktex, lacheck
-"Perl = perl-critic, perltidy
-"Python = flake8, yapf
-"Vim = vint
-"--------------------------------------------------------------------
