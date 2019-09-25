@@ -62,7 +62,6 @@ myModMask       = mod4Mask
 myTerminal      = "termite" 
 myTextEditor    = "nvim"    
 myBorderWidth   = 2         
-windowCount     = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 main =   do
     xmproc2 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
@@ -75,8 +74,7 @@ main =   do
               , ppHiddenNoWindows = xmobarColor "#bac8cf" ""        -- Hidden workspaces (no windows)
               , ppSep =  "<fc=#cca83f> \63196 </fc>"                     -- Separators in xmobar
               , ppUrgent = xmobarColor "#000000" "" . wrap "!" "!"  -- Urgent workspace
-              , ppExtras  = [windowCount]                           -- # of windows current workspace
-              , ppOrder  = \(ws:l:_:ex) -> [ws,l]++ex
+              , ppOrder  = \(ws:l:_) -> [ws,l]
               }
         , modMask            = myModMask
         , terminal           = myTerminal
