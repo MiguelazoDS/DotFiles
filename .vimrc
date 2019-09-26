@@ -87,7 +87,7 @@ let g:airline_theme='powerlineish'
 let g:airline_powerline_fonts = 1
 
 "NerdTree
-map <c=n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle<CR>
 "Let you to use 'i' to jump up
 let NERDTreeMapOpenSplit='x'
 
