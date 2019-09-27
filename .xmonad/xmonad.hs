@@ -72,7 +72,7 @@ main =   do
               , ppCurrent = xmobarColor "#c41818" "" . wrap "[" "]" -- Current workspace in xmobar
               , ppHidden = xmobarColor "#3c98c7" "" . wrap "*" ""   -- Hidden workspaces in xmobar
               , ppHiddenNoWindows = xmobarColor "#d8dfe3" ""        -- Hidden workspaces (no windows)
-              , ppSep =  "<fc=#cca83f> \63196 </fc>"                     -- Separators in xmobar
+              , ppSep =  "<fc=#FFD700> \63196 </fc>"                     -- Separators in xmobar
               , ppUrgent = xmobarColor "#000000" "" . wrap "!" "!"  -- Urgent workspace
               , ppOrder  = \(ws:l:_) -> [ws,l]
               }

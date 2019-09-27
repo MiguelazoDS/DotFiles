@@ -23,5 +23,5 @@ Config { font    = "xft:BitstreamVeraSansMono Nerd Font:size=11:antialias=true:h
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "<fc=#3c98c7><fn=1>  </fn></fc><fc=#cca83f></fc>%UnsafeStdinReader% }{ <fc=#d8dfe3> <fc=#d8dfe3>%locks%</fc> <fc=#3c98c7>%moc%</fc> <fc=#cca83f></fc> <fc=#d8dfe3>%date%</fc> <fc=#cca83f></fc> <fc=#d8dfe3>%updates%</fc> <fc=#cca83f></fc> <fc=#d8dfe3>%volume%</fc> <fc=#cca83f></fc> <fc=#d8dfe3>%enp2s0%</fc> <fc=#cca83f></fc> <fc=#d8dfe3>%cpu%</fc> <fc=#cca83f></fc> <fc=#d8dfe3>%memory%</fc><fc=#cca83f></fc></fc>          "
+       , template = "<fc=#c0c0c0><fn=1>  </fn></fc><fc=#FFD700></fc>%UnsafeStdinReader% }{ <fc=#d8dfe3> <fc=#d8dfe3>%locks%</fc> <fc=#c98c08>%moc%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%date%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%updates%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%volume%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%enp2s0%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%cpu%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%memory%</fc><fc=#FFD700></fc></fc>          "
        }
