@@ -3,6 +3,9 @@ export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
 
 export TERM="screen-256color" 
 
+#To make youtube-dl function to work.
+unsetopt nomatch
+
 #Fixed % symbol after print
 export PROMPT_EOL_MARK=""
 
@@ -197,26 +200,27 @@ function clean_ram {
 }
 
 function youtube-dl-mp3 {
-	command="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 -o %(title)s.%(ext)s"
+	cmd="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 -o %(title)s.%(ext)s"
 	if [ $# = 1 ]
 	then
-		$command "$1"
+		$cmd "$1"
 	elif [ $# = 2 ]
 	then
-		$command "$1" "$2"
+		$cmd "$1" "$2"
 	else
 		echo "Error"
 	fi
 }
 
 function youtube-dl-v {
-	command="youtube-dl -o %(title)s.%(ext)s"
+	cmd="youtube-dl -o \"%(title)s.%(ext)s\""
+	echo hola $#
 	if [ $# = 1 ]
 	then
-		$command "$1"
+		eval $cmd $1
 	elif [ $# = 2 ]
 	then
-		$command "$1" "$2"
+		$cmd "$1" "$2"
 	else
 		echo "Error"
 	fi
