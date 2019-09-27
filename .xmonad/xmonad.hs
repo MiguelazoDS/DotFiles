@@ -71,7 +71,7 @@ main =   do
               { ppOutput = hPutStrLn xmproc2
               , ppCurrent = xmobarColor "#c41818" "" . wrap "[" "]" -- Current workspace in xmobar
               , ppHidden = xmobarColor "#3c98c7" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-              , ppHiddenNoWindows = xmobarColor "#bac8cf" ""        -- Hidden workspaces (no windows)
+              , ppHiddenNoWindows = xmobarColor "#d8dfe3" ""        -- Hidden workspaces (no windows)
               , ppSep =  "<fc=#cca83f> \63196 </fc>"                     -- Separators in xmobar
               , ppUrgent = xmobarColor "#000000" "" . wrap "!" "!"  -- Urgent workspace
               , ppOrder  = \(ws:l:_) -> [ws,l]
@@ -94,10 +94,10 @@ myStartupHook = do
           spawnOnce "numlockx on"
           spawnOnce "nm-applet"
           spawnOnce "$HOME/.config/i3/scripts/flux"
-          spawnOnce "feh --bg-fill ~/.Wallpapers/nature-3082832_1920.jpg"
+          spawnOnce "nitrogen --restore &"
           spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf" 
           spawnOnce "setxkbmap es"
-          spawnOnce "trayer --edge top --transparent true --alpha 0 --tint 0x1b1f21 --align right --width 4 --height 18 --margin 5 --distance 5"
+          spawnOnce "trayer --edge top --transparent true --alpha 50 --tint 0x05172b --align right --width 4 --height 18 --margin 5 --distance 5"
           spawnOnce "xsetroot -cursor_name left_ptr"
 ------------------------------------------------------------------------
 ---KEYBINDINGS
@@ -112,7 +112,7 @@ myKeys =
         , ("M-e r", spawn "systemctl reboot")
     
 -- Applications
-        , ("M-o", spawn "chromium")
+        , ("M-o", spawn "firefox")
         , ("M-x", spawn $ myTerminal ++ " -e 'mocp -x'")
         , ("M-d", spawn "rofi -show drun -show-icons -drun-icon-theme arthur.rasi")
         , ("M-n", spawn "xterm -e ranger")
@@ -230,6 +230,7 @@ myManageHook' = composeAll
      , title =? "gitk"                   --> doFloat
      , className =? "JDownloader"        --> doFloat
      , className =? "Yad"                --> doFloat
+     , (className =? "firefox" <&&> appName =? "Places") --> doFloat  -- Float Firefox Dialog
      ]
 
 ------------------------------------------------------------------------

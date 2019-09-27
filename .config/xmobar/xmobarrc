@@ -1,10 +1,10 @@
 Config { font    = "xft:BitstreamVeraSansMono Nerd Font:size=11:antialias=true:hinting=true"
        , additionalFonts = [ "xft:BitstreamVeraSansMono Nerd Font:size=14" ]
-	   , bgColor = "#1b1f21"
-	   , fgColor = "#bac8cf"
+	   , bgColor = "#05172b"
+	   , fgColor = "#d8dfe3"
 	   , alpha = 255
 	   , border = FullBM 1 
-	   , borderColor = "#4a565c"
+	   , borderColor = "#005078"
 	   , borderWidth = 2
 	   , position = Static{xpos = 0, ypos= 0, width = 1920, height = 32}
        , lowerOnStart = True
@@ -23,5 +23,5 @@ Config { font    = "xft:BitstreamVeraSansMono Nerd Font:size=11:antialias=true:h
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "<fc=#3c98c7><fn=1>  </fn></fc><fc=#cca83f></fc>%UnsafeStdinReader% }{ <fc=#bac8cf> <fc=#bac8cf>%locks%</fc> <fc=#3c98c7>%moc%</fc> <fc=#cca83f></fc> <fc=#bac8cf>%date%</fc> <fc=#cca83f></fc> <fc=#bac8cf>%updates%</fc> <fc=#cca83f></fc> <fc=#bac8cf>%volume%</fc> <fc=#cca83f></fc> <fc=#bac8cf>%enp2s0%</fc> <fc=#cca83f></fc> <fc=#bac8cf>%cpu%</fc> <fc=#cca83f></fc> <fc=#bac8cf>%memory%</fc><fc=#cca83f></fc></fc>          "
+       , template = "<fc=#3c98c7><fn=1>  </fn></fc><fc=#cca83f></fc>%UnsafeStdinReader% }{ <fc=#d8dfe3> <fc=#d8dfe3>%locks%</fc> <fc=#3c98c7>%moc%</fc> <fc=#cca83f></fc> <fc=#d8dfe3>%date%</fc> <fc=#cca83f></fc> <fc=#d8dfe3>%updates%</fc> <fc=#cca83f></fc> <fc=#d8dfe3>%volume%</fc> <fc=#cca83f></fc> <fc=#d8dfe3>%enp2s0%</fc> <fc=#cca83f></fc> <fc=#d8dfe3>%cpu%</fc> <fc=#cca83f></fc> <fc=#d8dfe3>%memory%</fc><fc=#cca83f></fc></fc>          "
        }
