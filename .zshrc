@@ -4,6 +4,9 @@ export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
 export TERM="screen-256color" 
 
 #Using ccache
+export CCACHE_DIR="$HOME/.ccache"
+export CXX="ccache g++"
+export CC="ccache gcc"
 export PATH="/usr/lib/ccache/bin/:$PATH"
 
 #Fixed % symbol after print
