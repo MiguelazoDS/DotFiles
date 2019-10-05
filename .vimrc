@@ -43,7 +43,7 @@ let g:tex_flavor='tex'
 filetype off
 
 syntax on 
-set number 
+set number relativenumber
 set showcmd "Show commands
 set incsearch "Highlight text in searches
 set tabstop=4 "tab 4 spaces
