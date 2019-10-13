@@ -116,7 +116,7 @@ myKeys =
         , ("M-x", spawn $ myTerminal ++ " -e 'mocp -x'")
         , ("M-d", spawn "rofi -show drun -show-icons -drun-icon-theme arthur.rasi")
         , ("M-n", spawn "xterm -e ranger")
-        , ("M-S-u", spawn "$HOME/.config/xmobar/scripts/updates --updates")
+        , ("M-S-u", spawn "runhaskell $HOME/.config/xmobar/scripts/notifications.hs updates")
         , ("M-m", spawn "$HOME/.config/xmobar/scripts/mem --details")
     
 -- Windows
