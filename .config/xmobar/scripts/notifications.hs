@@ -33,7 +33,7 @@ updates client = do
     let result = calculate (lines base) (lines aur)
 
     let hello = blankNote { summary="Available Updates",
-                               body=Just $ Text cal,
+                               body=Just $ Text result,
                                appImage=Just $ Icon "dialog-information"}
 
     replace client notification hello
