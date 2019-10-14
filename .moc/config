@@ -49,3 +49,4 @@ SilentSeekTime = 10
 
 # Display full paths instead of just file names in the playlist.
 PlaylistFullPaths = no
+OnSongChange = "/home/miguel/.config/xmobar/scripts/moc moc"

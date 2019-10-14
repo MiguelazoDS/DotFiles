@@ -10,8 +10,13 @@ if [[ ! "$state" =~ "FATAL" ]]; then
 	        echo "$SONG - $(mocp -Q %album)"
 	    else
 			name=$(basename "$(mocp -Q %file)")
-			printf " %s" "$name"
+			song_name=$(echo "$name" | cut -d '.' -f 1)
+			printf " %s" "$song_name"
 	    fi
+		
+		if [ "$1" == "moc" ]; then
+			notify-send.sh -R id_file -i multimedia-player "$song_name"
+		fi
 	else
 	    echo ""
 	fi
