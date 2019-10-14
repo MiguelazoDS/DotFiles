@@ -99,6 +99,7 @@ myStartupHook = do
           spawnOnce "setxkbmap es"
           spawnOnce "trayer --edge top --transparent true --alpha 50 --tint 0x05172b --align right --width 4 --height 18 --margin 5 --distance 5"
           spawnOnce "xsetroot -cursor_name left_ptr"
+          spawnOnce "/usr/lib/xfce4/notifyd/xfce4-notifyd"
 ------------------------------------------------------------------------
 ---KEYBINDINGS
 ------------------------------------------------------------------------
