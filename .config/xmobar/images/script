@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+for i in * 
+do 
+	name=$(echo "$i" | cut -d '.' -f 1)
+	if [[ "$i" =~ "speed" ]]; then
+		ffmpeg -i "$i" -vf scale=15:15 "1$i"	
+	else
+		ffmpeg -i "$i" -vf scale=22:22 "1$i"
+	fi
+	convert "1$i" "$name.xpm"
+	mv *.xpm $HOME/.config/xmobar/icons
+	rm 1*
+done

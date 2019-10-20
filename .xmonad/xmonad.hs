@@ -1,7 +1,6 @@
 ------------------------------------------------------------------------
 ---IMPORTS
 ------------------------------------------------------------------------
-
 -- Base
 import XMonad
 import XMonad.Config.Desktop
@@ -71,7 +70,7 @@ main =   do
               { ppOutput = hPutStrLn xmproc2
               , ppCurrent = xmobarColor "#c41818" "" . wrap "[" "]" -- Current workspace in xmobar
               , ppHidden = xmobarColor "#3c98c7" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-              , ppHiddenNoWindows = xmobarColor "#d8dfe3" ""        -- Hidden workspaces (no windows)
+              , ppHiddenNoWindows = xmobarColor "#ffffff" ""        -- Hidden workspaces (no windows)
               , ppSep =  "<fc=#FFD700> \63196 </fc>"                     -- Separators in xmobar
               , ppUrgent = xmobarColor "#000000" "" . wrap "!" "!"  -- Urgent workspace
               , ppOrder  = \(ws:l:_) -> [ws,l]
@@ -213,7 +212,7 @@ xmobarEscape = concatMap doubleLts
         doubleLts x   = [x]
         
 myWorkspaces :: [String]   
-myWorkspaces = clickable . L.map xmobarEscape $ replicate 5 "\63608"
+myWorkspaces = clickable . L.map xmobarEscape $ replicate 5 "<icon=workspace.xpm/>"
    where                                                                      
          clickable l = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>" |
                        (i,ws) <- zip [1..5] l, let n = i ] 
@@ -242,10 +241,10 @@ myLayoutHook = avoidStruts $ smartBorders $ mouseResize $ windowArrange $ T.togg
               where 
                   myDefaultLayout = grid ||| oneBig ||| noBorders monocle ||| floats
 
-grid       = renamed [Replace "ﱖ"] $ limitWindows 12 $ spacing 2 $ mkToggle (single MIRROR) $ Grid (16/10)
-oneBig     = renamed [Replace "oneBig"] $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
-monocle    = renamed [Replace "\63378"] $ limitWindows 20 Full
-floats     = renamed [Replace "floats"] $ limitWindows 20 simplestFloat
+grid       = renamed [Replace "<icon=grid.xpm/>"] $ limitWindows 12 $ spacing 2 $ mkToggle (single MIRROR) $ Grid (16/10)
+oneBig     = renamed [Replace "<icon=onebig.xpm/>"] $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
+monocle    = renamed [Replace "<icon=monocle.xpm/>"] $ limitWindows 20 Full
+floats     = renamed [Replace "<icon=float.xpm/>"] $ limitWindows 20 simplestFloat
 
 ------------------------------------------------------------------------
 ---SCRATCHPADS

@@ -11,7 +11,7 @@ if [[ ! "$state" =~ "FATAL" ]]; then
 	    else
 			name=$(basename "$(mocp -Q %file)")
 			song_name=$(echo "$name" | cut -d '.' -f 1)
-			printf " %s" "$song_name"
+			printf "<icon=music.xpm/> %s" "$song_name"
 	    fi
 		
 		if [ "$1" == "moc" ]; then

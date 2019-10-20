@@ -1,19 +1,19 @@
 Config { font    = "xft:BitstreamVeraSansMono Nerd Font:size=11:antialias=true:hinting=true"
-       , additionalFonts = [ "xft:BitstreamVeraSansMono Nerd Font:size=14" ]
+	   , iconRoot = "/home/miguel/.config/xmobar/icons"
 	   , bgColor = "#05172b"
-	   , fgColor = "#d8dfe3"
+	   , fgColor = "#ffffff"
 	   , alpha = 255
 	   , border = FullBM 1 
 	   , borderColor = "#005078"
 	   , borderWidth = 2
-	   , position = Static{xpos = 0, ypos= 0, width = 1920, height = 32}
+	   , position = Static{xpos = 0, ypos= 0, width = 1920, height = 35}
        , lowerOnStart = True
        , hideOnStart = False
        , allDesktops = True
        , persistent = True
-       , commands = [ Run Date " %a %_d %b %Y %H:%M" "date" 10
-					, Run Network "enp2s0" ["-t", "  <rx>kb| <tx>kb"] 10
-                    , Run Cpu ["-t"," <total>%","-H","75","--high","#cc1212"] 10
+       , commands = [ Run Date "<icon=calendar.xpm/> %a %_d %b %Y %H:%M" "date" 10
+					, Run Network "enp2s0" ["-t", "<icon=ethernet.xpm/> <icon=downspeed.xpm/> <rx>kb|<icon=upspeed.xpm/> <tx>kb"] 10
+                    , Run Cpu ["-t","<icon=cpu.xpm/> <total>%","-H","75","--high","#cc1212"] 10
 				 	, Run Com "/home/miguel/.config/xmobar/scripts/mem" [] "memory" 10
 					, Run Com "/home/miguel/.config/xmobar/scripts/volume" [] "volume" 1
 					, Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 300
@@ -23,5 +23,5 @@ Config { font    = "xft:BitstreamVeraSansMono Nerd Font:size=11:antialias=true:h
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "<fc=#c0c0c0><fn=1>  </fn></fc><fc=#FFD700></fc>%UnsafeStdinReader% }{ <fc=#d8dfe3> <fc=#d8dfe3>%locks%</fc> <fc=#c98c08>%moc%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%date%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%updates%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%volume%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%enp2s0%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%cpu%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%memory%</fc><fc=#FFD700></fc></fc>          "
+       , template = "<fc=#c0c0c0> <icon=arch.xpm/> </fc><fc=#FFD700></fc>%UnsafeStdinReader% }{ <fc=#d8dfe3> <fc=#d8dfe3>%locks%</fc> <fc=#c98c08>%moc%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%date%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%updates%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%volume%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%enp2s0%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%cpu%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%memory%</fc><fc=#FFD700></fc></fc>          "
        }
