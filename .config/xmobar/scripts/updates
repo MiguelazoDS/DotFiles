@@ -16,7 +16,7 @@ case "$1" in
 		if [ $n_updates -eq 0 ]; then
 			notify-send.sh -R id_file -i dialog-information "System up to date"    
 		else
-			notify-send.sh -R id_file -t 5000 -i dialog-information "Available updates" "$updates_arch$updates_aur"
+			notify-send.sh -R id_file -t 5000 -i dialog-information "Available updates" "$updates_arch\n$updates_aur"
 		fi
 		;;
     *)  
