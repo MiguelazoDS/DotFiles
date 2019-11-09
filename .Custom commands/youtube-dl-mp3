@@ -1,0 +1,10 @@
+command="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 -o %(title)s.%(ext)s"
+if [ $# = 1 ]
+then
+	$command "$1"
+elif [ $# = 2 ]
+then
+	$command "$1" "$2"
+else
+	echo "Error"
+fi

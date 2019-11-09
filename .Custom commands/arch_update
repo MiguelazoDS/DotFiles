@@ -1,0 +1,24 @@
+if [ -z $1 ]
+then 
+	yay -Syyu --devel --noconfirm; xmonad --recompile && xmonad --restart
+elif [ $1 = "-i" ]
+then 
+	if [ -z $2 ]
+	then
+		echo "You must type a pkg name"
+	else
+		result=$(($#-1))
+		if [ $result -gt 1 ]
+		then
+			word="packages are"
+		else
+			word="package is"
+		fi 
+		echo
+		echo "|${@:2} $word not gonna be updated|"
+		echo 
+		yay -Syyu --devel --ignore ${@:2} --noconfirm; xmonad --recompile && xmonad --restart
+	fi
+else
+	echo "Invalid option"
+fi

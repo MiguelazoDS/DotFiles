@@ -1,0 +1,14 @@
+for i in $(ls)
+do
+	if [  $i != "symbolic_links" ]
+	then
+		if [ -e /usr/bin/$i ]
+		then 	
+			sudo rm /usr/bin/$i
+		fi
+		sudo ln -s "$PWD"/"$i" /usr/bin/$i
+		echo "Added command \"$i\""
+	fi
+done
+
+
