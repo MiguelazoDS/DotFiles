@@ -79,3 +79,31 @@ class empty_trash(Command):
         if answer == 'y' or answer == 'Y':
             self.fm.notify("Files deleted")
             self.fm.run("rm -rf ~/.local/share/Trash/files/*")
+
+
+class mount(Command):
+
+    """:mount"""
+
+    def execute(self):
+        """TODO: to be defined1. """
+        self.fm.run("jmtpfs $HOME/.Smartphone")
+
+
+class unmount(Command):
+
+    """:unmount"""
+
+    def execute(self):
+        """TODO: to be defined1. """
+        self.fm.ui.console.ask(
+                "Confirm unmount device? y/n",
+                partial(self.question_callback),
+                ('n', 'N', 'y', 'Y'),
+        )
+
+    def question_callback(self, answer):
+        if answer == 'y' or answer == 'Y':
+            self.fm.notify("Device unmounted")
+            self.fm.cd("/home/miguel")
+            self.fm.run("fusermount -u /home/miguel/.Smartphone -o allow_other")
