@@ -230,7 +230,8 @@ myManageHook' = composeAll
      , title =? "gitk"                   --> doFloat
      , className =? "JDownloader"        --> doFloat
      , className =? "Yad"                --> doFloat
-     , (className =? "firefox" <&&> appName =? "Places") --> doFloat  -- Float Firefox Dialog
+     , (className =? "firefox" <&&> appName =? "Places") --> doFloat 
+     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat
      ]
 
 ------------------------------------------------------------------------

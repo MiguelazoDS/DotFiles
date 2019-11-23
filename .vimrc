@@ -13,8 +13,13 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'idanarye/vim-vebugger'
 Plug 'ervandew/supertab'
 Plug 'Rip-Rip/clang_complete'
+Plug '907th/vim-auto-save'
 call plug#end()
 "================================================
+
+"Autosave
+"=================================================
+let g:auto_save = 1
 
 "Ultisnips configuration
 "================================================
