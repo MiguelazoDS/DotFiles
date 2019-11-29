@@ -7,17 +7,16 @@ then
 	then
 		echo "You must type a pkg name"
 	else
-		result=$(($#-1))
-		if [ $result -gt 1 ]
+		array=($(echo $2 | tr ',' "\n"))
+		size=${#array[@]}
+		if [ $size -gt 1 ]
 		then
 			word="packages are"
 		else
 			word="package is"
-		fi 
-		echo
-		echo "|${@:2} $word not gonna be updated|"
-		echo 
-		yay -Syyu --devel --ignore ${@:2} --noconfirm; xmonad --recompile && xmonad --restart
+		fi
+		echo "|${array[@]} $word not gonna be updated|"
+		yay -Syyu --devel --ignore $2 --noconfirm; xmonad --recompile && xmonad --restart
 	fi
 else
 	echo "Invalid option"
