@@ -17,9 +17,13 @@ Plug '907th/vim-auto-save'
 call plug#end()
 "================================================
 
-"Autosave
+"Autosave for tex files
 "=================================================
-let g:auto_save = 1
+let g:auto_save = 0
+augroup ft_tex
+  au!
+  au FileType tex let b:auto_save=1
+augroup END
 
 "Ultisnips configuration
 "================================================
