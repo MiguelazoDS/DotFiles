@@ -1,4 +1,4 @@
-yay -R xmobar-git --noconfirm
-paccache -r
+yay -Rs xmobar-git --noconfirm
+arch_clean
 yay -S xmobar-git --noconfirm
 xmonad --recompile && xmonad --restart
