@@ -141,6 +141,35 @@ alias rm="rm -v"
 alias rename='perl-rename'
 alias dotfile='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=/home/miguel'
 alias vim=nvim
+
+function df (){
+	if [[ $1 =~ "pull" ]]; then
+		branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
+		dotfile pull
+		if [[ $branch =~ "desktop" ]]; then
+			dotfile checkout notebook
+			dotfile pull
+			dotfile checkout $branch
+		else
+			dotfile checkout desktop
+			dotfile pull
+			dotfile checkout $branch
+		fi
+	elif [[ $1 =~ "cp" ]]; then
+		commit=$(echo "$(dotfile log -1)" | head | cut -d ' ' -f2)
+		if [[ $branch =~ "desktop" ]]; then
+			dotfile checkout notebook
+			dotfile cherry-pick "$commit"
+			dotfile checkout $branch
+		else
+			dotfile checkout desktop
+			dotfile cherry-pick "$commit"
+			dotfile checkout $branch
+		fi
+	else
+		echo "Argument needed: Either \"pull\" or \"cp\""
+	fi
+}
 #=====================================================================================================================================================================
 
 # User configuration
