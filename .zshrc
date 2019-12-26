@@ -156,7 +156,7 @@ function df (){
 			dotfile checkout $branch
 		fi
 	elif [[ $1 =~ "cp" ]]; then
-		commit=$(echo "$(dotfile log -1)" | head | cut -d ' ' -f2)
+		commit=$(echo "$(dotfile log -1)" | head -1 | cut -d ' ' -f2)
 		if [[ $branch =~ "desktop" ]]; then
 			dotfile checkout notebook
 			dotfile cherry-pick "$commit"
