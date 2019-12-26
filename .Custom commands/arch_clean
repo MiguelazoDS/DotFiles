@@ -1,3 +1,3 @@
 yay -Sc --noconfirm
-sudo pacman -Rns $(pacman -Qtdq)
+yay -Rns $(yay -Qtdq) --noconfirm
 paccache -r
