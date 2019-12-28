@@ -142,7 +142,7 @@ alias rename='perl-rename'
 alias dotfile='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=/home/miguel'
 alias vim=nvim
 
-function df (){
+function dotf (){
 	if [[ $1 =~ "pull" ]]; then
 		branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
 		dotfile pull
