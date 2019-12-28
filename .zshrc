@@ -143,28 +143,39 @@ alias dotfile='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=/home/miguel'
 alias vim=nvim
 
 function dotf (){
-	if [[ $1 =~ "pull" ]]; then
-		branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
+	branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
+	if [[ $1 =~ "push" ]]; then
+		dotfile push
+		if [[ $branch =~ "desktop" ]]; then
+			dotfile checkout notebook
+			dotfile push
+			dotfile checkout desktop
+		else
+			dotfile checkout desktop
+			dotfile push
+			dotfile checkout notebook
+		fi
+	elif [[ $1 =~ "pull" ]]; then
 		dotfile pull
 		if [[ $branch =~ "desktop" ]]; then
 			dotfile checkout notebook
 			dotfile pull
-			dotfile checkout $branch
+			dotfile checkout desktop
 		else
 			dotfile checkout desktop
 			dotfile pull
-			dotfile checkout $branch
+			dotfile checkout notebook
 		fi
 	elif [[ $1 =~ "cp" ]]; then
 		commit=$(echo "$(dotfile log -1)" | head -1 | cut -d ' ' -f2)
 		if [[ $branch =~ "desktop" ]]; then
 			dotfile checkout notebook
 			dotfile cherry-pick "$commit"
-			dotfile checkout $branch
+			dotfile checkout desktop
 		else
 			dotfile checkout desktop
 			dotfile cherry-pick "$commit"
-			dotfile checkout $branch
+			dotfile checkout notebook
 		fi
 	else
 		echo "Argument needed: Either \"pull\" or \"cp\""
@@ -197,3 +208,19 @@ PERL5LIB="/home/miguel/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LI
 PERL_LOCAL_LIB_ROOT="/home/miguel/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/miguel/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/miguel/perl5"; export PERL_MM_OPT;
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/anaconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/anaconda/etc/profile.d/conda.sh" ]; then
+        . "/opt/anaconda/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/anaconda/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
