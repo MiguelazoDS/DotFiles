@@ -141,6 +141,7 @@ alias rm="rm -v"
 alias rename='perl-rename'
 alias dotfile='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=/home/miguel'
 alias vim=nvim
+alias nvidia-smi='watch -n 1 nvidia-smi'
 
 function dotf (){
 	branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
