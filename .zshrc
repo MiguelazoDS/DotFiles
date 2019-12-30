@@ -18,6 +18,10 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# Cuda
+export LD_LIBRARY_PATH=/opt/cuda-10.0/extras/CUPTI/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/opt/cuda-10.0/lib64:$LD_LIBRARY_PATH
+
 #Open new terminal same directory
 function cd {
         builtin cd $@
@@ -224,4 +228,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-
