@@ -32,4 +32,4 @@ ffmpeg -f concat -safe 0 -i vocals vocals.wav
 
 ffmpeg -i bass.wav -i drums.wav -i vocals.wav -filter_complex amix=inputs=3:duration=longest "$name"_backing_track.wav
 
-rm bass drums vocals bass.wav drums.wav vocals.wav
+rm bass drums vocals bass.wav drums.wav vocals.wav "$name""_00*"
