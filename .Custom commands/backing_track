@@ -4,10 +4,10 @@ function name_ext(){
 }
 
 if [ -z "$1" ]; then
-	echo You must specify the length of the chunks in secods with -l
+	echo You must specify the length of the chunks in seconds and the song
 else
-	name_ext "$3"
-	ffmpeg -i "$3" -f segment -segment_time "$2" -c copy "$name""_%03d"".$ext"
+	name_ext "$2"
+	ffmpeg -i "$2" -f segment -segment_time "$1" -c copy "$name""_%03d"".$ext"
 fi
 
 for i in "$name"_*.mp3
@@ -32,4 +32,4 @@ ffmpeg -f concat -safe 0 -i vocals vocals.wav
 
 ffmpeg -i bass.wav -i drums.wav -i vocals.wav -filter_complex amix=inputs=3:duration=longest "$name"_backing_track.wav
 
-rm bass drums vocals bass.wav drums.wav vocals.wav "$name""_00*"
+rm bass drums vocals bass.wav drums.wav vocals.wav "$name"_00*
