@@ -3,7 +3,7 @@ Config { font    = "xft:BitstreamVeraSansMono Nerd Font:size=11:antialias=true:h
 	   , bgColor = "#05172b"
 	   , fgColor = "#ffffff"
 	   , alpha = 255
-	   , border = FullBM 1 
+	   , border = FullBM 0 
 	   , borderColor = "#005078"
 	   , borderWidth = 2
 	   , position = Static{xpos = 0, ypos= 0, width = 1920, height = 35}
