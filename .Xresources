@@ -2,8 +2,9 @@
 !
 ! -----------------------------
 
-xterm*faceName: Inconsolata Nerd Font
+xterm*faceName: Inconsolata Nerd Font Mono
 xterm*faceSize: 12
+xterm.renderFont: true
 
 ! special
 *.foreground:   #ffffff
