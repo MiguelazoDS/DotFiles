@@ -58,7 +58,7 @@ import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1
 ---CONFIG
 ------------------------------------------------------------------------
 myModMask       = mod4Mask  
-myTerminal      = "termite" 
+myTerminal      = "kitty" 
 myTextEditor    = "nvim"    
 myBorderWidth   = 2         
 
@@ -115,7 +115,7 @@ myKeys =
         , ("M-o", spawn "firefox")
         , ("M-x", spawn $ myTerminal ++ " -e 'mocp -x'")
         , ("M-d", spawn "rofi -show drun -show-icons -drun-icon-theme arthur.rasi")
-        , ("M-n", spawn "xterm -e ranger")
+        , ("M-n", spawn $ myTerminal ++ " -e 'ranger'")
         , ("M-S-u", spawn "$HOME/.config/xmobar/scripts/updates updates")
         , ("M-m", spawn "$HOME/.config/xmobar/scripts/mem --details")
     
@@ -187,7 +187,7 @@ myKeys =
         , ("M-u", namedScratchpadAction myScratchPads "terminal")
         
 -- Main Run Apps
-        , ("M-<Return>", spawn $ myTerminal ++ " -t Termite")
+        , ("M-<Return>", spawn $ myTerminal ++ " --title Kitty")
         , ("M-<KP_Insert>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
         
 -- Multimedia Keys
@@ -255,10 +255,10 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 ]
 
     where
-    spawnTerm  = myTerminal ++  " --name=scratchpad -e 'tmux' -t 'SP terminal'"
+    spawnTerm  = myTerminal ++  " --name=scratchpad --title='SP terminal' -e 'tmux'"
     findTerm   = resource =? "scratchpad"
     manageTerm = customFloating $ W.RationalRect l t w h
-    spawnMocp  = myTerminal ++  " --name=moc -e 'mocp' -t 'MOC Player'"
+    spawnMocp  = myTerminal ++  " --name=moc --title='MOC Player' -e 'mocp'"
     findMocp   = resource =? "moc"
     manageMocp = customFloating $ W.RationalRect l t w h
     h = 0.9
