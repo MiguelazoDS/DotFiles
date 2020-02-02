@@ -1,6 +1,10 @@
 #Wine32 
 export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
 
+#pdfstudioviewer
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/jre/ 
+export INSTALL4J_JAVA_HOME=$JAVA_HOME 
+
 export TERM="screen-256color" 
 
 #Using ccache
