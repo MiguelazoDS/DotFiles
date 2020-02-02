@@ -113,7 +113,7 @@ myKeys =
     
 -- Applications
         , ("M-o", spawn "firefox")
-        , ("M-x", spawn $ myTerminal ++ " -e 'mocp -x'")
+        , ("M-x", spawn "kill -9 $(pidof mocp)")
         , ("M-d", spawn "rofi -show drun -show-icons -drun-icon-theme arthur.rasi")
         , ("M-n", spawn $ myTerminal ++ " -e 'ranger'")
         , ("M-S-u", spawn "$HOME/.config/xmobar/scripts/updates updates")
