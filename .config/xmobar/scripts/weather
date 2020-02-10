@@ -41,4 +41,4 @@ icon_code=$(echo "$info" | jq '.weather' | jq '.[].icon' | sed -e 's/^"//' -e 's
 
 temp=$(echo "$info" | jq '.main' | jq '.temp' | sed -e 's/^"//' -e 's/"$//')
 
-printf "%s %sºC - %s" "$(icon "$icon_code")" "$temp" "$weather"
+printf "%s %sºC, %s" "$(icon "$icon_code")" "$temp" "$weather"
