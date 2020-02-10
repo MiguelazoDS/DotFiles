@@ -18,10 +18,11 @@ Config { font    = "xft:Anonymice Nerd Font:bold:size=10:antialias=true:hinting=
 					, Run Com "/home/miguel/.config/xmobar/scripts/volume" [] "volume" 1
 					, Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 300
 					, Run Com "/home/miguel/.config/xmobar/scripts/moc" [] "moc" 10
+					, Run Com "/home/miguel/.config/xmobar/scripts/weather" [] "weather" 10
 					, Run Locks
                     , Run UnsafeStdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "<fc=#c0c0c0> <icon=arch.xpm/> </fc><fc=#FFD700></fc>%UnsafeStdinReader% }{ <fc=#d8dfe3> <fc=#d8dfe3>%locks%</fc> <fc=#c98c08>%moc%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%date%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%updates%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%volume%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%enp2s0%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%cpu%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%memory%</fc> <fc=#FFD700></fc></fc>          "
+       , template = "<fc=#c0c0c0> <icon=arch.xpm/> </fc><fc=#FFD700></fc>%UnsafeStdinReader% }{ <fc=#d8dfe3> <fc=#d8dfe3>%locks%</fc> <fc=#c98c08>%moc%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%weather%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%date%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%updates%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%volume%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%enp2s0%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%cpu%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%memory%</fc> <fc=#FFD700></fc></fc>          "
        }
