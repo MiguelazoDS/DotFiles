@@ -4,13 +4,13 @@ for i in *
 do 
 	name=$(echo "$i" | cut -d '.' -f 1)
 	if [[ "$i" =~ "speed" ]]; then
-		ffmpeg -i "$i" -vf scale=12:12 "1$i"
+		ffmpeg -i "$i" -vf scale=12:12 "z$i"
 	elif [[ "$i" =~ "asterisk" ]]; then
-		ffmpeg -i "$i" -vf scale=8:8 "1$i"
+		ffmpeg -i "$i" -vf scale=8:8 "z$i"
 	else
-		ffmpeg -i "$i" -vf scale=16:16 "1$i"
+		ffmpeg -i "$i" -vf scale=16:16 "z$i"
 	fi
-	convert "1$i" "$name.xpm"
+	convert "z$i" "$name.xpm"
 	mv *.xpm $HOME/.config/xmobar/icons
-	rm 1*
+	rm z*
 done
