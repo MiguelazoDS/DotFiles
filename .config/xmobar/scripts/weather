@@ -31,7 +31,7 @@ function icon {
 	echo "<icon=$icon/>"
 }
 
-url="https://api.openweathermap.org/data/2.5/weather?id=3860259&appid=faeff92a3effadb8ad45a7ce970ee242&units=metric"
+url="https://api.openweathermap.org/data/2.5/weather?id=3860259&appid=$(cat "$HOME"/.config/xmobar/scripts/apikey)&units=metric"
 
 info=$(curl "$url")
 
