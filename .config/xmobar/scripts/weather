@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+if [ "$1" == "--extended" ]; then
+	notify-send.sh -R id_file -i dialog-information "Obtaining weather"
+fi
+
 function icon {
-	case $1 in
+	case "$1" in
 		01d ) icon="01d.xpm"
 			  ;;
 		01n ) icon="01n.xpm"
@@ -41,4 +45,18 @@ icon_code=$(echo "$info" | jq '.weather' | jq '.[].icon' | sed -e 's/^"//' -e 's
 
 temp=$(echo "$info" | jq '.main' | jq '.temp' | sed -e 's/^"//' -e 's/"$//')
 
-printf "%s %sºC, %s" "$(icon "$icon_code")" "$temp" "$weather"
+case "$1" in
+	--extended ) temp_min=$(echo "$info" | jq '.main' | jq '.temp_min' | sed -e 's/^"//' -e 's/"$//')
+			   temp_max=$(echo "$info" | jq '.main' | jq '.temp_max' | sed -e 's/^"//' -e 's/"$//')
+			   feels_like=$(echo "$info" | jq '.main' | jq '.feels_like' | sed -e 's/^"//' -e 's/"$//')
+			   humidity=$(echo "$info" | jq '.main' | jq '.humidity' | sed -e 's/^"//' -e 's/"$//')
+			   icon=$(icon "$icon_code")
+			   icon_name=$(echo "$icon" | cut -d '=' -f2 | cut -d '.' -f1)
+			   full_info=$(printf "\nToday\n====\n\nFeels_like: %sºC\nTemp. min: %sºC\nTemp. max: %sºC\nHumidity: %s%%" "$feels_like" "$temp_min" "$temp_max" "$humidity")
+			   notify-send.sh -R id_file -i /home/miguel/.config/xmobar/images/"$icon_name".png "Extended weather" "$full_info"
+			   ;;
+	forecast ) echo forecast
+			   ;;
+	* )        printf "%s %sºC, %s" "$(icon "$icon_code")" "$temp" "$weather"
+			   ;;
+esac
