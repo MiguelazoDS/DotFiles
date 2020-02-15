@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "$1" == "--extended" ]; then
+if [ "$1" == "extended" ]; then
 	notify-send.sh -R id_file -i dialog-information "Obtaining weather"
 fi
 
@@ -31,32 +31,38 @@ function icon {
 		50? ) icon="50.xpm"
 			  ;;
 	esac
-
 	echo "<icon=$icon/>"
 }
 
 url="https://api.openweathermap.org/data/2.5/weather?id=3860259&appid=$(cat "$HOME"/.config/xmobar/scripts/apikey)&units=metric"
-
 info=$(curl "$url")
-
 weather=$(echo "$info" | jq '.weather' | jq '.[].description' | sed -e 's/^"//' -e 's/"$//')
-
 icon_code=$(echo "$info" | jq '.weather' | jq '.[].icon' | sed -e 's/^"//' -e 's/"$//')
-
 temp=$(echo "$info" | jq '.main' | jq '.temp' | sed -e 's/^"//' -e 's/"$//')
 
 case "$1" in
-	--extended ) temp_min=$(echo "$info" | jq '.main' | jq '.temp_min' | sed -e 's/^"//' -e 's/"$//')
+	extended ) url2="https://api.openweathermap.org/data/2.5/forecast?id=3860259&appid=$(cat "$HOME"/.config/xmobar/scripts/apikey)&units=metric"
+			   info2=$(curl "$url2")
+			   mapfile -t weathers < <(echo "$info2" | jq '.list' | jq '.[].weather' | jq '.[].description' | head -7)
+			   mapfile -t temps_min < <(echo "$info2" | jq '.list' | jq '.[].main' | jq '.temp_min' | head -7)
+			   mapfile -t temps_max < <(echo "$info2" | jq '.list' | jq '.[].main' | jq '.temp_max' | head -7)
+
+			   temp_min=$(echo "$info" | jq '.main' | jq '.temp_min' | sed -e 's/^"//' -e 's/"$//')
 			   temp_max=$(echo "$info" | jq '.main' | jq '.temp_max' | sed -e 's/^"//' -e 's/"$//')
 			   feels_like=$(echo "$info" | jq '.main' | jq '.feels_like' | sed -e 's/^"//' -e 's/"$//')
 			   humidity=$(echo "$info" | jq '.main' | jq '.humidity' | sed -e 's/^"//' -e 's/"$//')
 			   icon=$(icon "$icon_code")
 			   icon_name=$(echo "$icon" | cut -d '=' -f2 | cut -d '.' -f1)
-			   full_info=$(printf "\nToday\n====\n\nFeels_like: %sºC\nTemp. min: %sºC\nTemp. max: %sºC\nHumidity: %s%%" "$feels_like" "$temp_min" "$temp_max" "$humidity")
-			   notify-send.sh -R id_file -i /home/miguel/.config/xmobar/images/"$icon_name".png "Extended weather" "$full_info"
+			   full_info=$(printf "\nToday\n====\n\n""Feels_like: %.0fºC\nTemp. min: %.0fºC\nTemp. max: %.0fºC\nHumidity: %s%%" \
+				   "$(echo "$feels_like"|bc)" "$(echo "$temp_min"|bc)" "$(echo "$temp_max"|bc)" "$humidity")
+			   temps_min=("Temp. Min:" "${temps_min[@]}")
+			   temps_max=("Temp. Max:" "${temps_max[@]}")
+			   weathers=("Weather:" "${weathers[@]}")
+			   full_info=$full_info"\n\nForecast:\n=============\n\n"$(paste <(printf "%sºC\n" "${temps_min[@]}") <(printf "%sºC\n" "${temps_max[@]}") <(printf "%s\n" "${weathers[@]}")| column -s $'\t' -o $'      ' -t) 
+		       notify-send.sh -R id_file -i /home/miguel/.config/xmobar/images/"$icon_name".png "Extended weather" "$full_info" 
 			   ;;
 	forecast ) echo forecast
 			   ;;
-	* )        printf "%s %sºC, %s" "$(icon "$icon_code")" "$temp" "$weather"
+		   * )        printf "%s %.0fºC, %s" "$(icon "$icon_code")" "$(echo "$temp"|bc)" "$weather"
 			   ;;
 esac

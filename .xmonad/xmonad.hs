@@ -118,7 +118,7 @@ myKeys =
         , ("M-n", spawn $ myTerminal ++ " -e 'ranger'")
         , ("M-S-u", spawn "$HOME/.config/xmobar/scripts/updates updates")
         , ("M-m", spawn "$HOME/.config/xmobar/scripts/mem --details")
-        , ("M-w", spawn "$HOME/.config/xmobar/scripts/weather --extended")
+        , ("M-w", spawn "$HOME/.config/xmobar/scripts/weather extended")
     
 -- Windows
         , ("M-q", kill1)                           -- Kill the currently focused client
