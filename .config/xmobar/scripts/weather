@@ -34,35 +34,36 @@ function icon {
 	echo "<icon=$icon/>"
 }
 
-url="https://api.openweathermap.org/data/2.5/weather?id=3860259&appid=$(cat "$HOME"/.config/xmobar/scripts/apikey)&units=metric"
-info=$(curl "$url")
-weather=$(echo "$info" | jq '.weather' | jq '.[].description' | sed -e 's/^"//' -e 's/"$//')
-icon_code=$(echo "$info" | jq '.weather' | jq '.[].icon' | sed -e 's/^"//' -e 's/"$//')
-temp=$(echo "$info" | jq '.main' | jq '.temp' | sed -e 's/^"//' -e 's/"$//')
+weather="https://api.openweathermap.org/data/2.5/weather?id=3860259&appid=$(cat "$HOME"/.config/xmobar/scripts/apikey)&units=metric"
+info_a=$(curl "$weather")
+desc_a=$(echo "$info_a" | jq '.weather' | jq '.[].description' | sed -e 's/^"//' -e 's/"$//')
+icon_code=$(echo "$info_a" | jq '.weather' | jq '.[].icon' | sed -e 's/^"//' -e 's/"$//')
+temp_a=$(echo "$info_a" | jq '.main' | jq '.temp' | sed -e 's/^"//' -e 's/"$//')
+icon=$(icon "$icon_code")
 
 case "$1" in
-	extended ) url2="https://api.openweathermap.org/data/2.5/forecast?id=3860259&appid=$(cat "$HOME"/.config/xmobar/scripts/apikey)&units=metric"
-			   info2=$(curl "$url2")
-			   mapfile -t weathers < <(echo "$info2" | jq '.list' | jq '.[].weather' | jq '.[].description' | head -7)
-			   mapfile -t temps_min < <(echo "$info2" | jq '.list' | jq '.[].main' | jq '.temp_min' | head -7)
-			   mapfile -t temps_max < <(echo "$info2" | jq '.list' | jq '.[].main' | jq '.temp_max' | head -7)
+	extended ) icon_name=$(echo "$icon" | cut -d '=' -f2 | cut -d '.' -f1)
+			   feels_like_a=$(echo "$info_a" | jq '.main' | jq '.feels_like' | sed -e 's/^"//' -e 's/"$//')
+			   humidity_a=$(echo "$info_a" | jq '.main' | jq '.humidity' | sed -e 's/^"//' -e 's/"$//')
+			   wind_speed_a=$(echo "$info_a" | jq '.wind' | jq '.speed' | sed -e 's/^"//' -e 's/"$//')
 
-			   temp_min=$(echo "$info" | jq '.main' | jq '.temp_min' | sed -e 's/^"//' -e 's/"$//')
-			   temp_max=$(echo "$info" | jq '.main' | jq '.temp_max' | sed -e 's/^"//' -e 's/"$//')
-			   feels_like=$(echo "$info" | jq '.main' | jq '.feels_like' | sed -e 's/^"//' -e 's/"$//')
-			   humidity=$(echo "$info" | jq '.main' | jq '.humidity' | sed -e 's/^"//' -e 's/"$//')
-			   icon=$(icon "$icon_code")
-			   icon_name=$(echo "$icon" | cut -d '=' -f2 | cut -d '.' -f1)
-			   full_info=$(printf "\nToday\n====\n\n""Feels_like: %.0fºC\nTemp. min: %.0fºC\nTemp. max: %.0fºC\nHumidity: %s%%" \
-				   "$(echo "$feels_like"|bc)" "$(echo "$temp_min"|bc)" "$(echo "$temp_max"|bc)" "$humidity")
-			   temps_min=("Temp. Min:" "${temps_min[@]}")
-			   temps_max=("Temp. Max:" "${temps_max[@]}")
-			   weathers=("Weather:" "${weathers[@]}")
-			   full_info=$full_info"\n\nForecast:\n=============\n\n"$(paste <(printf "%sºC\n" "${temps_min[@]}") <(printf "%sºC\n" "${temps_max[@]}") <(printf "%s\n" "${weathers[@]}")| column -s $'\t' -o $'      ' -t) 
-		       notify-send.sh -R id_file -i /home/miguel/.config/xmobar/images/"$icon_name".png "Extended weather" "$full_info" 
+			   forecast="https://api.openweathermap.org/data/2.5/forecast?id=3860259&appid=$(cat "$HOME"/.config/xmobar/scripts/apikey)&units=metric"
+			   info_b=$(curl "$forecast")
+			   temp_b=$(echo "$info_b" | jq '.list' | jq '.[0].main' | jq '.temp')
+			   desc_b=$(echo "$info_b" | jq '.list' | jq '.[0].weather' | jq '.[].description' | sed -e 's/^"//' -e 's/"$//')
+			   feels_like_b=$(echo "$info_b" | jq '.list' | jq '.[0].main' | jq '.feels_like')
+			   humidity_b=$(echo "$info_b" | jq '.list' | jq '.[0].main' | jq '.humidity')
+			   wind_speed_b=$(echo "$info_b" | jq '.list' | jq '.[0].wind' | jq '.speed')
+			   full_info=$(printf "\nToday\n====\n\n""Feels_like: %.0fºC\nWind Speed %.2fkm/h\nHumidity: %s%%" \
+				   "$(echo "$feels_like_a"|bc)" "$(echo "$wind_speed_a*3.6"|bc)" "$humidity_a")
+
+			   full_info=$full_info"\n\n3 Hours Forecast:\n============="
+			   full_info=$full_info"\n\n"$(printf "Temp: %.0fºC\nDescription: %s\nFeels Like: %.0fºC" "$(echo "$temp_b"|bc)" "$desc_b" "$(echo "$feels_like_b"|bc)")
+			   full_info=$full_info"\n"$(printf "Wind Speed: %.2fkm/h\nHumidity: %s%%" "$(echo "$wind_speed_b*3.6"|bc)" "$humidity_b")
+			   notify-send.sh -R id_file -i /home/miguel/.config/xmobar/images/"$icon_name".png "Extended weather" "$full_info" -o "Openweather.org:firefox https://openweathermap.org/city/3860259"
 			   ;;
 	forecast ) echo forecast
 			   ;;
-		   * )        printf "%s %.0fºC, %s" "$(icon "$icon_code")" "$(echo "$temp"|bc)" "$weather"
+		   * ) printf "%s %.0fºC, %s" "$icon" "$(echo "$temp_a"|bc)" "$desc_a"
 			   ;;
 esac
