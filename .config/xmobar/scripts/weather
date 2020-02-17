@@ -37,7 +37,7 @@ function icon {
 weather="https://api.openweathermap.org/data/2.5/weather?id=3860259&appid=$(cat "$HOME"/.config/xmobar/scripts/apikey)&units=metric"
 info_a=$(curl "$weather")
 desc_a=$(echo "$info_a" | jq '.weather' | jq '.[].description' | sed -e 's/^"//' -e 's/"$//')
-icon_code=$(echo "$info_a" | jq '.weather' | jq '.[].icon' | sed -e 's/^"//' -e 's/"$//')
+icon_code=$(echo "$info_a" | jq '.weather' | jq '.[0].icon' | sed -e 's/^"//' -e 's/"$//')
 temp_a=$(echo "$info_a" | jq '.main' | jq '.temp' | sed -e 's/^"//' -e 's/"$//')
 icon=$(icon "$icon_code")
 
