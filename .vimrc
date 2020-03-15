@@ -231,4 +231,4 @@ augroup mygroup
 	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-let g:coc_global_extensions = ['coc-json', 'coc-prettier', 'coc-tsserver', 'coc-python']
+let g:coc_global_extensions = ['coc-json', 'coc-prettier', 'coc-tsserver', 'coc-python', 'coc-git', 'coc-highlight', 'coc-snippets']
