@@ -233,6 +233,7 @@ augroup end
 
 let g:coc_global_extensions = [
 	\ 'coc-json', 
+	\ 'coc-pairs',
 	\ 'coc-prettier', 
 	\ 'coc-tsserver', 
 	\ 'coc-python', 
