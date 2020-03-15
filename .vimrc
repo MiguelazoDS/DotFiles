@@ -15,6 +15,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'psliwka/vim-smoothie'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 "================================================
@@ -159,6 +160,11 @@ function! OpenTerminal()
 endfunction
 nnoremap <c-t> :call OpenTerminal()<CR>
 
+"NERDCommenter configuration
+"=============================================================
+vmap ++ <plug>NERDCommenterToggle
+nmap ++ <plug>NERDCommenterToggle
+
 "Configure Fuzzy search
 "=================================================
 nnoremap <C-p> :FZF<CR>
@@ -232,11 +238,11 @@ augroup mygroup
 augroup end
 
 let g:coc_global_extensions = [
-	\ 'coc-json', 
+	\ 'coc-json',
 	\ 'coc-pairs',
-	\ 'coc-prettier', 
-	\ 'coc-tsserver', 
-	\ 'coc-python', 
-	\ 'coc-git', 
-	\ 'coc-highlight', 
+	\ 'coc-prettier',
+	\ 'coc-tsserver',
+	\ 'coc-python',
+	\ 'coc-git',
+	\ 'coc-highlight',
 	\ 'coc-snippets']
