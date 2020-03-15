@@ -1,0 +1,23 @@
+{
+	"coc.preferences.formatOnSaveFiletypes": ["bash", "javascript", "typescript", "typescriptreact", "json", "javascriptreact", "typescript.tsx"],
+	"eslint.filetypes": ["bash", "javascript", "typescript", "typescriptreact", "javascriptreact", "typescript.tsx"],
+	"diagnostic.virtualText": true,
+	"coc.preferences.extensionUpdateCheck": "never",
+	"languageserver": {
+		"bash": {
+			"command": "bash-language-server",
+			"args": ["start"],
+			"filetypes": ["sh"],
+			"ignoredRootPaths": ["~"]
+		},
+		"digestif": {
+			"command": "digestif",
+			"filetypes": ["tex", "plaintex", "context"]
+		},
+		"efm": {
+			"command": "efm-langserver",
+			"args": [],
+			"filetypes": ["vim", "eruby", "markdown"]
+		}
+	}
+}
