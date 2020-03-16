@@ -1,12 +1,12 @@
-#Wine32 
+#Wine32
 export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
 
 #pdfstudioviewer
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/jre/ 
-export INSTALL4J_JAVA_HOME=$JAVA_HOME 
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/jre/
+export INSTALL4J_JAVA_HOME=$JAVA_HOME
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-export TERM="screen-256color" 
+export TERM="screen-256color"
 
 #Using ccache
 export CCACHE_DIR="$HOME/.ccache"
@@ -29,11 +29,11 @@ export LD_LIBRARY_PATH=/opt/cuda-10.0/lib64:$LD_LIBRARY_PATH
 
 #Open new terminal same directory
 function cd {
-        builtin cd $@
-        pwd > ~/.last_dir
+	builtin cd $@
+	pwd > ~/.last_dir
 }
 if [ -f ~/.last_dir ]; then
-        cd "$(cat ~/.last_dir)"
+	cd "$(cat ~/.last_dir)"
 fi
 
 #Disable warnings
@@ -57,7 +57,7 @@ POWERLEVEL9K_CUSTOM_ICON_BACKGROUND="255" #grey93
 POWERLEVEL9K_CUSTOM_ICON_FOREGROUND="024" #deepskyblue4a
 POWERLEVEL9K_CUSTOM_ROOT_BACKGROUND="016" #grey0
 POWERLEVEL9K_CUSTOM_ROOT_FOREGROUND="136" #darkgoldenrod
-if [ $USER = "root" ] 
+if [ $USER = "root" ]
 then
 	POWERLEVEL9K_CUSTOM_NAME_BACKGROUND="124" #red3
 else
@@ -130,10 +130,10 @@ branch(){
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  fast-syntax-highlighting
-  cp
-  rake-fast
+	git
+	fast-syntax-highlighting
+	cp
+	rake-fast
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -223,13 +223,13 @@ PERL_MM_OPT="INSTALL_BASE=/home/miguel/perl5"; export PERL_MM_OPT;
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/anaconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+	eval "$__conda_setup"
 else
-    if [ -f "/opt/anaconda/etc/profile.d/conda.sh" ]; then
-        . "/opt/anaconda/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/anaconda/bin:$PATH"
-    fi
+	if [ -f "/opt/anaconda/etc/profile.d/conda.sh" ]; then
+		. "/opt/anaconda/etc/profile.d/conda.sh"
+	else
+		export PATH="/opt/anaconda/bin:$PATH"
+	fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<

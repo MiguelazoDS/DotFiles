@@ -14,8 +14,8 @@ let b:did_indent = 1
 setlocal indentexpr=GetHaskellIndent()
 setlocal indentkeys=!^F,o,O,=wher,=deri,0=in,0=class,0=instance,0=data,0=type,0<bar>,0},0],0(,0),0#,0,0==
 
-let s:save_cpo = &cpo
-set cpo&vim
+let s:save_cpo = &cpoptions
+set cpoptions&vim
 
 function! GetHaskellIndent() abort
 
@@ -655,5 +655,5 @@ function! s:after_where() abort
   return indent(s:prevnonblank(v:lnum - 1))
 endfunction
 
-let &cpo = s:save_cpo
+let &cpoptions = s:save_cpo
 unlet s:save_cpo
