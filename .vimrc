@@ -2,7 +2,7 @@
 "=================================================
 call plug#begin('~/.vim/plugged')
 Plug 'lervag/vimtex'
-Plug 'nightsense/office'
+Plug 'morhetz/gruvbox'
 Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips'
 Plug 'vim-airline/vim-airline'
@@ -19,6 +19,8 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 "================================================
+
+
 
 "Autosave for tex files
 "=================================================
@@ -76,6 +78,21 @@ set ttimeoutlen=1
 map <leader>rs :%s/\s\+$//e <cr>
 "Format code
 map <leader>fc gg=G <cr>
+"Move between options default way
+let g:SuperTabDefaultCompletionType = '<c-n>'
+"Enable plugins
+filetype plugin on
+"Enable indent
+filetype plugin indent on
+
+"Remapping
+"=======================================================
+imap hh <Esc>
+map i <Up>
+map j <Left>
+map k <Down>
+noremap h i
+map yy "+y<CR>
 
 "Mapping keys for switching between buffers.
 "========================================================
@@ -90,24 +107,7 @@ set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set background=dark
-colorscheme office-dark
-
-"Remapping
-"=======================================================
-imap hh <Esc>
-map i <Up>
-map j <Left>
-map k <Down>
-noremap h i
-map yy "+y<CR>
-
-"Enable plugins
-"===============================
-filetype plugin on
-
-"Enable indent
-"==========================================
-filetype plugin indent on
+colorscheme gruvbox 
 
 "Airline
 "============================================================
@@ -174,24 +174,24 @@ let g:fzf_action = {
 			\ 'ctrl-v': 'vsplit'
 			\}
 
-
+"Coc Configuration
+"============================================================================
+" Give more space for displaying messages.
+set cmdheight=2
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
-
 " Give more space for displaying messages.
 set cmdheight=2
-
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes
-
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
-
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
 if has('patch8.1.1068')
@@ -200,17 +200,14 @@ if has('patch8.1.1068')
 else
 	imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
-
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -224,7 +221,6 @@ endfunction
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
-
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
