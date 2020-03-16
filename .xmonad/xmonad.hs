@@ -22,7 +22,7 @@ import XMonad.Util.SpawnOnce
 -- Hooks
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, defaultPP, wrap, pad, xmobarPP, xmobarColor, shorten, PP(..))
 import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))
-import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat) 
+import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat)
 import XMonad.Hooks.Place (placeHook, withGaps, smart)
 import XMonad.Hooks.EwmhDesktops   -- required for xcomposite in obs to work
 
@@ -31,12 +31,12 @@ import XMonad.Actions.Promote
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import XMonad.Actions.CopyWindow (kill1, copyToAll, killAllOtherCopies, runOrCopy)
 import XMonad.Actions.WithAll (sinkAll, killAll)
-import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shiftPrevScreen) 
+import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shiftPrevScreen)
 import XMonad.Actions.MouseResize
 
 -- Layouts modifiers
 import XMonad.Layout.Renamed (renamed, Rename(CutWordsLeft, Replace))
-import XMonad.Layout.Spacing (spacing) 
+import XMonad.Layout.Spacing (spacing)
 import XMonad.Layout.NoBorders
 import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
@@ -57,10 +57,10 @@ import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1
 ------------------------------------------------------------------------
 ---CONFIG
 ------------------------------------------------------------------------
-myModMask       = mod4Mask  
-myTerminal      = "kitty" 
-myTextEditor    = "nvim"    
-myBorderWidth   = 2         
+myModMask       = mod4Mask
+myTerminal      = "kitty"
+myTextEditor    = "nvim"
+myBorderWidth   = 2
 
 main =   do
     xmproc2 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
@@ -78,12 +78,12 @@ main =   do
         , modMask            = myModMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
-        , layoutHook         = myLayoutHook 
+        , layoutHook         = myLayoutHook
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
         , normalBorderColor  = "#292d3e"
         , focusedBorderColor = "#699200"
-        } `additionalKeysP`         myKeys 
+        } `additionalKeysP`         myKeys
 
 ------------------------------------------------------------------------
 ---AUTOSTART
@@ -94,7 +94,7 @@ myStartupHook = do
           spawnOnce "nm-applet"
           spawnOnce "$HOME/.config/i3/scripts/flux"
           spawnOnce "nitrogen --restore &"
-          spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf" 
+          spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf"
           spawnOnce "setxkbmap es"
           spawnOnce "trayer --edge top --transparent true --alpha 12 --tint 0x05172b --align right --width 4 --height 22 --margin 5 --distance 5"
           spawnOnce "xsetroot -cursor_name left_ptr"
@@ -110,7 +110,7 @@ myKeys =
         , ("M-e p", spawn "systemctl poweroff")
         , ("M-e s", spawn "systemctl suspend")
         , ("M-e r", spawn "systemctl reboot")
-    
+
 -- Applications
         , ("M-o", spawn "firefox")
         , ("M-x", spawn "kill -9 $(pidof mocp)")
@@ -119,7 +119,7 @@ myKeys =
         , ("M-S-u", spawn "$HOME/.config/xmobar/scripts/updates updates")
         , ("M-m", spawn "$HOME/.config/xmobar/scripts/mem --details")
         , ("M-w", spawn "$HOME/.config/xmobar/scripts/weather extended")
-    
+
 -- Windows
         , ("M-q", kill1)                           -- Kill the currently focused client
         , ("M-S-q", killAll)                       -- Kill all the windows on current workspace
@@ -138,9 +138,9 @@ myKeys =
         , ("M-<Backspace>", promote)                 -- Moves focused window to master, all others maintain order
         , ("M1-S-<Tab>", rotSlavesDown)              -- Rotate all windows except master and keep focus in place
         , ("M1-C-<Tab>", rotAllDown)                 -- Rotate all the windows in the current stack
-        , ("M-S-s", windows copyToAll)  
-        , ("M-C-s", killAllOtherCopies) 
-        
+        , ("M-S-s", windows copyToAll)
+        , ("M-C-s", killAllOtherCopies)
+
         , ("M-C-M1-<Up>", sendMessage Arrange)
         , ("M-C-M1-<Down>", sendMessage DeArrange)
         , ("M-<Up>", sendMessage (MoveUp 10))             --  Move focused window to up
@@ -186,11 +186,11 @@ myKeys =
 -- Scratchpads
         , ("M-a", namedScratchpadAction myScratchPads "moc")
         , ("M-u", namedScratchpadAction myScratchPads "terminal")
-        
+
 -- Main Run Apps
         , ("M-<Return>", spawn $ myTerminal ++ " --title Kitty")
         , ("M-<KP_Insert>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
-        
+
 -- Multimedia Keys
         , ("<XF86MonBrightnessUp>", spawn "light -A 5")
         , ("<XF86MonBrightnessDown>", spawn "light -U 5")
@@ -198,12 +198,12 @@ myKeys =
         , ("<XF86AudioPrev>", spawn "mocp -r")
         , ("<XF86AudioNext>", spawn "mocp -f")
         , ("<XF86AudioStop>", spawn "mocp -s")
-        , ("<XF86AudioMute>", spawn "pulseaudio-ctl mute")  
+        , ("<XF86AudioMute>", spawn "pulseaudio-ctl mute")
         , ("<XF86AudioLowerVolume>", spawn "pulseaudio-ctl down")
         , ("<XF86AudioRaiseVolume>", spawn "pulseaudio-ctl up")
         ] where nonNSP          = WSIs (return (\ws -> W.tag ws /= "nsp"))
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
-                
+
 ------------------------------------------------------------------------
 ---WORKSPACES
 ------------------------------------------------------------------------
@@ -211,12 +211,12 @@ myKeys =
 xmobarEscape = concatMap doubleLts
   where
         doubleLts x   = [x]
-        
-myWorkspaces :: [String]   
+
+myWorkspaces :: [String]
 myWorkspaces = clickable . L.map xmobarEscape $ replicate 5 "<icon=workspace.xpm/>"
-   where                                                                      
+   where
          clickable l = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>" |
-                       (i,ws) <- zip [1..5] l, let n = i ] 
+                       (i,ws) <- zip [1..5] l, let n = i ]
 
 myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
@@ -231,7 +231,7 @@ myManageHook' = composeAll
      , title =? "gitk"                   --> doFloat
      , className =? "JDownloader"        --> doFloat
      , className =? "Yad"                --> doFloat
-     , (className =? "firefox" <&&> appName =? "Places") --> doFloat 
+     , (className =? "firefox" <&&> appName =? "Places") --> doFloat
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat
      ]
 
@@ -240,7 +240,7 @@ myManageHook' = composeAll
 ------------------------------------------------------------------------
 
 myLayoutHook = avoidStruts $ smartBorders $ mouseResize $ windowArrange $ T.toggleLayouts floats $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
-              where 
+              where
                   myDefaultLayout = grid ||| oneBig ||| noBorders monocle ||| floats
 
 grid       = renamed [Replace "<icon=grid.xpm/>"] $ limitWindows 12 $ spacing 2 $ mkToggle (single MIRROR) $ Grid (16/10)
@@ -252,7 +252,7 @@ floats     = renamed [Replace "<icon=float.xpm/>"] $ limitWindows 20 simplestFlo
 ---SCRATCHPADS
 ------------------------------------------------------------------------
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
-                , NS "moc" spawnMocp findMocp manageMocp  
+                , NS "moc" spawnMocp findMocp manageMocp
                 ]
 
     where
