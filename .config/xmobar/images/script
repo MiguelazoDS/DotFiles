@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-for i in * 
-do 
+for i in *
+do
 	name=$(echo "$i" | cut -d '.' -f 1)
 	if [[ "$i" =~ "speed" ]]; then
 		ffmpeg -i "$i" -vf scale=12:12 "z$i"
