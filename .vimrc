@@ -20,6 +20,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 "================================================
 
+
 "Autosave for tex files
 "=================================================
 let g:auto_save = 0
@@ -82,6 +83,11 @@ let g:SuperTabDefaultCompletionType = '<c-n>'
 filetype plugin on
 "Enable indent
 filetype plugin indent on
+"Update file automatically
+set autoread
+augroup updatefile
+	au CursorHold * checktime
+augroup END
 
 "Remapping
 "=======================================================
