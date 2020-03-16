@@ -3,7 +3,7 @@ do
 	if [  $i != "symbolic_links" ]
 	then
 		if [ -e /usr/bin/$i ]
-		then 	
+		then
 			sudo rm /usr/bin/$i
 		fi
 		sudo ln -s "$PWD"/"$i" /usr/bin/$i

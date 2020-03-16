@@ -5,7 +5,7 @@ do
 	output=$(yay -Qi $linter 2>&1)
 	if [[ $output =~ "was not found" ]]
 	then
-		yay -S $linter	
+		yay -S $linter
 	else
 		echo "$linter already installed"
 	fi

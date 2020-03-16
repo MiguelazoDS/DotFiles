@@ -1,8 +1,8 @@
 if [ -z $1 ]
-then 
+then
 	yay -Syyu --devel --noconfirm; xmonad --recompile && xmonad --restart
 elif [ $1 = "-i" ]
-then 
+then
 	if [ -z $2 ]
 	then
 		echo "You must type a pkg name"
