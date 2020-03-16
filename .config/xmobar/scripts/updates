@@ -12,18 +12,18 @@ n_updates_aur=$(echo "$updates_aur" | sed '/^$/d' | wc -l)
 n_updates=$(("$n_updates_arch" + "$n_updates_aur"))
 
 case "$1" in
-    updates)
+	updates)
 		if [ $n_updates -eq 0 ]; then
-			notify-send.sh -R id_file -i dialog-information "System up to date"    
+			notify-send.sh -R id_file -i dialog-information "System up to date"
 		else
 			notify-send.sh -R id_file -t 5000 -i dialog-information "Available updates" "$updates_arch\n$updates_aur"
 		fi
 		;;
-    *)  
+	*)
 		if [ "$n_updates" -eq 0 ]; then
-    		    echo "<icon=ok.xpm/>"
+			echo "<icon=ok.xpm/>"
 		else
-    		    echo "<icon=updates.xpm/> $n_updates"
+			echo "<icon=updates.xpm/> $n_updates"
 		fi
 		;;
 esac
