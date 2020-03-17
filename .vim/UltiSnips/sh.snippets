@@ -108,4 +108,46 @@ done
 $0
 endsnippet
 
+snippet val_input "Input validation using getopt" b
+function usage {
+	printf "Usage: \n\t./${1:program.sh} [Options]\n"
+	printf "\nOptions: \n"
+	printf "\t${2:-l}" <value> ${3:--long} <value>\n"
+	printf "\t${4:-o}" <value> ${5:--long2} <value>\n"
+}
+
+if [ "$#" -lt 6 ]; then
+	usage
+	exit 0
+fi
+
+short=lo:
+long=long,long2:
+
+if ! getopt -n "\$0" $short --long "$long" -- "$@" >/dev/null
+then
+	exit 1
+fi
+
+while true;
+do
+	case "\$1" in
+		-l | --long ) 
+			shift
+			variable=\$1
+			shift
+			;;
+		-o | --long2 )
+			shift
+			variable=\$1
+			shift
+			;;
+		* ) 
+			shift
+			break
+			;;
+	esac
+done
+endsnippet
+
 # vim:ft=snippets:
