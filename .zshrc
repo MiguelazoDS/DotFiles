@@ -1,10 +1,12 @@
+fif() {
+    if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
+    local file
+    file="$(rga --max-count=1 --ignore-case --files-with-matches --no-messages "$@" | fzf-tmux +m --preview="rga --ignore-case --pretty --context 10 '"$@"' {}")" && open "$file"
+}
+
+
 #Wine32
 export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
-
-#pdfstudioviewer
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/jre/
-export INSTALL4J_JAVA_HOME=$JAVA_HOME
-export _JAVA_AWT_WM_NONREPARENTING=1
 
 export TERM="screen-256color"
 
@@ -233,3 +235,5 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
