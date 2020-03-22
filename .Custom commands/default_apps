@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+function usage {
+	printf "Usage: \n\t./types [Options]\n"
+	printf "\nOptions: \n"
+	printf "\t-f <value> --file <value>\n"
+}
+
+if [ "$#" -lt 2 ]; then
+	usage
+	exit 0
+fi
+
+short=f:
+long=file:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+	exit 1
+fi
+
+while true;
+do
+	case "$1" in
+		-f | --file ) 
+			shift
+			file=$1
+			shift
+			;;
+		* ) 
+			shift
+			break
+			;;
+	esac
+done
+
+output=$(xdg-mime query filetype "$file")
+
+if [ "$(dirname "$output")" == "text" ]; then
+	xdg-mime default nvim.desktop "$output"
+elif [ "$(basename "$output")" == "pdf" ]; then
+	xdg-mime default masterpdfeditor4.desktop "$output"
+fi
