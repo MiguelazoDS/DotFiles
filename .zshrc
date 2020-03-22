@@ -1,9 +1,5 @@
-fif() {
-    if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
-    local file
-    file="$(rga --max-count=1 --ignore-case --files-with-matches --no-messages "$@" | fzf-tmux +m --preview="rga --ignore-case --pretty --context 10 '"$@"' {}")" && open "$file"
-}
-
+#fzf default command to see hidden files
+export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
 
 #Wine32
 export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
@@ -37,6 +33,13 @@ function cd {
 if [ -f ~/.last_dir ]; then
 	cd "$(cat ~/.last_dir)"
 fi
+
+#Find in files
+fif() {
+    if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
+    local file
+    file="$(rga --hidden --max-count=1 --ignore-case --files-with-matches --no-messages "$@" | fzf-tmux +m --preview="rga --ignore-case --pretty --context 10 '"$@"' {}")" && xdg-open "$file"
+}
 
 #Disable warnings
 ZSH_DISABLE_COMPFIX=true

@@ -124,7 +124,7 @@ fi
 short=lo:
 long=long,long2:
 
-if ! getopt -n "\$0" $short --long "$long" -- "$@" >/dev/null
+if ! getopt -n "\$0" -o $short --long "$long" -- "$@" >/dev/null
 then
 	exit 1
 fi
