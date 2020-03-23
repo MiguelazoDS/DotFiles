@@ -35,10 +35,17 @@ if [ -f ~/.last_dir ]; then
 fi
 
 #Find in files
-fif() {
+function fif {
     if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
     local file
     file="$(rga --hidden --max-count=1 --ignore-case --files-with-matches --no-messages "$@" | fzf-tmux +m --preview="rga --ignore-case --pretty --context 10 '"$@"' {}")" && xdg-open "$file"
+}
+
+#Create folder before unzip
+function uz {
+	name=$(echo "$1" | cut -d '.' -f 1)
+	mkdir "$name"
+	unzip "$1" -d "$name"
 }
 
 #Disable warnings
@@ -156,6 +163,7 @@ alias rename='perl-rename'
 alias dotfile='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=/home/miguel'
 alias vim=nvim
 alias nvidia-smi='watch -n 1 nvidia-smi'
+alias unzip='echo "Use uz instead"'
 
 function dotf (){
 	branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
