@@ -8,7 +8,7 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'k' vi-down-line-or-history
 
 #fzf default command to see hidden files
-export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
+export FZF_DEFAULT_COMMAND='find . -printf "%P\\n"'
 
 #Wine32
 export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
