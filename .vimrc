@@ -99,6 +99,7 @@ map k <Down>
 noremap h i
 map yy "+y
 map yl 0"+y$
+map ph "+p
 
 "Mapping keys for switching between buffers.
 "========================================================
