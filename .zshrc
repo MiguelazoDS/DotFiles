@@ -219,8 +219,16 @@ function dotf (){
 		dotfile diff
 	elif [[ $1 =~ "ct" ]]; then
 		dotfile commit -m $2
+	elif [[ $1 =~ "ch" ]]; then
+		if [[ $branch =~ "desktop" ]]; then
+	    	dotfile checkout notebook
+		else
+			dotfile checkout desktop
+		fi
+	elif [[ $1 =~ "log" ]]; then
+		dotfile log
 	else
-		echo "Argument needed: Either \"push\", \"pull\", \"cp\", \"add\", \"chkt\", \"st\" or \"ct\""
+		echo "Argument needed: Either \"push\", \"pull\", \"cp\", \"add\", \"chkt\", \"st\", \"ct\", \"ch\" or \"log\""
 	fi
 }
 #========================================================================================================
