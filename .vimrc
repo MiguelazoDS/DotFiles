@@ -97,7 +97,7 @@ map i <Up>
 map j <Left>
 map k <Down>
 noremap h i
-map yy "+y<CR>
+map yl "+y<CR>
 
 "Mapping keys for switching between buffers.
 "========================================================
