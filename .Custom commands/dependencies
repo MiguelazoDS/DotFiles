@@ -1,6 +1,1 @@
-if [ -z $1 ]
-then
-	echo "You must type the pkg name"
-else
-	sudo pacman -Qi $1
-fi
+yay -Qqe | fzf -m --print0 | xargs -0 sudo pacman -Qi $1
