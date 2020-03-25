@@ -210,7 +210,7 @@ function dotf (){
 			dotfile checkout notebook
 		fi
 	elif [[ $1 =~ "add" ]]; then
-		dotfile ls-files -m | fzf -m --print0 | xargs -0 dotfile add
+		ls -a | fzf -m --print0 | xargs -0 dotfile add
 	elif [[ $1 =~ "chkt" ]]; then
 		dotfile ls-files -m | fzf -m --print0 | xargs -0 dotfile checkout
 	elif [[ $1 =~ "st" ]]; then
