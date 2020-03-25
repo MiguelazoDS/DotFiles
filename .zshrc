@@ -1,9 +1,19 @@
+#Use the vi navigation keys in menu completion
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+
+bindkey -M menuselect 'j' vi-backward-char
+bindkey -M menuselect 'i' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'k' vi-down-line-or-history
+
 #fzf default command to see hidden files
 export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
 
 #Wine32
 export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
 
+#Set colors
 export TERM="screen-256color"
 
 #Using ccache
@@ -55,7 +65,7 @@ ZSH_DISABLE_COMPFIX=true
 DISABLE_AUTO_TITLE=true
 
 #POWERLEVEL10K CONFIGURATION
-#======================================================================================================================================================================
+#===========================================================================================
 ZSH_THEME="powerlevel10k/powerlevel10k"
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_icon custom_root custom_name dir vcs custom_arrow)
@@ -149,10 +159,10 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-#======================================================================================================================================================================
+#==========================================================================================
 
 #ALIASES
-#======================================================================================================================================================================
+#==========================================================================================
 alias ls=lsd
 alias cp="cp -v"
 alias mv="mv -v"
@@ -160,7 +170,6 @@ alias copy=cpv
 alias move="copy --remove-source-files"
 alias rm="rm -v"
 alias rename='perl-rename'
-alias dotfile='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=/home/miguel'
 alias vim=nvim
 alias nvidia-smi='watch -n 1 nvidia-smi'
 alias unzip='echo "Use uz instead"'
@@ -200,11 +209,21 @@ function dotf (){
 			dotfile cherry-pick "$commit"
 			dotfile checkout notebook
 		fi
+	elif [[ $1 =~ "add" ]]; then
+		dotfile ls-files -m | fzf -m --print0 | xargs -0 dotfile add
+	elif [[ $1 =~ "chkt" ]]; then
+		dotfile ls-files -m | fzf -m --print0 | xargs -0 dotfile checkout
+	elif [[ $1 =~ "st" ]]; then
+		dotfile status
+	elif [[ $1 =~ "diff" ]]; then
+		dotfile diff
+	elif [[ $1 =~ "ct" ]]; then
+		dotfile commit -m $2
 	else
-		echo "Argument needed: Either \"pull\" or \"cp\""
+		echo "Argument needed: Either \"push\", \"pull\", \"cp\", \"add\", \"chkt\", \"st\" or \"ct\""
 	fi
 }
-#=====================================================================================================================================================================
+#========================================================================================================
 
 # User configuration
 
