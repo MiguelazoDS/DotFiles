@@ -16,6 +16,7 @@ Plug 'psliwka/vim-smoothie'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'scrooloose/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
@@ -74,6 +75,7 @@ highlight clear CursorLine
 highlight CursorLineNR ctermbg=red
 "To make vim-surround to work
 set ttimeoutlen=1
+set timeoutlen=500
 "Remove trailing spaces
 map <leader>rs :%s/\s\+$//e <cr>
 "Format code
@@ -97,9 +99,11 @@ map i <Up>
 map j <Left>
 map k <Down>
 noremap h i
-map yy "+y
-map yl 0"+y$
-map ph "+p
+noremap yy "+y
+nnoremap yl 0"+y$
+noremap ph "+p
+noremap pp p
+nnoremap dl 0d$
 
 "Mapping keys for switching between buffers.
 "========================================================
