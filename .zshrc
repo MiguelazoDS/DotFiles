@@ -46,9 +46,9 @@ fi
 
 #Find in files
 function fif {
-    if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
-    local file
-    file="$(rga --hidden --max-count=1 --ignore-case --files-with-matches --no-messages "$@" | fzf-tmux +m --preview="rga --ignore-case --pretty --context 10 '"$@"' {}")" && xdg-open "$file"
+	if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
+	local file
+	file="$(rga --hidden --max-count=1 --ignore-case --files-with-matches --no-messages "$@" | fzf-tmux +m --preview="rga --ignore-case --pretty --context 10 '"$@"' {}")" && xdg-open "$file"
 }
 
 #Create folder before unzip
@@ -164,15 +164,23 @@ source $ZSH/oh-my-zsh.sh
 #ALIASES
 #==========================================================================================
 alias ls=lsd
-alias cp="cp -v"
-alias mv="mv -v"
+alias cp="echo cp command is discourage use, copy instead. If you still want to run it, use backslash to escape it"
 alias copy=cpv
+alias mv="echo mv command is discourage use, move instead. If you still want to run it, use backslash to escape it"
 alias move="copy --remove-source-files"
-alias rm="rm -v"
+alias rm="echo rm command is discourage use, trm instead. If you still want to run it, use backslash to escape it"
 alias rename='perl-rename'
 alias vim=nvim
 alias nvidia-smi='watch -n 1 nvidia-smi'
 alias unzip='echo "Use uz instead"'
+
+function trm {
+	if [ "$#" -lt 1 ]; then
+		echo You must specify a file or folder.
+	else
+		trash-put "$@"
+	fi
+}
 
 function dotf (){
 	branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
@@ -221,7 +229,7 @@ function dotf (){
 		dotfile commit -m $2
 	elif [[ $1 =~ "ch" ]]; then
 		if [[ $branch =~ "desktop" ]]; then
-	    	dotfile checkout notebook
+			dotfile checkout notebook
 		else
 			dotfile checkout desktop
 		fi
