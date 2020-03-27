@@ -178,7 +178,20 @@ function trm {
 	if [ "$#" -lt 1 ]; then
 		echo You must specify a file or folder.
 	else
-		trash-put "$@"
+		size=$(du -sh ~/.local/share/Trash/files | cut -d$'\t' -f1)
+		number=${size%?}
+		number=$(echo "$number" | cut -d'.' -f1)
+		unit=${size: -1}
+
+		if [[ ! $unit == "G" ]]; then
+			trash-put "$@"
+		else
+			if [[ $((number)) -lt 12 ]]; then
+				trash-put "$@"
+			else
+				echo Trash is full
+			fi
+		fi
 	fi
 }
 
