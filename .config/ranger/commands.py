@@ -78,7 +78,7 @@ class empty_trash(Command):
     def question_callback(self, answer):
         if answer == 'y' or answer == 'Y':
             self.fm.notify("Files deleted")
-            self.fm.run("rm -rf ~/.local/share/Trash/files/*")
+            self.fm.run("trash-empty")
 
 
 class mount(Command):
