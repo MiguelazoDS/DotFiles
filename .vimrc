@@ -91,6 +91,8 @@ set autoread
 augroup updatefile
 	au CursorHold * checktime
 augroup END
+"This unsets the 'last search pattern' register by hitting ;
+nnoremap ; :noh<CR>:<backspace>
 
 "Remapping
 "=======================================================
