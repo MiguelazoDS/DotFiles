@@ -1,1 +1,1 @@
-yay -Qqe | fzf -m --print0 | xargs -0 sudo pacman -Qi $1
+yay -Qq | fzf -m --print0 | xargs -0 sudo pacman -Qi $1
