@@ -174,27 +174,6 @@ alias vim=nvim
 alias nvidia-smi='watch -n 1 nvidia-smi'
 alias unzip='echo "Use uz instead"'
 
-function trm {
-	if [ "$#" -lt 1 ]; then
-		echo You must specify a file or folder.
-	else
-		size=$(du -sh ~/.local/share/Trash/files | cut -d$'\t' -f1)
-		number=${size%?}
-		number=$(echo "$number" | cut -d'.' -f1)
-		unit=${size: -1}
-
-		if [[ ! $unit == "G" ]]; then
-			trash-put "$@"
-		else
-			if [[ $((number)) -lt 12 ]]; then
-				trash-put "$@"
-			else
-				echo Trash is full
-			fi
-		fi
-	fi
-}
-
 function dotf (){
 	branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
 	if [[ $1 =~ "push" ]]; then
