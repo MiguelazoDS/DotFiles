@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if [ -z $1 ]
 then
 	yay -Syyu --devel --noconfirm; xmonad --recompile && xmonad --restart

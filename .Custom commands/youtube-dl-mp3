@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 command="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 -o %(title)s.%(ext)s"
 if [ $# = 1 ]
 then

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 function name_ext(){
 	name=$(echo "$1" | cut -d '.' -f1)
 	ext=$(echo "$1" | cut -d '.' -f2)

@@ -1,1 +1,3 @@
+#!/usr/bin/env bash
+
 sudo pacman -Qqe > /tmp/packages; nvim /tmp/packages

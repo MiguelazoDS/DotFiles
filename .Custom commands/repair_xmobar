@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 yay -R xmobar-git --noconfirm
 yay -Sc --noconfirm
 paccache -r

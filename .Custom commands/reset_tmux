@@ -1,2 +1,4 @@
+#!/usr/bin/env bash
+
 tmux kill-session -a
 tmux rename-session -t $(tmux display-message -p '#S' ) 0

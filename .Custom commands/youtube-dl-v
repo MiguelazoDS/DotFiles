@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 command="youtube-dl -o %(title)s.%(ext)s"
 if [ $# = 1 ]
 then

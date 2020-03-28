@@ -210,9 +210,9 @@ function dotf (){
 			dotfile checkout notebook
 		fi
 	elif [[ $1 =~ "add" ]]; then
-		ls -A | fzf -m --print0 | xargs -0 dotfile add
+		ls -A | fzf-tmux -r -m --print0 | xargs -r -0 dotfile add
 	elif [[ $1 =~ "chkt" ]]; then
-		dotfile ls-files -m | fzf -m --print0 | xargs -0 dotfile checkout
+		dotfile ls-files -m | fzf-tmux -r -m --print0 | xargs -r -0 dotfile checkout
 	elif [[ $1 =~ "st" ]]; then
 		dotfile status
 	elif [[ $1 =~ "diff" ]]; then
