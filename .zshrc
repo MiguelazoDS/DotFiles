@@ -164,10 +164,8 @@ source $ZSH/oh-my-zsh.sh
 #ALIASES
 #==========================================================================================
 alias ls=lsd
-alias cp="echo cp command is discourage, use copy instead. If you still want to run it, use backslash to escape it"
-alias copy=cpv
-alias mv="echo mv command is discourage, use move instead. If you still want to run it, use backslash to escape it"
-alias move="copy --remove-source-files"
+alias cp="cp -i"
+alias mv="mv -i"
 alias rm="echo rm command is discourage, use trm instead. If you still want to run it, use backslash to escape it"
 alias rename='perl-rename'
 alias vim=nvim
