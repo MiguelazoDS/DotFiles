@@ -11,7 +11,8 @@ ShowTimePercent = yes
 #
 # Example:    Theme = laras_theme
 #
-Theme = transparent-background
+#Theme = transparent-background
+Theme = custom
 
 # The theme used when running on an xterm.
 #
