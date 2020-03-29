@@ -163,8 +163,8 @@ source $ZSH/oh-my-zsh.sh
 #ALIASES
 #==========================================================================================
 alias ls=lsd
-alias cp="cp -i"
-alias mv="mv -i"
+alias cp="cp -iv"
+alias mv="mv -iv"
 alias rm="echo rm command is discourage, use trm instead. If you still want to run it, use backslash to escape it"
 alias rename='perl-rename'
 alias vim=nvim
