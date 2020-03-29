@@ -1,7 +1,6 @@
 #Use the vi navigation keys in menu completion
 zstyle ':completion:*' menu select
 zmodload zsh/complist
-
 bindkey -M menuselect 'j' vi-backward-char
 bindkey -M menuselect 'i' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
@@ -25,13 +24,13 @@ export PATH="/usr/lib/ccache/bin/:$PATH"
 #Fixed % symbol after print
 export PROMPT_EOL_MARK=""
 
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+#If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:$PATH
 
-# Path to your oh-my-zsh installation.
+#Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Cuda
+#Cuda
 export LD_LIBRARY_PATH=/opt/cuda-10.0/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/opt/cuda-10.0/lib64:$LD_LIBRARY_PATH
 
@@ -44,7 +43,7 @@ if [ -f ~/.last_dir ]; then
 	cd "$(cat ~/.last_dir)"
 fi
 
-#Find in files
+#Find inside files
 function fif {
 	if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
 	local file
@@ -230,26 +229,6 @@ function dotf (){
 	fi
 }
 #========================================================================================================
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 PATH="/home/miguel/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/miguel/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
