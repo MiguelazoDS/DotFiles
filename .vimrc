@@ -22,7 +22,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 "================================================
 
-
 "Autosave for tex files
 "=================================================
 let g:auto_save = 0
@@ -255,5 +254,3 @@ let g:coc_global_extensions = [
 	\ 'coc-git',
 	\ 'coc-highlight',
 	\ 'coc-snippets']
-
-
