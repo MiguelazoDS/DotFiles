@@ -12,5 +12,3 @@ do
 		echo "Added command \"$i\""
 	fi
 done
-
-
