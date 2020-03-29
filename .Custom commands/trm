@@ -10,9 +10,11 @@ else
 
 	if [[ ! $unit == "G" ]]; then
 		trash-put "$@"
+		echo deleted "$@"
 	else
 		if [[ $((number)) -lt 12 ]]; then
 			trash-put "$@"
+			echo deleted "$@"
 		else
 			echo Trash is full
 		fi
