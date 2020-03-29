@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
+path="$HOME/.local/bin/"
+
 for i in *
 do
 	if [  "$i" != "symbolic_links" ]
 	then
-		if [ -e /usr/bin/"$i" ]
+		if [ -e "$path$i" ]
 		then
-			sudo rm /usr/bin/"$i"
+			sudo rm "$path$i"
 		fi
-		sudo ln -s "$PWD"/"$i" /usr/bin/"$i"
+		sudo ln -s "$PWD"/"$i" "$path$i"
 		echo "Added command \"$i\""
 	fi
 done
