@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 yay -Sc --noconfirm
-yay -Rns $(yay -Qtdq) --noconfirm
+yay -Rns "$(yay -Qtdq)" --noconfirm
 paccache -r

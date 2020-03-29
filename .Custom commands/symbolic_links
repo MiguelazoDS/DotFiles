@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-for i in $(ls)
+for i in *
 do
-	if [  $i != "symbolic_links" ]
+	if [  "$i" != "symbolic_links" ]
 	then
-		if [ -e /usr/bin/$i ]
+		if [ -e /usr/bin/"$i" ]
 		then
-			sudo rm /usr/bin/$i
+			sudo rm /usr/bin/"$i"
 		fi
-		sudo ln -s "$PWD"/"$i" /usr/bin/$i
+		sudo ln -s "$PWD"/"$i" /usr/bin/"$i"
 		echo "Added command \"$i\""
 	fi
 done

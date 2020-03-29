@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-sudo pacman -Qqe > /tmp/packages; nvim /tmp/packages
+#sudo pacman -Qqe > /tmp/packages; nvim /tmp/packages
+yay -Qqe | sudo tee /tmp/packages > /dev/null

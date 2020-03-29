@@ -22,12 +22,12 @@ fi
 while true;
 do
 	case "$1" in
-		-f | --file ) 
+		-f | --file )
 			shift
 			file=$1
 			shift
 			;;
-		* ) 
+		* )
 			shift
 			break
 			;;
