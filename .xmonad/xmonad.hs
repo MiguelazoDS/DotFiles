@@ -36,7 +36,7 @@ import XMonad.Actions.MouseResize
 
 -- Layouts modifiers
 import XMonad.Layout.Renamed (renamed, Rename(CutWordsLeft, Replace))
-import XMonad.Layout.Spacing 
+import XMonad.Layout.Spacing
 import XMonad.Layout.NoBorders
 import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
@@ -243,7 +243,7 @@ myLayoutHook = avoidStruts $ smartBorders $ mouseResize $ windowArrange $ T.togg
               where
                   myDefaultLayout = grid ||| oneBig ||| noBorders monocle ||| floats
 
-mySpacing = spacingRaw True (Border 0 0 0 0) True (Border 10 10 10 10) True
+mySpacing = spacingRaw True (Border 0 0 0 0) True (Border 2 2 2 2) True
 
 grid       = renamed [Replace "<icon=grid.xpm/>"] $ limitWindows 12 $ mySpacing $ mkToggle (single MIRROR) $ Grid (16/10)
 oneBig     = renamed [Replace "<icon=onebig.xpm/>"] $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
