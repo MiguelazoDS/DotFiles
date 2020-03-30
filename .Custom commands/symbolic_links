@@ -8,9 +8,9 @@ do
 	then
 		if [ -e "$path$i" ]
 		then
-			sudo rm "$path$i"
+			rm "$path$i"
 		fi
-		sudo ln -s "$PWD"/"$i" "$path$i"
+		ln -s "$PWD"/"$i" "$path$i"
 		echo "Added command \"$i\""
 	fi
 done
