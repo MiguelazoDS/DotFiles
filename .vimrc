@@ -91,7 +91,7 @@ augroup updatefile
 	au CursorHold * checktime
 augroup END
 "This unsets the 'last search pattern' register by hitting ;
-nnoremap ; :noh<CR>:<backspace>
+nnoremap <leader>; :noh<CR>:<backspace>
 "Case insensitive in search
 set ignorecase
 
