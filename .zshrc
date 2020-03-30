@@ -170,6 +170,7 @@ alias rename='perl-rename'
 alias vim=nvim
 alias nvidia-smi='watch -n 1 nvidia-smi'
 alias unzip='echo "Use uz instead"'
+alias youtube-dl-mp3="noglob youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 -o %(title)s.%(ext)s"
 
 function dotf (){
 	branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
