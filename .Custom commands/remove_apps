@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-yay -Qqe | fzf-tmux --print0 -r --reverse | xargs -r -0 yay -Rs --noconfirm
+yay -Qqe | fzf-tmux -m -r --reverse --print0 | xargs -r -0 yay -Rs -
