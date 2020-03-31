@@ -23,6 +23,10 @@ Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 call plug#end()
 "================================================
 
+"Instant markdown
+"==================================================
+let g:instant_markdown_autostart = 0
+
 "Autosave for tex files
 "=================================================
 let g:auto_save = 0
