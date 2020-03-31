@@ -1,9 +1,9 @@
 version: 2
 commands:
-  - command: notepad
+  - command: nvim
     arguments:
       - ${INPUT}
-    title: メモ帳
+    title: EDITOR
 
 tools:
   vim-vint: &vim-vint
@@ -11,6 +11,14 @@ tools:
     lint-stdin: true
     lint-formats:
       - '%f:%l:%c: %m'
+
+  markdown-markdownlint: &markdown-markdownlint
+    lint-command: 'markdownlint -s -c %USERPROFILE%\.markdownlintrc'
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l %m'
+      - '%f:%l:%c %m'
+      - '%f: %l: %m'
 
   make-checkmake: &make-checkmake
     lint-command: 'checkmake'
@@ -50,6 +58,9 @@ tools:
 languages:
   vim:
     - <<: *vim-vint
+      
+  markdown:
+    - <<: *markdown-markdownlint
 
   make:
     - <<: *make-checkmake
