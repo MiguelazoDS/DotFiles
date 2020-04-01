@@ -22,6 +22,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'lambdalisue/suda.vim'
 Plug 'qpkorr/vim-renamer'
+Plug 'majutsushi/tagbar'
 call plug#end()
 "================================================
 
