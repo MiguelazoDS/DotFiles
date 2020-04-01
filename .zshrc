@@ -1,3 +1,9 @@
+#zplug path
+source /usr/share/zsh/scripts/zplug/init.zsh
+
+#Plugins
+zplug 'wfxr/forgit'
+
 #Use the vi navigation keys in menu completion
 zstyle ':completion:*' menu select
 zmodload zsh/complist
