@@ -1,4 +1,4 @@
-"Vim=plug configuration
+"Vim=uda://%"lug configuration
 "=================================================
 call plug#begin('~/.vim/plugged')
 Plug 'lervag/vimtex'
@@ -20,8 +20,14 @@ Plug 'tpope/vim-repeat'
 Plug 'scrooloose/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+Plug 'lambdalisue/suda.vim'
 call plug#end()
 "================================================
+
+"Suda config
+"=============================================
+let g:suda_smart_editing = 1
+nmap ws :w suda://%
 
 "Instant markdown
 "==================================================
