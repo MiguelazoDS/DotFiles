@@ -22,7 +22,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'lambdalisue/suda.vim'
 Plug 'qpkorr/vim-renamer'
-Plug 'vim-scripts/taglist.vim'
+Plug 'majutsushi/tagbar'
 call plug#end()
 "================================================
 
@@ -110,15 +110,10 @@ set ignorecase
 
 "Remapping
 "=======================================================
-imap hh <Esc>
-map i <Up>
-map j <Left>
-map k <Down>
-noremap h i
-noremap yy "+y
+imap ii <Esc>
+noremap y "+y
 nnoremap yl 0"+y$
-noremap ph "+p
-noremap pp p
+noremap P "+p
 nnoremap dl 0d$
 
 "Mapping keys for switching between buffers.
