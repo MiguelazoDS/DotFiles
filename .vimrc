@@ -23,6 +23,8 @@ Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'lambdalisue/suda.vim'
 Plug 'qpkorr/vim-renamer'
 Plug 'majutsushi/tagbar'
+Plug 'Yggdroot/indentLine'
+
 call plug#end()
 "================================================
 
@@ -107,6 +109,8 @@ augroup END
 nnoremap <leader>; :noh<CR>:<backspace>
 "Case insensitive in search
 set ignorecase
+"Indent lines 
+:set list lcs=tab:\|\ 
 
 "Remapping
 "=======================================================
@@ -264,3 +268,4 @@ let g:coc_global_extensions = [
 	\ 'coc-git',
 	\ 'coc-highlight',
 	\ 'coc-snippets']
+

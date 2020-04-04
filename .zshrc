@@ -7,10 +7,10 @@ zplug 'wfxr/forgit'
 #Use the vi navigation keys in menu completion
 zstyle ':completion:*' menu select
 zmodload zsh/complist
-bindkey -M menuselect 'j' vi-backward-char
-bindkey -M menuselect 'i' vi-up-line-or-history
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'k' vi-down-line-or-history
+bindkey -M menuselect 'j' vi-down-line-or-history
 
 #fzf default command to see hidden files
 export FZF_DEFAULT_COMMAND='find . -printf "%P\\n"'
