@@ -28,6 +28,9 @@ Plug 'Yggdroot/indentLine'
 call plug#end()
 "================================================
 
+"IndentLine configuration
+let g:indentLine_showFirstIndentLevel = 1
+
 "Suda config
 "=============================================
 let g:suda_smart_editing = 1
@@ -110,7 +113,7 @@ nnoremap <leader>; :noh<CR>:<backspace>
 "Case insensitive in search
 set ignorecase
 "Indent lines 
-:set list lcs=tab:\|\ 
+:set list lcs=tab:\¦\ 
 
 "Remapping
 "=======================================================
@@ -268,4 +271,5 @@ let g:coc_global_extensions = [
 	\ 'coc-git',
 	\ 'coc-highlight',
 	\ 'coc-snippets']
+
 
