@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 device=$(pactl list sources | head -3 | tail -1 | cut -d':' -f2) 
-
 date=$(date +%y-%m-%d_%H-%M)
-
 res=$(xrandr | grep '*' | cut -d ' ' -f4)
 
 ffmpeg -video_size "$res" -framerate 25 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i $device "$HOME/Videos/$date.mkv"
