@@ -12,7 +12,7 @@ else
 		trash-put "$@"
 		echo deleted "$@"
 	else
-		if [[ $((number)) -lt 12 ]]; then
+		if [[ $((number)) -lt 20 ]]; then
 			trash-put "$@"
 			echo deleted "$@"
 		else
