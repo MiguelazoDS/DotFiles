@@ -69,8 +69,8 @@ do
 			name_ext "$(basename "$song")"
 			if [ -e "$song" ]; then
 				if [ "$ext" != "mp3" ]; then
-				echo Invalid format for a song.
-				exit 1
+					echo Invalid format for a song.
+					exit 1
 				fi
 			else
 				echo File doesn\'t exist
