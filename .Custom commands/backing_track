@@ -28,7 +28,7 @@ function without_vocals {
 }
 
 function clean {
-	trm -rf bass drums vocals piano bass.wav drums.wav vocals.wav piano.wav "$name"_00* "$bt_name".wav "$bt_name_v" output
+	trm -rf bass drums vocals piano bass.wav drums.wav vocals.wav piano.wav "$name"_00* "$bt_name".wav "$bt_name_v".wav output
 }
 
 function usage {
@@ -110,7 +110,8 @@ if [[ $(command -v spleeter) != "" ]]; then
 	ffmpeg -f concat -safe 0 -i piano piano.wav 2> /dev/null
 
 	case "$option" in
-		1 ) with_vocals
+		1 )
+			with_vocals
 			clean
 			;;
 		2 )
