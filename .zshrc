@@ -1,6 +1,8 @@
 #zplug path
 source /usr/share/zsh/scripts/zplug/init.zsh
 
+export TERMINFO="/usr/share/terminfo"
+
 #Plugins
 zplug 'wfxr/forgit'
 
