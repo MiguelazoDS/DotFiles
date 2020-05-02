@@ -15,8 +15,8 @@ done)
 case "$1" in
 	--details)
 		notify-send.sh -R id_file -i dialog-information -t 5000 "Memory info" "$var"
-	;;
+		;;
 	*)
 		free | awk '/^Mem:/ { used=(100*$3)/($2); printf "<icon=memory.xpm/> %.1f%/%.2fGi", used, $2/(1024*1024)}'
-	;;
+		;;
 esac
