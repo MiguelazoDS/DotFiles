@@ -240,16 +240,14 @@ myManageHook' = composeAll
 ---LAYOUTS
 ------------------------------------------------------------------------
 
-myLayoutHook = avoidStruts $ smartBorders $ mouseResize $ windowArrange $ T.toggleLayouts floats $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
+myLayoutHook = avoidStruts $ smartBorders $ mouseResize $ windowArrange $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
               where
-                  myDefaultLayout = grid ||| oneBig ||| noBorders monocle ||| floats
+                  myDefaultLayout = grid ||| noBorders monocle
 
 mySpacing = spacingRaw True (Border 0 0 0 0) True (Border 2 2 2 2) True
 
 grid       = renamed [Replace "<icon=grid.xpm/>"] $ limitWindows 12 $ mySpacing $ mkToggle (single MIRROR) $ Grid (16/10)
-oneBig     = renamed [Replace "<icon=onebig.xpm/>"] $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
 monocle    = renamed [Replace "<icon=monocle.xpm/>"] $ limitWindows 20 Full
-floats     = renamed [Replace "<icon=float.xpm/>"] $ limitWindows 20 simplestFloat
 
 ------------------------------------------------------------------------
 ---SCRATCHPADS
