@@ -4,7 +4,7 @@ source /usr/share/zsh/scripts/zplug/init.zsh
 export TERMINFO="/usr/share/terminfo"
 
 #Plugins
-zplug 'wfxr/forgit'
+zplug "wfxr/forgit"
 
 #Use the vi navigation keys in menu completion
 zstyle ':completion:*' menu select
@@ -167,6 +167,9 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 #==========================================================================================
+
+#Load zplug
+zplug load
 
 #ALIASES
 #==========================================================================================
