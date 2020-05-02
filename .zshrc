@@ -29,6 +29,8 @@ export CXX="ccache g++"
 export CC="ccache gcc"
 export PATH="/usr/lib/ccache/bin/:$PATH"
 
+export PATH="/home/miguel/.gem/ruby/2.7.0/bin/:$PATH"
+
 #Fixed % symbol after print
 export PROMPT_EOL_MARK=""
 
