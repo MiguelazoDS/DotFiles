@@ -96,7 +96,7 @@ myStartupHook = do
           spawnOnce "nitrogen --restore &"
           spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf"
           spawnOnce "setxkbmap es"
-          spawnOnce "trayer --edge top --transparent true --alpha 12 --tint 0x05172b --align right --width 4 --height 22 --margin 5 --distance 5"
+          spawnOnce "trayer --edge top --transparent true --alpha 12 --tint 0x05172b --align right --width 7 --height 22 --margin 5 --distance 5"
           spawnOnce "xsetroot -cursor_name left_ptr"
           spawnOnce "/usr/lib/xfce4/notifyd/xfce4-notifyd"
 ------------------------------------------------------------------------

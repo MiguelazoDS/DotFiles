@@ -216,7 +216,7 @@ function dotf (){
 			dotfile checkout notebook
 		fi
 	elif [[ $1 =~ "add" ]]; then
-		ls -A | fzf-tmux --bind 'ctrl-l:deselect-all' -r -m --print0 | xargs -r -0 dotfile add
+		find $HOME $HOME/.config -maxdepth 3 -printf "%P\\n" | fzf-tmux --bind 'ctrl-l:deselect-all' -r -m --print0 | xargs -r -0 dotfile add
 	elif [[ $1 =~ "chkt" ]]; then
 		dotfile ls-files -m | fzf-tmux --bind 'ctrl-l:deselect-all' -r -m --print0 | xargs -r -0 dotfile checkout
 	elif [[ $1 =~ "st" ]]; then
