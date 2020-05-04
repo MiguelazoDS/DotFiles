@@ -118,7 +118,7 @@ set ignorecase
 "Remapping
 "=======================================================
 imap ii <Esc>
-noremap y "+y
+noremap Y "+y
 nnoremap yl 0"+y$
 noremap P "+p
 nnoremap dl 0d$
