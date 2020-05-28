@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-yay -R xmobar-git --noconfirm
+yay -R xmobar --noconfirm
 yay -Sc --noconfirm
 paccache -r
-yay -S xmobar-git --noconfirm
+yay -S xmobar --noconfirm
 xmonad --recompile && xmonad --restart
