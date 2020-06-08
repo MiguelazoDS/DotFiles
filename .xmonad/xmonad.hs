@@ -257,10 +257,10 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 ]
 
     where
-    spawnTerm  = myTerminal ++  " --name=scratchpad --title='SP terminal' -e 'tmux'"
+    spawnTerm  = myTerminal ++  " --name=scratchpad --title='SP terminal'"
     findTerm   = resource =? "scratchpad"
     manageTerm = customFloating $ W.RationalRect l t w h
-    spawnMocp  = myTerminal ++  " --name=moc --title='MOC Player' -e 'mocp'"
+    spawnMocp  = myTerminal ++  " --name=moc --title='MOCP' -e 'mocp'"
     findMocp   = resource =? "moc"
     manageMocp = customFloating $ W.RationalRect l t w h
     h = 0.9
