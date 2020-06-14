@@ -23,12 +23,6 @@ export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
 #Set colors
 export TERM="screen-256color"
 
-#Using ccache
-export CCACHE_DIR="$HOME/.ccache"
-export CXX="ccache g++"
-export CC="ccache gcc"
-export PATH="/usr/lib/ccache/bin/:$PATH"
-
 export PATH="/home/miguel/.gem/ruby/2.7.0/bin/:$PATH"
 
 #Fixed % symbol after print
@@ -221,7 +215,7 @@ function dotf (){
 			dotfile checkout notebook
 		fi
 	elif [[ $1 =~ "add" ]]; then
-		find $HOME $HOME/.config -maxdepth 3 | fzf-tmux --bind 'ctrl-l:deselect-all' -r -m --print0 | xargs -r -0 dotfile add
+		find $HOME $HOME/.config -maxdepth 3 | sort | uniq | fzf-tmux --bind 'ctrl-l:deselect-all' -r -m --print0 | xargs -r -0 dotfile add
 	elif [[ $1 =~ "chkt" ]]; then
 		dotfile ls-files $HOME -m | fzf-tmux --bind 'ctrl-l:deselect-all' -r -m --print0 | xargs -r -0 dotfile checkout
 	elif [[ $1 =~ "st" ]]; then
