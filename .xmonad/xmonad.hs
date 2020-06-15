@@ -126,7 +126,7 @@ myKeys =
 
 -- Floating windows
         , ("M-<Delete>", withFocused $ windows . W.sink)  -- Push floating window back to tile.
-        , ("M-S-<Delete>", sinkAll)                  -- Push ALL floating windows back to tile.
+        , ("M-S-<Delete>", withFocused $ windows . (flip W.float $ W.RationalRect 0 0 1 1)) -- Put current windows to full float
 
 -- Windows navigation
      --   , ("M-m", windows W.focusMaster)             -- Move focus to the master window
