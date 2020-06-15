@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
+function restart_xmonad {
+	yay -Syyu --devel --noconfirm; xmonad --recompile && xmonad --restart
+}
+
+
 if [ -z "$1" ]
 then
-	yay -Syyu --devel --noconfirm; xmonad --recompile && xmonad --restart
+	restart_xmonad
 elif [ "$1" = "-i" ]
 then
 	if [ -z "$2" ]
@@ -18,7 +23,7 @@ then
 			word="package is"
 		fi
 		echo "|${array[*]} $word not gonna be updated|"
-		yay -Syyu --devel --ignore "$2" --noconfirm; xmonad --recompile && xmonad --restart
+		restart_xmonad
 	fi
 else
 	echo "Invalid option"
