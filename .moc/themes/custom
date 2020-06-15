@@ -12,9 +12,9 @@
 background           = black  black bold
 frame                = blue   black bold
 window_title         = black  black bold
-directory            = green  default normal
+directory            = green  black normal
 selected_directory   = green  blue bold
-playlist             = white  default normal
+playlist             = white  black normal
 selected_playlist    = cyan   blue bold
 file                 = green  black normal
 selected_file        = green  blue bold
