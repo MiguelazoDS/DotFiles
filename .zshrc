@@ -23,7 +23,7 @@ export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
 #Set colors
 export TERM="screen-256color"
 
-export PATH="/home/miguel/.gem/ruby/2.7.0/bin/:$PATH"
+export PATH="$HOME/.gem/ruby/2.7.0/bin/:$PATH"
 
 #Fixed % symbol after print
 export PROMPT_EOL_MARK=""
@@ -238,11 +238,11 @@ function dotf (){
 }
 #========================================================================================================
 
-PATH="/home/miguel/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/miguel/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/miguel/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/miguel/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/miguel/perl5"; export PERL_MM_OPT;
+PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
