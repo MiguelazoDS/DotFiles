@@ -24,6 +24,8 @@ Plug 'lambdalisue/suda.vim'
 Plug 'qpkorr/vim-renamer'
 Plug 'majutsushi/tagbar'
 Plug 'Yggdroot/indentLine'
+Plug 'francoiscabrol/ranger.vim'
+Plug 'rbgrouleff/bclose.vim'
 
 call plug#end()
 "================================================
