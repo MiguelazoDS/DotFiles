@@ -10,7 +10,7 @@ do
 		then
 			rm "$path$i"
 		fi
-		ln -s "$PWD"/"$i" "$path$i"
+		ln -sf "$PWD"/"$i" "$path$i"
 		echo "Added command \"$i\""
 	fi
 done
