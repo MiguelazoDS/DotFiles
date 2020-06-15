@@ -4,7 +4,6 @@ function restart_xmonad {
 	yay -Syyu --devel --noconfirm; xmonad --recompile && xmonad --restart
 }
 
-
 if [ -z "$1" ]
 then
 	restart_xmonad
