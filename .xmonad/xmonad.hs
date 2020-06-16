@@ -82,7 +82,7 @@ main =   do
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
         , normalBorderColor  = "#292d3e"
-        , focusedBorderColor = "#699200"
+        , focusedBorderColor = "#445e02"
         } `additionalKeysP`         myKeys
 
 ------------------------------------------------------------------------
