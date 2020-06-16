@@ -1,10 +1,10 @@
 Config { font    = "xft:Anonymice Nerd Font:bold:size=10:antialias=true:hinting=true"
 	   , iconRoot = "/home/miguel/.config/xmobar/icons"
-	   , bgColor = "#05172b"
-	   , fgColor = "#ffffff"
-	   , alpha = 255
+	   , bgColor = "#181818"
+	   , fgColor = "#d0d0d0"
+	   , alpha = 220
 	   , border = FullBM 0 
-	   , borderColor = "#005078"
+	   , borderColor = "#151515"
 	   , borderWidth = 2
 	   , position = Static{xpos = 0, ypos= 0, width = 1920, height = 35}
        , lowerOnStart = True
@@ -13,7 +13,7 @@ Config { font    = "xft:Anonymice Nerd Font:bold:size=10:antialias=true:hinting=
        , persistent = True
        , commands = [ Run Date "<icon=calendar.xpm/> %a %_d %b %Y %H:%M" "date" 10
 					, Run Network "enp2s0" ["-t", "<icon=ethernet.xpm/> <icon=downspeed.xpm/> <rx>kb|<icon=upspeed.xpm/> <tx>kb"] 10
-                    , Run Cpu ["-t","<icon=cpu.xpm/> <total>%","-H","75","--high","#cc1212"] 10
+                    , Run Cpu ["-t","<icon=cpu.xpm/> <total>%","-H","75","--high","#ac4142"] 10
 				 	, Run Com "/home/miguel/.config/xmobar/scripts/mem" [] "memory" 10
 					, Run Com "/home/miguel/.config/xmobar/scripts/volume" [] "volume" 1
 					, Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 300
@@ -24,5 +24,5 @@ Config { font    = "xft:Anonymice Nerd Font:bold:size=10:antialias=true:hinting=
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "<fc=#c0c0c0> <icon=arch.xpm/> </fc><fc=#FFD700></fc>%UnsafeStdinReader% }{ <fc=#d8dfe3> <fc=#d8dfe3>%locks%</fc> <fc=#c98c08>%moc%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%weather%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%date%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%updates%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%volume%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%enp2s0%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%cpu%</fc> <fc=#FFD700></fc> <fc=#d8dfe3>%memory%</fc> <fc=#FFD700></fc></fc>                  "
+       , template = "<fc=#6c99ba> <icon=arch.xpm/> </fc><fc=#e5b566></fc>%UnsafeStdinReader% }{ <fc=#d0d0d0> <fc=#d0d0d0>%locks%</fc> <fc=#7e8d50>%moc%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%weather%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%date%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%updates%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%volume%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%enp2s0%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%cpu%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%memory%</fc> <fc=#e5b566></fc></fc>                  "
        }
