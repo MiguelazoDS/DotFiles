@@ -10,14 +10,14 @@
 ##############################################################################
 
 background           = black  black bold
-frame                = blue   black bold
+frame                = white  black bold
 window_title         = black  black bold
 directory            = green  black normal
-selected_directory   = green  blue bold
-playlist             = white  black normal
-selected_playlist    = cyan   blue bold
+#selected_directory   = green  white normal
+playlist             = yellow  black normal
+#selected_playlist    = cyan   blue bold
 file                 = green  black normal
-selected_file        = green  blue bold
+#selected_file        = green  blue bold
 marked_file          = yellow blue bold
 marked_selected_file = green  blue bold
 info                 = blue   black bold
