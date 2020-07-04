@@ -62,12 +62,21 @@ myTerminal      = "kitty"
 myTextEditor    = "nvim"
 myBorderWidth   = 2
 
-main =   do
-    xmproc2 <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
+xmobar :: String -> String
+xmobar option
+    | number == "3" = "xmobarrc1"
+    | otherwise = "xmobarrc2"
+    where number = takeWhile (=='3') option
+
+main = do
+    handle <- openFile "/sys/class/dmi/id/chassis_type" ReadMode
+    contents <- hGetContents handle
+    let xmobar_instance = xmobar contents
+    xmproc <- spawnPipe $ "xmobar $HOME/.config/xmobar/" ++ xmobar_instance
     xmonad $ ewmh desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
-              { ppOutput = hPutStrLn xmproc2
+              { ppOutput = hPutStrLn xmproc
               , ppCurrent = xmobarColor "#14a61b" "" . wrap "<[" "]>" -- Current workspace in xmobar
               , ppHidden = xmobarColor "#3c98c7" "" . wrap "<icon=asterisk.xpm/>" ""   -- Hidden workspaces in xmobar
               , ppHiddenNoWindows = xmobarColor "#ffffff" ""        -- Hidden workspaces (no windows)
@@ -123,6 +132,7 @@ myKeys =
 -- Windows
         , ("M-q", kill1)                           -- Kill the currently focused client
         , ("M-S-q", killAll)                       -- Kill all the windows on current workspace
+        , ("M-r", spawn "xrandr --output DVI-D-0 --scale 1x1")
 
 -- Floating windows
         , ("M-<Delete>", withFocused $ windows . W.sink)  -- Push floating window back to tile.
