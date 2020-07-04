@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 var=$(free | awk '/^Mem:/ {printf  "RAM:\n\nUsed: %.3f MiB, Total: %.3f MiB\n\n", $3/1024, $2/1024}'
 free | awk '/^Swap:/ {printf  "SWAP:\n\nUsed: %.3f MiB, Total: %.3f MiB\n\n", $3/1024, $2/1024}'
 total=$(free | awk '/^Mem:/ {printf "%.3f", $2/1024}')
