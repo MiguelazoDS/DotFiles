@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+perc=$(acpi | cut -d ' ' -f 4 | cut -d '%' -f 1)
+state=$(acpi | cut -d ' ' -f 3 | cut -d ',' -f 1)
+
+if [[ $state =~ "Charging" ]]; then
+	if [[ $((perc)) -ge 0 && $((perc)) -le 20 ]]; then
+		echo "<icon=battery_plugged1.xpm/> "
+	elif [[ $((perc)) -gt 20 && $((perc)) -le 40 ]]; then
+		echo "<icon=battery_plugged2.xpm/> "
+	elif [[ $((perc)) -gt 40 && $((perc)) -le 60 ]]; then
+		echo "<icon=battery_plugged3.xpm/> "
+	elif [[ $((perc)) -gt 60 && $((perc)) -le 80 ]]; then
+		echo "<icon=battery_plugged4.xpm/> "
+	else
+		echo "<icon=battery_plugged5.xpm/> "
+	fi
+else
+	if [[ $((perc)) -ge 0 && $((perc)) -le 20 ]]; then
+		echo "<icon=battery1.xpm/> "
+	elif [[ $((perc)) -gt 20 && $((perc)) -le 40 ]]; then
+		echo "<icon=battery2.xpm/> "
+	elif [[ $((perc)) -gt 40 && $((perc)) -le 60 ]]; then
+		echo "<icon=battery3.xpm/> "
+	elif [[ $((perc)) -gt 60 && $((perc)) -le 80 ]]; then
+		echo "<icon=battery4.xpm/> "
+	else
+		echo "<icon=battery5.xpm/> "
+	fi
+fi

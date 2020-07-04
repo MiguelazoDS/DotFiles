@@ -1,0 +1,36 @@
+Config { font    = "xft:Anonymice Nerd Font:bold:size=9:antialias=true:hinting=true"
+	   , iconRoot = "/home/miguel/.config/xmobar/icons"
+	   , bgColor = "#181818"
+	   , fgColor = "#d0d0d0"
+	   , alpha = 220
+	   , border = FullBM 0 
+	   , borderColor = "#151515"
+	   , borderWidth = 1
+	   , position = Static{xpos = 0, ypos= 0, width = 1366, height = 29}
+       , lowerOnStart = True
+       , hideOnStart = False
+       , allDesktops = True
+       , persistent = True
+       , commands = [ Run Com "/home/miguel/.config/xmobar/scripts/battery" [] "bat" 10 
+	   				, Run BatteryP ["BAT0"]
+                		["-t", "<acstatus>"
+                		, "-L", "10", "-H", "80"
+                		, "-l", "#ac4142", "-h", "#7e8d50"
+                		, "--", "-O", "<left>%", "-o", "<left>%"
+                		] 10
+	   				, Run Date "<icon=calendar.xpm/> %a %_d %b %Y %H:%M" "date" 10
+                    , Run Network "enp3s0f1" ["-t", "<icon=ethernet.xpm/> <icon=downspeed.xpm/> <rx>kb|<icon=upspeed.xpm/> <tx>kb"] 10
+					, Run Network "wlp2s0" ["-t", "<icon=wifi.xpm/> <icon=downspeed.xpm/> <rx>kb|<icon=upspeed.xpm/> <tx>kb"] 10
+                    , Run Cpu ["-t","<icon=cpu.xpm/> <total>%","-H","75","--high","#ac4142"] 10
+				 	, Run Com "/home/miguel/.config/xmobar/scripts/mem" [] "memory" 10
+					, Run Com "/home/miguel/.config/xmobar/scripts/volume" [] "volume" 1
+					, Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 300
+					, Run Com "/home/miguel/.config/xmobar/scripts/moc" [] "moc" 10
+					, Run Com "/home/miguel/.config/xmobar/scripts/weather" [] "weather" 300
+					, Run Locks
+                    , Run UnsafeStdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " <fc=#6c99ba> <icon=arch.xpm/> </fc><fc=#e5b566></fc>%UnsafeStdinReader% }{ <fc=#e5b566> <fc=#d0d0d0>%locks%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%weather%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%date%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%updates%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%volume%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%enp3s0f1%</fc> <fc=#d0d0d0>%wlp2s0%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%cpu%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%memory%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%bat%</fc><fc=#d0d0d0>%battery%</fc></fc>           "
+              }
