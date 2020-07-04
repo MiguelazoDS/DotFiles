@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+type=$(cat /sys/class/dmi/id/chassis_type)
+
+case $type in
+	3 )
+		width=7
+		height=22
+		margin=5
+		;;
+	* )
+		width=5
+		height=17		
+		margin=4 		
+		;;
+esac
+
+trayer --edge top --transparent true --alpha 45 --tint 0x181818 --align right --width $width --height $height --margin $margin --distance 5
