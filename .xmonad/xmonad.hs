@@ -108,7 +108,7 @@ myStartupHook = do
           spawnOnce "$HOME/.xmonad/scripts/trayer"
           spawnOnce "xsetroot -cursor_name left_ptr"
           spawnOnce "/usr/lib/xfce4/notifyd/xfce4-notifyd"
-          spawnOnce "$HOME/.xmonad/scripts/font_modifier"
+          spawnOnce "$HOME/.xmonad/scripts/config_gen"
 ------------------------------------------------------------------------
 ---KEYBINDINGS
 ------------------------------------------------------------------------

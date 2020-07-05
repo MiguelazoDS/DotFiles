@@ -8,7 +8,7 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = MesloLGS Nerd Font Medium 13
+font = MesloLGS Nerd Font Medium value
 scrollback_lines = 10000
 search_wrap = true
 
@@ -60,4 +60,4 @@ color7  = #bebebe
 color15 = #ffffff
 
 [hints]
-font = Inconsolata Nerd Font Medium 13
+font = Inconsolata Nerd Font Medium value
