@@ -15,8 +15,8 @@
     dark: #1c1c1c;
     // Black
     black:       #3d352a;
-    lightblack:  #554444;
-    tlightblack: #554444cc;
+    lightblack:  #303030;
+    tlightblack: #303030;
     //
     // Red
     red:         #ac4142;
