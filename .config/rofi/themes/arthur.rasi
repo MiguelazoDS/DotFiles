@@ -16,36 +16,36 @@
     // Black
     black:       #3d352a;
     lightblack:  #554444;
-    tlightblack:  #554444cc;
+    tlightblack: #554444cc;
     //
     // Red
-    red:         #cd5c5c;
-    lightred:    #cc5533;
+    red:         #ac4142;
+    lightred:    #ac4142;
     //
     // Green
-    green:       #86af80;
-    lightgreen:  #88cc22;
+    green:       #7e8d50;
+    lightgreen:  #7e8d50;
     //
     // Yellow
-    yellow:      #e8ae5b;
-    lightyellow:     #ffa75d;
+    yellow:      #e5b566;
+    lightyellow: #e5b566;
     //
     // Blue
-    blue:      #6495ed;
-    lightblue:     #87ceeb;
+    blue:      #6c99ba;
+    lightblue: #6c99ba;
     //
     // Magenta
-    magenta:      #deb887;
-    lightmagenta:     #996600;
+    magenta:      #9e4e85;
+    lightmagenta: #9e4e85;
     //
     // Cyan
-    cyan:      #b0c4de;
-    tcyan:      #ccb0c4de;
-    lightcyan:     #b0c4de;
+    cyan:      #7dd5cf;
+    tcyan:     #7dd5cf;
+    lightcyan: #7dd5cf;
     //
     // White
-    white:      #bbaa99;
-    lightwhite:     #ddccbb;
+    white:      #d0d0d0;
+    lightwhite: #d0d0d0;
     //
     // Bold, Italic, Underline
     highlight:     underline bold #ffffff;
