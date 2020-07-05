@@ -8,7 +8,7 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = Anonymice Nerd Font Medium 14
+font = MesloLGS Nerd Font Medium 13
 scrollback_lines = 10000
 search_wrap = true
 
