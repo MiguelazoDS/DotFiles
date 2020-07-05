@@ -183,37 +183,8 @@ function dotf (){
 	branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
 	if [[ $1 =~ "push" ]]; then
 		dotfile push
-		if [[ $branch =~ "desktop" ]]; then
-			dotfile checkout notebook
-			dotfile push
-			dotfile checkout desktop
-		else
-			dotfile checkout desktop
-			dotfile push
-			dotfile checkout notebook
-		fi
 	elif [[ $1 =~ "pull" ]]; then
 		dotfile pull
-		if [[ $branch =~ "desktop" ]]; then
-			dotfile checkout notebook
-			dotfile pull
-			dotfile checkout desktop
-		else
-			dotfile checkout desktop
-			dotfile pull
-			dotfile checkout notebook
-		fi
-	elif [[ $1 =~ "cp" ]]; then
-		commit=$(echo "$(dotfile log -1)" | head -1 | cut -d ' ' -f2)
-		if [[ $branch =~ "desktop" ]]; then
-			dotfile checkout notebook
-			dotfile cherry-pick "$commit"
-			dotfile checkout desktop
-		else
-			dotfile checkout desktop
-			dotfile cherry-pick "$commit"
-			dotfile checkout notebook
-		fi
 	elif [[ $1 =~ "add" ]]; then
 		find $HOME $HOME/.config -maxdepth 3 | sort | uniq | fzf-tmux --bind 'ctrl-l:deselect-all' -r -m --print0 | xargs -r -0 dotfile add
 	elif [[ $1 =~ "chkt" ]]; then
@@ -224,16 +195,10 @@ function dotf (){
 		dotfile diff
 	elif [[ $1 =~ "ct" ]]; then
 		dotfile commit -m $2
-	elif [[ $1 =~ "ch" ]]; then
-		if [[ $branch =~ "desktop" ]]; then
-			dotfile checkout notebook
-		else
-			dotfile checkout desktop
-		fi
 	elif [[ $1 =~ "log" ]]; then
 		dotfile log
 	else
-		echo "Argument needed: Either \"push\", \"pull\", \"cp\", \"add\", \"chkt\", \"st\", \"ct\", \"ch\" or \"log\""
+		echo "Argument needed: Either \"push\", \"pull\", \"add\", \"chkt\", \"st\", \"diff\", \"ct\", or \"log\""
 	fi
 }
 #========================================================================================================
