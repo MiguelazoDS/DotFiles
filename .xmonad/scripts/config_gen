@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+kitty_template="$HOME/.config/kitty/kitty_template.conf"
+termite_template="$HOME/.config/termite/config_template"
+kitty="$HOME/.config/kitty/kitty.conf"
+termite="$HOME/.config/termite/config"
+
+type=$(cat /sys/class/dmi/id/chassis_type)
+
+case $type in
+	3 )
+		size=13
+		;;
+	* )
+		size=11
+		;;
+esac
+
+if [ ! -f "$kitty" ]; then
+	cp "$kitty_template" "$kitty"
+	sed -i s/value/$size/g "$kitty"
+fi
+	
+if [ ! -f "$kitty" ]; then
+	cp "$termite_template" "$termite"
+	sed -i s/value/$size/g "$termite"
+fi
