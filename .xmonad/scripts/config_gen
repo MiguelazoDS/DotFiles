@@ -21,7 +21,7 @@ if [ ! -f "$kitty" ]; then
 	sed -i s/value/$size/g "$kitty"
 fi
 	
-if [ ! -f "$kitty" ]; then
+if [ ! -f "$termite" ]; then
 	cp "$termite_template" "$termite"
 	sed -i s/value/$size/g "$termite"
 fi
