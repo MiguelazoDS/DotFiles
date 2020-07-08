@@ -24,5 +24,5 @@ Config { font    = "xft:Anonymice Nerd Font:bold:size=10:antialias=true:hinting=
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "<fc=#6c99ba> <icon=arch.xpm/> </fc><fc=#e5b566></fc>%UnsafeStdinReader% }{ <fc=#d0d0d0> <fc=#d0d0d0>%locks%</fc> <fc=#7e8d50>%moc%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%weather%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%date%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%updates%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%volume%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%enp2s0%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%cpu%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%memory%</fc> <fc=#e5b566></fc></fc>                  "
+       , template = "<fc=#6c99ba> <icon=haskell.xpm/> </fc><fc=#e5b566></fc>%UnsafeStdinReader% }{ <fc=#d0d0d0> <fc=#d0d0d0>%locks%</fc> <fc=#7e8d50>%moc%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%weather%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%date%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%updates%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%volume%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%enp2s0%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%cpu%</fc> <fc=#e5b566></fc> <fc=#d0d0d0>%memory%</fc> <fc=#e5b566></fc></fc>                  "
        }

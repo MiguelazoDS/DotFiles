@@ -19,6 +19,8 @@ do
 		ffmpeg -i "$i" -vf scale=15:16 "z$i"
 	elif [[ "$i" =~ "50" ]]; then
 		ffmpeg -i "$i" -vf scale=25:15 "z$i"
+	elif [[ "$i" =~ "haskell" ]]; then
+		ffmpeg -i "$i" -vf scale=27:17 "z$i"
 	else
 		ffmpeg -i "$i" -vf scale=16:16 "z$i"
 	fi
