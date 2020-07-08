@@ -26,13 +26,13 @@ Plug 'majutsushi/tagbar'
 Plug 'Yggdroot/indentLine'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
-
+Plug 'puremourning/vimspector'
 call plug#end()
 "================================================
 
+let g:vimspector_enable_mappings = 'HUMAN'
 "IndentLine configuration
 let g:indentLine_showFirstIndentLevel = 1
-
 "Suda config
 "=============================================
 let g:suda_smart_editing = 1
