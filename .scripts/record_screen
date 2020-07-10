@@ -1,7 +1,54 @@
 #!/usr/bin/env bash
 
+function usage {
+	printf "Usage: \n\t./record_screen [Options]\n"
+	printf "\nOptions: \n"
+	printf "\t-s <value> --select_screen <value>\n"
+	printf "\tfullscreen (f) - selected area (a)"
+}
+
+function capture {
+	ffmpeg -video_size "$1" -threads 2 -framerate ntsc -f x11grab -i :0.0+"$2","$3" -f pulse -ac 2 -i $device "$HOME/Videos/$date.mkv"
+}
+
 device=$(pactl list sources | head -3 | tail -1 | cut -d':' -f2) 
 date=$(date +%y-%m-%d_%H-%M)
-res=$(xrandr | grep '*' | cut -d ' ' -f4)
 
-ffmpeg -video_size "$res" -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i $device "$HOME/Videos/$date.mkv"
+if [ "$#" -lt 2 ]; then
+	usage
+	exit 0
+fi
+
+short=fs:
+long=full_screen,select_screen:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+	exit 1
+fi
+
+while true;
+do
+	case "$1" in
+		-s | --select_screen ) 
+			shift
+			variable="$1"
+			if [[ "$variable" =~ "f" ]]; then
+				res=$(xrandr | grep '*' | cut -d ' ' -f4)
+				capture "$res" "0" "0"
+			elif [[ "$variable" =~ "a" ]]; then
+				area=$(xrectsel)
+				echo "$area"
+				res=$(echo "$area" | sed "s/\(.*\)+.*+.*/\1/")
+				x=$(echo "$area" | sed "s/.*+\(.*\)+.*/\1/")
+				y=$(echo "$area" | sed "s/$res+.*+\(.*\)/\1/")
+				capture "$res" "$x" "$y"
+			fi
+			shift
+			;;
+		* ) 
+			shift
+			break
+			;;
+	esac
+done
