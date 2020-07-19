@@ -38,7 +38,6 @@ do
 				capture "$res" "0" "0"
 			elif [[ "$variable" =~ "a" ]]; then
 				area=$(xrectsel)
-				echo "$area"
 				res=$(echo "$area" | sed "s/\(.*\)+.*+.*/\1/")
 				x=$(echo "$area" | sed "s/.*+\(.*\)+.*/\1/")
 				y=$(echo "$area" | sed "s/$res+.*+\(.*\)/\1/")
