@@ -71,9 +71,9 @@ DISABLE_AUTO_TITLE=true
 #===========================================================================================
 ZSH_THEME="powerlevel10k/powerlevel10k"
 POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_icon custom_root custom_name dir vcs custom_arrow)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_name dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_branch background_jobs)
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_CUSTOM_ICON="icon"
 POWERLEVEL9K_CUSTOM_ROOT="root"
 POWERLEVEL9K_CUSTOM_NAME="name"
@@ -85,11 +85,12 @@ POWERLEVEL9K_CUSTOM_ROOT_BACKGROUND="255" #grey93
 POWERLEVEL9K_CUSTOM_ROOT_FOREGROUND="136" #darkgoldenrod
 if [ $USER = "root" ]
 then
-	POWERLEVEL9K_CUSTOM_NAME_BACKGROUND="001" #red
+	POWERLEVEL9K_CUSTOM_NAME_BACKGROUND="black" #red
+	POWERLEVEL9K_CUSTOM_NAME_FOREGROUND="red" #darkgoldenrod
 else
-	POWERLEVEL9K_CUSTOM_NAME_BACKGROUND="130" #darkorange3
+	POWERLEVEL9K_CUSTOM_NAME_BACKGROUND="255" #grey93
+	POWERLEVEL9K_CUSTOM_NAME_FOREGROUND="024" #deepskyblue4a
 fi
-POWERLEVEL9K_CUSTOM_NAME_FOREGROUND="255" #grey93
 POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="024" #deepskyblue4a
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="255" #grey93
 POWERLEVEL9K_DIR_HOME_BACKGROUND="024" #deepskyblue4a
@@ -116,7 +117,12 @@ root(){
 	fi
 }
 name(){
-	echo "$USER"
+	if [ $USER = "root" ]
+	then 
+		echo "\uf21b"
+	else
+		echo "\uf007"
+	fi
 }
 arrow(){
 	echo "\uf0a9"
@@ -130,22 +136,22 @@ branch(){
 		commit="Changes to be"
 		push="Your branch is ahead"
 		pull="Your branch is behind"
-		printf $branch
+		#printf $branch
 		if [[ $all =~ $stage ]]
 		then
-			printf " \uf06a"
-		fi
-		if [[ $all =~ $commit ]]
+			printf "\uf06a"
+		elif [[ $all =~ $commit ]]
 		then
-			printf " \uf055"
-		fi
-		if [[ $all =~ $push ]]
+			printf "\uf055"
+		elif [[ $all =~ $push ]]
 		then
-			printf " \uf0aa"
-		fi
-		if [[ $all =~ $pull ]]
+			printf "\uf0aa"
+		elif [[ $all =~ $pull ]]
 		then
-			printf " \uf0ab"
+			printf "\uf0ab"
+		else
+			POWERLEVEL9K_CUSTOM_BRANCH_BACKGROUND="green" #darkorange3
+			printf "\ufbd9"
 		fi
 	fi
 }
