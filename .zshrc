@@ -71,18 +71,12 @@ DISABLE_AUTO_TITLE=true
 #===========================================================================================
 ZSH_THEME="powerlevel10k/powerlevel10k"
 POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_name dir vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_name dir vcs custom_arrow)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_branch background_jobs)
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-POWERLEVEL9K_CUSTOM_ICON="icon"
-POWERLEVEL9K_CUSTOM_ROOT="root"
 POWERLEVEL9K_CUSTOM_NAME="name"
 POWERLEVEL9K_CUSTOM_ARROW="arrow"
 POWERLEVEL9K_CUSTOM_BRANCH="branch"
-POWERLEVEL9K_CUSTOM_ICON_BACKGROUND="255" #grey93
-POWERLEVEL9K_CUSTOM_ICON_FOREGROUND="068" #steelblue3
-POWERLEVEL9K_CUSTOM_ROOT_BACKGROUND="255" #grey93
-POWERLEVEL9K_CUSTOM_ROOT_FOREGROUND="136" #darkgoldenrod
 if [ $USER = "root" ]
 then
 	POWERLEVEL9K_CUSTOM_NAME_BACKGROUND="black" #red
@@ -107,15 +101,6 @@ POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='236' #grey19
 POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='064' #chartreuse4
 POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='236' #grey19
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='094' #orange4a
-icon(){
-	echo "\uf303"
-}
-root(){
-	if [ $USER = "root" ]
-	then
-		echo "\ue315"
-	fi
-}
 name(){
 	if [ $USER = "root" ]
 	then 
@@ -136,7 +121,6 @@ branch(){
 		commit="Changes to be"
 		push="Your branch is ahead"
 		pull="Your branch is behind"
-		#printf $branch
 		if [[ $all =~ $stage ]]
 		then
 			printf "\uf06a"
