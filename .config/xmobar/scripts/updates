@@ -4,17 +4,25 @@ if [ "$1" == "updates" ]; then
 	notify-send.sh -R id_file -i dialog-information "Obtaining updates"
 fi
 
+major="5.4."
+release="$(uname -r | sed "s/$major\(.*\)-xanmod1/\1/")"
+
+url=$(curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases" | grep -E "browser_download_url.*${major}[0-9]{2}-xanmod1.*\/.*$release.*--.*" | cut -d'"' -f4)
+
+xanmod_update="$(basename "$url" | sed -e 's/--/ -> /g' -e 's/patch-\(.*\)\.xz/\1/g')"
+
 updates_arch=$(checkupdates+aur 2> /dev/null)
 n_updates_arch=$(echo "$updates_arch" | sed '/^$/d' | wc -l)
+n_xanmod_patch=$(echo "$url" | wc -l)
 
-n_updates=$(("$n_updates_arch"))
+n_updates=$(("$n_updates_arch" + "$n_xanmod_patch"))
 
 case "$1" in
 	updates)
 		if [ $n_updates -eq 0 ]; then
 			notify-send.sh -R id_file -i dialog-information "System up to date"
 		else
-			notify-send.sh -R id_file -t 5000 -i dialog-information "Available updates" "$updates_arch"
+			notify-send.sh -R id_file -t 5000 -i dialog-information "Available updates" "$updates_arch\n$xanmod_update"
 		fi
 		;;
 	*)
