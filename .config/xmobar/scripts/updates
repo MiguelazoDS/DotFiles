@@ -13,7 +13,7 @@ xanmod_update="$(basename "$url" | sed -e 's/--/ -> /g' -e 's/patch-\(.*\)\.xz/\
 
 updates_arch=$(checkupdates+aur 2> /dev/null)
 n_updates_arch=$(echo "$updates_arch" | sed '/^$/d' | wc -l)
-n_xanmod_patch=$(echo "$url" | wc -l)
+n_xanmod_patch=$(echo "$url" | sed '/^$/d' | wc -l)
 
 n_updates=$(("$n_updates_arch" + "$n_xanmod_patch"))
 
