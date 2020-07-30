@@ -88,7 +88,7 @@ if [[ "$option" == "i" ]] && [[ "$release" != "$patch" ]]; then
 	make -j"$(nproc)" modules
 	sudo make -j"$(nproc)" modules_install
 	version="$(echo "$major$patch" | sed 's/\.//g')"
-	sudo cp arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version" 
+	sudo cp -i arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version" 
 	preset "$version"
 	sudo mkinitcpio -p linux-xanmod-"$version"
 	sudo grub-mkconfig -o /boot/grub/grub.cfg
