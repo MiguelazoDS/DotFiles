@@ -60,8 +60,6 @@ release="$(uname -r | sed "s/$major\(.*\)-xanmod1/\1/")"
 linux_dir="$HOME/Documents/linux-$major$release-xanmod1"
 url=$(curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases" | grep -E "browser_download_url.*${major}[0-9]{2}-xanmod1.*\/.*$release.*--.*" | cut -d'"' -f4)
 
-patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
-
 if [[ "$option" == "e" ]] && [[ "$release" == "$patch" ]] && [[ -n "$url" ]]; then
 	wget -q "$url"
 	xz --decompress ./*.xz
@@ -77,6 +75,8 @@ if [[ "$option" == "e" ]] && [[ "$release" == "$patch" ]] && [[ -n "$url" ]]; th
 elif [[ $option == "d" ]]; then
 	printf "\nPatch available\n\n%s\n" "$url"
 fi
+
+patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
 
 printf "\nRelease installed: %s\nKernel patch installed: %s\n" "$release" "$patch"
 
