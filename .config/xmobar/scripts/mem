@@ -1,19 +1,28 @@
 #!/usr/bin/env bash
 
-var=$(free | awk '/^Mem:/ {printf  "RAM:\n\nUsed: %.3f MiB, Total: %.3f MiB\n\n", $3/1024, $2/1024}'
-free | awk '/^Swap:/ {printf  "SWAP:\n\nUsed: %.3f MiB, Total: %.3f MiB\n\n", $3/1024, $2/1024}'
-total=$(free | awk '/^Mem:/ {printf "%.3f", $2/1024}')
-ps axch -o cmd,%mem --sort=-%mem | head -15 | while read -r i;
+function format {
+	total=$(free -m| awk '/^Mem:/ {printf "%.3f", $2}')
+	line_length="                         "
+	proc="$1"
+	size=$(echo "$2"*"$total"/100 | bc -l)
+	printf "%s%s%.2f MiB\n" "${proc,,}" "${line_length:${#proc}}" "$size"
+}
+
+ram=$(free -h| awk '/^Mem:/ {printf  "RAM:\n\nUsed: %s, Total: %s\n\n", $3, $2}')
+swap=$(free -h| awk '/^Swap:/ {printf  "SWAP:\n\nUsed: %s, Total: %s\n\n", $3, $2}')
+processes=$(ps axcho comm --sort=-%mem | head -20)
+mem=$(ps axcho %mem --sort=-%mem | head -20)
+IFS=$'\n' processes=($processes)
+IFS=$'\n' mem=($mem)
+
+var=$(for i in {0..19}
 do
-	program=$(echo "$i" | cut -d ' ' -f1)
-	mem=$(echo $i | cut -d ' ' -f2)
-	mem_usage=$(echo $mem*$total/100 | bc -l)
-	printf "%-25s     %.3f MiB\n" "$program" "$mem_usage"
+	format "${processes[$i]}" "${mem[$i]}"
 done)
 
 case "$1" in
 	--details)
-		notify-send.sh -R id_file -i dialog-information -t 5000 "Memory info" "$var"
+		notify-send.sh -R id_file -i dialog-information -t 5000 "Memory info" "\n$ram\n\n$swap\n\n$var"
 		;;
 	*)
 		free | awk '/^Mem:/ { used=(100*$3)/($2); printf "<icon=memory.xpm/> %.1f%/%.2fGi", used, $2/(1024*1024)}'
