@@ -2,7 +2,7 @@
 
 function usage {
 	printf "Usage: \n\txanmod_patch [Options]\n"
-	printf -- "\t-o d for dry-run, -o e for execute and -o i for install"
+	printf -- "\t-o d for dry-run, -o p for patch and -o i for install"
 	printf "\nOptions: \n"
 	printf -- "\t-o <value> --option <value>\n"
 }
@@ -60,7 +60,9 @@ release="$(uname -r | sed "s/$major\(.*\)-xanmod1/\1/")"
 linux_dir="$HOME/Documents/linux-$major$release-xanmod1"
 url=$(curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases" | grep -E "browser_download_url.*${major}[0-9]{2}-xanmod1.*\/.*$release.*--.*" | cut -d'"' -f4)
 
-if [[ "$option" == "e" ]] && [[ "$release" == "$patch" ]] && [[ -n "$url" ]]; then
+patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
+
+if [[ "$option" == "p" ]] && [[ "$release" == "$patch" ]] && [[ -n "$url" ]]; then
 	wget -q "$url"
 	xz --decompress ./*.xz
 	printf "\n\nPatching kernel\n"
@@ -91,9 +93,9 @@ if [[ "$option" == "i" ]] && [[ "$release" != "$patch" ]]; then
 	sudo cp -i arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version" 
 	preset "$version"
 	sudo mkinitcpio -p linux-xanmod-"$version"
-	sudo grub-mkconfig -o /boot/grub/grub.cfg
 	nvidia_version="$(nvidia-smi | awk '/NVIDIA-SMI/ {print $3}')"
 	sudo dkms install nvidia/"$nvidia_version" -k "$major$patch-xanmod1"
+	sudo grub-mkconfig -o /boot/grub/grub.cfg
 	cd "$HOME" || exit
 	mv "$linux_dir" $(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")
 fi
