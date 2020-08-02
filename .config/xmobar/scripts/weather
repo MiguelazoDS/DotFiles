@@ -60,7 +60,7 @@ case "$1" in
 		full_info=$full_info"\n\n3 Hours Forecast:\n============="
 		full_info=$full_info"\n\n"$(printf "Temp: %.0fºC\nDescription: %s\nFeels Like: %.0fºC" "$(echo "$temp_b"|bc)" "$desc_b" "$(echo "$feels_like_b"|bc)")
 		full_info=$full_info"\n"$(printf "Wind Speed: %.2fkm/h\nHumidity: %s%%" "$(echo "$wind_speed_b*3.6"|bc)" "$humidity_b")
-		notify-send.sh -R id_file -i "$HOME"/.config/xmobar/images/"$icon_name".png "Extended weather" "$full_info" -o "Openweather.org:waterfox-current https://openweathermap.org/city/3860259"
+		notify-send.sh -R id_file -i "$HOME"/.config/xmobar/images/"$icon_name".png "Extended weather" "$full_info" -o "Openweather.org:firefox https://openweathermap.org/city/3860259"
 		;;
 	forecast ) echo forecast
 		;;

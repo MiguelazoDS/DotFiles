@@ -122,7 +122,7 @@ myKeys =
         , ("M-e r", spawn "systemctl reboot")
 
 -- Applications
-        , ("M-o", spawn "waterfox-current")
+        , ("M-o", spawn "firefox")
         , ("M-x", spawn "kill -9 $(pidof mocp)")
         , ("M-d", spawn "rofi -show drun -show-icons -drun-icon-theme arthur.rasi")
         , ("M-n", spawn $ myTerminal ++ " -e 'ranger'")
@@ -242,9 +242,9 @@ myManageHook' = composeAll
      , title =? "gitk"                   --> doFloat
      , className =? "JDownloader"        --> doFloat
      , className =? "Yad"                --> doFloat
-     , (className =? "waterfox" <&&> appName =? "Places") --> doFloat
-     , (className =? "waterfox" <&&> resource =? "Dialog") --> doFloat
-     , (className =? "waterfox" <&&> title =? "About Mozilla Waterfox") --> doFloat
+     , (className =? "firefox" <&&> appName =? "Places") --> doFloat
+     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat
+     , (className =? "firefox" <&&> title =? "About Mozilla firefox") --> doFloat
      ]
 
 ------------------------------------------------------------------------
