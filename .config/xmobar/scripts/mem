@@ -30,7 +30,8 @@ case "$1" in
 		do
 			update
 			notify-send.sh -R id_file -i dialog-information -t 3000 "Memory info" "\n$ram\n\n$swap\n\n$var"
-			sleep 0.1
+			sleep 0.01
+			notify-send.sh -R id_file -i dialog-information -t 100 "Memory info" "\n$ram\n\n$swap\n\n$var"
 		done
 		;;
 	*)
