@@ -55,6 +55,8 @@ do
 	esac
 done
 
+sudo bash -c ""
+
 major="5.4."
 release="$(uname -r | sed "s/$major\(.*\)-xanmod1/\1/")"
 linux_dir="$HOME/Documents/linux-$major$release-xanmod1"
