@@ -87,7 +87,7 @@ class mount(Command):
 
     def execute(self):
         """TODO: to be defined1. """
-        self.fm.run("jmtpfs $HOME/.Smartphone")
+        self.fm.run("go-mtpfs $HOME/.Smartphone 2>/dev/null &disown")
 
 
 class unmount(Command):
