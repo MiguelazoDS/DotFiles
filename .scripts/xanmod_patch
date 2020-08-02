@@ -9,18 +9,18 @@ function usage {
 
 function preset {
 	printf "\nCreating mkinitcpio preset\n\n"
-	sudo tee /etc/mkinitcpio.d/linux-xanmod-"$1".preset <<-EOF 
+	sudo tee /etc/mkinitcpio.d/linux-xanmod-"$1".preset <<-EOF
 	# mkinitcpio preset file for the 'linux-xanmod-$1' package
-	
+
 	ALL_config="/etc/mkinitcpio.conf"
 	ALL_kver="/boot/vmlinuz-xanmod-$1"
-	
+
 	PRESETS=('default' 'fallback')
-	
+
 	#default_config="/etc/mkinitcpio.conf"
 	default_image="/boot/initramfs-xanmod-$1.img"
 	#default_options=""
-	
+
 	#fallback_config="/etc/mkinitcpio.conf"
 	fallback_image="/boot/initramfs-xanmod-$1-fallback.img"
 	fallback_options="-S autodetect"
@@ -55,8 +55,6 @@ do
 	esac
 done
 
-sudo bash -c ""
-
 major="5.4."
 release="$(uname -r | sed "s/$major\(.*\)-xanmod1/\1/")"
 linux_dir="$HOME/Documents/linux-$major$release-xanmod1"
@@ -85,6 +83,7 @@ patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
 printf "\nRelease installed: %s\nKernel patch installed: %s\n" "$release" "$patch"
 
 if [[ "$option" == "i" ]] && [[ "$release" != "$patch" ]]; then
+	sudo bash -c ""
 	cd "$linux_dir" || exit
 	make oldconfig
 	make LSMOD="$HOME"/.config/modprobed.db localmodconfig
@@ -92,12 +91,12 @@ if [[ "$option" == "i" ]] && [[ "$release" != "$patch" ]]; then
 	make -j"$(nproc)" modules
 	sudo make -j"$(nproc)" modules_install
 	version="$(echo "$major$patch" | sed 's/\.//g')"
-	sudo cp -i arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version" 
+	sudo cp -i arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version"
 	preset "$version"
 	sudo mkinitcpio -p linux-xanmod-"$version"
 	nvidia_version="$(nvidia-smi | awk '/NVIDIA-SMI/ {print $3}')"
 	sudo dkms install nvidia/"$nvidia_version" -k "$major$patch-xanmod1"
 	sudo grub-mkconfig -o /boot/grub/grub.cfg
 	cd "$HOME" || exit
-	mv "$linux_dir" $(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")
+	mv "$linux_dir" "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")"
 fi
