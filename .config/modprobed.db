@@ -105,8 +105,10 @@ sp5100_tco
 syscopyarea
 sysfillrect
 sysimgblt
+uas
 ufs
 usbhid
+usb_storage
 vfat
 wmi
 wmi_bmof
