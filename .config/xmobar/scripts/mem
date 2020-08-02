@@ -8,21 +8,30 @@ function format {
 	printf "%s%s%.2f MiB\n" "${proc,,}" "${line_length:${#proc}}" "$size"
 }
 
-ram=$(free -h| awk '/^Mem:/ {printf  "RAM:\n\nUsed: %s, Total: %s\n\n", $3, $2}')
-swap=$(free -h| awk '/^Swap:/ {printf  "SWAP:\n\nUsed: %s, Total: %s\n\n", $3, $2}')
-processes=$(ps axcho comm --sort=-%mem | head -20)
-mem=$(ps axcho %mem --sort=-%mem | head -20)
-IFS=$'\n' processes=($processes)
-IFS=$'\n' mem=($mem)
+function update {
+	ram=$(free -h| awk '/^Mem:/ {printf  "RAM:\n\nUsed: %s, Total: %s\n\n", $3, $2}')
+	swap=$(free -h| awk '/^Swap:/ {printf  "SWAP:\n\nUsed: %s, Total: %s\n\n", $3, $2}')
+	processes=$(ps axcho comm --sort=-%mem | head -20)
+	mem=$(ps axcho %mem --sort=-%mem | head -20)
+	IFS=$'\n' processes=($processes)
+	IFS=$'\n' mem=($mem)
+	var=$(for i in {0..19}
+	do
+		format "${processes[$i]}" "${mem[$i]}"
+	done)
+}
 
-var=$(for i in {0..19}
-do
-	format "${processes[$i]}" "${mem[$i]}"
-done)
+duration=3
+start_time=$(( SECONDS ))
 
 case "$1" in
 	--details)
-		notify-send.sh -R id_file -i dialog-information -t 5000 "Memory info" "\n$ram\n\n$swap\n\n$var"
+		while [ $(( SECONDS )) -lt $(( start_time + duration )) ]
+		do
+			update
+			notify-send.sh -R id_file -i dialog-information -t 3000 "Memory info" "\n$ram\n\n$swap\n\n$var"
+			sleep 0.1
+		done
 		;;
 	*)
 		free | awk '/^Mem:/ { used=(100*$3)/($2); printf "<icon=memory.xpm/> %.1f%/%.2fGi", used, $2/(1024*1024)}'

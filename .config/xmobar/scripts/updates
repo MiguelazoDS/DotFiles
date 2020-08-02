@@ -22,7 +22,7 @@ case "$1" in
 		if [ $n_updates -eq 0 ]; then
 			notify-send.sh -R id_file -i dialog-information "System up to date"
 		else
-			notify-send.sh -R id_file -t 5000 -i dialog-information "Available updates" "$updates_arch\n$xanmod_update"
+			notify-send.sh -R id_file -t 3000 -i dialog-information "Available updates" "$updates_arch\n$xanmod_update"
 		fi
 		;;
 	*)
