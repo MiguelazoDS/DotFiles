@@ -9,6 +9,7 @@ function convert {
 	printf "\nConverting to mp3\n\n"
 	ffmpeg -i "$1".wav "$1".mp3 2> /dev/null
 	printf "\nNormalize volume\n\n"
+	check_program "mp3gain"
 	mp3gain -c -r -p -d 6 "$1".mp3
 	printf "\nMoving file to ~/Music\n\n"
 	mv "$1".mp3 ~/Music
@@ -37,6 +38,12 @@ function usage {
 	printf "\t-o <value> --option <value>\t 1: With Vocals,2: Without Vocals,3:Both\n"
 	printf "\t-s <value> --song <value>\n"
 }
+
+function check_program {
+	hash "$1" 2>/dev/null
+	[[ $? -eq 1 ]] && (printf "\n%s is not installed\nInstalling...\n" "$1"; yay -S "$1")
+}
+
 
 if [ "$#" -lt 4 ]; then
 	usage
@@ -85,9 +92,7 @@ do
 	esac
 done
 
-hash conda 2>/dev/null
-
-[[ $? -eq 1 ]] && ( printf "Conda is not installed\nInstalling ...\n"; yay -S anaconda )
+check_program "conda"
 
 env_name=spleeter
 spleeter_dir="$HOME/.conda/envs/$env_name"
@@ -118,10 +123,13 @@ else
 	for i in "output/$name"_*/*
 	do
 		if [[ $i =~ "bass" ]]; then
+			[[ "$i" =~ "'" ]] && i=${i/\'/\'\\\'\'}
 			printf "file '%s'\n" ./"$i" >> bass
 		elif [[ $i =~ "drums" ]]; then
+			[[ "$i" =~ "'" ]] && i=${i/\'/\'\\\'\'}
 			printf "file '%s'\n" ./"$i" >> drums
 		elif [[ $i =~ "vocals" ]]; then
+			[[ "$i" =~ "'" ]] && i=${i/\'/\'\\\'\'}
 			printf "file '%s'\n" ./"$i" >> vocals
 		fi
 	done
