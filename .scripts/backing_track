@@ -17,18 +17,18 @@ function convert {
 function with_vocals {
 	bt_name_v="$name"" backingtrack (vocals)"
 	ffmpeg -f concat -safe 0 -i vocals vocals.wav 2> /dev/null
-	ffmpeg -i bass.wav -i drums.wav -i piano.wav -i vocals.wav -filter_complex amix=inputs=4:duration=longest "$bt_name_v".wav 2> /dev/null
+	ffmpeg -i bass.wav -i drums.wav -i vocals.wav -filter_complex amix=inputs=3:duration=longest "$bt_name_v".wav 2> /dev/null
 	convert "$bt_name_v"
 }
 
 function without_vocals {
 	bt_name="$name"" backingtrack (no vocals)"
-	ffmpeg -i bass.wav -i drums.wav -i piano.wav -filter_complex amix=inputs=3:duration=longest "$bt_name".wav 2> /dev/null
+	ffmpeg -i bass.wav -i drums.wav -filter_complex amix=inputs=2:duration=longest "$bt_name".wav 2> /dev/null
 	convert "$bt_name"
 }
 
 function clean {
-	trm -rf bass drums vocals piano bass.wav drums.wav vocals.wav piano.wav "$name"_00* "$bt_name".wav "$bt_name_v".wav output
+	trm -rf bass drums vocals bass.wav drums.wav vocals.wav "$name"_00* "$bt_name".wav "$bt_name_v".wav output
 }
 
 function usage {
@@ -69,7 +69,7 @@ do
 			name_ext "$(basename "$song")"
 			if [ -e "$song" ]; then
 				if [ "$ext" != "mp3" ]; then
-					echo Invalid format for a song.
+					echo Invalid song format.
 					exit 1
 				fi
 			else
@@ -89,13 +89,14 @@ hash conda 2>/dev/null
 
 [[ $? -eq 1 ]] && ( printf "Conda is not installed\nInstalling ...\n"; yay -S anaconda )
 
-spleeter_dir="$HOME/.conda/envs/spleeter"
+env_name=spleeter
+spleeter_dir="$HOME/.conda/envs/$env_name"
 
-if [[ ! -d "$spleeter_dir" ]]; then 
-	printf "Spleeter environment does not exist\nCreating environment ...\n"
-	conda create -n spleeter python=3.6
+if [[ ! -d "$spleeter_dir" ]]; then
+	printf "%s environment does not exist\nCreating environment ...\n" $env_name
+	conda create -n $env_name python=3.6
 	printf "It's needed to close the terminal before env activation\n"
-	printf "\nAlso remember to type \"conda activate env_name\" and install with \"conda install -c conda-forge spleeter\"\n"
+	printf "\nAlso remember to type \"conda activate %$1s\" and install with \"conda install -c conda-forge %$1s\"\n" $env_name
 	read -n 1 -r -s -p $'Press enter to continue...\n'
 	exit 0
 fi
@@ -103,13 +104,15 @@ fi
 hash spleeter 2>/dev/null
 
 if [[ $? -eq 1 ]]; then
-	printf "\nRemember to execute conda activate env_name before running this script\n"
+	printf "\nRemember to execute conda activate %s before running this script\n" $env_name
 	exit 0
 else
+	printf "\nSpliting song in chunks of 90 seconds\n"
 	ffmpeg -i "$song" -f segment -segment_time 90 -c copy "$name""_%03d"".$ext"  2> /dev/null
+	printf "\nSeparating chunks\n\n"
 	for i in "$name"_*.mp3
 	do
-		spleeter separate -i "$i" -p spleeter:5stems -o output
+		spleeter separate -i "$i" -p spleeter:4stems -o output
 	done
 
 	for i in "output/$name"_*/*
@@ -118,16 +121,15 @@ else
 			printf "file '%s'\n" ./"$i" >> bass
 		elif [[ $i =~ "drums" ]]; then
 			printf "file '%s'\n" ./"$i" >> drums
-		elif [[ $i =~ "piano" ]]; then
-			printf "file '%s'\n" ./"$i" >> piano
 		elif [[ $i =~ "vocals" ]]; then
 			printf "file '%s'\n" ./"$i" >> vocals
 		fi
 	done
 
+	printf "\nConcatenating tracks ... \n"
+
 	ffmpeg -f concat -safe 0 -i bass bass.wav 2> /dev/null
 	ffmpeg -f concat -safe 0 -i drums drums.wav 2> /dev/null
-	ffmpeg -f concat -safe 0 -i piano piano.wav 2> /dev/null
 
 	case "$option" in
 		1 )
