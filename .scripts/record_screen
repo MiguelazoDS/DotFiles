@@ -37,6 +37,8 @@ do
 				res=$(xrandr | grep '*' | cut -d ' ' -f4)
 				capture "$res" "0" "0"
 			elif [[ "$variable" =~ "a" ]]; then
+				hash xrectsel
+				[[ $? -eq 1 ]] && (printf "\nxrectsel not installed\nInstalling\n"; yay -S xrectsel)
 				area=$(xrectsel)
 				res=$(echo "$area" | sed "s/\(.*\)+.*+.*/\1/")
 				x=$(echo "$area" | sed "s/.*+\(.*\)+.*/\1/")

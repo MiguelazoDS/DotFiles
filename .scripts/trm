@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+hash trash-put 
+[[ $? -eq 1 ]] && (printf "\ntrash-cli is not installed\nInstalling ... \n"; yay -S trash-cli)
+
 if [ "$#" -lt 1 ]; then
 	echo You must specify a file or folder.
 else

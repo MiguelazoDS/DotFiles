@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
+hash reflector
+[[ $? -eq 1 ]] && (printf "\nreflector is not installed\nInstalling..."; yay -S reflector)
+
 sudo reflector --verbose -l 30 -f 10 --save /etc/pacman.d/mirrorlist
