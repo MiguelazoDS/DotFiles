@@ -1,9 +1,10 @@
-#zplug path
-source /usr/share/zsh/scripts/zplug/init.zsh
-
 export TERMINFO="/usr/share/terminfo"
 
 #Plugins
+command -v zplug >/dev/null
+[[ $? -eq 1 ]] && (printf "\nzplug is not installed\nInstalling"; yay -S zplug)
+#zplug path
+source /usr/share/zsh/scripts/zplug/init.zsh
 zplug "wfxr/forgit"
 
 #Use the vi navigation keys in menu completion
