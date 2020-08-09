@@ -85,7 +85,27 @@ do
 	esac
 done
 
-if [[ $(command -v spleeter) != "" ]]; then
+hash conda 2>/dev/null
+
+[[ $? -eq 1 ]] && ( printf "Conda is not installed\nInstalling ...\n"; yay -S anaconda )
+
+spleeter_dir="$HOME/.conda/envs/spleeter"
+
+if [[ ! -d "$spleeter_dir" ]]; then 
+	printf "Spleeter environment does not exist\nCreating environment ...\n"
+	conda create -n spleeter python=3.6
+	printf "It's needed to close the terminal before env activation\n"
+	printf "\nAlso remember to type \"conda activate env_name\" and install with \"conda install -c conda-forge spleeter\"\n"
+	read -n 1 -r -s -p $'Press enter to continue...\n'
+	exit 0
+fi
+
+hash spleeter 2>/dev/null
+
+if [[ $? -eq 1 ]]; then
+	printf "\nRemember to execute conda activate env_name before running this script\n"
+	exit 0
+else
 	ffmpeg -i "$song" -f segment -segment_time 90 -c copy "$name""_%03d"".$ext"  2> /dev/null
 	for i in "$name"_*.mp3
 	do
@@ -124,8 +144,4 @@ if [[ $(command -v spleeter) != "" ]]; then
 			clean
 			;;
 	esac
-
-else
-	echo Command spleeter not found
-	exit 1
 fi
