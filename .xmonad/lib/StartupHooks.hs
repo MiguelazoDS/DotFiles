@@ -7,9 +7,9 @@ import XMonad.Hooks.SetWMName
 
 myStartupHook = do
             setWMName "LG3D" 
-            spawnOnce "dropbox"
+            spawnOnce "sleep 30; dropbox"
             spawnOnce "numlockx on"
-            spawnOnce "nm-applet"
+            spawnOnce "sleep 10; nm-applet"
             spawnOnce "$HOME/.config/i3/scripts/flux"
             spawnOnce "nitrogen --restore &"
             spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf"
