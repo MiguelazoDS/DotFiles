@@ -19,7 +19,7 @@ data Custom = Custom
     }
 
 applications = Applications 
-    { myTerminal = "kitty --single-instance"
+    { myTerminal = "kitty"
     , myTextEditor = "nvim"
     , myBrowser = "firefox"
     , myMusicPlayer = "mocp" 
