@@ -124,6 +124,7 @@ noremap Y "+y
 nnoremap yl 0"+y$
 noremap P "+p
 nnoremap dl 0d$
+nnorema / :BLines<cr>
 
 "Mapping keys for switching between buffers.
 "========================================================
