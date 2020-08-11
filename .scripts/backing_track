@@ -40,8 +40,9 @@ function usage {
 }
 
 function check_program {
-	hash "$1" 2>/dev/null
-	[[ $? -eq 1 ]] && (printf "\n%s is not installed\nInstalling...\n" "$1"; yay -S "$1")
+	program="$1"
+	hash "$program" 2>/dev/null
+	[[ $? -eq 1 ]] && ([[ "$program" =~ "conda" ]] && program="anaconda"; printf "\n%s is not installed\nInstalling...\n" "$program"; yay -S "$program")
 }
 
 
