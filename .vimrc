@@ -27,6 +27,12 @@ Plug 'Yggdroot/indentLine'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'puremourning/vimspector'
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-sleuth'
+Plug 'jiangmiao/auto-pairs'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'adelarsq/vim-matchit'
+Plug 'easymotion/vim-easymotion'
 call plug#end()
 "================================================
 
