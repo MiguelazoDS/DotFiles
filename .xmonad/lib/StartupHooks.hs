@@ -8,12 +8,12 @@ import XMonad.Util.NamedScratchpad
 import Scratchpads
 
 myStartupHook = do
-            setWMName "LG3D" 
+            setWMName "sleep 10; LG3D" 
             spawnOnce "sleep 30; dropbox"
             spawnOnce "numlockx on"
             spawnOnce "sleep 15; nm-applet"
             spawnOnce "nitrogen --restore &"
-            spawnOnce "killall -q comptom; compton --config $HOME/.config/compton/compton.conf"
+            spawnOnce "sleep 10; killall -q comptom; compton --config $HOME/.config/compton/compton.conf"
             spawnOnce "setxkbmap es"
             spawnOnce "sleep 10; $HOME/.xmonad/scripts/trayer"
             spawnOnce "xsetroot -cursor_name left_ptr"
