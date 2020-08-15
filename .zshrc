@@ -10,6 +10,8 @@ source /usr/share/zsh/scripts/zplug/init.zsh
 
 export TERMINFO="/usr/share/terminfo"
 
+export EDITOR=nvim
+
 #Plugins
 command -v zplug >/dev/null
 [[ $? -eq 1 ]] && (printf "\nzplug is not installed\nInstalling"; yay -S zplug)
