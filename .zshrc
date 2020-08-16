@@ -10,7 +10,8 @@ source /usr/share/zsh/scripts/zplug/init.zsh
 
 export TERMINFO="/usr/share/terminfo"
 
-export EDITOR=nvim
+hash nvim
+[[ $? -eq 1 ]] && (printf "\nneovim is not installed\nInstalling..."; yay -S neovim neovim-plug neovim-remote) || export EDITOR=nvim
 
 #Plugins
 command -v zplug >/dev/null
