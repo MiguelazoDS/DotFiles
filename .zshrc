@@ -170,7 +170,7 @@ zplug load
 
 #ALIASES
 #==========================================================================================
-alias ls=lsd
+alias ls='exa --icons'
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="echo rm command is discourage, use trm instead. If you still want to run it, use backslash to escape it"
