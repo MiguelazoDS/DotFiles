@@ -63,8 +63,11 @@ major="5.4."
 release="$(uname -r | sed "s/$major\(.*\)-xanmod1/\1/")"
 linux_dir="$HOME/Documents/linux-$major$release-xanmod1"
 nvidia_dir="/var/lib/dkms/nvidia"
-boot_dir="/boot/"
-module_dir="/usr/lib/modules/"
+boot_dir="/boot"
+modules_dir="/usr/lib/modules"
+mkinitcpio_dir="/etc/mkinitcpio.d"
+nvidia_version="$(nvidia-smi | awk '/NVIDIA-SMI/ {print $3}')"
+version="$(echo "$major$release" | sed 's/\.//g')"
 url=$(curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases" | grep -E "browser_download_url.*${major}[0-9]{2}-xanmod1.*\/.*$release.*--.*" | cut -d'"' -f4)
 patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
 
@@ -103,11 +106,9 @@ elif [[ "$option" == "i" ]]; then
 		make -j"$(nproc)" bzImage
 		make -j"$(nproc)" modules
 		sudo make -j"$(nproc)" modules_install
-		version="$(echo "$major$patch" | sed 's/\.//g')"
 		sudo cp -i arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version"
 		preset "$version"
 		sudo mkinitcpio -p linux-xanmod-"$version"
-		nvidia_version="$(nvidia-smi | awk '/NVIDIA-SMI/ {print $3}')"
 		sudo dkms install nvidia/"$nvidia_version" -k "$major$patch-xanmod1"
 		sudo grub-mkconfig -o /boot/grub/grub.cfg
 		cd "$HOME" || exit
@@ -118,7 +119,14 @@ elif [[ "$option" == "i" ]]; then
 		output
 	fi
 elif [[ "$option" == "c" ]]; then
-	printf "\nTo be implemented"
+	#00 20 1 * * /home/miguel/.scripts/xanmod_patch -o c
+	find "$modules_dir" -maxdepth 1 -mindepth 1 ! -name "*5.4.58*" ! -name "*$major$release*lts*" -exec rm -rv {} + >/dev/null
+	find "$boot_dir" -maxdepth 1 -mindepth 1 ! -name '*grub*' ! -name '*amd*' ! -name '*lts*' ! -name "*$version*" -delete >/dev/null   
+	find "$nvidia_dir" -maxdepth 1 -mindepth 1 ! -name "*$nvidia_version*" ! -name '*original*' ! -name '*lts*' ! -name "*$major$release*" -delete >/dev/null   
+	find "$nvidia_dir/$nvidia_version" -maxdepth 1 -mindepth 1 ! -name 'source' ! -name '*lts*' ! -name "*$major$release*" -exec rm -rv {} + >/dev/null 
+	find "$mkinitcpio_dir" -maxdepth 1 -mindepth 1 ! -name "*$version*" ! -name '*lts*' -delete >/dev/null 
+	trash-empty
+	sudo grub-mkconfig -o /boot/grub/grub.cfg
 else
 	printf "\nThe option is not valid.\n"
 	exit 1
