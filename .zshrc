@@ -8,6 +8,8 @@ fi
 #zplug path
 source /usr/share/zsh/scripts/zplug/init.zsh
 
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
 export TERMINFO="/usr/share/terminfo"
 
 hash nvim
