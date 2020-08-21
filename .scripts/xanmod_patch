@@ -73,6 +73,8 @@ patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
 
 if [[ "$option" == "p" ]]; then
 	if [[ "$release" == "$patch" ]] && [[ -n "$url" ]]; then
+		hash wget 2>/dev/null
+		[[ $? -eq 1 ]] && (printf "\nwget not installed\nInstalling"; yay -S wget)
 		wget -q "$url"
 		xz --decompress ./*.xz
 		printf "\n\nPatching kernel\n"
