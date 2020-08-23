@@ -2,7 +2,7 @@
 
 function usage {
 	printf "Usage: \n\txanmod_patch [Options]\n"
-	printf -- "\t-o d for dry-run, -o p for patch and -o i for install"
+	printf -- "\t-o d for dry-run, -o p for patch, -o i for install and -o c for clean"
 	printf "\nOptions: \n"
 	printf -- "\t-o <value> --option <value>\n"
 }
@@ -29,6 +29,49 @@ function preset {
 
 function output {
 	printf "\nRelease installed: %s\nKernel patch installed: %s\n" "$release" "$patch"
+}
+
+function new {
+	url_xanmod=$1
+	bn_xanmod=$2
+	printf "\nDownloading kernel tarball\n"
+	old_path=$(pwd)
+	cd "$HOME/Documents" || exit
+	wget "$url_xanmod"
+	tar xfv "$bn_xanmod"
+	mv xanmod-linux* linux-"$bn_xanmod"
+	# Change Generic by PileDriver processor family
+	printf "\nPileDriver Processor Family Set\n"
+	sed -i 's/\(CONFIG_GENERIC_CPU\)=.*/\# \1 is not set/g' linux-"$bn_xanmod"/.config
+	sed -i 's/.*\(CONFIG_MPILEDRIVER\).*/\1=y/g' linux-"$bn_xanmod"/.config
+	cd "$old_path" || exit
+}
+
+function install {
+	linux_dir=$1
+	major=$2
+	patch=$3
+	nvidia_version=$4
+	release=$5
+
+	sudo bash -c ""
+	cd "$linux_dir" || exit
+	make oldconfig
+	make LSMOD="$HOME"/.config/modprobed.db localmodconfig
+	make -j"$(nproc)" bzImage
+	make -j"$(nproc)" modules
+	sudo make -j"$(nproc)" modules_install
+	version="$(echo "$major$patch" | sed 's/\.//g')"
+	sudo cp -i arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version"
+	preset "$version"
+	sudo mkinitcpio -p linux-xanmod-"$version"
+	sudo dkms install nvidia/"$nvidia_version" -k "$major$patch-xanmod1"
+	sudo grub-mkconfig -o /boot/grub/grub.cfg
+	cd "$HOME" || exit
+	if [[ "$linux_dir" != "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")" ]]; then
+		mv "$linux_dir" "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")"
+	fi
+	printf "\nNeeds reboot\n"
 }
 
 if [ "$#" -lt 2 ]; then
@@ -60,21 +103,38 @@ do
 done
 
 major="5.4."
-release="$(uname -r | sed "s/$major\(.*\)-xanmod1/\1/")"
-linux_dir="$HOME/Documents/linux-$major$release-xanmod1"
+#Two digits number
+release="$(uname -r | sed "s/$major\([0-9]*\)-.*/\1/")"
+#lts or xanmod? (? = 1 or 2)
+kernel="$(uname -r | sed "s/$major$release.*-\(.*\)/\1/")"
+#Directories to clean
+#================================================================
 nvidia_dir="/var/lib/dkms/nvidia"
 boot_dir="/boot"
 modules_dir="/usr/lib/modules"
 mkinitcpio_dir="/etc/mkinitcpio.d"
+#===================================================================
 nvidia_version="$(nvidia-smi | awk '/NVIDIA-SMI/ {print $3}')"
-url=$(curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases" | grep -E "browser_download_url.*${major}[0-9]{2}-xanmod1.*\/.*$release.*--.*" | cut -d'"' -f4)
-patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
+info=url=$(curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases")
+if [[ "$kernel" != "lts" ]]; then
+	url_patch=$(echo "$info" | grep -E "browser_download_url.*${major}[0-9]{2}-xanmod1.*\/.*$release.*--.*" | cut -d'"' -f4)
+fi
+url_xanmod=$(echo "$info" | grep -E "tarball_url.*${major}${release}.*" | head -1 | cut -d '"' -f4)
+bn_xanmod=$(basename "$url_xanmod")
+exist=$(ls "$HOME"/Documents/linux-*xanmod* 2>/dev/null) 
+if [[ -z $exist ]]; then 
+	printf "\nThere's no kernel folder\n" 
+	new "$url_xanmod" "$bn_xanmod"
+fi
+
+	linux_dir=$(ls "$HOME"/Documents/ | grep -E "linux.*xanmod")
+	patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}') 
 
 if [[ "$option" == "p" ]]; then
-	if [[ "$release" == "$patch" ]] && [[ -n "$url" ]]; then
+	if [[ "$release" == "$patch" ]] && [[ -n "$url_patch" ]]; then
 		hash wget 2>/dev/null
 		[[ $? -eq 1 ]] && (printf "\nwget not installed\nInstalling"; yay -S wget)
-		wget -q "$url"
+		wget -q "$url_patch"
 		xz --decompress ./*.xz
 		printf "\n\nPatching kernel\n"
 		old_path=$(pwd)
@@ -92,30 +152,35 @@ if [[ "$option" == "p" ]]; then
 		output
 	fi
 elif [[ $option == "d" ]]; then
-	if [[ -n "$url" ]]; then
-		printf "\nPatch available\n\n%s\n" "$url"
+	if [[ "$kernel" != "lts" ]]; then
+		if [[ -n "$url_patch" ]]; then
+			printf "\nPatch available\n\n%s\n" "$url_patch"
+		else
+			printf "\nThere's no patch available\n"
+		fi
+		output
 	else
-		printf "\nThere's no patch available\n"
+		printf "\nCurrently not running any version of xanmod kernel\n"
 	fi
-	output
 elif [[ "$option" == "i" ]]; then
-	if [[ "$release" != "$patch" ]]; then
-		sudo bash -c ""
-		cd "$linux_dir" || exit
-		make oldconfig
-		make LSMOD="$HOME"/.config/modprobed.db localmodconfig
-		make -j"$(nproc)" bzImage
-		make -j"$(nproc)" modules
-		sudo make -j"$(nproc)" modules_install
- 		version="$(echo "$major$patch" | sed 's/\.//g')"
-		sudo cp -i arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version"
-		preset "$version"
-		sudo mkinitcpio -p linux-xanmod-"$version"
-		sudo dkms install nvidia/"$nvidia_version" -k "$major$patch-xanmod1"
-		sudo grub-mkconfig -o /boot/grub/grub.cfg
-		cd "$HOME" || exit
-		mv "$linux_dir" "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")"
-		printf "\nNeeds reboot\n"
+	if [[ "$release" != "$patch" ]] || [[ "$kernel" == "lts" ]]; then
+		install "$linux_dir" "$major" "$patch" "$nvidia_version" "$release"
+		#sudo bash -c ""
+		#cd "$linux_dir" || exit
+		#make oldconfig
+		#make LSMOD="$HOME"/.config/modprobed.db localmodconfig
+		#make -j"$(nproc)" bzImage
+		#make -j"$(nproc)" modules
+		#sudo make -j"$(nproc)" modules_install
+         #version="$(echo "$major$patch" | sed 's/\.//g')"
+		#sudo cp -i arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version"
+		#preset "$version"
+		#sudo mkinitcpio -p linux-xanmod-"$version"
+		#sudo dkms install nvidia/"$nvidia_version" -k "$major$patch-xanmod1"
+		#sudo grub-mkconfig -o /boot/grub/grub.cfg
+		#cd "$HOME" || exit
+		#mv "$linux_dir" "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")"
+		#printf "\nNeeds reboot\n"
 	else
 		printf "\nNothing to do\n"
 		output
