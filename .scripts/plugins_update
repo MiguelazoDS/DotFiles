@@ -4,4 +4,4 @@
 DISPLAY=:0
 nvim +PlugUpdate +PlugUpgrade +qa!
 zplug update
-notify-send.sh "zplug and nvim plugins"
+notify-send.sh "zplug and nvim plugins updated"
