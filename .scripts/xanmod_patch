@@ -74,6 +74,31 @@ function install {
 	printf "\nNeeds reboot\n"
 }
 
+function patching {
+	url_patch=$1
+	linux_dir=$2
+
+	echo "$url_patch"
+	echo "$linux_dir"
+	hash wget 2>/dev/null
+	[[ $? -eq 1 ]] && (printf "\nwget not installed\nInstalling"; yay -S wget)
+	wget -q "$url_patch"
+	xz --decompress ./*.xz
+	printf "\n\nPatching kernel\n"
+	old_path=$(pwd)
+	cd "$linux_dir" || exit
+	file=$(ls "$old_path"/*--*)
+	echo file "$file"
+	echo linux dir "$linux_dir"
+	patch -p1 < "$file"
+	head -n 5 Makefile
+	cd "$old_path" || exit
+	printf "\n\nRemove patch\n"
+	trm ./*--*
+	patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
+	output
+}
+
 if [ "$#" -lt 2 ]; then
 	usage
 	exit 0
@@ -121,32 +146,17 @@ if [[ "$kernel" != "lts" ]]; then
 fi
 url_xanmod=$(echo "$info" | grep -E "tarball_url.*${major}${release}.*" | head -1 | cut -d '"' -f4)
 bn_xanmod=$(basename "$url_xanmod")
-exist=$(ls "$HOME"/Documents/linux-*xanmod* 2>/dev/null) 
-if [[ -z $exist ]]; then 
-	printf "\nThere's no kernel folder\n" 
+exist=$(ls "$HOME"/Documents/linux-*xanmod* 2>/dev/null)
+if [[ -z $exist ]]; then
+	printf "\nThere's no kernel folder\n"
 	new "$url_xanmod" "$bn_xanmod"
 fi
-
-	linux_dir=$(ls "$HOME"/Documents/ | grep -E "linux.*xanmod")
-	patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}') 
+	linux_dir=$(find $HOME/Documents/ -name "linux*xanmod*")
+	patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
 
 if [[ "$option" == "p" ]]; then
 	if [[ "$release" == "$patch" ]] && [[ -n "$url_patch" ]]; then
-		hash wget 2>/dev/null
-		[[ $? -eq 1 ]] && (printf "\nwget not installed\nInstalling"; yay -S wget)
-		wget -q "$url_patch"
-		xz --decompress ./*.xz
-		printf "\n\nPatching kernel\n"
-		old_path=$(pwd)
-		cd "$linux_dir" || exit
-		file=$(ls "$old_path"/*--*)
-		patch -p1 < "$file"
-		head -n 5 Makefile
-		cd "$old_path" || exit
-		printf "\n\nRemove patch\n"
-		trm ./*--*
-		patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
-		output
+		patching "$url_patch" "$linux_dir"
 	else
 		printf "\nNothing to do\n"
 		output
@@ -165,22 +175,6 @@ elif [[ $option == "d" ]]; then
 elif [[ "$option" == "i" ]]; then
 	if [[ "$release" != "$patch" ]] || [[ "$kernel" == "lts" ]]; then
 		install "$linux_dir" "$major" "$patch" "$nvidia_version" "$release"
-		#sudo bash -c ""
-		#cd "$linux_dir" || exit
-		#make oldconfig
-		#make LSMOD="$HOME"/.config/modprobed.db localmodconfig
-		#make -j"$(nproc)" bzImage
-		#make -j"$(nproc)" modules
-		#sudo make -j"$(nproc)" modules_install
-         #version="$(echo "$major$patch" | sed 's/\.//g')"
-		#sudo cp -i arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version"
-		#preset "$version"
-		#sudo mkinitcpio -p linux-xanmod-"$version"
-		#sudo dkms install nvidia/"$nvidia_version" -k "$major$patch-xanmod1"
-		#sudo grub-mkconfig -o /boot/grub/grub.cfg
-		#cd "$HOME" || exit
-		#mv "$linux_dir" "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")"
-		#printf "\nNeeds reboot\n"
 	else
 		printf "\nNothing to do\n"
 		output
@@ -189,10 +183,10 @@ elif [[ "$option" == "c" ]]; then
 	#00 20 1 * * /home/miguel/.scripts/xanmod_patch -o c
 	version="$(echo "$major$release" | sed 's/\.//g')"
 	find "$modules_dir" -maxdepth 1 -mindepth 1 ! -name "*5.4.58*" ! -name "*$major$release*lts*" -exec rm -rv {} + >/dev/null
-	find "$boot_dir" -maxdepth 1 -mindepth 1 ! -name '*grub*' ! -name '*amd*' ! -name '*lts*' ! -name "*$version*" -delete >/dev/null   
-	find "$nvidia_dir" -maxdepth 1 -mindepth 1 ! -name "*$nvidia_version*" ! -name '*original*' ! -name '*lts*' ! -name "*$major$release*" -delete >/dev/null   
-	find "$nvidia_dir/$nvidia_version" -maxdepth 1 -mindepth 1 ! -name 'source' ! -name '*lts*' ! -name "*$major$release*" -exec rm -rv {} + >/dev/null 
-	find "$mkinitcpio_dir" -maxdepth 1 -mindepth 1 ! -name "*$version*" ! -name '*lts*' -delete >/dev/null 
+	find "$boot_dir" -maxdepth 1 -mindepth 1 ! -name '*grub*' ! -name '*amd*' ! -name '*lts*' ! -name "*$version*" -delete >/dev/null
+	find "$nvidia_dir" -maxdepth 1 -mindepth 1 ! -name "*$nvidia_version*" ! -name '*original*' ! -name '*lts*' ! -name "*$major$release*" -delete >/dev/null
+	find "$nvidia_dir/$nvidia_version" -maxdepth 1 -mindepth 1 ! -name 'source' ! -name '*lts*' ! -name "*$major$release*" -exec rm -rv {} + >/dev/null
+	find "$mkinitcpio_dir" -maxdepth 1 -mindepth 1 ! -name "*$version*" ! -name '*lts*' -delete >/dev/null
 	trash-empty
 	sudo grub-mkconfig -o /boot/grub/grub.cfg
 else
