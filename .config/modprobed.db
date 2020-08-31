@@ -99,6 +99,9 @@ snd_hda_intel
 snd_hwdep
 snd_intel_nhlt
 snd_pcm
+snd_seq
+snd_seq_device
+snd_seq_dummy
 snd_timer
 soundcore
 sp5100_tco
