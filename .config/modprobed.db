@@ -57,6 +57,7 @@ libcrc32c
 libps2
 mac_hid
 mbcache
+mc
 minix
 mousedev
 msdos
@@ -99,10 +100,13 @@ snd_hda_intel
 snd_hwdep
 snd_intel_nhlt
 snd_pcm
+snd_rawmidi
 snd_seq
 snd_seq_device
 snd_seq_dummy
 snd_timer
+snd_usb_audio
+snd_usbmidi_lib
 soundcore
 sp5100_tco
 syscopyarea
