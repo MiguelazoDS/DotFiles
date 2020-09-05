@@ -111,10 +111,12 @@ handle_image() {
         # Video
          video/*)
              # Thumbnail
-             ffmpegthumbnailer -i "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" -s 0 && exit 6
+             mtn -f /usr/share/fonts/TTF/DejaVuSerif-Bold.ttf --shadow=1 -g 10 -r 5 -c 3 "${FILE_PATH}" -w 1000 -j 50 -i -q -t -O /tmp -o .jpg
+             mv "/tmp/$(basename ${FILE_PATH%.*}.jpg)" "${IMAGE_CACHE_PATH}" && exit 6
              exit 1;;
 		 */mp4)
-             ffmpegthumbnailer -i "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" -s 0 && exit 6
+             mtn -f /usr/share/fonts/TTF/DejaVuSerif-Bold.ttf --shadow=1 -g 10 -r 5 -c 3 "${FILE_PATH}" -w 1000 -j 50 -i -q -t -O /tmp -o .jpg
+             mv "/tmp/$(basename ${FILE_PATH%.*}.jpg)" "${IMAGE_CACHE_PATH}" && exit 6
              exit 1;;
 
         # PDF
