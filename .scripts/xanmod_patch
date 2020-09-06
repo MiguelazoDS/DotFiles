@@ -180,6 +180,7 @@ elif [[ "$option" == "i" ]]; then
 		output
 	fi
 elif [[ "$option" == "c" ]]; then
+	#Clean every first day of the month at 20:00
 	#00 20 1 * * /home/miguel/.scripts/xanmod_patch -o c
 	version="$(echo "$major$release" | sed 's/\.//g')"
 	find "$modules_dir" -maxdepth 1 -mindepth 1 ! -name "*${major}${release}*xanmod*" ! -name "*lts*" -exec rm -rv {} + >/dev/null
