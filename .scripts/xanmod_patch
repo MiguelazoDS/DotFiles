@@ -182,8 +182,8 @@ elif [[ "$option" == "i" ]]; then
 elif [[ "$option" == "c" ]]; then
 	#00 20 1 * * /home/miguel/.scripts/xanmod_patch -o c
 	version="$(echo "$major$release" | sed 's/\.//g')"
-	find "$modules_dir" -maxdepth 1 -mindepth 1 ! -name "*5.4.58*" ! -name "*$major$release*lts*" -exec rm -rv {} + >/dev/null
-	find "$boot_dir" -maxdepth 1 -mindepth 1 ! -name '*grub*' ! -name '*amd*' ! -name '*lts*' ! -name "*$version*" -delete >/dev/null
+	find "$modules_dir" -maxdepth 1 -mindepth 1 ! -name "*${major}${release}*xanmod*" ! -name "*lts*" -exec rm -rv {} + >/dev/null
+	find "$boot_dir" -maxdepth 1 -mindepth 1 ! -name '*grub*' ! -name '*amd*' ! -name '*lts*' ! -name "*$version*" -exec rm -rv {} + >/dev/null
 	find "$nvidia_dir" -maxdepth 1 -mindepth 1 ! -name "*$nvidia_version*" ! -name '*original*' ! -name '*lts*' ! -name "*$major$release*" -delete >/dev/null
 	find "$nvidia_dir/$nvidia_version" -maxdepth 1 -mindepth 1 ! -name 'source' ! -name '*lts*' ! -name "*$major$release*" -exec rm -rv {} + >/dev/null
 	find "$mkinitcpio_dir" -maxdepth 1 -mindepth 1 ! -name "*$version*" ! -name '*lts*' -delete >/dev/null
