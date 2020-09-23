@@ -181,7 +181,9 @@ elif [[ "$option" == "i" ]]; then
 	fi
 elif [[ "$option" == "c" ]]; then
 	#Clean every first day of the month at 20:00
-	#00 20 1 * * /home/miguel/.scripts/xanmod_patch -o c
+	#0 20 1 * * /home/miguel/.scripts/xanmod_patch -o c   AS ROOT
+	#1 20 1 * * /home/miguel/.scripts/xanmod_patch -o l   AS USER
+	exec 3>&1 &> >(tee -a /tmp/xanmod_clean_logs)
 	version="$(echo "$major$release" | sed 's/\.//g')"
 	find "$modules_dir" -maxdepth 1 -mindepth 1 ! -name "*${major}${release}*xanmod*" ! -name "*lts*" -exec rm -rv {} + >/dev/null
 	find "$boot_dir" -maxdepth 1 -mindepth 1 ! -name '*grub*' ! -name '*amd*' ! -name '*lts*' ! -name "*$version*" -exec rm -rv {} + >/dev/null
@@ -189,7 +191,9 @@ elif [[ "$option" == "c" ]]; then
 	find "$nvidia_dir/$nvidia_version" -maxdepth 1 -mindepth 1 ! -name 'source' ! -name '*lts*' ! -name "*$major$release*" -exec rm -rv {} + >/dev/null
 	find "$mkinitcpio_dir" -maxdepth 1 -mindepth 1 ! -name "*$version*" ! -name '*lts*' -delete >/dev/null
 	trash-empty
-	sudo grub-mkconfig -o /boot/grub/grub.cfg
+	sudo grub-mkconfig -o /boot/grub/grub.cfg 2>&3
+elif [[ "$option" == "l" ]]; then
+	[[ -f /tmp/xanmod_clean_logs ]] && (notify-send.sh -t 3000 "Clean Xanmod Kernel Directories" "$(cat /tmp/xanmod_clean_logs)"; trm /tmp/xanmod_clean_logs)
 else
 	printf "\nThe option is not valid.\n"
 	exit 1
