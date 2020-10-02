@@ -193,7 +193,7 @@ elif [[ "$option" == "c" ]]; then
 	trash-empty
 	sudo grub-mkconfig -o /boot/grub/grub.cfg 2>&3
 elif [[ "$option" == "l" ]]; then
-	[[ -f /tmp/xanmod_clean_logs ]] && (notify-send.sh -t 3000 "Clean Xanmod Kernel Directories" "$(cat /tmp/xanmod_clean_logs)"; trm /tmp/xanmod_clean_logs)
+	[[ -f /tmp/xanmod_clean_logs ]] && (notify-send.sh -t 5000 "Clean Xanmod Kernel Directories" "$(cat /tmp/xanmod_clean_logs)"; trm /tmp/xanmod_clean_logs)
 else
 	printf "\nThe option is not valid.\n"
 	exit 1
