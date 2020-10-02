@@ -15,4 +15,4 @@ case $type in
 		;;
 esac
 
-trayer --edge top --transparent true --alpha 45 --tint 0x181818 --align right --width $width --height $height --margin $margin --distance 5
+trayer --edge top --transparent true --alpha 75 --tint 0x181818 --align right --width $width --height $height --margin $margin --distance 5
