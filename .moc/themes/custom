@@ -9,7 +9,7 @@
 #
 ##############################################################################
 
-background           = black  black bold
+background           = black  black normal
 frame                = white  black bold
 window_title         = black  black bold
 directory            = green  black normal
