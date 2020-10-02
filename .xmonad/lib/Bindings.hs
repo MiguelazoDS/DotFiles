@@ -26,7 +26,6 @@ import XMonad.Actions.Promote
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shiftPrevScreen)
 
-myModMask = mod4Mask
 myKeys =
 -- Xmonad
         [ ("M-S-r", spawn "xmonad --recompile && xmonad --restart")                             -- Restarts xmonad

@@ -1,9 +1,12 @@
 module Misc 
     ( Applications (..)
+    , Custom (..)
     , applications
+    , custom
     ) where
 
 import XMonad
+import GHC.Word
 
 data Applications = Applications 
     { myTerminal :: String
@@ -15,7 +18,7 @@ data Applications = Applications
 
 data Custom = Custom
     { myModMask :: KeyMask
-    , myBorderWidth :: Int 
+    , myBorderWidth :: GHC.Word.Word32 
     }
 
 applications = Applications 
@@ -28,5 +31,5 @@ applications = Applications
 
 custom = Custom
     { myModMask = mod4Mask
-    , myBorderWidth = 2 
+    , myBorderWidth = 3 
     }

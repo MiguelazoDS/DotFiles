@@ -37,11 +37,12 @@ main = do
               , ppUrgent = xmobarColor "#000000" "" . wrap "!" "!"  -- Urgent workspace
               , ppOrder  = \(ws:l:_) -> [ws,l]
               }
-        , modMask            = myModMask
+        , modMask            = M.myModMask M.custom
         , terminal           = M.myTerminal M.applications
         , startupHook        = myStartupHook
         , layoutHook         = myLayoutHook
         , workspaces         = myWorkspaces
+        , borderWidth        = M.myBorderWidth M.custom
         , normalBorderColor  = "#292d3e"
         , focusedBorderColor = "#445e02"
         } `additionalKeysP` myKeys
