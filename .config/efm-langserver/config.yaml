@@ -80,7 +80,7 @@ languages:
   json:
     - <<: *json-jq
     - <<: *json-fixjson
-    # - <<: *json-prettier
+    - <<: *json-prettier
 
   csv:
     - <<: *csv-csvlint
