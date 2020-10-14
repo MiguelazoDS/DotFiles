@@ -9,10 +9,10 @@ type=$(cat /sys/class/dmi/id/chassis_type)
 
 case $type in
 	3 )
-		size=13
+		size=14
 		;;
 	* )
-		size=11
+		size=12
 		;;
 esac
 
