@@ -33,6 +33,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'adelarsq/vim-matchit'
 Plug 'easymotion/vim-easymotion'
+Plug 'mhinz/vim-startify'
 call plug#end()
 "================================================
 
