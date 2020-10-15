@@ -28,9 +28,9 @@ import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shi
 
 myKeys =
 -- Xmonad
-        [ ("M-S-r", spawn "xmonad --recompile && xmonad --restart")                             -- Restarts xmonad
+        [ ("M-S-r", spawn "xmonad --recompile && xmonad --restart")                             
         , ("M-S-l", spawn "betterlockscreen -l $HOME./.Wallpapers/arch_linux_desktop.png")
-        , ("M-e l", io exitSuccess)                                                             -- Logout
+        , ("M-e l", io exitSuccess)                                                            
         , ("M-e p", spawn "systemctl poweroff")
         , ("M-e s", spawn "systemctl suspend")
         , ("M-e r", spawn "systemctl reboot")
@@ -48,24 +48,22 @@ myKeys =
         , ("M-w", spawn "$HOME/.config/xmobar/scripts/weather extended")
 
 -- Windows
-        , ("M-q", kill1)                           -- Kill the currently focused client
-        , ("M-S-q", killAll)                       -- Kill all the windows on current workspace
+        , ("M-q", kill1)                                                                    -- Kill the currently focused client
+        , ("M-S-q", killAll)                                                                -- Kill all the windows on current workspace
         , ("M-r", spawn "xrandr --output DVI-D-0 --scale 1x1")
-        , ("M-<Delete>", withFocused $ windows . W.sink)  -- Push floating window back to tile.
-        , ("M-S-<Delete>", withFocused $ windows . flip W.float (W.RationalRect 0 0 1 1)) -- Put current windows to full float
+        , ("M-<Delete>", withFocused $ windows . W.sink)                                    -- Push floating window back to tile.
+        , ("M-S-<Delete>", withFocused $ windows . flip W.float (W.RationalRect 0 0 1 1))   -- Put current windows to full float
 
 -- Windows navigation
-     --   , ("M-m", windows W.focusMaster)             -- Move focus to the master window
+        , ("M-l", windows W.focusMaster)             -- Move focus to the master window
         , ("M-j", windows W.focusDown)               -- Move focus to the next window
-        , ("M-l", windows W.focusUp)                 -- Move focus to the prev window
-        , ("M-S-m", windows W.swapMaster)            -- Swap the focused window and the master window
+        , ("M-k", windows W.focusUp)                 -- Move focus to the prev window
+        , ("M-S-l", windows W.swapMaster)            -- Swap the focused window and the master window
         , ("M-S-j", windows W.swapDown)              -- Swap the focused window with the next window
         , ("M-S-k", windows W.swapUp)                -- Swap the focused window with the prev window
         , ("M-<Backspace>", promote)                 -- Moves focused window to master, all others maintain order
         , ("M1-S-<Tab>", rotSlavesDown)              -- Rotate all windows except master and keep focus in place
         , ("M1-C-<Tab>", rotAllDown)                 -- Rotate all the windows in the current stack
-        , ("M-S-s", windows copyToAll)
-        , ("M-C-s", killAllOtherCopies)
 
         , ("M-C-M1-<Up>", sendMessage Arrange)
         , ("M-C-M1-<Down>", sendMessage DeArrange)
@@ -84,30 +82,12 @@ myKeys =
 
 -- Layouts
         , ("M-<Space>", sendMessage NextLayout)                              -- Switch to next layout
-        , ("M-S-<Space>", sendMessage ToggleStruts)                          -- Toggles struts
-        , ("M-S-b", sendMessage $ Toggle NOBORDERS)                          -- Toggles noborder
-        , ("M-S-=", sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
-        , ("M-S-f", sendMessage (T.Toggle "float"))
-        , ("M-S-x", sendMessage $ Toggle REFLECTX)
-        , ("M-S-y", sendMessage $ Toggle REFLECTY)
-        , ("M-S-m", sendMessage $ Toggle MIRROR)
-        , ("M-<KP_Multiply>", sendMessage (IncMasterN 1))   -- Increase number of clients in the master pane
-        , ("M-<KP_Divide>", sendMessage (IncMasterN (-1)))  -- Decrease number of clients in the master pane
-        , ("M-S-<KP_Multiply>", increaseLimit)              -- Increase number of windows that can be shown
-        , ("M-S-<KP_Divide>", decreaseLimit)                -- Decrease number of windows that can be shown
-
         , ("M-C-h", sendMessage Shrink)
         , ("M-C-l", sendMessage Expand)
         , ("M-C-j", sendMessage MirrorShrink)
         , ("M-C-k", sendMessage MirrorExpand)
         , ("M-S-;", sendMessage zoomReset)
         , ("M-;", sendMessage ZoomFullToggle)
-
--- Workspaces
-        , ("M-<KP_Add>", moveTo Next nonNSP)                                -- Go to next workspace
-        , ("M-<KP_Subtract>", moveTo Prev nonNSP)                           -- Go to previous workspace
-        , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next workspace
-        , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to previous workspace
 
 -- Scratchpads
         , ("M-a", namedScratchpadAction myScratchPads "moc")
