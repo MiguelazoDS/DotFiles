@@ -1,4 +1,0 @@
-#!/usr/bin/env zsh
-
-temp=$(printf "%s," $(yay -Qsq $1))
-arch_update -i $temp

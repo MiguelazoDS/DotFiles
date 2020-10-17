@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-yay -Sc --noconfirm
-temp=$(yay -Qtdq)
-IFS=$'\n' orphans=($temp)
-yay -Rns $(echo $orphans) --noconfirm
-paccache -r

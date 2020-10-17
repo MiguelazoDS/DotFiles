@@ -1,29 +1,81 @@
 #!/usr/bin/env bash
 
-function restart_xmonad {
+function update {
 	yay -Syyu --devel --noconfirm; xmonad --recompile && xmonad --restart
 }
 
-if [ -z "$1" ]
-then
-	restart_xmonad
-elif [ "$1" = "-i" ]
-then
-	if [ -z "$2" ]
+function clean {
+	yay -Sc --noconfirm
+	temp=$(yay -Qtdq)
+	IFS=$'\n' orphans=($temp)
+	yay -Rns $(echo $orphans) --noconfirm
+	paccache -r
+}
+
+function ignore {
+	temp=$(printf "%s," $(yay -Qsq $1))
+	mapfile -t array < <(echo "$temp" | tr ',' "\n")
+	size=${#array[@]}
+	if [ "$size" -gt 1 ]
 	then
-		echo "You must type a pkg name"
+	   word="packages are"
 	else
-		mapfile -t array < <(echo "$2" | tr ',' "\n")
-		size=${#array[@]}
-		if [ "$size" -gt 1 ]
-		then
-			word="packages are"
-		else
-			word="package is"
-		fi
-		echo "|${array[*]} $word not gonna be updated|"
-		restart_xmonad
+	   word="package is"
 	fi
-else
-	echo "Invalid option"
+	echo "|${array[*]} $word not gonna be updated|"
+	update
+}
+
+function usage {
+	printf "Usage: \n\tarch_update [Options]\n"
+	printf "\nOptions: \n"
+	printf "\t-c --clean \n"
+	printf "\t-i <value> --ignore <value>\n"
+}
+
+args=("$@")
+
+if [ "$#" -lt 2 ]; then
+	if [ "$#" -eq 0 ]; then
+		args+=("-a")
+	elif [ ! "$1" = "-c" ]; then
+		usage
+		exit 0
+	fi
 fi
+
+set -- ${args[*]}
+
+short=aci:
+long=clean,ignore:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+	exit 1
+fi
+
+while true;
+do
+	case "$1" in
+		-a | --all )
+			shift 
+			update
+			shift
+			;;
+		-c | --clean ) 
+			shift
+			clean
+			shift
+			;;
+		-i | --ignore )
+			shift
+			regex=$1
+			ignore "$regex"
+			shift
+			;;
+		* ) 
+			shift
+			break
+			;;
+	esac
+done
