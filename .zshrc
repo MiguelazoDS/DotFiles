@@ -5,7 +5,7 @@ if [[ -d $HOME/.oh-my-zsh ]] && [[ ! -d $HOME/.oh-my-zsh/custom/themes/powerleve
 fi
 
 # Verify fzf is installed
-[[ ! -d $HOME/.fzf ]] && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf ~/.fzf/install 
+[[ ! -d $HOME/.fzf ]] && (git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install)
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
