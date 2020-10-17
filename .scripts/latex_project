@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+url="git@github.com:MiguelazoDS/latex.git"
+
+git clone "$url" Latex
