@@ -21,6 +21,7 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 export TERMINFO="/usr/share/terminfo"
 
+#Verify if nvim is installed
 hash nvim
 [[ $? -eq 1 ]] && (printf "\nneovim is not installed\nInstalling..."; yay -S neovim neovim-plug neovim-remote) || export EDITOR=nvim
 
