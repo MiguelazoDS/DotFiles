@@ -1,4 +1,4 @@
-"Vim=uda://%"lug configuration
+"Vim configuration
 "=================================================
 call plug#begin('~/.vim/plugged')
 Plug 'lervag/vimtex'
@@ -8,7 +8,6 @@ Plug 'SirVer/ultisnips'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
-"Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'ervandew/supertab'
 Plug '907th/vim-auto-save'
 Plug 'airblade/vim-gitgutter'
@@ -22,22 +21,21 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'lambdalisue/suda.vim'
 Plug 'qpkorr/vim-renamer'
-"Plug 'majutsushi/tagbar'
 Plug 'preservim/tagbar'
 Plug 'Yggdroot/indentLine'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'puremourning/vimspector'
 Plug 'godlygeek/tabular'
-Plug 'tpope/vim-sleuth'
 Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'adelarsq/vim-matchit'
+Plug 'vim-scripts/matchit.zip'
 Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-startify'
 call plug#end()
 "================================================
-
+autocmd Filetype json :IndentLinesDisable
+scriptencoding utf-8
 let g:vimspector_enable_mappings = 'HUMAN'
 "IndentLine configuration
 let g:indentLine_showFirstIndentLevel = 1
@@ -148,7 +146,6 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set background=dark
 colorscheme gruvbox
-
 "Airline
 "============================================================
 let g:airline#extensions#tabline#enabled = 1
