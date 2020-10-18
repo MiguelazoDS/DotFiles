@@ -31,5 +31,5 @@ applications = Applications
 
 custom = Custom
     { myModMask = mod4Mask
-    , myBorderWidth = 4 
+    , myBorderWidth = 3 
     }
