@@ -18,7 +18,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'scrooloose/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'lambdalisue/suda.vim'
 Plug 'qpkorr/vim-renamer'
 Plug 'preservim/tagbar'
@@ -43,10 +42,6 @@ let g:indentLine_showFirstIndentLevel = 1
 "=============================================
 let g:suda_smart_editing = 1
 nmap ws :w suda://%
-
-"Instant markdown
-"==================================================
-let g:instant_markdown_autostart = 0
 
 "Autosave for tex files
 "=================================================
