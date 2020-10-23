@@ -35,6 +35,6 @@ case "$1" in
 		done
 		;;
 	*)
-		free | awk '/^Mem:/ { used=(100*$3)/($2); printf "<icon=memory.xpm/> %.1f%/%.2fGi", used, $2/(1024*1024)}'
+		free | awk '/^Mem:/ { used=(100*$3)/($2); printf "<fn=1> </fn>%.1f%|%.2fGi", used, $2/(1024*1024)}'
 		;;
 esac

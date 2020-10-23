@@ -21,5 +21,5 @@ myLayoutHook = avoidStruts $ smartBorders $ mouseResize $ windowArrange $ mkTogg
 
 mySpacing = spacingRaw True (Border 0 0 0 0) True (Border 2 2 2 2) True
 
-grid       = renamed [Replace "<icon=grid.xpm/>"] $ limitWindows 12 $ mySpacing $ mkToggle (single MIRROR) $ Grid (16/10)
-monocle    = renamed [Replace "<icon=monocle.xpm/>"] $ limitWindows 20 Full
+grid       = renamed [Replace "\64111"] $ limitWindows 12 $ mySpacing $ mkToggle (single MIRROR) $ Grid (16/10)
+monocle    = renamed [Replace "<fn=1>\63378</fn>"] $ limitWindows 20 Full

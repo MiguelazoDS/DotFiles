@@ -27,9 +27,9 @@ case "$1" in
 		;;
 	*)
 		if [ "$n_updates" -eq 0 ]; then
-			echo "<icon=ok.xpm/>"
+			echo "<fn=1> </fn>"
 		else
-			echo "<icon=updates.xpm/> $n_updates"
+			echo "<fn=1> </fn>$n_updates"
 		fi
 		;;
 esac

@@ -12,12 +12,12 @@ VALUE=$(pamixer --get-volume)
 
 if [ "$MUTE" == "false" ]; then
 	if [[ $((VALUE)) -ge 0 && $((VALUE)) -le 33 ]]; then
-		echo "<icon=volume2.xpm/> <fc=$COLOUR>$VALUE</fc>%"
+		echo "<fn=2>奄</fn> <fc=$COLOUR>$VALUE</fc>%"
 	elif [[ $((VALUE)) -gt 33 && $((VALUE)) -le 66 ]]; then
-		echo "<icon=volume3.xpm/> <fc=$COLOUR>$VALUE</fc>%"
+		echo "<fn=2>奔</fn> <fc=$COLOUR>$VALUE</fc>%"
 	else
-		echo "<icon=volume4.xpm/> <fc=$COLOUR>$VALUE</fc>%"
+		echo "<fn=2>墳</fn> <fc=$COLOUR>$VALUE</fc>%"
 	fi
 else
-	echo "<icon=volume1.xpm/> <fc=$COLOUR>Mute</fc>"
+	echo "<fn=2>婢</fn> <fc=$COLOUR>Mute</fc>"
 fi
