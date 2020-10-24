@@ -35,5 +35,5 @@ Config { font    = "xft:JetBrainsMono Nerd Font:bold:size=8:antialias=true:hinti
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <fc=#6c99ba> <icon=haskell.xpm/> </fc>%UnsafeStdinReader% }{ <fc=#e5b566> <fc=#d0d0d0>%locks%</fc> <fc=#d0d0d0>%weather%</fc> <fc=#d0d0d0>%date%</fc>                <fc=#d0d0d0>%updates%</fc> <fc=#d0d0d0>%volume%</fc> <fc=#d0d0d0>%enp3s0f1%</fc> <fc=#d0d0d0>%wlp2s0%</fc> <fc=#d0d0d0>%cpu%</fc> <fc=#d0d0d0>%memory%</fc> <fc=#d0d0d0>%bat%</fc><fc=#d0d0d0>%battery%</fc></fc>           "
+       , template = " <fc=#6c99ba> <icon=haskell.xpm/> </fc>%UnsafeStdinReader% }{ <fc=#e5b566> <fc=#d0d0d0>%locks%</fc> <fc=#d0d0d0>%weather%</fc> <fc=#d0d0d0>%date%</fc>                        <fc=#d0d0d0>%updates%</fc> <fc=#d0d0d0>%volume%</fc> <fc=#d0d0d0>%enp3s0f1%</fc> <fc=#d0d0d0>%wlp2s0%</fc> <fc=#d0d0d0>%cpu%</fc> <fc=#d0d0d0>%memory%</fc> <fc=#d0d0d0>%bat%</fc><fc=#d0d0d0>%battery%</fc></fc>           "
               }
