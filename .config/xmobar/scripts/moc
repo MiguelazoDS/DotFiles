@@ -3,7 +3,7 @@
 state="$(mocp -Q %state 2>&1)"
 
 if [[ ! "$state" =~ "FATAL" ]]; then
-	if [ "$state" != "STOP" ];then
+	if [ "$(mocp -Q %state)" != "STOP" ];then
 		SONG=$(mocp -Q %song)
 
 		if [ -n "$SONG" ]; then
