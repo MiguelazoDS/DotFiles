@@ -5,25 +5,7 @@
 for i in * 
 do 
 	name=$(echo "$i" | cut -d '.' -f 1)
-	if [[ "$i" =~ "speed" ]]; then
-		ffmpeg -i "$i" -vf scale=9:9 "z$i"	
-	elif [[ "$i" =~ "asterisk" ]]; then
-		ffmpeg -i "$i" -vf scale=6:6 "z$i"
-	elif [[ "$i" =~ "wifi" ]]; then
-		ffmpeg -i "$i" -vf scale=18:15 "z$i"
-	elif [[ "$i" =~ "02" ]]; then
-		ffmpeg -i "$i" -vf scale=21:13 "z$i"
-	elif [[ "$i" =~ "03"|"04" ]]; then
-		ffmpeg -i "$i" -vf scale=20:13 "z$i"
-	elif [[ "$i" =~ "09" ]]; then
-		ffmpeg -i "$i" -vf scale=14:13 "z$i"
-	elif [[ "$i" =~ "11" ]]; then
-		ffmpeg -i "$i" -vf scale=16:13 "z$i"
-	elif [[ "$i" =~ "13" ]]; then
-		ffmpeg -i "$i" -vf scale=12:13 "z$i"
-	elif [[ "$i" =~ "50" ]]; then
-		ffmpeg -i "$i" -vf scale=23:13 "z$i"
-	elif [[ "$i" =~ "haskell" ]]; then
+	if [[ "$i" =~ "haskell" ]]; then
 		ffmpeg -i "$i" -vf scale=25:15 "z$i"
 	else
 		ffmpeg -i "$i" -vf scale=14:14 "z$i"
