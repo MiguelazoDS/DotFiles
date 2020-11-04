@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+thumb_path="$HOME/.cache/ranger"
+thumb_db_path="$thumb_path/thumbnail_db"
+lines=$(wc -l "$thumb_db_path" | cut -d ' ' -f1)                                                                           
+count=0
+
+while read -r line
+do
+	temp="${line/File: /}"
+	sha1_ok="${temp/ - Thumbnail*/}"
+	cache_file="$thumb_path/$(echo "$line" | rev | cut -d ' ' -f 1 | rev)"
+
+	echo "$sha1_ok" | sha1sum -c &> /dev/null
+
+	if [ $? -eq 1 ]; then
+		printf "\n%s: Cleaning: %s\n" "$(date -Iseconds)" "$cache_file"
+		rm -v "$cache_file"
+		printf "\n%s: Temporaly store entry to delete from thumbnail_db\n" "$(date -Iseconds)"
+		array+=("$line")
+	fi
+	printf "\n%s%% completed" "$(("$count"*100/"$lines"))"
+	((++count))
+done < "$thumb_db_path"
+
+for entry in "${array[@]}"
+do
+	printf "\n%s: Deleting: %s entry\n" "$(date -Iseconds)" "$entry"
+	sed -i "/${entry//\//\\/}/d" "$thumb_db_path"
+done
