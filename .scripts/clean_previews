@@ -2,7 +2,11 @@
 
 thumb_path="$HOME/.cache/ranger"
 thumb_db_path="$thumb_path/thumbnail_db"
-lines=$(wc -l "$thumb_db_path" | cut -d ' ' -f1)                                                                           
+
+printf "\nDeleting empty lines\n"
+sed -i "/^$/d" "$thumb_db_path"
+
+lines=$(wc -l "$thumb_db_path" | cut -d ' ' -f1)
 count=0
 
 while read -r line
