@@ -12,10 +12,10 @@ count=0
 while read -r line
 do
 	temp="${line/File: /}"
-	sha1_ok="${temp/ - Thumbnail*/}"
+	md5_ok="${temp/ - Thumbnail*/}"
 	cache_file="$thumb_path/$(echo "$line" | rev | cut -d ' ' -f 1 | rev)"
 
-	echo "$sha1_ok" | sha1sum -c &> /dev/null
+	echo "$md5_ok" | md5sum -c &> /dev/null
 
 	if [ $? -eq 1 ]; then
 		printf "\n%s: Cleaning: %s\n" "$(date -Iseconds)" "$cache_file"
