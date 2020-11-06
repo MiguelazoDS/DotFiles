@@ -30,5 +30,8 @@ done < "$thumb_db_path"
 for entry in "${array[@]}"
 do
 	printf "\n%s: Deleting: %s entry\n" "$(date -Iseconds)" "$entry"
-	sed -i "/${entry//\//\\/}/d" "$thumb_db_path"
+	entry=${entry//\//\\/}
+	entry=${entry//\[/\\\[}
+	entry=${entry//\]/\\\]}
+	sed -i "/$entry/d" "$thumb_db_path"
 done
