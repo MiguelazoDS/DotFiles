@@ -6,6 +6,16 @@ thumb_db_path="$thumb_path/thumbnail_db"
 printf "\nDeleting empty lines\n"
 sed -i "/^$/d" "$thumb_db_path"
 
+printf "\nDeleting preview images that don't exist in: %s\n" "$thumb_db_path"
+for i in "$thumb_path"/*jpg
+do 
+	grep "$(basename "$i")" thumbnail_db > /dev/null
+	if [ $? -eq 1 ]; then
+		printf "\nfile: %s not registered. Deleting\n" "$i" 
+		rm -v "$i" 2> /dev/null 
+	fi
+done
+
 lines=$(wc -l "$thumb_db_path" | cut -d ' ' -f1)
 count=0
 
