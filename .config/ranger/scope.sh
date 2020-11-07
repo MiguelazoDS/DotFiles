@@ -118,12 +118,12 @@ handle_image() {
          video/*)
              # Thumbnail
              mtn -f /usr/share/fonts/TTF/DejaVuSerif-Bold.ttf -r 3 -c 3 "${FILE_PATH}" -w 800 -j 50 -i -q -t -O /tmp -o .jpg
-			 printf "\nFile: %s - Thumbnail: %s" "$(md5sum $FILE_PATH)" "$(basename $IMAGE_CACHE_PATH)" >> "$HOME"/.cache/ranger/thumbnail_db
+			 printf "\nFile: %s - Thumbnail: %s" "$(xxhsum -H0 $FILE_PATH)" "$(basename $IMAGE_CACHE_PATH)" >> "$HOME"/.cache/ranger/thumbnail_db
              mv "/tmp/$(basename ${FILE_PATH%.*}.jpg)" "${IMAGE_CACHE_PATH}" && exit 6
              exit 1;;
 		 */mp4)
              mtn -f /usr/share/fonts/TTF/DejaVuSerif-Bold.ttf -r 3 -c 3 "${FILE_PATH}" -w 800 -j 50 -i -q -t -O /tmp -o .jpg
-			 printf "\nFile: %s - Thumbnail: %s" "$(md5sum $FILE_PATH)" "$(basename $IMAGE_CACHE_PATH)" >> "$HOME"/.cache/ranger/thumbnail_db
+			 printf "\nFile: %s - Thumbnail: %s" "$(xxhsum -H0 $FILE_PATH)" "$(basename $IMAGE_CACHE_PATH)" >> "$HOME"/.cache/ranger/thumbnail_db
              mv "/tmp/$(basename ${FILE_PATH%.*}.jpg)" "${IMAGE_CACHE_PATH}" && exit 6
              exit 1;;
 
