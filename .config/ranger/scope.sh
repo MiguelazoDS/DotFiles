@@ -129,7 +129,7 @@ handle_image() {
 
         # PDF
          application/pdf)
-			 printf "\nFile: %s - Thumbnail: %s" "$(md5sum $FILE_PATH)" "$(basename $IMAGE_CACHE_PATH)" >> "$HOME"/.cache/ranger/thumbnail_db
+			 printf "\nFile: %s - Thumbnail: %s" "$(xxhsum -H2 $FILE_PATH)" "$(basename $IMAGE_CACHE_PATH)" >> "$HOME"/.cache/ranger/thumbnail_db
              pdftoppm -f 1 -l 1 \
                       -scale-to-x 1920 \
                       -scale-to-y -1 \
