@@ -5,6 +5,8 @@ ahci
 ata_generic
 atkbd
 atl1c
+bridge
+br_netfilter
 btrfs
 ccp
 crc16
@@ -41,6 +43,7 @@ ip6_tables
 ip6t_REJECT
 ip6t_rt
 iptable_filter
+iptable_nat
 ip_tables
 ipt_REJECT
 irqbypass
@@ -55,6 +58,7 @@ libahci
 libata
 libcrc32c
 libps2
+llc
 mac_hid
 mbcache
 mc
@@ -66,6 +70,7 @@ nf_conntrack
 nf_conntrack_broadcast
 nf_conntrack_ftp
 nf_conntrack_netbios_ns
+nf_conntrack_netlink
 nf_defrag_ipv4
 nf_defrag_ipv6
 nf_log_common
@@ -73,6 +78,7 @@ nf_log_ipv4
 nf_log_ipv6
 nf_nat
 nf_nat_ftp
+nfnetlink
 nf_reject_ipv4
 nf_reject_ipv6
 nls_cp437
@@ -80,6 +86,7 @@ nls_iso8859_1
 ntfs
 ohci_hcd
 ohci_pci
+overlay
 pata_acpi
 pata_atiixp
 pcspkr
@@ -109,6 +116,7 @@ snd_usb_audio
 snd_usbmidi_lib
 soundcore
 sp5100_tco
+stp
 syscopyarea
 sysfillrect
 sysimgblt
@@ -119,6 +127,8 @@ usb_storage
 vfat
 wmi
 wmi_bmof
+xfrm_algo
+xfrm_user
 xfs
 xor
 x_tables
@@ -127,4 +137,5 @@ xt_conntrack
 xt_hl
 xt_limit
 xt_LOG
+xt_MASQUERADE
 xt_tcpudp
