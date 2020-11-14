@@ -13,7 +13,7 @@ myStartupHook = do
             spawnOnce "numlockx on"
             spawnOnce "sleep 15; nm-applet"
             spawnOnce "nitrogen --restore &"
-            spawnOnce "sleep 5; killall -q picom; picom --config $HOME/.config/picom/picom.conf"
+            spawnOnce "sleep 5; killall -q picom; picom --log-file $HOME/.picom.logs --log-level DEBUG --config $HOME/.config/picom/picom.conf"
             spawnOnce "setxkbmap es"
             spawnOnce "sleep 10; $HOME/.xmonad/scripts/trayer"
             spawnOnce "xsetroot -cursor_name left_ptr"
