@@ -55,6 +55,9 @@ export PROMPT_EOL_MARK=""
 #If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.local/bin:$PATH
 
+hash imosum 2>/dev/null
+[[ $? -eq 1 ]] && (printf "\nimosum is not installed\nInstalling..."; pip install imohash)
+
 #Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 

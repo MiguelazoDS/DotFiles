@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+function imosum_check {
+	db_entry="$1"
+	file="$(echo "$db_entry" | cut -d ' ' -f3-)"
+	temp="$("$HOME"/.local/bin/imosum "$file")"
+	if [ "$db_entry" = "$temp" ]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+
 thumb_path="$HOME/.cache/ranger"
 thumb_db_path="$thumb_path/thumbnail_db"
 
@@ -8,11 +20,11 @@ sed -i "/^$/d" "$thumb_db_path"
 
 printf "\nDeleting preview images that don't exist in: %s\n" "$thumb_db_path"
 for i in "$thumb_path"/*jpg
-do 
+do
 	grep "$(basename "$i")" "$thumb_db_path" > /dev/null
 	if [ $? -eq 1 ]; then
-		printf "\nfile: %s not registered. Deleting\n" "$i" 
-		rm -v "$i" 2> /dev/null 
+		printf "\nfile: %s not registered. Deleting\n" "$i"
+		rm -v "$i" 2> /dev/null
 	fi
 done
 
@@ -25,7 +37,7 @@ do
 	xxh_ok="${temp/ - Thumbnail*/}"
 	cache_file="$thumb_path/$(echo "$line" | rev | cut -d ' ' -f 1 | rev)"
 
-	echo "$xxh_ok" | xxhsum -c &> /dev/null
+	imosum_check "$xxh_ok"
 
 	if [ $? -eq 1 ]; then
 		printf "\n%s: Cleaning: %s\n" "$(date -Iseconds)" "$cache_file"
