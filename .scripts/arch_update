@@ -6,7 +6,7 @@ function update {
 
 function clean {
 	yay -Sc --noconfirm
-	temp=$(yay -Qttdq | tr '\n' ' ')
+	temp=$(yay -Qtdq | tr '\n' ' ')
 	if [ -n "$temp" ]; then
 		printf "\nThe following packages are going to be removed\n%s" "$temp"
 		read -r -p "Continue [Y/N]: " var
