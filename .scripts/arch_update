@@ -6,9 +6,19 @@ function update {
 
 function clean {
 	yay -Sc --noconfirm
-	temp=$(yay -Qtdq | tr '\n' ' ')
-	yay -Rns $(echo "$temp") --noconfirm
-	paccache -r
+	temp=$(yay -Qttdq | tr '\n' ' ')
+	if [ -n "$temp" ]; then
+		printf "\nThe following packages are going to be removed\n%s" "$temp"
+		read -r -p "Continue [Y/N]: " var
+		if [ "${var,,}" = "n" ]; then
+			exit 0
+		elif [ "${var,,}" = "y" ]; then
+			yay -Rns $(echo "$temp") --noconfirm
+			paccache -r
+		else
+			echo "The option is not valid"
+		fi
+	fi
 }
 
 function ignore {
