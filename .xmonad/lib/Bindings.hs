@@ -29,7 +29,7 @@ import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shi
 myKeys =
 -- Xmonad
         [ ("M-S-r", spawn "xmonad --recompile && xmonad --restart")                             
-        , ("M-S-l", spawn "betterlockscreen -l $HOME./.Wallpapers/arch_linux_desktop.png")
+        , ("M-S-l", spawn "betterlockscreen -l ")
         , ("M-e l", io exitSuccess)                                                            
         , ("M-e p", spawn "systemctl poweroff")
         , ("M-e s", spawn "systemctl suspend")
@@ -58,7 +58,7 @@ myKeys =
         , ("M-l", windows W.focusMaster)             -- Move focus to the master window
         , ("M-j", windows W.focusDown)               -- Move focus to the next window
         , ("M-k", windows W.focusUp)                 -- Move focus to the prev window
-        , ("M-S-l", windows W.swapMaster)            -- Swap the focused window and the master window
+        , ("M-S-h", windows W.swapMaster)            -- Swap the focused window and the master window
         , ("M-S-j", windows W.swapDown)              -- Swap the focused window with the next window
         , ("M-S-k", windows W.swapUp)                -- Swap the focused window with the prev window
         , ("M-<Backspace>", promote)                 -- Moves focused window to master, all others maintain order
