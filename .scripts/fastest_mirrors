@@ -4,3 +4,5 @@ hash reflector
 [[ $? -eq 1 ]] && (printf "\nreflector is not installed\nInstalling..."; yay -S reflector)
 
 sudo reflector --verbose -l 30 -f 10 --save /etc/pacman.d/mirrorlist
+
+#curl -s "https://www.archlinux.org/mirrorlist/?country=FR&country=GB&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -v -

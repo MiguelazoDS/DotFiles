@@ -33,6 +33,10 @@ Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-startify'
 call plug#end()
 "================================================
+"
+"
+let g:asmsyntax = 'nasm'
+
 autocmd Filetype json :IndentLinesDisable
 scriptencoding utf-8
 let g:vimspector_enable_mappings = 'HUMAN'
