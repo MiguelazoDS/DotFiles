@@ -169,6 +169,7 @@ let NERDTreeMapOpenSplit='x'
 :	autocmd BufNewFile *.py 0r ~/.vim/templates/template.py
 :	autocmd BufNewFile *.sh 0r ~/.vim/templates/template.sh
 :	autocmd BufNewFile Makefile 0r ~/.vim/templates/Makefile
+:   autocmd BufNewFile *.asm 0r ~/.vim/templates/template.asm
 :augroup END
 
 "File type configuration
