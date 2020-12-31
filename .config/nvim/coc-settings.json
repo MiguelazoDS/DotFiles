@@ -19,6 +19,7 @@
   ],
   "diagnostic.virtualText": true,
   "coc.preferences.extensionUpdateCheck": "never",
+  "python.jediEnabled": false,
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
