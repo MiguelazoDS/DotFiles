@@ -40,15 +40,13 @@
       "command": "haskell-language-server-wrapper",
       "args": ["--lsp"],
       "rootPatterns": [
-        "*.cabal",
-        "stack.yaml",
-        "cabal.project",
+        ".stack.yaml",
+        ".hie-bios",
+        "BUILD.bazel",
+        "cabal.config",
         "package.yaml"
       ],
-      "filetypes": ["hs", "lhs", "haskell"],
-      "initializationOptions": {
-        "languageServerHaskell": {}
-      }
+      "filetypes": ["hs", "lhs", "haskell"]
     }
   }
 }
