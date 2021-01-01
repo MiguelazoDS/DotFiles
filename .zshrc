@@ -23,11 +23,15 @@ export TERMINFO="/usr/share/terminfo"
 
 #Verify if nvim is installed
 hash nvim
-[[ $? -eq 1 ]] && (printf "\nneovim is not installed\nInstalling..."; yay -S neovim neovim-plug neovim-remote) || export EDITOR=nvim
+[[ $? -eq 1 ]] && (printf "\nneovim is not installed\nInstalling..."; yay -S neovim neovim-plug neovim-remote --noconfirm) || export EDITOR=nvim
+
+#Verify if ghcup is installed
+hash ghcup
+[[ $? -eq 1 ]] && (printf "\nghcup is not installed\nInstalling..."; yay -S ghcup-hs-bin --noconfirm)
 
 #Plugins
 command -v zplug >/dev/null
-[[ $? -eq 1 ]] && (printf "\nzplug is not installed\nInstalling"; yay -S zplug)
+[[ $? -eq 1 ]] && (printf "\nzplug is not installed\nInstalling"; yay -S zplug --noconfirm)
 zplug "wfxr/forgit"
 
 #Use the vi navigation keys in menu completion
