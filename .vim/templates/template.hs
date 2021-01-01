@@ -1,8 +1,5 @@
 {-# OPTIONS_GHC -Wall #-}
 
-import Data.Map as Map
-import Data.List as List
-
 
 
 main :: IO ()
