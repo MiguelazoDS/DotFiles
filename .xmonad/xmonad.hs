@@ -17,13 +17,15 @@ import XMonad.Hooks.EwmhDesktops   -- required for xcomposite in obs to work
 
 xmobar :: String -> String
 xmobar option
-    | number == "3" = "xmobarrc1"
-    | otherwise = "xmobarrc2"
-    where number = takeWhile (=='3') option
+     | number == "3" = "xmobarrc1"
+     | otherwise = "xmobarrc2"
+    where number = concat $ words option
+
+fileContent :: IO String
+fileContent = readFile "/sys/class/dmi/id/chassis_type"
 
 main = do
-    handle <- openFile "/sys/class/dmi/id/chassis_type" ReadMode
-    contents <- hGetContents handle
+    contents <- fileContent
     let xmobar_instance = xmobar contents
     xmproc <- spawnPipe $ "xmobar $HOME/.config/xmobar/" ++ xmobar_instance
     xmonad $ ewmh desktopConfig
