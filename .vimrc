@@ -26,15 +26,13 @@ Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'puremourning/vimspector'
 Plug 'godlygeek/tabular'
-"Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/matchit.zip'
 Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-startify'
 call plug#end()
 "================================================
-"
-"
+
 let g:asmsyntax = 'nasm'
 
 autocmd Filetype json :IndentLinesDisable
