@@ -51,13 +51,11 @@ export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
 #Set colors
 export TERM="screen-256color"
 
-export PATH="$HOME/.gem/ruby/2.7.0/bin/:$PATH"
-
 #Fixed % symbol after print
 export PROMPT_EOL_MARK=""
 
 #If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.ghcup/bin:$HOME/.local/bin:$PATH
 
 hash imosum 2>/dev/null
 [[ $? -eq 1 ]] && (printf "\nimosum is not installed\nInstalling..."; pip install imohash)
