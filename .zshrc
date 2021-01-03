@@ -7,20 +7,6 @@ fi
 # Verify fzf is installed
 [[ ! -d $HOME/.fzf ]] && (git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install)
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-#zplug path
-source /usr/share/zsh/scripts/zplug/init.zsh
-
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-
-export TERMINFO="/usr/share/terminfo"
-
 #Verify if nvim is installed
 hash nvim
 [[ $? -eq 1 ]] && (printf "\nneovim is not installed\nInstalling..."; yay -S neovim neovim-plug neovim-remote --noconfirm) || export EDITOR=nvim
@@ -33,6 +19,23 @@ hash ghcup
 command -v zplug >/dev/null
 [[ $? -eq 1 ]] && (printf "\nzplug is not installed\nInstalling"; yay -S zplug --noconfirm)
 zplug "wfxr/forgit"
+
+hash imosum 2>/dev/null
+[[ $? -eq 1 ]] && (printf "\nimosum is not installed\nInstalling..."; pip install imohash)
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+#zplug path
+source /usr/share/zsh/scripts/zplug/init.zsh
+
+export TERMINFO="/usr/share/terminfo"
 
 #Use the vi navigation keys in menu completion
 zstyle ':completion:*' menu select
@@ -51,16 +54,11 @@ export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
 #Set colors
 export TERM="screen-256color"
 
-export PATH="$HOME/.gem/ruby/2.7.0/bin/:$PATH"
-
 #Fixed % symbol after print
 export PROMPT_EOL_MARK=""
 
 #If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.local/bin:$PATH
-
-hash imosum 2>/dev/null
-[[ $? -eq 1 ]] && (printf "\nimosum is not installed\nInstalling..."; pip install imohash)
 
 #Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -144,25 +142,21 @@ arrow(){
 	echo "\uf0a9"
 }
 branch(){
-	if [ ! $USER = "root" ]
-	then
+	if [ ! $USER = "root" ]; then 
 		all=$(dotfile status)
 		branch=$(echo $all | head -1 | cut -d ' ' -f3)
 		stage="Changes not staged"
 		commit="Changes to be"
 		push="Your branch is ahead"
 		pull="Your branch is behind"
-		if [[ $all =~ $stage ]]
-		then
+
+		if [[ $all =~ $stage ]]; then
 			printf "\uf06a"
-		elif [[ $all =~ $commit ]]
-		then
+		elif [[ $all =~ $commit ]]; then
 			printf "\uf055"
-		elif [[ $all =~ $push ]]
-		then
+		elif [[ $all =~ $push ]]; then
 			printf "\uf0aa"
-		elif [[ $all =~ $pull ]]
-		then
+		elif [[ $all =~ $pull ]]; then
 			printf "\uf0ab"
 		else
 			printf "\uf113"
@@ -177,10 +171,10 @@ branch(){
 plugins=(
 	git
 	fast-syntax-highlighting
-	cp
 	rake-fast
 )
 source $ZSH/oh-my-zsh.sh
+
 if [[ ! -d $ZSH_CUSTOM/plugins/fast-syntax-highlighting ]]; then 
   git clone https://github.com/zdharma/fast-syntax-highlighting.git ~ZSH_CUSTOM/plugins/fast-syntax-highlighting
 fi
