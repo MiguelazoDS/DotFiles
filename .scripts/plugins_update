@@ -2,6 +2,6 @@
 
 #0 20 * * 0 XDG_RUNTIME_DIR=/run/user/$(id -u) /home/miguel/.scripts/plugins_update
 DISPLAY=:0
-nvim +PlugUpdate +PlugUpgrade +qa!
+nvim +PlugUpdate +PlugUpgrade +CocUpdate +qa!
 zplug update
-notify-send.sh "zplug and nvim plugins updated"
+notify-send.sh "zplug, nvim and coc plugins updated"
