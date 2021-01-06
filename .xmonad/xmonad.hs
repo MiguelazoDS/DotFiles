@@ -19,11 +19,10 @@ xmobar :: String -> String
 xmobar option
     | number == "3" = "xmobarrc1"
     | otherwise = "xmobarrc2"
-    where number = takeWhile (=='3') option
+    where number = concat $ words option
 
 main = do
-    handle <- openFile "/sys/class/dmi/id/chassis_type" ReadMode
-    contents <- hGetContents handle
+    contents <- readFile "/sys/class/dmi/id/chassis_type"
     let xmobar_instance = xmobar contents
     xmproc <- spawnPipe $ "xmobar $HOME/.config/xmobar/" ++ xmobar_instance
     xmonad $ ewmh desktopConfig
