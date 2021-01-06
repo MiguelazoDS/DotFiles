@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function update {
-	yay -Syyu --devel --noconfirm; xmonad --recompile && xmonad --restart
+	yay -Syyu --devel --noconfirm; $HOME/.xmonad/recompile
 }
 
 function clean {

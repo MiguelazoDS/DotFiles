@@ -4,4 +4,4 @@ yay -R xmobar --noconfirm
 yay -Sc --noconfirm
 paccache -r
 yay -S xmobar --noconfirm
-xmonad --recompile && xmonad --restart
+$HOME/.xmonad/recompile
