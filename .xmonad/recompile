@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+backup="$PATH"
+export PATH=/usr/bin:$PATH
+xmonad --recompile && xmonad --restart
+export PATH="$backup"
