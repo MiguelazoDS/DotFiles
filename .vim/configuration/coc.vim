@@ -15,14 +15,6 @@ let g:coc_global_extensions = [
 	\ 'coc-yank',
 	\ 'coc-snippets']
 
-augroup mygroup
-	autocmd!
-	" Setup formatexpr specified filetype(s).
-	autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-	" Update signature help on jump placeholder.
-	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
 "Coc Configuration
 "============================================================================
 "TextEdit might fail if hidden is not set.
