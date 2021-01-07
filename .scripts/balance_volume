@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+read -r left right <<<"$(amixer -R | awk '/Front Left:|Front Right:/ {print $5}' | tr -d '[|]|%' | tr '\n' ' ')"
+
+if [[ $((left)) -gt $((right)) ]]; then
+	amixer sset Master ${left}%,${left}%	
+else
+	amixer sset Master ${right}%,${right}%	
+fi
