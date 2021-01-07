@@ -1,20 +1,19 @@
+"Plugins
+"=============================================================================
 let g:coc_global_extensions = [
+	\ 'coc-sh',
+	\ 'coc-clangd',
 	\ 'coc-json',
+	\ 'coc-pyright',
+	\ 'coc-fzf-preview',
+	\ 'coc-highlight',
+	\ 'coc-java',
+	\ 'coc-perl',
 	\ 'coc-pairs',
 	\ 'coc-prettier',
 	\ 'coc-tsserver',
-	\ 'coc-python',
-	\ 'coc-git',
-	\ 'coc-highlight',
+	\ 'coc-yank',
 	\ 'coc-snippets']
-
-function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
-	else
-		call CocAction('doHover')
-	endif
-endfunction
 
 augroup mygroup
 	autocmd!
@@ -26,27 +25,44 @@ augroup end
 
 "Coc Configuration
 "============================================================================
-" Give more space for displaying messages.
-set cmdheight=2
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-" Some servers have issues with backup files, see #649.
+"TextEdit might fail if hidden is not set.
+set hidden
+
+"Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
+
 " Give more space for displaying messages.
 set cmdheight=2
+
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
+
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-set signcolumn=yes
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-if has('patch8.1.1068')
-	" Use `complete_info` if your (Neo)Vim version supports it.
-	inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+if has('patch-8.1.1564')
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
 else
-	imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  set signcolumn=yes
 endif
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+augroup highlight
+	autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup END
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}

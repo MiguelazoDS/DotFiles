@@ -4,6 +4,14 @@
 scriptencoding utf-8
 :set list lcs=tab:\¦\ 
 
+"Disable for json files
+augroup json
+	autocmd Filetype json :IndentLinesDisable
+augroup END
+
+"Show the first bar
+let g:indentLine_showFirstIndentLevel = 1
+
 "Update file automatically if open
 "============================================================
 set autoread
@@ -33,16 +41,6 @@ let g:NERDSpaceDelims = 1
 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCommentEmptyLines = 1
 
-"IndentLines configuration
-"============================================================
-"Disable for json files
-augroup json
-	autocmd Filetype json :IndentLinesDisable
-augroup END
-
-"Show the first bar
-let g:indentLine_showFirstIndentLevel = 1
-
 "File type configuration
 "===========================================================
 augroup indentation
@@ -51,9 +49,14 @@ augroup indentation
 augroup END
 
 "Clang_complete configuration
-"============================================
+"===========================================================
 let g:clang_close_preview = 1
 set completeopt=menu,longest
+
+"Vimsurround configuration
+"===========================================================
+set ttimeoutlen=1
+set timeoutlen=500
 
 "Others
 "============================================================
@@ -77,20 +80,20 @@ set number relativenumber
 "Highlight in searches
 set incsearch 
 
+"Tab 4 spaces
+set tabstop=4
+"Indent
+set shiftwidth=4
+
+
 filetype off
 syntax on
 set showcmd "Show commands
-set tabstop=4 "tab 4 spaces
-set shiftwidth=4 "indent
-set hidden
 "Highlight current line
 "Removes the underline causes by enabling cursorline:
 "highlight clear CursorLine
 "Sets the line numbering to red background:
 "highlight CursorLineNR ctermbg=red
-"To make vim-surround to work
-set ttimeoutlen=1
-set timeoutlen=500
 "Move between options default way
 let g:SuperTabDefaultCompletionType = '<c-n>'
 "Enable plugins
