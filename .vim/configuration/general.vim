@@ -63,6 +63,11 @@ set timeoutlen=500
 "Navigation from top to bottom.
 let g:SuperTabDefaultCompletionType = '<c-n>'
 
+"ALE configuration
+"============================================================
+"Enable Perl syntax checker
+let b:ale_linters = {'perl': ['perl']}
+
 "Others
 "============================================================
 "Start newline without comment
