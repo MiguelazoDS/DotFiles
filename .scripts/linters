@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-lints=("shellcheck" "sh" "gcc" "clang" "cppcheck" "ghc" "hlint" "stylish-haskell" "checkstyle" "google-java-format" "flake8" "yapf" "vint texlab proselint checkmake prettier bibclean")
+lints=("shellcheck" "sh" "gcc" "clang" "cppcheck" "ghc" "hlint" "stylish-haskell" "google-java-format" "flake8" "yapf" "vint" "texlab" "proselint" "checkmake" "prettier")
 
 for linter in ${lints[*]}
 do
-	output=$(yay -Qi "$linter" 2>&1)
+	output=$(yay -Qqe "$linter" 2>&1)
 	if [[ $output =~ "was not found" ]]
 	then
 		yay -S "$linter"
