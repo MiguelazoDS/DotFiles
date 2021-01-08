@@ -58,6 +58,11 @@ set completeopt=menu,longest
 set ttimeoutlen=1
 set timeoutlen=500
 
+"Supertab configuration. 
+"============================================================
+"Navigation from top to bottom.
+let g:SuperTabDefaultCompletionType = '<c-n>'
+
 "Others
 "============================================================
 "Start newline without comment
@@ -85,18 +90,11 @@ set tabstop=4
 "Indent
 set shiftwidth=4
 
+"Show commands
+set showcmd
 
 filetype off
 syntax on
-set showcmd "Show commands
-"Highlight current line
-"Removes the underline causes by enabling cursorline:
-"highlight clear CursorLine
-"Sets the line numbering to red background:
-"highlight CursorLineNR ctermbg=red
-"Move between options default way
-let g:SuperTabDefaultCompletionType = '<c-n>'
+
 "Enable plugins
-filetype plugin on
-"Enable indent
 filetype plugin indent on
