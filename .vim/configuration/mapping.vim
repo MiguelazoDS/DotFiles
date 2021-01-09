@@ -10,10 +10,10 @@ nnoremap dl 0d$
 nnoremap ? :BLines<cr>
 
 "Buffer movements
-map <leader>gn :bn<cr>
-map <leader>gp :bp<cr>
+map gn :bn<cr>
+map gp :bp<cr>
 "Close buffer and fixed unexpected nerdtree behavior
-map <leader>gc :bp\|bd#<cr>
+map gc :bp\|bd#<cr>
 
 "Others
 "=========================================================
