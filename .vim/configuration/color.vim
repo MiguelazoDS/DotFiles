@@ -1,4 +1,4 @@
-"Fix colors in number column
+"Color support. Fix colors in number column
 set termguicolors
 
 "Color Scheme

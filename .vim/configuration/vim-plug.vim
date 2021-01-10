@@ -6,7 +6,7 @@ Plug 'frazrepo/vim-rainbow'
 Plug 'ryanoasis/vim-devicons'
 Plug 'lervag/vimtex'
 Plug '907th/vim-auto-save'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
