@@ -22,17 +22,8 @@ function clean {
 }
 
 function ignore {
-	temp=$(printf "%s," $(yay -Qsq $1))
-	mapfile -t array < <(echo "$temp" | tr ',' "\n")
-	size=${#array[@]}
-	if [ "$size" -gt 1 ]
-	then
-	   word="packages are"
-	else
-	   word="package is"
-	fi
-	echo "|${array[*]} $word not gonna be updated|"
-	update
+	pkgs="$(yay -Qsq "$1" | tr '\n' ',')"
+	yay -Syyu --ignore ="$pkgs" --devel --noconfirm; "$HOME"/.xmonad/recompile
 }
 
 function usage {
