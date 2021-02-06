@@ -68,6 +68,12 @@ let g:SuperTabDefaultCompletionType = '<c-n>'
 "Enable Perl syntax checker
 let b:ale_linters = {'perl': ['perl']}
 
+"Fixers
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'C': ['clangtidy', 'clang-format', 'uncrustify'],
+\}
+
 "Others
 "============================================================
 "Start newline without comment
