@@ -26,4 +26,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'godlygeek/tabular'
 Plug 'ervandew/supertab'
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
+Plug 'pearofducks/ansible-vim'
+Plug 'hashivim/vim-vagrant'
 call plug#end()

@@ -32,6 +32,9 @@ map <leader>n :Ranger<CR>
 "Execute renamer
 nnoremap <leader>R :Ren<CR>
 
+"Compile C code. 
+map <leader>gg :!gcc -g %<CR>
+
 "Suda save
 "=========================================================
 nmap <leader>ws :w suda://%
