@@ -4,9 +4,12 @@
 scriptencoding utf-8
 :set list lcs=tab:\¦\ 
 
-"Disable for json files
-augroup json
+"Disable for some file types
+augroup file_types
 	autocmd Filetype json :IndentLinesDisable
+	autocmd Filetype tex :IndentLinesDisable
+	autocmd FileType tex let b:coc_pairs_disabled = ['"']
+	autocmd FileType haskell let b:coc_pairs_disabled = ['<']
 augroup END
 
 "Show the first bar
