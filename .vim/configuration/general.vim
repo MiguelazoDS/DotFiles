@@ -9,7 +9,7 @@ augroup file_types
 	autocmd Filetype json :IndentLinesDisable
 	autocmd Filetype tex :IndentLinesDisable
 	autocmd FileType tex let b:coc_pairs_disabled = ['"']
-	autocmd FileType tex let b:coc_pairs_disabled = [''']
+	autocmd FileType tex let b:coc_pairs_disabled = ["'"]
 	autocmd FileType haskell let b:coc_pairs_disabled = ['<']
 augroup END
 
