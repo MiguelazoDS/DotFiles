@@ -9,7 +9,7 @@ Config { font    = "xft:JetBrainsMono Nerd Font:bold:size=8:antialias=true:hinti
 	   , border = FullBM 0 
 	   , borderColor = "#151515"
 	   , borderWidth = 1
-	   , position = Static{xpos = 0, ypos= 0, width = 1366, height = 29}
+	   , position = Static{xpos = 0, ypos= 0, width = 1920, height = 29}
        , lowerOnStart = True
        , hideOnStart = False
        , allDesktops = True
