@@ -118,7 +118,7 @@ endsnippet
 
 snippet lst "listings" b 
 \begin{lstlisting}[language=$1]
-	$2
+	${2:${VISUAL}}
 \end{lstlisting}
 $0
 endsnippet
@@ -250,7 +250,7 @@ snippet ' "Single quotes" A
 endsnippet
 
 snippet bf "bf" 
-\textbf{$1}$0
+\textbf{${1:${VISUAL}}}$0
 endsnippet
 
 snippet itt "it" 
@@ -261,4 +261,11 @@ snippet nl "newline"
 \newline
 endsnippet
 
+snippet bs "bigskip"
+
+
+\bigskip
+
+$0
+endsnippet
 # vim:ft=snippets:
