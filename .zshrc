@@ -21,6 +21,9 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 export TERMINFO="/usr/share/terminfo"
 
+hash xclip
+[[ $? -eq 1 ]] && (printf "\nxclip is not installed\nInstalling..."; yay -S xclip --noconfirm)
+
 #Verify if nvim is installed
 hash nvim
 [[ $? -eq 1 ]] && (printf "\nneovim is not installed\nInstalling..."; yay -S neovim neovim-plug neovim-remote --noconfirm) || export EDITOR=nvim
