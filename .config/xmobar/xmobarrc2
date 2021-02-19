@@ -16,7 +16,7 @@ Config { font    = "xft:JetBrainsMono Nerd Font:bold:size=10:antialias=true:hint
        , persistent = True
        , commands = [ Run Com "/home/miguel/.config/xmobar/scripts/battery" [] "bat" 10 
 	   				, Run BatteryP ["BAT0"]
-                		["-t", "<acstatus> %"
+                		["-t", "<acstatus>"
                 		, "-L", "10", "-H", "80"
                 		, "-l", "#ac4142", "-h", "#7e8d50"
                 		, "--", "-O", "<left>%", "-o", "<left>%"
