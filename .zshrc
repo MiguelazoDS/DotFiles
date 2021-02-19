@@ -59,7 +59,7 @@ ghcupPath="$HOME/.ghcup/bin"
 export PATH=$ghcupPath:$HOME/.local/bin:$PATH
 
 hash pip 2> /dev/null
-[[ $? -eq 1 ]] && (printf "\npip is not installed\nInstalling..."; yay -S python-pip)
+[[ $? -eq 1 ]] && (printf "\npip is not installed\nInstalling..."; yay -S python-pip --noconfirm)
 
 hash imosum 2>/dev/null
 [[ $? -eq 1 ]] && (printf "\nimosum is not installed\nInstalling..."; pip install imohash)
