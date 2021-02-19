@@ -91,7 +91,7 @@ else if (${1:/* condition */}) {
 endsnippet
 
 snippet pd "print()"
-void print(int **m, int n){
+void print(${1:int} **m, int n){
 	for (int i = 0; i < n; ++i) {
 		for (int j = 0; j < n; ++j) {
 			printf("%d ", m[i][j]);
@@ -99,26 +99,67 @@ void print(int **m, int n){
 		printf("\n");
 	}	
 }
+$0
 endsnippet
 
 snippet fd "free_double()"
-void free_double(int **m, int n){
+void free_double(${1:char} **m, int n){
 	for (int i = 0; i < n; ++i) {
 		free(*(m+i));
 	}
 	free(m);
 }
+$0
 endsnippet
-
 
 snippet printf "printf .. (printf)"
 printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+$0
+endsnippet
+
+snippet fgets "fgets"
+fgets(${1:buffer}, ${2:size}, ${3:stream});
+$0
+endsnippet
+
+snippet bs "buffer size"
+${1:1}*sizeof(${2:Data type});
+$0
 endsnippet
 
 snippet st "struct"
-struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`} {
-	${0:/* data */}
-};
+typedef struct ${1} {
+	${2:/* data */}
+}$1;
+endsnippet
+
+snippet cn "Check NULL"
+if(${1:condition}){
+	${2:fprintf(stderr, "${3:Error message}\n");
+	exit(1);}
+}
+$0
+endsnippet
+
+snippet ad "Allocate double pointer"
+void allocate_matrix(${1:char} ***matrix, int n, int l){
+	*matrix = ($1**)malloc(n*sizeof($1*));
+	for (int i = 0; i < n; ++i) {
+		(*matrix)[i] = ($1*)calloc(l, sizeof($1));
+	}
+}
+$0
+endsnippet
+
+snippet rnl "Remove Newline string"
+void replace_new_line(char *input, int n){
+	for(int i = 0; i < n; i++){
+		if(input[i] == '\n'){
+			input[i] = '\0';
+			break;
+		}
+	}
+}
 endsnippet
 
 snippet fun "function" b
