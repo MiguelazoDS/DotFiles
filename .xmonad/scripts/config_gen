@@ -8,9 +8,6 @@ icons_dir="$HOME/.config/xmobar/icons"
 
 [[ ! -d "$icons_dir" ]] && mkdir "$icons_dir"
 
-hash convert
-[[ $? -eq 1 ]] && (printf "\nimagemagick is not installed\nInstalling..."; yay -S imagemagick --noconfirm)
-
 function icons {
 	for i in "$HOME"/.config/xmobar/images/*
 		do

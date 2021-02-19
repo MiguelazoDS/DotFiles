@@ -64,6 +64,9 @@ hash pip 2> /dev/null
 hash imosum 2>/dev/null
 [[ $? -eq 1 ]] && (printf "\nimosum is not installed\nInstalling..."; pip install imohash)
 
+hash convert
+[[ $? -eq 1 ]] && (printf "\nimagemagick is not installed\nInstalling..."; yay -S imagemagick --noconfirm)
+
 #Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
