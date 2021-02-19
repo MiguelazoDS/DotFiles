@@ -1,6 +1,6 @@
-Config { font    = "xft:JetBrainsMono Nerd Font:bold:size=8:antialias=true:hinting=true"
-       , additionalFonts = [ "xft:JetBrainsMono Nerd Font:bold:size=10:antialias=true:hinting=true"
-	   					   , "xft:JetBrainsMono Nerd Font:bold:size=12:antialias=true:hinting=true"
+Config { font    = "xft:JetBrainsMono Nerd Font:bold:size=10:antialias=true:hinting=true"
+       , additionalFonts = [ "xft:JetBrainsMono Nerd Font:bold:size=12:antialias=true:hinting=true"
+	   					   , "xft:JetBrainsMono Nerd Font:bold:size=15:antialias=true:hinting=true"
 						   ]
 	   , iconRoot = "/home/miguel/.config/xmobar/icons"
 	   , bgColor = "#181818"
@@ -8,7 +8,7 @@ Config { font    = "xft:JetBrainsMono Nerd Font:bold:size=8:antialias=true:hinti
 	   , alpha = 220
 	   , border = FullBM 0 
 	   , borderColor = "#151515"
-	   , borderWidth = 1
+	   , borderWidth = 2
 	   , position = Static{xpos = 0, ypos= 0, width = 1920, height = 29}
        , lowerOnStart = True
        , hideOnStart = False
@@ -35,5 +35,5 @@ Config { font    = "xft:JetBrainsMono Nerd Font:bold:size=8:antialias=true:hinti
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <fc=#6c99ba> <icon=haskell.xpm/> </fc>%UnsafeStdinReader% }{ <fc=#e5b566> <fc=#d0d0d0>%locks%</fc> <fc=#d0d0d0>%weather%</fc> <fc=#d0d0d0>%date%</fc>                                                                           <fc=#d0d0d0>%updates%</fc> <fc=#d0d0d0>%volume%</fc> <fc=#d0d0d0>%enp7s0%</fc> <fc=#d0d0d0>%wlp0s20f3%</fc> <fc=#d0d0d0>%cpu%</fc> <fc=#d0d0d0>%memory%</fc> <fc=#d0d0d0>%bat%</fc><fc=#d0d0d0>%battery%</fc></fc>                 "
+       , template = " <fc=#6c99ba> <icon=haskell.xpm/> </fc>%UnsafeStdinReader% }{ <fc=#e5b566> <fc=#d0d0d0>%locks%</fc> <fc=#d0d0d0>%weather%</fc> <fc=#d0d0d0>%date%</fc>                         <fc=#d0d0d0>%updates%</fc> <fc=#d0d0d0>%volume%</fc> <fc=#d0d0d0>%enp7s0%</fc> <fc=#d0d0d0>%wlp0s20f3%</fc> <fc=#d0d0d0>%cpu%</fc> <fc=#d0d0d0>%memory%</fc> <fc=#d0d0d0>%bat%</fc><fc=#d0d0d0>%battery%</fc></fc>                 "
               }
