@@ -70,6 +70,9 @@ hash imosum 2>/dev/null
 hash convert
 [[ $? -eq 1 ]] && (printf "\nimagemagick is not installed\nInstalling..."; yay -S imagemagick --noconfirm)
 
+hash exa
+[[ $? -eq 1 ]] && (printf "\nexa is not installed\nInstalling..."; yay -S exa --noconfirm)
+
 #Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
