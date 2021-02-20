@@ -73,6 +73,9 @@ hash convert
 hash exa
 [[ $? -eq 1 ]] && (printf "\nexa is not installed\nInstalling..."; yay -S exa --noconfirm)
 
+hash rg
+[[ $? -eq 1 ]] && (printf "\nripgrep is not installed\nInstalling..."; yay -S ripgrep --noconfirm)
+
 #Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
