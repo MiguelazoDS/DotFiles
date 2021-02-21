@@ -41,6 +41,8 @@ myKeys =
         , ("M-d", spawn "rofi -show drun -show-icons -drun-icon-theme arthur.rasi")
         , ("M-n", spawn $ M.myTerminal M.applications ++ " -e 'ranger'")
         , ("M-<Return>", spawn $ M.myTerminal M.applications ++ " --title Kitty")
+        , ("M-S-d e", spawn "setxkbmap es")
+        , ("M-S-d u", spawn "setxkbmap us")
 
 -- Notifications
         , ("M-S-u", spawn "$HOME/.config/xmobar/scripts/updates updates")
