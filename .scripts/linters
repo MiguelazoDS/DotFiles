@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-lints=("shellcheck" "sh" "gcc" "clang" "cppcheck" "ghc" "hlint" "stylish-haskell" "google-java-format" "flake8" "yapf" "vint" "texlab" "proselint" "checkmake" "prettier" "astyle" "uncrustify")
+lints=("shellcheck" "sh" "gcc" "clang" "cppcheck" "ghc" "hlint" "stylish-haskell" "google-java-format" "flake8" "yapf" "vint" "texlab" "proselint" "checkmake-git" "prettier" "astyle" "uncrustify" "checkstyle" "perl-perl-critic")
 
 for linter in ${lints[*]}
 do
