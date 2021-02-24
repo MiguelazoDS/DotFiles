@@ -3,4 +3,4 @@
 hash reflector
 [[ $? -eq 1 ]] && (printf "\nreflector is not installed\nInstalling..."; yay -S reflector)
 
-sudo reflector --verbose -l 30 -f 10 -p https --save /etc/pacman.d/mirrorlist
+sudo reflector --country Argentina --country Brazil --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist 
