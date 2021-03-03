@@ -1,3 +1,4 @@
+
 # Verify if oh-my-zsh and powerlevel10k is installed
 [[ ! -d $HOME/.oh-my-zsh ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 if [[ -d $HOME/.oh-my-zsh ]] && [[ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]]; then 
@@ -265,5 +266,9 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+#Anaconda workaround curl 
+hash conda
+[[ $? -eq 0 ]] && export PATH=/usr/bin:$PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
