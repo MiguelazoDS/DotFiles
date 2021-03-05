@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+
+function usage {
+	printf "Usage: \n\t./development [Options]\n"
+	printf "\nOptions: \n"
+	printf "\t-l <value> --language <value>\n"
+}
+
+bash_setup () {
+	yay -S bashdb bash-language-server bashate shfml shellcheck
+}
+
+c_setup () {
+	yay -S clang cppcheck strace ctags cmake gdb valgrind cmake-format cmake-lint uncrustify astyle flawfinder ccls checkmake-git
+}
+
+haskell_setup () {
+	yay -S ghcup hlint hasktags haskell-language-server-bin stylish-haskell
+}
+
+perl_setup () {
+	yay -S perl-perl-critic perl-perl-tidy
+}
+
+python_setup () {
+	yay -S flake8 yapf
+}
+
+java_setup () {
+	yay -S google-java-format astyle checkstyle uncrustify javac
+}
+
+others_setup () {
+	yay -S prettier texlab proselint vint write-good textlint digestif efm-langserver-git vim-language-server
+}
+
+
+if [ "$#" -lt 2 ]; then
+	usage
+	exit 0
+fi
+
+short=l:
+long=language:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+	exit 1
+fi
+
+while true;
+do
+	case "$1" in
+		-l | --language ) 
+			shift
+			language=$1
+			shift
+			;;
+		* ) 
+			break
+			;;
+	esac
+done
+
+while true;
+do
+	case "$language" in
+		bash )
+		bash_setup
+		break
+		;;
+		c )
+		c_setup
+		break
+		;;
+		haskell )
+		haskell_setup
+		break
+		;;
+		perl )
+		perl_setup
+		break
+		;;
+		python )
+		python_setup
+		break
+		;;
+		java )
+		java_setup
+		break
+		;;
+		others )
+		others_setup
+		break
+		;;
+		* )
+		printf "\nInvalid option\n"
+		break
+		;;
+	esac
+done
