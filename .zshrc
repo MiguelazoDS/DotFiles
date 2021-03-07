@@ -26,7 +26,7 @@ hash xclip
 [[ $? -eq 1 ]] && (printf "\nxclip is not installed\nInstalling..."; yay -S xclip --noconfirm)
 
 #Verify if nvim is installed
-hash nvim
+hash nvim 2> /dev/null
 [[ $? -eq 0 ]] && export EDITOR=nvim
 
 #Plugins
