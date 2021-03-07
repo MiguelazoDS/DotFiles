@@ -27,7 +27,7 @@ hash xclip
 
 #Verify if nvim is installed
 hash nvim
-[[ $? -eq 1 ]] && (printf "\nneovim is not installed\nInstalling..."; yay -S neovim neovim-plug neovim-remote --noconfirm) || export EDITOR=nvim
+[[ $? -eq 0 ]] && export EDITOR=nvim
 
 #Verify if ghcup is installed
 hash ghcup
