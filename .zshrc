@@ -29,10 +29,6 @@ hash xclip
 hash nvim
 [[ $? -eq 0 ]] && export EDITOR=nvim
 
-#Verify if ghcup is installed
-hash ghcup
-[[ $? -eq 1 ]] && (printf "\nghcup is not installed\nInstalling..."; yay -S ghcup-hs-bin --noconfirm)
-
 #Plugins
 command -v zplug >/dev/null
 [[ $? -eq 1 ]] && (printf "\nzplug is not installed\nInstalling"; yay -S zplug --noconfirm)
