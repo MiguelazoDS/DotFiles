@@ -264,7 +264,7 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 #Anaconda workaround curl 
-hash conda
+hash conda 2> /dev/null
 [[ $? -eq 0 ]] && export PATH=/usr/bin:$PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
