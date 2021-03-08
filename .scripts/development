@@ -7,7 +7,7 @@ function usage {
 }
 
 bash_setup () {
-	yay -S bashdb bash-language-server bashate shfml shellcheck
+	yay -S bashdb bash-language-server bashate shellcheck
 }
 
 c_setup () {
@@ -31,7 +31,7 @@ java_setup () {
 }
 
 others_setup () {
-	yay -S prettier texlab proselint vint write-good textlint digestif efm-langserver-git vim-language-server
+	yay -S prettier texlab proselint vint write-good digestif efm-langserver vim-language-server
 }
 
 
