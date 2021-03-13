@@ -24,7 +24,7 @@ data Custom = Custom
 applications = Applications 
     { myTerminal = "kitty"
     , myTextEditor = "nvim"
-    , myBrowser = "google-chrome-stable --disk-cache-dir=/dev/null"
+    , myBrowser = "firefox"
     , myMusicPlayer = "mocp" 
     , myVideoPlayer = "mpv" 
     }
