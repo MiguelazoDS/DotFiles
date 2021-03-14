@@ -29,7 +29,7 @@ import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shi
 myKeys =
 -- Xmonad
         [ ("M-S-r", spawn "$HOME/.xmonad/recompile")                             
-        , ("M-S-l", spawn "betterlockscreen -l ")
+        , ("M-S-l", spawn "betterlockscreen -l dimblur")
         , ("M-e l", io exitSuccess)                                                            
         , ("M-e p", spawn "systemctl poweroff")
         , ("M-e s", spawn "systemctl suspend")
