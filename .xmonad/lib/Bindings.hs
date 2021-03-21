@@ -92,6 +92,7 @@ myKeys =
 -- Scratchpads
         , ("M-a", namedScratchpadAction myScratchPads "moc")
         , ("M-u", namedScratchpadAction myScratchPads "terminal")
+        , ("M-p", namedScratchpadAction myScratchPads "pulseeffects")
 
 -- Multimedia Keys
         , ("<XF86MonBrightnessUp>", spawn "light -A 5")

@@ -9,6 +9,7 @@ import XMonad.Util.NamedScratchpad
 
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "moc" spawnMocp findMocp manageMocp
+                , NS "pulseeffects" spawnEffects findEffects manageEffects
                 ]
 
     where
@@ -18,6 +19,9 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
     spawnMocp  = M.myTerminal M.applications ++  " --name=moc --title='MOCP' -e 'mocp'"
     findMocp   = resource =? "moc"
     manageMocp = customFloating $ W.RationalRect l t w h
+    spawnEffects = "pulseeffects"
+    findEffects = resource =? "pulseeffects"
+    manageEffects = customFloating $ W.RationalRect l t w h
     h = 0.9
     w = 0.9
     t = 0.95 -h
