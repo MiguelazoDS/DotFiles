@@ -29,4 +29,8 @@ Plug 'ervandew/supertab'
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 Plug 'pearofducks/ansible-vim'
 Plug 'hashivim/vim-vagrant'
+Plug 'voldikss/vim-floaterm'
+Plug 'skywind3000/asynctasks.vim'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'cdelledonne/vim-cmake'
 call plug#end()
