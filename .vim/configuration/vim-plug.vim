@@ -33,4 +33,6 @@ Plug 'voldikss/vim-floaterm'
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'cdelledonne/vim-cmake'
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 call plug#end()
