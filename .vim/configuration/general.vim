@@ -7,9 +7,9 @@ scriptencoding utf-8
 "Disable for some file types
 augroup file_types
 	autocmd Filetype json :IndentLinesDisable
-	autocmd Filetype tex :IndentLinesDisable
-	autocmd FileType tex let b:coc_pairs_disabled = ['"']
-	autocmd FileType tex let b:coc_pairs_disabled = ["'"]
+	autocmd Filetype latex :IndentLinesDisable
+	autocmd FileType latex let b:coc_pairs_disabled = ['"']
+	autocmd FileType latex let b:coc_pairs_disabled = ["'"]
 	autocmd FileType haskell let b:coc_pairs_disabled = ['<']
 augroup END
 
@@ -71,6 +71,7 @@ let g:SuperTabDefaultCompletionType = '<c-n>'
 "============================================================
 "Enable Perl syntax checker
 let b:ale_linters = {'perl': ['perl']}
+let b:ale_linters = ['proselint','write-good','languagetool']
 
 "Fixers
 let g:ale_fixers = {
