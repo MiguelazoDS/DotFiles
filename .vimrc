@@ -33,3 +33,5 @@ source $HOME/.vim/configuration/hasktags.vim
 "Coc configuration
 "==================================================
 source $HOME/.vim/configuration/coc.vim
+
+source $HOME/.vim/configuration/markdown.vim
