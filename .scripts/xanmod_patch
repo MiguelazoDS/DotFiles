@@ -40,10 +40,10 @@ function new {
 	wget "$url_xanmod"
 	tar xfv "$bn_xanmod"
 	mv xanmod-linux* linux-"$bn_xanmod"
-	# Change Generic by PileDriver processor family
-	printf "\nPileDriver Processor Family Set\n"
+	# Change Generic by Ice Lake processor family
+	printf "\nIce Lake Processor Family Set\n"
 	sed -i 's/\(CONFIG_GENERIC_CPU\)=.*/\# \1 is not set/g' linux-"$bn_xanmod"/.config
-	sed -i 's/.*\(CONFIG_MPILEDRIVER\).*/\1=y/g' linux-"$bn_xanmod"/.config
+	sed -i 's/.*\(CONFIG_MICELAKE\).*/\1=y/g' linux-"$bn_xanmod"/.config
 	cd "$old_path" || exit
 }
 
@@ -127,7 +127,7 @@ do
 	esac
 done
 
-major="5.4."
+major="5.10."
 #Two digits number
 release="$(uname -r | sed "s/$major\([0-9]*\)-.*/\1/")"
 #lts or xanmod? (? = 1 or 2)
