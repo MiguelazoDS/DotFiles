@@ -7,10 +7,11 @@ scriptencoding utf-8
 "Disable for some file types
 augroup file_types
 	autocmd Filetype json :IndentLinesDisable
-	autocmd Filetype latex :IndentLinesDisable
-	autocmd FileType latex let b:coc_pairs_disabled = ['"']
-	autocmd FileType latex let b:coc_pairs_disabled = ["'"]
+	autocmd Filetype tex :IndentLinesDisable
+	autocmd FileType tex let b:coc_pairs_disabled = ['"']
+	autocmd FileType tex let b:coc_pairs_disabled = ["'"]
 	autocmd FileType haskell let b:coc_pairs_disabled = ['<']
+ 	autocmd FileType tex set conceallevel=0
 augroup END
 
 "Show the first bar
