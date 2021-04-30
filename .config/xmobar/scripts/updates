@@ -4,7 +4,7 @@ if [ "$1" == "updates" ]; then
 	notify-send.sh -R id_file -i dialog-information "Obtaining updates"
 fi
 
-major="5.4."
+major="5.10."
 release="$(uname -r | sed "s/$major\(.*\)-xanmod1/\1/")"
 
 url=$(curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases" | grep -E "browser_download_url.*${major}[0-9]{2}-xanmod1.*\/.*$release.*--.*" | cut -d'"' -f4)
