@@ -43,8 +43,26 @@ function new {
 	# Change Generic by Ice Lake processor family
 	printf "\nIce Lake Processor Family Set\n"
 	sed -i 's/\(CONFIG_GENERIC_CPU\)=.*/\# \1 is not set/g' linux-"$bn_xanmod"/.config
-	sed -i 's/.*\(CONFIG_MSKYLAKE\).*/\1=y/g' linux-"$bn_xanmod"/.config
+	sed -i 's/.*\(CONFIG_MSKYLAKE\) is not set/\1=y/' linux-"$bn_xanmod"/.config
 	cd "$old_path" || exit
+}
+
+function enable_nvme {
+	sed -i '/# NVME Support/,/# Misc devices/{//!d}' .config 
+	sed -i 's/\(# NVME Support\)/\1\n/g' .config
+	line=$(cat -n .config | grep "# NVME" | awk '/[0-9]+/ {print (($1+1))}')
+	sed -i "${line}iCONFIG_NVME_CORE=m" .config
+	sed -i "${line}iCONFIG_BLK_DEV_NVME=m" .config
+	sed -i "${line}iCONFIG_NVME_MULTIPATH=y" .config
+	sed -i "${line}iCONFIG_NVME_HWMON=y" .config
+	sed -i "${line}iCONFIG_NVME_FABRICS=m" .config
+	sed -i "${line}iCONFIG_NVME_FC=m" .config
+	sed -i "${line}iCONFIG_NVME_TCP=m" .config
+	sed -i "${line}iCONFIG_NVME_TARGET=m" .config
+	sed -i "${line}iCONFIG_NVME_TARGET_PASSTHRU=y" .config
+	sed -i "${line}iCONFIG_NVME_TARGET_LOOP=m" .config
+	sed -i "${line}iCONFIG_NVME_TARGET_FC=m" .config
+	sed -i "${line}iCONFIG_NVME_TARGET_TCP=m" .config	
 }
 
 function install {
@@ -58,6 +76,7 @@ function install {
 	cd "$linux_dir" || exit
 	make oldconfig
 	make LSMOD="$HOME"/.config/modprobed.db localmodconfig
+	enable_nvme
 	make -j"$(nproc)" bzImage
 	make -j"$(nproc)" modules
 	sudo make -j"$(nproc)" modules_install
