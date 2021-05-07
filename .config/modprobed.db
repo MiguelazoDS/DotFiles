@@ -4,13 +4,17 @@ acpi_pad
 acpi_tad
 acpi_thermal_rel
 aesni_intel
+af_alg
 agpgart
 ahci
+algif_hash
+algif_skcipher
 ata_generic
 atkbd
 atl1c
 blake2b_generic
 bluetooth
+bnep
 bpf_preload
 bridge
 br_netfilter
@@ -23,6 +27,7 @@ ccm
 ccp
 cec
 cfg80211
+cmac
 coretemp
 crc16
 crc32c_generic
@@ -31,6 +36,7 @@ crc32_pclmul
 crct10dif_pclmul
 cryptd
 crypto_simd
+crypto_user
 dm_mod
 drm
 drm_kms_helper
@@ -150,6 +156,7 @@ r8169
 raid6_pq
 rapl
 realtek
+rfcomm
 rfkill
 rng_core
 scsi_mod
