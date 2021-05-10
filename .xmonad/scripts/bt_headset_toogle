@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+bluetooth_service=$(systemctl status bluetooth | awk '/Active/ {print $2}')
+if [[ "active" =~ $bluetooth_service ]]; then
+	connected=$(bluetoothctl -- info | awk '/Connected/ {print $2}')
+	name=$(bluetoothctl -- devices | awk '/Device/ {print $3}')
+	if [[ $connected -ne "yes" ]] || [[ -z $connected ]]; then
+		output=$(bluetoothctl -- connect $(bluetoothctl -- devices | awk '/Device/ {print $2}') | tail -n 1)
+	else
+		output=$(bluetoothctl -- disconnect $(bluetoothctl -- devices | awk '/Device/ {print $2}') | tail -n 1)
+	fi
+	notify-send.sh "${name}:${output}"
+else 
+	notify-send.sh "Bluetooth service disabled"
+fi

@@ -95,6 +95,7 @@ myKeys =
         , ("M-p", namedScratchpadAction myScratchPads "pulseeffects")
 
 -- Multimedia Keys
+        , ("M-S-b", spawn "$HOME/.xmonad/scripts/bt_headset_toogle")
         , ("<XF86MonBrightnessUp>", spawn "light -A 5")
         , ("<XF86MonBrightnessDown>", spawn "light -U 5")
         , ("<XF86AudioPlay>", spawn "mocp -G")
