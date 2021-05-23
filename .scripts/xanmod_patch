@@ -85,10 +85,8 @@ function install {
 	sudo cp -i arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version"
 	preset "$version"
 	sudo mkinitcpio -p linux-xanmod-"$version"
-	sudo dkms remove --no-depmod -m nvidia -v "$nvidia_version" -k "$major$release-xanmod1"
-	sudo dkms remove --no-depmod -m vboxhost -v "$vboxhost_version" -k "$major$release-xanmod1"
-	sudo dkms install --no-depmod -m nvidia -v "$nvidia_version" -k "$major$patch-xanmod1"
-	sudo dkms install --no-depmod -m vboxhost -v "$vboxhost_version" -k "$major$patch-xanmod1"
+ 	sudo dkms install nvidia/"$nvidia_version" -k "$major$patch-xanmod1"
+	sudo dkms install vboxhost/"$vboxhost_version" -k "$major$patch-xanmod1"
 	sudo grub-mkconfig -o /boot/grub/grub.cfg
 	cd "$HOME" || exit
 	if [[ "$linux_dir" != "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")" ]]; then
