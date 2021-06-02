@@ -14,6 +14,10 @@ augroup file_types
  	autocmd FileType tex set conceallevel=0
 augroup END
 
+augroup text_filetype
+	autocmd BufEnter * if &filetype == "" || &filetype == "zsh" | setlocal ft=text | endif
+augroup END
+
 "Show the first bar
 let g:indentLine_showFirstIndentLevel = 1
 
