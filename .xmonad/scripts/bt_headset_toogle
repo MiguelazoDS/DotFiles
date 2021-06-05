@@ -13,7 +13,7 @@ if [[ "active" =~ $bluetooth_service ]]; then
 	else
 		output=$(bluetoothctl -- disconnect $(bluetoothctl -- devices | awk '/Device/ {print $2}') | tail -n 1)
 	fi
-	notify-send.sh "${name}:${output}"
+	notify-send.sh -R /tmp/id_file "${name}:${output}"
 else 
-	notify-send.sh "Bluetooth service disabled"
+	notify-send.sh -R /tmp/id_file "Bluetooth service disabled"
 fi
