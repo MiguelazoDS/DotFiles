@@ -19,3 +19,4 @@ myStartupHook = do
             spawnOnce "xsetroot -cursor_name left_ptr"
             spawnOnce "/usr/lib/xfce4/notifyd/xfce4-notifyd"
             spawnOnce "$HOME/.xmonad/scripts/config_gen"
+            spawnOnce "xrandr --output HDMI-1-0 --mode 1920x1080 --rate 144 --primary --same-as eDP-1"
