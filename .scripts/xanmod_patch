@@ -75,7 +75,7 @@ function install {
 
 	sudo bash -c ""
 	cd "$linux_dir" || exit
-	make oldconfig
+	make olddefconfig
 	make LSMOD="$HOME"/.config/modprobed.db localmodconfig
 	enable_nvme
 	make -j"$(nproc)" bzImage
