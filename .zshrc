@@ -212,11 +212,9 @@ alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="echo rm command is discourage, use trm instead. If you still want to run it, use backslash to escape it"
 alias rename='perl-rename'
-alias vim=nvim
-alias nvidia-smi='watch -n 1 nvidia-smi'
 alias unzip='echo "Use uz instead"'
 alias youtube-dl-mp3="noglob youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 -o %(title)s.%(ext)s"
-alias youtube-dl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'"
+alias youtube-dl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
 
 function dotf (){
 	branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
