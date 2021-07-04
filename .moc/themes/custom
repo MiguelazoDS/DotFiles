@@ -10,7 +10,7 @@
 ##############################################################################
 
 colordef magenta = 500 250 150 #Orange
-colordef blue = 200 450 900
+colordef blue = 200 450 700
 colordef cyan = 300 200 500    #Purple
 colordef green = 300 400 200
 
