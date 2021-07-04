@@ -1,4 +1,4 @@
-module ManageHooks 
+module ManageHooks
     ( myManageHook
     ) where
 

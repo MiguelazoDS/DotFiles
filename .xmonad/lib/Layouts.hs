@@ -1,5 +1,5 @@
 module Layouts
-    ( myLayoutHook 
+    ( myLayoutHook
     ) where
 
 import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))

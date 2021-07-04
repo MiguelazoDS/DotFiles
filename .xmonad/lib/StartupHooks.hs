@@ -1,4 +1,4 @@
-module StartupHooks 
+module StartupHooks
     ( myStartupHook
     ) where
 
@@ -8,7 +8,7 @@ import XMonad.Util.NamedScratchpad
 import Scratchpads
 
 myStartupHook = do
-            setWMName "sleep 10; LG3D" 
+            setWMName "sleep 10; LG3D"
             spawnOnce "sleep 30; dropbox"
             spawnOnce "numlockx on"
             spawnOnce "sleep 15; nm-applet"

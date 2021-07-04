@@ -1,4 +1,4 @@
-module Scratchpads 
+module Scratchpads
     ( myScratchPads
     ) where
 

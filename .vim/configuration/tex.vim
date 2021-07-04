@@ -36,7 +36,7 @@ nmap <localleader>lT <Plug>(vimtex-toc-toggle)
 nmap <localleader>le <Plug>(vimtex-errors)
 "Show compile output
 nmap <localleader>lo <Plug>(vimtex-compile-output)
-"Toggle main 
+"Toggle main
 nmap <localleader>ls <Plug>(vimtex-toggle-main)
 "View status
 nmap <localleader>lg <Plug>(vimtex-status)

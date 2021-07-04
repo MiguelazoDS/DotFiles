@@ -51,12 +51,12 @@ fi
 while true;
 do
 	case "$1" in
-		-l | --language ) 
+		-l | --language )
 			shift
 			language=$1
 			shift
 			;;
-		* ) 
+		* )
 			break
 			;;
 	esac

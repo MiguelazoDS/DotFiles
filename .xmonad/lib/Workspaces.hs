@@ -1,5 +1,5 @@
 module Workspaces
-    ( myWorkspaces 
+    ( myWorkspaces
     ) where
 
 import Data.List as L

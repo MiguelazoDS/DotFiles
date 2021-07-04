@@ -1,7 +1,7 @@
 
 # Verify if oh-my-zsh and powerlevel10k is installed
 [[ ! -d $HOME/.oh-my-zsh ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-if [[ -d $HOME/.oh-my-zsh ]] && [[ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]]; then 
+if [[ -d $HOME/.oh-my-zsh ]] && [[ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]]; then
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 fi
 
@@ -145,7 +145,7 @@ POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='236' #grey19
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='094' #orange4a
 name(){
 	if [ $USER = "root" ]
-	then 
+	then
 		echo "\uf21b"
 	else
 		echo "\uf007"
@@ -193,10 +193,10 @@ plugins=(
 	zsh-autosuggestions
 )
 source $ZSH/oh-my-zsh.sh
-if [[ ! -d $ZSH_CUSTOM/plugins/fast-syntax-highlighting ]]; then 
+if [[ ! -d $ZSH_CUSTOM/plugins/fast-syntax-highlighting ]]; then
 	git clone https://github.com/zdharma/fast-syntax-highlighting.git ~ZSH_CUSTOM/plugins/fast-syntax-highlighting
 fi
-if [[ ! -d $ZSH_CUSTOM/plugins/zsh-autosuggestions ]]; then 
+if [[ ! -d $ZSH_CUSTOM/plugins/zsh-autosuggestions ]]; then
 	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 fi
 
@@ -261,7 +261,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-#Anaconda workaround curl 
+#Anaconda workaround curl
 hash conda 2> /dev/null
 [[ $? -eq 0 ]] && export PATH=/usr/bin:$PATH
 

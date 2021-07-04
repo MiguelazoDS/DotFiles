@@ -13,7 +13,7 @@ function capture {
 
 device=$(pactl list sources | awk '/bluez_sink/ {print $2}' | head -1)
 if [[ -z $device ]]; then
-	device=$(pactl list sources | head -3 | tail -1 | cut -d':' -f2) 
+	device=$(pactl list sources | head -3 | tail -1 | cut -d':' -f2)
 fi
 
 date=$(date +%y-%m-%d_%H-%M)
@@ -34,7 +34,7 @@ fi
 while true;
 do
 	case "$1" in
-		-s | --select_screen ) 
+		-s | --select_screen )
 			shift
 			variable="$1"
 			if [[ "$variable" =~ "f" ]]; then
@@ -51,7 +51,7 @@ do
 			fi
 			shift
 			;;
-		* ) 
+		* )
 			shift
 			break
 			;;

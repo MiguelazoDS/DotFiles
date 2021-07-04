@@ -1,4 +1,4 @@
-module Misc 
+module Misc
     ( Applications (..)
     , Custom (..)
     , applications
@@ -8,25 +8,25 @@ module Misc
 import XMonad
 import GHC.Word
 
-data Applications = Applications 
+data Applications = Applications
     { myTerminal :: String
     , myTextEditor :: String
     , myBrowser :: String
-    , myMusicPlayer :: String 
-    , myVideoPlayer :: String 
+    , myMusicPlayer :: String
+    , myVideoPlayer :: String
     } deriving (Eq, Show)
 
 data Custom = Custom
     { myModMask :: KeyMask
-    , myBorderWidth :: GHC.Word.Word32 
+    , myBorderWidth :: GHC.Word.Word32
     }
 
-applications = Applications 
+applications = Applications
     { myTerminal = "kitty"
     , myTextEditor = "nvim"
     , myBrowser = "firefox"
-    , myMusicPlayer = "mocp" 
-    , myVideoPlayer = "mpv" 
+    , myMusicPlayer = "mocp"
+    , myVideoPlayer = "mpv"
     }
 
 custom = Custom

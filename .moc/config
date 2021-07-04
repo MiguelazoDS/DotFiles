@@ -17,7 +17,7 @@ Theme = custom
 #
 # Example:    XTermTheme = transparent-background
 #
-XTermTheme = transparent-background  
+XTermTheme = transparent-background
 
 # How fast to seek (in number of seconds per keystroke).  The first
 # option is for normal seek and the second for silent seek.

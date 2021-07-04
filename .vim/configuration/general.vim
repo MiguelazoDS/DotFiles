@@ -19,7 +19,8 @@ augroup text_filetype
 augroup END
 
 augroup remove_trailing_spaces
-	autocmd BufWritePre * :%s/\s\+$//e
+	autocmd BufEnter * :%s/\s\+$//e
+	autocmd BufWrite * :%s/\s\+$//e
 augroup END
 
 "Show the first bar

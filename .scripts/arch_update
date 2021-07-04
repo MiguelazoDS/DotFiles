@@ -58,11 +58,11 @@ while true;
 do
 	case "$1" in
 		-a | --all )
-			shift 
+			shift
 			update
 			shift
 			;;
-		-c | --clean ) 
+		-c | --clean )
 			shift
 			clean
 			shift
@@ -73,7 +73,7 @@ do
 			ignore "$regex"
 			shift
 			;;
-		* ) 
+		* )
 			shift
 			break
 			;;

@@ -20,7 +20,7 @@ ${VISUAL}$0
 #endif
 endsnippet
 
-snippet in "include" 
+snippet in "include"
 #include<${1}.h>
 $0
 endsnippet
@@ -97,7 +97,7 @@ void print(${1:int} **m, int n){
 			printf("%d ", m[i][j]);
 		}
 		printf("\n");
-	}	
+	}
 }
 $0
 endsnippet
@@ -194,19 +194,19 @@ snippet head "File Header" b
 /******************************************************************************
 * File:             `!p snip.rv = fn`
 *
-* Author:           ${2}  
-* Created:          `date +%m/%d/%y` 
+* Author:           ${2}
+* Created:          `date +%m/%d/%y`
 * Description:      ${4:${VISUAL}}
 *****************************************************************************/
 ${0}
 endsnippet
 
 post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[4].current_text)"
-snippet func "Function Header" 
+snippet func "Function Header"
 /******************************************************************************
 * Function:         $1
 * Description:      ${4:${VISUAL}}
-* Where:`!p 
+* Where:`!p
 snip.rv = ""
 snip >> 2
 

@@ -58,7 +58,7 @@ tools:
 languages:
   vim:
     - <<: *vim-vint
-      
+
   markdown:
     - <<: *markdown-markdownlint
 
