@@ -17,9 +17,6 @@ map gc :bp\|bd#<cr>
 
 "Others
 "=========================================================
-"Remove trailing spaces
-map <leader>rs :%s/\s\+$//e <cr>
-
 "Format code
 map <leader>fc gg=G <cr>
 
@@ -32,7 +29,7 @@ map <leader>n :Ranger<CR>
 "Execute renamer
 nnoremap <leader>R :Ren<CR>
 
-"Compile C code. 
+"Compile C code.
 map <leader>gg :!gcc -g %<CR>
 
 "Suda save

@@ -1,8 +1,8 @@
-"Indent lines 
+"Indent lines
 "============================================================
 "scriptencoding error due to ¦
 scriptencoding utf-8
-:set list lcs=tab:\¦\ 
+:set list lcs=tab:\¦\
 
 "Disable for some file types
 augroup file_types
@@ -16,6 +16,10 @@ augroup END
 
 augroup text_filetype
 	autocmd BufEnter * if &filetype == "" || &filetype == "zsh" | setlocal ft=text | endif
+augroup END
+
+augroup remove_trailing_spaces
+	autocmd BufWritePre * :%s/\s\+$//e
 augroup END
 
 "Show the first bar
@@ -67,7 +71,7 @@ set completeopt=menu,longest
 set ttimeoutlen=1
 set timeoutlen=500
 
-"Supertab configuration. 
+"Supertab configuration.
 "============================================================
 "Navigation from top to bottom.
 let g:SuperTabDefaultCompletionType = '<c-n>'
@@ -104,7 +108,7 @@ set cursorline
 set number relativenumber
 
 "Highlight in searches
-set incsearch 
+set incsearch
 
 "Tab 4 spaces
 set tabstop=4
