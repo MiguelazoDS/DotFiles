@@ -15,22 +15,14 @@ import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, Tog
 import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat)
 import XMonad.Hooks.EwmhDesktops   -- required for xcomposite in obs to work
 
-xmobar :: String -> String
-xmobar option
-    | number == "3" = "xmobarrc1"
-    | otherwise = "xmobarrc2"
-    where number = concat $ words option
-
 main = do
-    contents <- readFile "/sys/class/dmi/id/chassis_type"
-    let xmobar_instance = xmobar contents
-    xmproc <- spawnPipe $ "xmobar $HOME/.config/xmobar/" ++ xmobar_instance
+    xmproc <- spawnPipe $ "xmobar $HOME/.config/xmobar/xmobarrc"
     xmonad $ ewmh desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
               { ppOutput = hPutStrLn xmproc
               , ppCurrent = xmobarColor "#445e02" "" . wrap "<{" "}>" -- Current workspace in xmobar
-              , ppHidden = xmobarColor "#a84220" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+              , ppHidden = xmobarColor "#803d26" "" . wrap "*" ""   -- Hidden workspaces in xmobar
               , ppHiddenNoWindows = xmobarColor "#d0d0d0" ""        -- Hidden workspaces (no windows)
               , ppSep =  "<fc=#FFD700> </fc>"                     -- Separators in xmobar
               , ppUrgent = xmobarColor "#000000" "" . wrap "!" "!"  -- Urgent workspace
@@ -42,6 +34,6 @@ main = do
         , layoutHook         = myLayoutHook
         , workspaces         = myWorkspaces
         , borderWidth        = M.myBorderWidth M.custom
-        , normalBorderColor  = "#292d3e"
-        , focusedBorderColor = "#445e02"
+        , normalBorderColor  = "#313442"
+        , focusedBorderColor = "#803d26"
         } `additionalKeysP` myKeys
