@@ -118,18 +118,18 @@ handle_image() {
          video/*)
              # Thumbnail
              mtn -f /usr/share/fonts/TTF/DejaVuSerif-Bold.ttf -r 3 -c 3 "${FILE_PATH}" -w 800 -j 50 -i -q -t -O "$(dirname "$IMAGE_CACHE_PATH")" -o .jpg
-			 printf "\nFile: %s - Thumbnail: %s" "$("$HOME"/.local/bin/imosum "$FILE_PATH")" "$(basename "$IMAGE_CACHE_PATH")" >> "$HOME"/.cache/ranger/thumbnail_db
-			 mv "$(dirname "$IMAGE_CACHE_PATH")/$(basename "${FILE_PATH%.*}".jpg)" "${IMAGE_CACHE_PATH}" && exit 6
+             printf "\nFile: %s - Thumbnail: %s" "$("$HOME"/.local/bin/imosum "$FILE_PATH")" "$(basename "$IMAGE_CACHE_PATH")" >> "$HOME"/.cache/ranger/thumbnail_db
+             mv "$(dirname "$IMAGE_CACHE_PATH")/$(basename "${FILE_PATH%.*}".jpg)" "${IMAGE_CACHE_PATH}" && exit 6
              exit 1;;
-		 */mp4)
+         */mp4)
              mtn -f /usr/share/fonts/TTF/DejaVuSerif-Bold.ttf -r 3 -c 3 "${FILE_PATH}" -w 800 -j 50 -i -q -t -O "$(dirname "$IMAGE_CACHE_PATH")" -o .jpg
-			 printf "\nFile: %s - Thumbnail: %s" "$("$HOME"/.local/bin/imosum "$FILE_PATH")" "$(basename "$IMAGE_CACHE_PATH")" >> "$HOME"/.cache/ranger/thumbnail_db
-			 mv "$(dirname "$IMAGE_CACHE_PATH")/$(basename "${FILE_PATH%.*}".jpg)" "${IMAGE_CACHE_PATH}" && exit 6
+             printf "\nFile: %s - Thumbnail: %s" "$("$HOME"/.local/bin/imosum "$FILE_PATH")" "$(basename "$IMAGE_CACHE_PATH")" >> "$HOME"/.cache/ranger/thumbnail_db
+             mv "$(dirname "$IMAGE_CACHE_PATH")/$(basename "${FILE_PATH%.*}".jpg)" "${IMAGE_CACHE_PATH}" && exit 6
              exit 1;;
 
         # PDF
          application/pdf)
-			 printf "\nFile: %s - Thumbnail: %s" "$("$HOME"/.local/bin/imosum "$FILE_PATH")" "$(basename "$IMAGE_CACHE_PATH")" >> "$HOME"/.cache/ranger/thumbnail_db
+             printf "\nFile: %s - Thumbnail: %s" "$("$HOME"/.local/bin/imosum "$FILE_PATH")" "$(basename "$IMAGE_CACHE_PATH")" >> "$HOME"/.cache/ranger/thumbnail_db
              pdftoppm -f 1 -l 1 \
                       -scale-to-x 1920 \
                       -scale-to-y -1 \
@@ -207,7 +207,7 @@ handle_mime() {
 
         # Video and audio
         #video/* | audio/*)
-		audio/*)
+        audio/*)
             mediainfo "${FILE_PATH}" && exit 5
             exiftool "${FILE_PATH}" && exit 5
             exit 1;;

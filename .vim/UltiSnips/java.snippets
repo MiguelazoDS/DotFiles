@@ -9,36 +9,36 @@ priority -50
 
 global !p
 def junit(snip):
-	if snip.opt("g:ultisnips_java_junit", "") == "3":
-		snip += ""
-	else:
-		snip.rv += "@Test\n\t"
+    if snip.opt("g:ultisnips_java_junit", "") == "3":
+        snip += ""
+    else:
+        snip.rv += "@Test\n\t"
 
 def nl(snip):
-	if snip.opt("g:ultisnips_java_brace_style", "") == "nl":
-		snip += ""
-	else:
-		snip.rv += " "
+    if snip.opt("g:ultisnips_java_brace_style", "") == "nl":
+        snip += ""
+    else:
+        snip.rv += " "
 def getArgs(group):
-	import re
-	word = re.compile('[a-zA-Z0-9><.]+ \w+')
-	return [i.split(" ") for i in word.findall(group) ]
+    import re
+    word = re.compile('[a-zA-Z0-9><.]+ \w+')
+    return [i.split(" ") for i in word.findall(group) ]
 
 def camel(word):
-	if not word: return ''
-	return word[0].upper() + word[1:]
+    if not word: return ''
+    return word[0].upper() + word[1:]
 
 def mixedCase(word):
-	if not word: return ''
-	return word[0].lower() + word[1:]
+    if not word: return ''
+    return word[0].lower() + word[1:]
 
 endglobal
 
 snippet sleep "try sleep catch" b
 try {
-	Thread.sleep(${1:1000});
+    Thread.sleep(${1:1000});
 } catch (InterruptedException e){
-	e.printStackTrace();
+    e.printStackTrace();
 }
 endsnippet
 
@@ -82,20 +82,20 @@ endsnippet
 
 snippet cs "case" b
 case $1:
-	$2
+    $2
 $0
 endsnippet
 
 snippet ca "catch" b
 catch (${1:Exception} ${2:e})`!p nl(snip)`{
-	$0
+    $0
 }
 endsnippet
 
 snippet cle "class extends" b
 public class ${1:`!p
 snip.rv = snip.basename or "untitled"`} ${2:extends ${3:Parent} }${4:implements ${5:Interface} }{
-	$0
+    $0
 }
 endsnippet
 
@@ -106,25 +106,25 @@ snip.rv = snip.basename or "untitled"` {
 args = getArgs(t[1])
 if len(args) == 0: snip.rv = ""
 for i in args:
-	snip.rv += "\n\tprivate " + i[0] + " " + i[1]+ ";"
+    snip.rv += "\n\tprivate " + i[0] + " " + i[1]+ ";"
 if len(args) > 0:
-	snip.rv += "\n"`
-	public `!p snip.rv = snip.basename or "unknown"`($1) {`!p
+    snip.rv += "\n"`
+    public `!p snip.rv = snip.basename or "unknown"`($1) {`!p
 args = getArgs(t[1])
 for i in args:
-	snip.rv += "\n\t\tthis." + i[1] + " = " + i[1] + ";"
+    snip.rv += "\n\t\tthis." + i[1] + " = " + i[1] + ";"
 if len(args) == 0:
-	snip.rv += "\n"`
-	}$0
+    snip.rv += "\n"`
+    }$0
 `!p
 args = getArgs(t[1])
 if len(args) == 0: snip.rv = ""
 for i in args:
-	snip.rv += "\n\tpublic void set" + camel(i[1]) + "(" + i[0] + " " + i[1] + ") {\n" + "\
-	\tthis." + i[1] + " = " + i[1] + ";\n\t}\n"
+    snip.rv += "\n\tpublic void set" + camel(i[1]) + "(" + i[0] + " " + i[1] + ") {\n" + "\
+    \tthis." + i[1] + " = " + i[1] + ";\n\t}\n"
 
-	snip.rv += "\n\tpublic " + i[0] + " get" + camel(i[1]) + "() {\n\
-	\treturn " + i[1] + ";\n\t}\n"
+    snip.rv += "\n\tpublic " + i[0] + " get" + camel(i[1]) + "() {\n\
+    \treturn " + i[1] + ";\n\t}\n"
 `
 }
 endsnippet
@@ -135,16 +135,16 @@ snip.rv = snip.basename or "untitled"` {
 `!p
 args = getArgs(t[1])
 for i in args:
-	snip.rv += "\n\tprivate " + i[0] + " " + i[1]+ ";"
+    snip.rv += "\n\tprivate " + i[0] + " " + i[1]+ ";"
 if len(args) > 0:
-	snip.rv += "\n"`
-	public `!p snip.rv = snip.basename or "unknown"`($1) {`!p
+    snip.rv += "\n"`
+    public `!p snip.rv = snip.basename or "unknown"`($1) {`!p
 args = getArgs(t[1])
 for i in args:
-	snip.rv += "\n\t\tthis.%s = %s;" % (i[1], i[1])
+    snip.rv += "\n\t\tthis.%s = %s;" % (i[1], i[1])
 if len(args) == 0:
-	snip.rv += "\n"`
-	}
+    snip.rv += "\n"`
+    }
 }
 endsnippet
 
@@ -152,16 +152,16 @@ snippet clc "class and constructor" b
 public class `!p
 snip.rv = snip.basename or "untitled"` {
 
-	public `!p snip.rv = snip.basename or "untitled"`($2) {
-		$0
-	}
+    public `!p snip.rv = snip.basename or "untitled"`($2) {
+        $0
+    }
 }
 endsnippet
 
 snippet cl "class" b
 public class ${1:`!p
 snip.rv = snip.basename or "untitled"`} {
-	$0
+    $0
 }
 endsnippet
 
@@ -175,18 +175,18 @@ endsnippet
 
 snippet de "default" b
 default:
-	$0
+    $0
 endsnippet
 
 snippet elif "else if"
 else if ($1)`!p nl(snip)`{
-	$0${VISUAL}
+    $0${VISUAL}
 }
 endsnippet
 
 snippet el "else" w
 else`!p nl(snip)`{
-	$0${VISUAL}
+    $0${VISUAL}
 }
 endsnippet
 
@@ -196,25 +196,25 @@ endsnippet
 
 snippet fore "for (each)" b
 for ($1 : $2)`!p nl(snip)`{
-	$0
+    $0
 }
 endsnippet
 
 snippet fori "for" b
 for (int ${1:i} = 0; $1 < ${2:10}; $1++)`!p nl(snip)`{
-	$0
+    $0
 }
 endsnippet
 
 snippet for "for" b
 for ($1; $2; $3)`!p nl(snip)`{
-	$0
+    $0
 }
 endsnippet
 
 snippet if "if" b
 if ($1)`!p nl(snip)`{
-	$0${VISUAL}
+    $0${VISUAL}
 }
 endsnippet
 
@@ -229,7 +229,7 @@ endsnippet
 
 snippet in "interface" b
 interface ${1:`!p snip.rv = snip.basename or "untitled"`} ${2:extends ${3:Parent} }{
-	$0
+    $0
 }
 endsnippet
 
@@ -255,23 +255,23 @@ endsnippet
 
 snippet cn "Constructor" b
 public `!p snip.rv = snip.basename or "untitled"`(${1:}) {
-	$0
+    $0
 }
 endsnippet
 
 snippet cn "constructor, \w fields + assigments" b
-	`!p
+    `!p
 args = getArgs(t[1])
 for i in args:
-	snip.rv += "\n\tprivate " + i[0] + " " + i[1]+ ";"
+    snip.rv += "\n\tprivate " + i[0] + " " + i[1]+ ";"
 if len(args) > 0:
-	snip.rv += "\n"`
+    snip.rv += "\n"`
 public `!p snip.rv = snip.basename or "unknown"`($1) {`!p
 args = getArgs(t[1])
 for i in args:
-	snip.rv += "\n\t\tthis.%s = %s;" % (i[1], i[1])
+    snip.rv += "\n\t\tthis.%s = %s;" % (i[1], i[1])
 if len(args) == 0:
-	snip.rv += "\n"`
+    snip.rv += "\n"`
 }
 endsnippet
 
@@ -297,27 +297,27 @@ endsnippet
 
 snippet main "method (main)" b
 public static void main(String[] args)`!p nl(snip)`{
-	$0
+    $0
 }
 endsnippet
 
 snippet try "try/catch" b
 try {
-	$1${VISUAL}
+    $1${VISUAL}
 } catch(${2:Exception} ${3:e}){
-	${4:e.printStackTrace();}
+    ${4:e.printStackTrace();}
 }
 endsnippet
 
 snippet mt "method throws" b
 ${1:private} ${2:void} ${3:method}($4) ${5:throws $6 }{
-	$0
+    $0
 }
 endsnippet
 
 snippet m  "method" b
 ${1:private} ${2:void} ${3:method}($4) {
-	$0
+    $0
 }
 endsnippet
 
@@ -325,40 +325,40 @@ snippet md "Method With javadoc" b
 /**
  * ${7:Short Description}`!p
 for i in getArgs(t[4]):
-	snip.rv += "\n\t * @param " + i[1] + " usage..."`
+    snip.rv += "\n\t * @param " + i[1] + " usage..."`
  *`!p
 if "throws" in t[5]:
-	snip.rv = "\n\t * @throws " + t[6]
+    snip.rv = "\n\t * @throws " + t[6]
 else:
-	snip.rv = ""``!p
+    snip.rv = ""``!p
 if not "void" in t[2]:
-	snip.rv = "\n\t * @return object"
+    snip.rv = "\n\t * @return object"
 else:
-	snip.rv = ""`
+    snip.rv = ""`
  **/
 ${1:public} ${2:void} ${3:method}($4) ${5:throws $6 }{
-	$0
+    $0
 }
 endsnippet
 
 snippet /get(ter)?/ "getter" br
 public ${1:String} get${2:Name}() {
-	return `!p snip.rv = mixedCase(t[2])`;
+    return `!p snip.rv = mixedCase(t[2])`;
 }
 endsnippet
 
 snippet /set(ter)?/ "setter" br
 public void set${1:Name}(${2:String} `!p snip.rv = mixedCase(t[1])`) {
-	this.`!p snip.rv = mixedCase(t[1])` = `!p snip.rv = mixedCase(t[1])`;
+    this.`!p snip.rv = mixedCase(t[1])` = `!p snip.rv = mixedCase(t[1])`;
 }
 endsnippet
 
 snippet /se?tge?t|ge?tse?t|gs/ "setter and getter" br
 public void set${1:Name}(${2:String} `!p snip.rv = mixedCase(t[1])`) {
-	this.`!p snip.rv = mixedCase(t[1])` = `!p snip.rv = mixedCase(t[1])`;
+    this.`!p snip.rv = mixedCase(t[1])` = `!p snip.rv = mixedCase(t[1])`;
 }`!p snip.rv += "\n"`
 public $2 get$1() {
-	return `!p snip.rv = mixedCase(t[1])`;
+    return `!p snip.rv = mixedCase(t[1])`;
 }
 endsnippet
 
@@ -396,7 +396,7 @@ endsnippet
 
 snippet sw "switch" b
 switch ($1)`!p nl(snip)`{
-	case $2: $0
+    case $2: $0
 }
 endsnippet
 
@@ -406,19 +406,19 @@ endsnippet
 
 snippet tc "test case"
 public class ${1:`!p snip.rv = snip.basename or "untitled"`} extends ${2:TestCase}`!p nl(snip)`{
-	$0
+    $0
 }
 endsnippet
 
 snippet t "test" b
 `!p junit(snip)`public void test${1:Name}() {
-	$0
+    $0
 }
 endsnippet
 
 snippet tt "test throws" b
 `!p junit(snip)`public void test${1:Name}() ${2:throws Exception }{
-	$0
+    $0
 }
 endsnippet
 
@@ -428,7 +428,7 @@ endsnippet
 
 snippet wh "while" b
 while ($1)`!p nl(snip)`{
-	$0
+    $0
 }
 endsnippet
 

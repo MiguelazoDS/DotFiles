@@ -1,40 +1,40 @@
 #!/usr/bin/env bash
 
 function format {
-	total=$(free -m| awk '/^Mem:/ {printf "%.3f", $2}')
-	line_length="                         "
-	proc="$1"
-	size=$(echo "$2"*"$total"/100 | bc -l)
-	printf "%s%s%.2f MiB\n" "${proc,,}" "${line_length:${#proc}}" "$size"
+    total=$(free -m| awk '/^Mem:/ {printf "%.3f", $2}')
+    line_length="                         "
+    proc="$1"
+    size=$(echo "$2"*"$total"/100 | bc -l)
+    printf "%s%s%.2f MiB\n" "${proc,,}" "${line_length:${#proc}}" "$size"
 }
 
 function update {
-	ram=$(free -h| awk '/^Mem:/ {printf  "RAM:\n\nUsed: %s, Total: %s\n\n", $3, $2}')
-	swap=$(free -h| awk '/^Swap:/ {printf  "SWAP:\n\nUsed: %s, Total: %s\n\n", $3, $2}')
-	processes=$(ps axcho comm --sort=-%mem | head -20)
-	mem=$(ps axcho %mem --sort=-%mem | head -20)
-	IFS=$'\n' processes=($processes)
-	IFS=$'\n' mem=($mem)
-	var=$(for i in {0..19}
-	do
-		format "${processes[$i]}" "${mem[$i]}"
-	done)
+    ram=$(free -h| awk '/^Mem:/ {printf  "RAM:\n\nUsed: %s, Total: %s\n\n", $3, $2}')
+    swap=$(free -h| awk '/^Swap:/ {printf  "SWAP:\n\nUsed: %s, Total: %s\n\n", $3, $2}')
+    processes=$(ps axcho comm --sort=-%mem | head -20)
+    mem=$(ps axcho %mem --sort=-%mem | head -20)
+    IFS=$'\n' processes=($processes)
+    IFS=$'\n' mem=($mem)
+    var=$(for i in {0..19}
+    do
+        format "${processes[$i]}" "${mem[$i]}"
+    done)
 }
 
 duration=3
 start_time=$(( SECONDS ))
 
 case "$1" in
-	--details)
-		while [ $(( SECONDS )) -lt $(( start_time + duration )) ]
-		do
-			update
-			notify-send.sh -R /tmp/id_file -i dialog-information -t 3000 "Memory info" "\n$ram\n\n$swap\n\n$var"
-			sleep 0.01
-			notify-send.sh -R /tmp/id_file -i dialog-information -t 100 "Memory info" "\n$ram\n\n$swap\n\n$var"
-		done
-		;;
-	*)
-		free | awk '/^Mem:/ { used=(100*$3)/($2); printf "<fn=1> </fn>%.1f%|%.2fGi", used, $2/(1024*1024)}'
-		;;
+    --details)
+        while [ $(( SECONDS )) -lt $(( start_time + duration )) ]
+        do
+            update
+            notify-send.sh -R /tmp/id_file -i dialog-information -t 3000 "Memory info" "\n$ram\n\n$swap\n\n$var"
+            sleep 0.01
+            notify-send.sh -R /tmp/id_file -i dialog-information -t 100 "Memory info" "\n$ram\n\n$swap\n\n$var"
+        done
+        ;;
+    *)
+        free | awk '/^Mem:/ { used=(100*$3)/($2); printf "<fn=1> </fn>%.1f%|%.2fGi", used, $2/(1024*1024)}'
+        ;;
 esac

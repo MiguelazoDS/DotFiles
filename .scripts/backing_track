@@ -1,54 +1,54 @@
 #!/usr/bin/env bash
 
 function name_ext(){
-	name=$(echo "$1" | cut -d '.' -f1)
-	ext=$(echo "$1" | cut -d '.' -f2)
+    name=$(echo "$1" | cut -d '.' -f1)
+    ext=$(echo "$1" | cut -d '.' -f2)
 }
 
 function convert {
-	printf "\nConverting to mp3\n\n"
-	ffmpeg -i "$1".wav "$1".mp3 2> /dev/null
-	printf "\nNormalize volume\n\n"
-	check_program "mp3gain"
-	mp3gain -c -r -p -d 6 "$1".mp3
-	printf "\nMoving file to ~/Music\n\n"
-	mv "$1".mp3 ~/Music
+    printf "\nConverting to mp3\n\n"
+    ffmpeg -i "$1".wav "$1".mp3 2> /dev/null
+    printf "\nNormalize volume\n\n"
+    check_program "mp3gain"
+    mp3gain -c -r -p -d 6 "$1".mp3
+    printf "\nMoving file to ~/Music\n\n"
+    mv "$1".mp3 ~/Music
 }
 
 function with_vocals {
-	bt_name_v="$name"" backingtrack (vocals)"
-	ffmpeg -f concat -safe 0 -i vocals vocals.wav 2> /dev/null
-	ffmpeg -i bass.wav -i drums.wav -i vocals.wav -filter_complex amix=inputs=3:duration=longest "$bt_name_v".wav 2> /dev/null
-	convert "$bt_name_v"
+    bt_name_v="$name"" backingtrack (vocals)"
+    ffmpeg -f concat -safe 0 -i vocals vocals.wav 2> /dev/null
+    ffmpeg -i bass.wav -i drums.wav -i vocals.wav -filter_complex amix=inputs=3:duration=longest "$bt_name_v".wav 2> /dev/null
+    convert "$bt_name_v"
 }
 
 function without_vocals {
-	bt_name="$name"" backingtrack (no vocals)"
-	ffmpeg -i bass.wav -i drums.wav -filter_complex amix=inputs=2:duration=longest "$bt_name".wav 2> /dev/null
-	convert "$bt_name"
+    bt_name="$name"" backingtrack (no vocals)"
+    ffmpeg -i bass.wav -i drums.wav -filter_complex amix=inputs=2:duration=longest "$bt_name".wav 2> /dev/null
+    convert "$bt_name"
 }
 
 function clean {
-	trm -rf bass drums vocals bass.wav drums.wav vocals.wav "$name"_00* "$bt_name".wav "$bt_name_v".wav output
+    trm -rf bass drums vocals bass.wav drums.wav vocals.wav "$name"_00* "$bt_name".wav "$bt_name_v".wav output
 }
 
 function usage {
-	printf "Usage: \n\tbacking_track [Options]\n"
-	printf "\nOptions: \n"
-	printf "\t-o <value> --option <value>\t 1: With Vocals,2: Without Vocals,3:Both\n"
-	printf "\t-s <value> --song <value>\n"
+    printf "Usage: \n\tbacking_track [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-o <value> --option <value>\t 1: With Vocals,2: Without Vocals,3:Both\n"
+    printf "\t-s <value> --song <value>\n"
 }
 
 function check_program {
-	program="$1"
-	hash "$program" 2>/dev/null
-	[[ $? -eq 1 ]] && ([[ "$program" =~ "conda" ]] && program="anaconda"; printf "\n%s is not installed\nInstalling...\n" "$program"; yay -S "$program")
+    program="$1"
+    hash "$program" 2>/dev/null
+    [[ $? -eq 1 ]] && ([[ "$program" =~ "conda" ]] && program="anaconda"; printf "\n%s is not installed\nInstalling...\n" "$program"; yay -S "$program")
 }
 
 
 if [ "$#" -lt 4 ]; then
-	usage
-	exit 0
+    usage
+    exit 0
 fi
 
 short=os:
@@ -56,41 +56,41 @@ long=option,song:
 
 if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
 then
-	exit 1
+    exit 1
 fi
 
 while true;
 do
-	case "$1" in
-		-o | --option )
-			shift
-			option=$1
-			if [ ! $((option)) -gt 0 ] || [ ! $((option)) -lt 4 ]; then
-				echo Invalid option
-				exit 1
-			fi
-			shift
-			;;
-		-s | --song )
-			shift
-			song=$1
-			name_ext "$(basename "$song")"
-			if [ -e "$song" ]; then
-				if [ "$ext" != "mp3" ]; then
-					echo Invalid song format.
-					exit 1
-				fi
-			else
-				echo File doesn\'t exist
-				exit 1
-			fi
-			shift
-			;;
-		* )
-			shift
-			break
-			;;
-	esac
+    case "$1" in
+        -o | --option )
+            shift
+            option=$1
+            if [ ! $((option)) -gt 0 ] || [ ! $((option)) -lt 4 ]; then
+                echo Invalid option
+                exit 1
+            fi
+            shift
+            ;;
+        -s | --song )
+            shift
+            song=$1
+            name_ext "$(basename "$song")"
+            if [ -e "$song" ]; then
+                if [ "$ext" != "mp3" ]; then
+                    echo Invalid song format.
+                    exit 1
+                fi
+            else
+                echo File doesn\'t exist
+                exit 1
+            fi
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
 done
 
 check_program "conda"
@@ -99,60 +99,60 @@ env_name=spleeter
 spleeter_dir="$HOME/.conda/envs/$env_name"
 
 if [[ ! -d "$spleeter_dir" ]]; then
-	printf "%s environment does not exist\nCreating environment ...\n" $env_name
-	conda create -n $env_name python=3.6
-	printf "It's needed to close the terminal before env activation\n"
-	printf "\nAlso remember to type \"conda activate %$1s\" and install with \"conda install -c conda-forge %$1s\"\n" $env_name
-	read -n 1 -r -s -p $'Press enter to continue...\n'
-	exit 0
+    printf "%s environment does not exist\nCreating environment ...\n" $env_name
+    conda create -n $env_name python=3.6
+    printf "It's needed to close the terminal before env activation\n"
+    printf "\nAlso remember to type \"conda activate %$1s\" and install with \"conda install -c conda-forge %$1s\"\n" $env_name
+    read -n 1 -r -s -p $'Press enter to continue...\n'
+    exit 0
 fi
 
 hash spleeter 2>/dev/null
 
 if [[ $? -eq 1 ]]; then
-	printf "\nRemember to execute conda activate %s before running this script\n" $env_name
-	exit 0
+    printf "\nRemember to execute conda activate %s before running this script\n" $env_name
+    exit 0
 else
-	printf "\nSpliting song in chunks of 90 seconds\n"
-	ffmpeg -i "$song" -f segment -segment_time 90 -c copy "$name""_%03d"".$ext"  2> /dev/null
-	printf "\nSeparating chunks\n\n"
-	for i in "$name"_*.mp3
-	do
-		spleeter separate -i "$i" -p spleeter:4stems -o output
-	done
+    printf "\nSpliting song in chunks of 90 seconds\n"
+    ffmpeg -i "$song" -f segment -segment_time 90 -c copy "$name""_%03d"".$ext"  2> /dev/null
+    printf "\nSeparating chunks\n\n"
+    for i in "$name"_*.mp3
+    do
+        spleeter separate -i "$i" -p spleeter:4stems -o output
+    done
 
-	for i in "output/$name"_*/*
-	do
-		if [[ $i =~ "bass" ]]; then
-			[[ "$i" =~ "'" ]] && i=${i/\'/\'\\\'\'}
-			printf "file '%s'\n" ./"$i" >> bass
-		elif [[ $i =~ "drums" ]]; then
-			[[ "$i" =~ "'" ]] && i=${i/\'/\'\\\'\'}
-			printf "file '%s'\n" ./"$i" >> drums
-		elif [[ $i =~ "vocals" ]]; then
-			[[ "$i" =~ "'" ]] && i=${i/\'/\'\\\'\'}
-			printf "file '%s'\n" ./"$i" >> vocals
-		fi
-	done
+    for i in "output/$name"_*/*
+    do
+        if [[ $i =~ "bass" ]]; then
+            [[ "$i" =~ "'" ]] && i=${i/\'/\'\\\'\'}
+            printf "file '%s'\n" ./"$i" >> bass
+        elif [[ $i =~ "drums" ]]; then
+            [[ "$i" =~ "'" ]] && i=${i/\'/\'\\\'\'}
+            printf "file '%s'\n" ./"$i" >> drums
+        elif [[ $i =~ "vocals" ]]; then
+            [[ "$i" =~ "'" ]] && i=${i/\'/\'\\\'\'}
+            printf "file '%s'\n" ./"$i" >> vocals
+        fi
+    done
 
-	printf "\nConcatenating tracks ... \n"
+    printf "\nConcatenating tracks ... \n"
 
-	ffmpeg -f concat -safe 0 -i bass bass.wav 2> /dev/null
-	ffmpeg -f concat -safe 0 -i drums drums.wav 2> /dev/null
+    ffmpeg -f concat -safe 0 -i bass bass.wav 2> /dev/null
+    ffmpeg -f concat -safe 0 -i drums drums.wav 2> /dev/null
 
-	case "$option" in
-		1 )
-			with_vocals
-			clean
-			;;
-		2 )
-			without_vocals
-			clean
-			;;
-		* )
-			with_vocals
-			without_vocals
-			clean
-			;;
-	esac
+    case "$option" in
+        1 )
+            with_vocals
+            clean
+            ;;
+        2 )
+            without_vocals
+            clean
+            ;;
+        * )
+            with_vocals
+            without_vocals
+            clean
+            ;;
+    esac
 fi

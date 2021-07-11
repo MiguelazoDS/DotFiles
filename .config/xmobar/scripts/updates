@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ "$1" == "updates" ]; then
-	notify-send.sh -R /tmp/id_file -i dialog-information "Obtaining updates"
+    notify-send.sh -R /tmp/id_file -i dialog-information "Obtaining updates"
 fi
 
 major="5.10."
@@ -18,18 +18,18 @@ n_xanmod_patch=$(echo "$url" | sed '/^$/d' | wc -l)
 n_updates=$(("$n_updates_arch" + "$n_xanmod_patch"))
 
 case "$1" in
-	updates)
-		if [ $n_updates -eq 0 ]; then
-			notify-send.sh -R /tmp/id_file -i dialog-information "System up to date"
-		else
-			notify-send.sh -R /tmp/id_file -t 3000 -i dialog-information "Available updates" "$updates_arch\n$xanmod_update"
-		fi
-		;;
-	*)
-		if [ "$n_updates" -eq 0 ]; then
-			echo "<fn=1> </fn>"
-		else
-			echo "<fn=1> </fn>$n_updates"
-		fi
-		;;
+    updates)
+        if [ $n_updates -eq 0 ]; then
+            notify-send.sh -R /tmp/id_file -i dialog-information "System up to date"
+        else
+            notify-send.sh -R /tmp/id_file -t 3000 -i dialog-information "Available updates" "$updates_arch\n$xanmod_update"
+        fi
+        ;;
+    *)
+        if [ "$n_updates" -eq 0 ]; then
+            echo "<fn=1> </fn>"
+        else
+            echo "<fn=1> </fn>$n_updates"
+        fi
+        ;;
 esac

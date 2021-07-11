@@ -1,128 +1,132 @@
 #!/usr/bin/env bash
 
 function usage {
-	printf "Usage: \n\txanmod_patch [Options]\n"
-	printf -- "\t-o d for dry-run, -o p for patch, -o i for install and -o c for clean"
-	printf "\nOptions: \n"
-	printf -- "\t-o <value> --option <value>\n"
+    printf "Usage: \n\txanmod_patch [Options]\n"
+    printf -- "\t-o d for dry-run, -o p for patch, -o i for install and -o c for clean"
+    printf "\nOptions: \n"
+    printf -- "\t-o <value> --option <value>\n"
 }
 
 function preset {
-	printf "\nCreating mkinitcpio preset\n\n"
-	sudo tee /etc/mkinitcpio.d/linux-xanmod-"$1".preset <<-EOF
-	# mkinitcpio preset file for the 'linux-xanmod-$1' package
+    printf "\nCreating mkinitcpio preset\n\n"
+    {
+        echo # mkinitcpio preset file for the 'linux-xanmod-$1' package
 
-	ALL_config="/etc/mkinitcpio.conf"
-	ALL_kver="/boot/vmlinuz-xanmod-$1"
+        echo "ALL_config=\"/etc/mkinitcpio.conf\""
+        echo "ALL_kver=\"/boot/vmlinuz-xanmod-$1\""
 
-	PRESETS=('default' 'fallback')
+        echo "PRESETS=('default' 'fallback')"
 
-	#default_config="/etc/mkinitcpio.conf"
-	default_image="/boot/initramfs-xanmod-$1.img"
-	#default_options=""
+        echo "default_image=\"/boot/initramfs-xanmod-$1.img\""
 
-	#fallback_config="/etc/mkinitcpio.conf"
-	fallback_image="/boot/initramfs-xanmod-$1-fallback.img"
-	fallback_options="-S autodetect"
-	EOF
+        echo "fallback_image=\"/boot/initramfs-xanmod-$1-fallback.img\""
+        echo "fallback_options=\"-S autodetect\""
+    } >> /tmp/linux-xanmod-"$1".preset
+    sudo mv /tmp/linux-xanmod-"$1".preset /etc/mkinitcpio.d/
 }
 
 function output {
-	printf "\nRelease installed: %s\nKernel patch installed: %s\n" "$release" "$patch"
+    printf "\nRelease installed: %s\nKernel patch installed: %s\n" "$release" "$patch"
 }
 
 function new {
-	url_xanmod=$1
-	bn_xanmod=$2
-	printf "\nDownloading kernel tarball\n"
-	old_path=$(pwd)
-	cd "$HOME/Documents" || exit
-	wget "$url_xanmod"
-	tar xfv "$bn_xanmod"
-	mv xanmod-linux* linux-"$bn_xanmod"
-	# Change Generic by Ice Lake processor family
-	printf "\nIce Lake Processor Family Set\n"
-	sed -i 's/\(CONFIG_GENERIC_CPU\)=.*/\# \1 is not set/g' linux-"$bn_xanmod"/.config
-	sed -i 's/.*\(CONFIG_MSKYLAKE\) is not set/\1=y/' linux-"$bn_xanmod"/.config
-	cd "$old_path" || exit
+    url_xanmod=$1
+    bn_xanmod=$2
+    printf "\nDownloading kernel tarball\n"
+    old_path=$(pwd)
+    cd "$HOME/Documents" || exit
+    hash wget
+    [[ $? -eq 1 ]] && (printf "\nInstalling wget\n"; yay -S wget)
+    wget "$url_xanmod"
+    tar xfv "$bn_xanmod"
+    mv xanmod-linux* linux-"$bn_xanmod"
+    # Remove downloaded file
+    rm "$bn_xanmod"
+    # Copying configuration file
+    cp linux-"$bn_xanmod"/CONFIGS/xanmod/gcc/config linux-"$bn_xanmod"/.config
+    # Change Generic by Ice Lake processor family
+    printf "\nIce Lake Processor Family Set\n"
+    sed -i 's/\(CONFIG_GENERIC_CPU\)=.*/\# \1 is not set/g' linux-"$bn_xanmod"/.config
+    sed -i 's/.*\(CONFIG_MSKYLAKE\) is not set/\1=y/' linux-"$bn_xanmod"/.config
+    cd "$old_path" || exit
 }
 
 function enable_nvme {
-	sed -i '/# NVME Support/,/# Misc devices/{//!d}' .config
-	sed -i 's/\(# NVME Support\)/\1\n/g' .config
-	line=$(cat -n .config | grep "# NVME" | awk '/[0-9]+/ {print (($1+1))}')
-	sed -i "${line}iCONFIG_NVME_CORE=m" .config
-	sed -i "${line}iCONFIG_BLK_DEV_NVME=m" .config
-	sed -i "${line}iCONFIG_NVME_MULTIPATH=y" .config
-	sed -i "${line}iCONFIG_NVME_HWMON=y" .config
-	sed -i "${line}iCONFIG_NVME_FABRICS=m" .config
-	sed -i "${line}iCONFIG_NVME_FC=m" .config
-	sed -i "${line}iCONFIG_NVME_TCP=m" .config
-	sed -i "${line}iCONFIG_NVME_TARGET=m" .config
-	sed -i "${line}iCONFIG_NVME_TARGET_PASSTHRU=y" .config
-	sed -i "${line}iCONFIG_NVME_TARGET_LOOP=m" .config
-	sed -i "${line}iCONFIG_NVME_TARGET_FC=m" .config
-	sed -i "${line}iCONFIG_NVME_TARGET_TCP=m" .config
+    sed -i '/# NVME Support/,/# Misc devices/{//!d}' .config
+    sed -i 's/\(# NVME Support\)/\1\n/g' .config
+    line=$(cat -n .config | grep "# NVME" | awk '/[0-9]+/ {print (($1+1))}')
+    sed -i "${line}iCONFIG_NVME_CORE=m" .config
+    sed -i "${line}iCONFIG_BLK_DEV_NVME=m" .config
+    sed -i "${line}iCONFIG_NVME_MULTIPATH=y" .config
+    sed -i "${line}iCONFIG_NVME_HWMON=y" .config
+    sed -i "${line}iCONFIG_NVME_FABRICS=m" .config
+    sed -i "${line}iCONFIG_NVME_FC=m" .config
+    sed -i "${line}iCONFIG_NVME_TCP=m" .config
+    sed -i "${line}iCONFIG_NVME_TARGET=m" .config
+    sed -i "${line}iCONFIG_NVME_TARGET_PASSTHRU=y" .config
+    sed -i "${line}iCONFIG_NVME_TARGET_LOOP=m" .config
+    sed -i "${line}iCONFIG_NVME_TARGET_FC=m" .config
+    sed -i "${line}iCONFIG_NVME_TARGET_TCP=m" .config
 }
 
 function install {
-	linux_dir=$1
-	major=$2
-	patch=$3
-	nvidia_version=$4
-	release=$5
-	vboxhost_version=$6
+    linux_dir=$1
+    major=$2
+    patch=$3
+    nvidia_version=$4
+    release=$5
+    vboxhost_version=$6
 
-	sudo bash -c ""
-	cd "$linux_dir" || exit
-	make olddefconfig
-	make LSMOD="$HOME"/.config/modprobed.db localmodconfig
-	enable_nvme
-	make -j"$(nproc)" bzImage
-	make -j"$(nproc)" modules
-	sudo make -j"$(nproc)" modules_install
-	version="$(echo "$major$patch" | sed 's/\.//g')"
-	sudo cp -i arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version"
-	preset "$version"
-	sudo mkinitcpio -p linux-xanmod-"$version"
- 	sudo dkms install nvidia/"$nvidia_version" -k "$major$patch-xanmod1"
-	sudo dkms install vboxhost/"$vboxhost_version" -k "$major$patch-xanmod1"
-	sudo grub-mkconfig -o /boot/grub/grub.cfg
-	cd "$HOME" || exit
-	if [[ "$linux_dir" != "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")" ]]; then
-		mv "$linux_dir" "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")"
-	fi
-	printf "\nNeeds reboot\n"
+    sudo bash -c ""
+    cd "$linux_dir" || exit
+    make olddefconfig
+    make LSMOD="$HOME"/.config/modprobed.db localmodconfig
+    enable_nvme
+    make -j"$(nproc)" bzImage
+    make -j"$(nproc)" modules
+    sudo make -j"$(nproc)" modules_install
+    version="$(echo "$major$patch" | sed 's/\.//g')"
+    sudo cp -i arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version"
+    preset "$version"
+    sudo mkinitcpio -p linux-xanmod-"$version"
+    sudo dkms install nvidia/"$nvidia_version" -k "$major$patch-xanmod1"
+    sudo dkms install vboxhost/"$vboxhost_version" -k "$major$patch-xanmod1"
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+    cd "$HOME" || exit
+    if [[ "$linux_dir" != "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")" ]]; then
+        mv "$linux_dir" "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")"
+    fi
+    printf "\nNeeds reboot\n"
 }
 
 function patching {
-	url_patch=$1
-	linux_dir=$2
+    url_patch=$1
+    linux_dir=$2
 
-	echo "$url_patch"
-	echo "$linux_dir"
-	hash wget 2>/dev/null
-	[[ $? -eq 1 ]] && (printf "\nwget not installed\nInstalling"; yay -S wget)
-	wget -q "$url_patch"
-	xz --decompress ./*.xz
-	printf "\n\nPatching kernel\n"
-	old_path=$(pwd)
-	cd "$linux_dir" || exit
-	file=$(ls "$old_path"/*--*)
-	echo file "$file"
-	echo linux dir "$linux_dir"
-	patch -p1 < "$file"
-	head -n 5 Makefile
-	cd "$old_path" || exit
-	printf "\n\nRemove patch\n"
-	trm ./*--*
-	patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
-	output
+    echo "$url_patch"
+    echo "$linux_dir"
+    hash wget 2>/dev/null
+    [[ $? -eq 1 ]] && (printf "\nwget not installed\nInstalling"; yay -S wget)
+    wget -q "$url_patch"
+    xz --decompress ./*.xz
+    printf "\n\nPatching kernel\n"
+    old_path=$(pwd)
+    cd "$linux_dir" || exit
+    file=$(ls "$old_path"/*--*)
+    echo file "$file"
+    echo linux dir "$linux_dir"
+    patch -p1 < "$file"
+    head -n 5 Makefile
+    cd "$old_path" || exit
+    printf "\n\nRemove patch\n"
+    trm ./*--*
+    patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
+    output
 }
 
 if [ "$#" -lt 2 ]; then
-	usage
-	exit 0
+    usage
+    exit 0
 fi
 
 short=o:
@@ -130,22 +134,22 @@ long=option:
 
 if ! getopt -n "$0" -o $short --long $long -- "$@" >/dev/null
 then
-	exit 1
+    exit 1
 fi
 
 while true;
 do
-	case "$1" in
-		-o | --option )
-			shift
-			option=$1
-			shift
-			;;
-		* )
-			shift
-			break
-			;;
-	esac
+    case "$1" in
+        -o | --option )
+            shift
+            option=$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
 done
 
 major="5.10."
@@ -162,61 +166,62 @@ mkinitcpio_dir="/etc/mkinitcpio.d"
 #===================================================================
 nvidia_version="$(dkms status | awk '/nvidia/ {print $2}' | sed 's/.$//' | head -n 1)"
 vboxhost_version="$(dkms status | awk '/vboxhost/ {print $2}' | sed 's/.$//' | head -n 1)"
-info=url=$(curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases")
+info=$(curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases")
 if [[ "$kernel" != "lts" ]]; then
-	url_patch=$(echo "$info" | grep -E "browser_download_url.*${major}[0-9]{2}-xanmod1.*\/.*$release.*--.*" | cut -d'"' -f4)
+    url_patch=$(echo "$info" | grep -E "browser_download_url.*${major}[0-9]{2}-xanmod[0-9]{1}\/patch-${major}[0-9]{2}.*--.*" | cut -d'"' -f4)
 fi
-url_xanmod=$(echo "$info" | grep -E "tarball_url.*${major}${release}.*" | head -1 | cut -d '"' -f4)
+url_xanmod=$(echo "$info" | grep -E "tarball_url.*${major}[0-9]{2}-.*" | head -1 | cut -d '"' -f4)
 bn_xanmod=$(basename "$url_xanmod")
 exist=$(ls "$HOME"/Documents/linux-*xanmod* 2>/dev/null)
 if [[ -z $exist ]]; then
-	printf "\nThere's no kernel folder\n"
-	new "$url_xanmod" "$bn_xanmod"
+    printf "\nThere's no kernel folder\n"
+    new "$url_xanmod" "$bn_xanmod"
 fi
-	linux_dir=$(find $HOME/Documents/ -name "linux*xanmod*")
-	patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
+    linux_dir=$(find $HOME/Documents/ -maxdepth 1 -name "linux*xanmod*")
+    patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
 
 if [[ "$option" == "p" ]]; then
-	if [[ "$release" == "$patch" ]] && [[ -n "$url_patch" ]]; then
-		patching "$url_patch" "$linux_dir"
-	else
-		printf "\nNothing to do\n"
-		output
-	fi
+    if [[ "$release" == "$patch" ]] && [[ -n "$url_patch" ]]; then
+        patching "$url_patch" "$linux_dir"
+    else
+        printf "\nNothing to do\n"
+        output
+    fi
 elif [[ $option == "d" ]]; then
-	if [[ "$kernel" != "lts" ]]; then
-		if [[ -n "$url_patch" ]]; then
-			printf "\nPatch available\n\n%s\n" "$url_patch"
-		else
-			printf "\nThere's no patch available\n"
-		fi
-		output
-	else
-		printf "\nCurrently not running any version of xanmod kernel\n"
-	fi
+    if [[ "$kernel" != "lts" ]]; then
+        if [[ -n "$url_patch" ]]; then
+            printf "\nPatch available\n\n%s\n" "$url_patch"
+        else
+            printf "\nThere's no patch available\n"
+        fi
+        output
+    else
+        printf "\nCurrently not running any version of xanmod kernel\n"
+    fi
 elif [[ "$option" == "i" ]]; then
-	if [[ "$release" != "$patch" ]] || [[ "$kernel" == "lts" ]]; then
-		install "$linux_dir" "$major" "$patch" "$nvidia_version" "$release" "$vboxhost_version"
-	else
-		printf "\nNothing to do\n"
-		output
-	fi
+    if [[ "$release" != "$patch" ]] || [[ "$kernel" == "lts" ]]; then
+        install "$linux_dir" "$major" "$patch" "$nvidia_version" "$release" "$vboxhost_version"
+    else
+        printf "\nNothing to do\n"
+        output
+    fi
 elif [[ "$option" == "c" ]]; then
-	#Clean every first day of the month at 20:00
-	#0 20 1 * * /home/miguel/.scripts/xanmod_patch -o c   AS ROOT
-	#1 20 1 * * /home/miguel/.scripts/xanmod_patch -o l   AS USER
-	exec 3>&1 &> >(tee -a /tmp/xanmod_clean_logs)
-	version="$(echo "$major$release" | sed 's/\.//g')"
-	find "$modules_dir" -maxdepth 1 -mindepth 1 ! -name "*${major}${release}*xanmod*" ! -name "*lts*" -exec rm -rv {} +
-	find "$boot_dir" -maxdepth 1 -mindepth 1 ! -name '*grub*' ! -name '*amd*' ! -name '*lts*' ! -name "*$version*" -exec rm -rv {} +
-	find "$nvidia_dir" -maxdepth 1 -mindepth 1 ! -name "*$nvidia_version*" ! -name '*original*' ! -name '*lts*' ! -name "*$major$release*" -delete
-	find "$nvidia_dir/$nvidia_version" -maxdepth 1 -mindepth 1 ! -name 'source' ! -name '*lts*' ! -name "*$major$release*" -exec rm -rv {}
-	find "$mkinitcpio_dir" -maxdepth 1 -mindepth 1 ! -name "*$version*" ! -name '*lts*' -delete
-	trash-empty
-	sudo grub-mkconfig -o /boot/grub/grub.cfg 2>&3
+    #Clean every first day of the month at 20:00
+    #0 20 1 * * /home/miguel/.scripts/xanmod_patch -o c   AS ROOT
+    #1 20 1 * * /home/miguel/.scripts/xanmod_patch -o l   AS USER
+    exec 3>&1 &> >(tee -a /tmp/xanmod_clean_logs)
+    version="$(echo "$major$release" | sed 's/\.//g')"
+    find "$modules_dir" -maxdepth 1 -mindepth 1 ! -name "*${major}${release}*xanmod*" ! -name "*lts*" -exec rm -rv {} +
+    find "$boot_dir" -maxdepth 1 -mindepth 1 ! -name '*grub*' ! -name '*amd*' ! -name '*lts*' ! -name "*$version*" -exec rm -rv {} +
+    find "$nvidia_dir" -maxdepth 1 -mindepth 1 ! -name "*$nvidia_version*" ! -name '*original*' ! -name '*lts*' ! -name "*$major$release*" -delete
+    find "$nvidia_dir/$nvidia_version" -maxdepth 1 -mindepth 1 ! -name 'source' ! -name '*lts*' ! -name "*$major$release*" -exec rm -rv {}
+    find "$mkinitcpio_dir" -maxdepth 1 -mindepth 1 ! -name "*$version*" ! -name '*lts*' -delete
+    trash-empty
+    sudo grub-mkconfig -o /boot/grub/grub.cfg 2>&3
 elif [[ "$option" == "l" ]]; then
-	[[ -f /tmp/xanmod_clean_logs ]] && (notify-send.sh -t 5000 "Clean Xanmod Kernel Directories" "$(cat /tmp/xanmod_clean_logs)"; trm /tmp/xanmod_clean_logs)
+    [[ -f /tmp/xanmod_clean_logs ]] && (notify-send.sh -t 5000 "Clean Xanmod Kernel Directories" "$(cat /tmp/xanmod_clean_logs)"; trm /tmp/xanmod_clean_logs)
 else
-	printf "\nThe option is not valid.\n"
-	exit 1
+    printf "\nThe option is not valid.\n"
+    exit 1
 fi
+

@@ -3,24 +3,24 @@
 state="$(mocp -Q %state 2>&1)"
 
 if [[ ! "$state" =~ "FATAL" ]]; then
-	if [ "$(mocp -Q %state)" != "STOP" ];then
-		SONG=$(mocp -Q %song)
+    if [ "$(mocp -Q %state)" != "STOP" ];then
+        SONG=$(mocp -Q %song)
 
-		if [ -n "$SONG" ]; then
-			echo "$SONG - $(mocp -Q %album)"
-		else
-			name=$(basename "$(mocp -Q %file)")
-			song_name=$(echo "$name" | cut -d '.' -f 1)
-			if [[ "${#song_name}" -gt 34 ]]; then
-				song_name=${song_name:0:35}"..."
-			fi
-			printf "            <fn=1> </fn>%s" "$song_name "
-		fi
+        if [ -n "$SONG" ]; then
+            echo "$SONG - $(mocp -Q %album)"
+        else
+            name=$(basename "$(mocp -Q %file)")
+            song_name=$(echo "$name" | cut -d '.' -f 1)
+            if [[ "${#song_name}" -gt 34 ]]; then
+                song_name=${song_name:0:35}"..."
+            fi
+            printf "            <fn=1> </fn>%s" "$song_name "
+        fi
 
-		if [ "$1" == "moc" ]; then
-			notify-send.sh -R /tmp/id_file -t 2000 -i multimedia-player "$song_name"
-		fi
-	else
-		echo ""
-	fi
+        if [ "$1" == "moc" ]; then
+            notify-send.sh -R /tmp/id_file -t 2000 -i multimedia-player "$song_name"
+        fi
+    else
+        echo ""
+    fi
 fi

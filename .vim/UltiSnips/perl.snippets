@@ -5,23 +5,23 @@ priority -50
 ###########################################################################
 snippet ife "Conditional if..else (ife)"
 if ($1) {
-	${2:# body...}
+    ${2:# body...}
 }
 else {
-	${3:# else...}
+    ${3:# else...}
 }
 
 endsnippet
 
 snippet ifee "Conditional if..elsif..else (ifee)"
 if ($1) {
-	${2:# body...}
+    ${2:# body...}
 }
 elsif ($3) {
-	${4:# elsif...}
+    ${4:# elsif...}
 }
 else {
-	${5:# else...}
+    ${5:# else...}
 }
 
 endsnippet
@@ -38,7 +38,7 @@ endsnippet
 
 snippet sub "Function (sub)"
 sub ${1:function_name} {
-	${2:# body...}
+    ${2:# body...}
 }
 
 endsnippet
@@ -68,10 +68,10 @@ snippet class "class"
 package ${1:ClassName};
 
 ${2:use parent qw(${3:ParentClass});}${2/.+/\n\n/}sub new {
-	my $class = shift;
-	$class = ref $class if ref $class;
-	my $self = bless {}, $class;
-	$self;
+    my $class = shift;
+    $class = ref $class if ref $class;
+    my $self = bless {}, $class;
+    $self;
 }
 
 1;
@@ -81,31 +81,31 @@ endsnippet
 snippet eval "eval"
 local $@;
 eval {
-	${1:# do something risky...}
+    ${1:# do something risky...}
 };
 if (my $${2:exception} = $@) {
-	${3:# handle failure...}
+    ${3:# handle failure...}
 }
 
 endsnippet
 
 snippet for "for"
 for (my $${1:var} = 0; $$1 < ${2:expression}; $$1++) {
-	${3:# body...}
+    ${3:# body...}
 }
 
 endsnippet
 
 snippet fore "foreach"
 foreach ${1:my $${2:x}} (@${3:array}) {
-	${4:# body...}
+    ${4:# body...}
 }
 
 endsnippet
 
 snippet if "if"
 if ($1) {
-	${2:# body...}
+    ${2:# body...}
 }
 
 endsnippet
@@ -117,21 +117,21 @@ endsnippet
 
 snippet unless "unless"
 unless ($1) {
-	${2:# body...}
+    ${2:# body...}
 }
 
 endsnippet
 
 snippet while "while"
 while ($1) {
-	${2:# body...}
+    ${2:# body...}
 }
 
 endsnippet
 
 snippet until "until"
 until ($1) {
-	${2:# body...}
+    ${2:# body...}
 }
 
 endsnippet

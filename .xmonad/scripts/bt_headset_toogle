@@ -2,18 +2,18 @@
 
 bluetooth_service=$(systemctl status bluetooth | awk '/Active/ {print $2}')
 if [[ "active" =~ $bluetooth_service ]]; then
-	connected=$(bluetoothctl -- info | awk '/Connected/ {print $2}')
-	name=$(bluetoothctl -- devices | awk '/Device/ {print $3}')
-	if [[ $connected -ne "yes" ]] || [[ -z $connected ]]; then
-		powered_on=$(bluetoothctl -- info)
-		if [[ $powered_on =~ "Missing device address argument" ]]; then
-			bluetoothctl -- power on
-		fi
-		output=$(bluetoothctl -- connect $(bluetoothctl -- devices | awk '/Device/ {print $2}') | tail -n 1)
-	else
-		output=$(bluetoothctl -- disconnect $(bluetoothctl -- devices | awk '/Device/ {print $2}') | tail -n 1)
-	fi
-	notify-send.sh -R /tmp/id_file "${name}:${output}"
+    connected=$(bluetoothctl -- info | awk '/Connected/ {print $2}')
+    name=$(bluetoothctl -- devices | awk '/Device/ {print $3}')
+    if [[ $connected -ne "yes" ]] || [[ -z $connected ]]; then
+        powered_on=$(bluetoothctl -- info)
+        if [[ $powered_on =~ "Missing device address argument" ]]; then
+            bluetoothctl -- power on
+        fi
+        output=$(bluetoothctl -- connect $(bluetoothctl -- devices | awk '/Device/ {print $2}') | tail -n 1)
+    else
+        output=$(bluetoothctl -- disconnect $(bluetoothctl -- devices | awk '/Device/ {print $2}') | tail -n 1)
+    fi
+    notify-send.sh -R /tmp/id_file "${name}:${output}"
 else
-	notify-send.sh -R /tmp/id_file "Bluetooth service disabled"
+    notify-send.sh -R /tmp/id_file "Bluetooth service disabled"
 fi

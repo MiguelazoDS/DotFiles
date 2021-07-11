@@ -4,22 +4,22 @@ hash trash-put
 [[ $? -eq 1 ]] && (printf "\ntrash-cli is not installed\nInstalling ... \n"; yay -S trash-cli)
 
 if [ "$#" -lt 1 ]; then
-	echo You must specify a file or folder.
+    echo You must specify a file or folder.
 else
-	size=$(du -sh ~/.local/share/Trash/files | cut -d$'\t' -f1)
-	number=${size%?}
-	number=$(echo "$number" | cut -d'.' -f1)
-	unit=${size: -1}
+    size=$(du -sh ~/.local/share/Trash/files | cut -d$'\t' -f1)
+    number=${size%?}
+    number=$(echo "$number" | cut -d'.' -f1)
+    unit=${size: -1}
 
-	if [[ ! $unit == "G" ]]; then
-		trash-put "$@"
-		echo deleted "$@"
-	else
-		if [[ $((number)) -lt 20 ]]; then
-			trash-put "$@"
-			echo deleted "$@"
-		else
-			echo Trash is full
-		fi
-	fi
+    if [[ ! $unit == "G" ]]; then
+        trash-put "$@"
+        echo deleted "$@"
+    else
+        if [[ $((number)) -lt 20 ]]; then
+            trash-put "$@"
+            echo deleted "$@"
+        else
+            echo Trash is full
+        fi
+    fi
 fi

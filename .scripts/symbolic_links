@@ -6,13 +6,13 @@ path="$HOME/.local/bin/"
 
 for i in *
 do
-	if [  "$i" != "symbolic_links" ]
-	then
-		if [ -e "$path$i" ]
-		then
-			rm "$path$i"
-		fi
-		ln -sf "$PWD"/"$i" "$path$i"
-		echo "Added command \"$i\""
-	fi
+    if [  "$i" != "symbolic_links" ]
+    then
+        if [ -e "$path$i" ]
+        then
+            rm "$path$i"
+        fi
+        ln -sf "$PWD"/"$i" "$path$i"
+        echo "Added command \"$i\""
+    fi
 done

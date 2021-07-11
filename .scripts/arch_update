@@ -1,47 +1,47 @@
 #!/usr/bin/env bash
 
 function update {
-	yay -Syyu --devel --noconfirm; $HOME/.xmonad/recompile
+    yay -Syyu --devel --noconfirm; $HOME/.xmonad/recompile
 }
 
 function clean {
-	yay -Sc --noconfirm
-	temp=$(yay -Qtdq | tr '\n' ' ')
-	if [ -n "$temp" ]; then
-		printf "\nThe following packages are going to be removed\n%s" "$temp"
-		read -r -p "Continue [Y/N]: " var
-		if [ "${var,,}" = "n" ]; then
-			exit 0
-		elif [ "${var,,}" = "y" ]; then
-			yay -Rns $(echo "$temp") --noconfirm
-			paccache -r
-		else
-			echo "The option is not valid"
-		fi
-	fi
+    yay -Sc --noconfirm
+    temp=$(yay -Qtdq | tr '\n' ' ')
+    if [ -n "$temp" ]; then
+        printf "\nThe following packages are going to be removed\n%s" "$temp"
+        read -r -p "Continue [Y/N]: " var
+        if [ "${var,,}" = "n" ]; then
+            exit 0
+        elif [ "${var,,}" = "y" ]; then
+            yay -Rns $(echo "$temp") --noconfirm
+            paccache -r
+        else
+            echo "The option is not valid"
+        fi
+    fi
 }
 
 function ignore {
-	pkgs="$(yay -Qsq "$1" | tr '\n' ',')"
-	yay -Syyu --ignore ="$pkgs" --devel --noconfirm; "$HOME"/.xmonad/recompile
+    pkgs="$(yay -Qsq "$1" | tr '\n' ',')"
+    yay -Syyu --ignore ="$pkgs" --devel --noconfirm; "$HOME"/.xmonad/recompile
 }
 
 function usage {
-	printf "Usage: \n\tarch_update [Options]\n"
-	printf "\nOptions: \n"
-	printf "\t-c --clean \n"
-	printf "\t-i <value> --ignore <value>\n"
+    printf "Usage: \n\tarch_update [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-c --clean \n"
+    printf "\t-i <value> --ignore <value>\n"
 }
 
 args=("$@")
 
 if [ "$#" -lt 2 ]; then
-	if [ "$#" -eq 0 ]; then
-		args+=("-a")
-	elif [ ! "$1" = "-c" ]; then
-		usage
-		exit 0
-	fi
+    if [ "$#" -eq 0 ]; then
+        args+=("-a")
+    elif [ ! "$1" = "-c" ]; then
+        usage
+        exit 0
+    fi
 fi
 
 set -- ${args[*]}
@@ -51,31 +51,31 @@ long=clean,ignore:
 
 if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
 then
-	exit 1
+    exit 1
 fi
 
 while true;
 do
-	case "$1" in
-		-a | --all )
-			shift
-			update
-			shift
-			;;
-		-c | --clean )
-			shift
-			clean
-			shift
-			;;
-		-i | --ignore )
-			shift
-			regex=$1
-			ignore "$regex"
-			shift
-			;;
-		* )
-			shift
-			break
-			;;
-	esac
+    case "$1" in
+        -a | --all )
+            shift
+            update
+            shift
+            ;;
+        -c | --clean )
+            shift
+            clean
+            shift
+            ;;
+        -i | --ignore )
+            shift
+            regex=$1
+            ignore "$regex"
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
 done

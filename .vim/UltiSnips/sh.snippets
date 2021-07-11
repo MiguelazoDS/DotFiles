@@ -6,20 +6,20 @@ import vim
 # Tests for the existence of a variable declared by Vim's filetype detection
 # suggesting the type of shell script of the current file
 def testShell(scope, shell):
-	return vim.eval("exists('" + scope + ":is_" + shell + "')")
+    return vim.eval("exists('" + scope + ":is_" + shell + "')")
 
 # Loops over the possible variables, checking for global variables
 # first since they indicate an override by the user.
 def getShell():
-	for scope in ["g", "b"]:
-		for shell in ["bash", "posix", "sh", "kornshell"]:
-			if testShell(scope, shell) == "1":
-				if shell == "kornshell":
-					return "ksh"
-				if shell == "posix":
-					return "sh"
-				return shell
-	return "sh"
+    for scope in ["g", "b"]:
+        for shell in ["bash", "posix", "sh", "kornshell"]:
+            if testShell(scope, shell) == "1":
+                if shell == "kornshell":
+                    return "ksh"
+                if shell == "posix":
+                    return "sh"
+                return shell
+    return "sh"
 endglobal
 
 ###########################################################################
@@ -50,75 +50,75 @@ endsnippet
 
 snippet fun "function"
 function ${1:name} {
-	${2:body}
+    ${2:body}
 }
 $0
 endsnippet
 
 snippet case "case .. esac (case)"
 case ${1:word} in
-	${2:pattern} )
-		$0;;
+    ${2:pattern} )
+        $0;;
 esac
 endsnippet
 
 snippet elif "elif .. (elif)"
 elif ${2:[[ ${1:condition} ]]}; then
-	${0:#statements}
+    ${0:#statements}
 endsnippet
 
 snippet for "for ... done (for)"
 for (( ${1:i} = 0; $1 ${4:<} ${2:10}; ${3:++$1} )); do
-	${5:#statements}
+    ${5:#statements}
 done
 $0
 endsnippet
 
 snippet forin "for ... in ... done (forin)"
 for ${1:i}${2/.+/ in /}${2:words}; do
-	${3:#statements}
+    ${3:#statements}
 done
 $0
 endsnippet
 
 snippet here "here document (here)"
 <<-${2:'${1:TOKEN}'}
-	$0
+    $0
 ${1/['"`](.+)['"`]/$1/}
 endsnippet
 
 snippet if "if ... then (if)"
 if ${2:[[ ${1:condition} ]]}; then
-	${3:#statements}
+    ${3:#statements}
 fi
 $0
 endsnippet
 
 snippet until "until ... (done)"
 until ${2:[[ ${1:condition} ]]}; do
-	${3:#statements}
+    ${3:#statements}
 done
 $0
 endsnippet
 
 snippet while "while ... (done)"
 while ${2:[[ ${1:condition} ]]}; do
-	${3:#statements}
+    ${3:#statements}
 done
 $0
 endsnippet
 
 snippet val_input "Input validation using getopt" b
 function usage {
-	printf "Usage: \n\t./${1:program.sh} [Options]\n"
-	printf "\nOptions: \n"
-	printf "\t${2:-l} <value> ${3:--long} <value>\n"
-	printf "\t${4:-o} <value> ${5:--long2} <value>\n"
+    printf "Usage: \n\t./${1:program.sh} [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t${2:-l} <value> ${3:--long} <value>\n"
+    printf "\t${4:-o} <value> ${5:--long2} <value>\n"
 }
 
 if [ "$#" -lt 6 ]; then
-	usage
-	exit 0
+    usage
+    exit 0
 fi
 
 short=lo:
@@ -126,27 +126,27 @@ long=long,long2:
 
 if ! getopt -n "\$0" -o $short --long "$long" -- "$@" >/dev/null
 then
-	exit 1
+    exit 1
 fi
 
 while true;
 do
-	case "\$1" in
-		-l | --long )
-			shift
-			variable=\$1
-			shift
-			;;
-		-o | --long2 )
-			shift
-			variable=\$1
-			shift
-			;;
-		* )
-			shift
-			break
-			;;
-	esac
+    case "\$1" in
+        -l | --long )
+            shift
+            variable=\$1
+            shift
+            ;;
+        -o | --long2 )
+            shift
+            variable=\$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
 done
 endsnippet
 

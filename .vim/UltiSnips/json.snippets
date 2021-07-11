@@ -10,25 +10,25 @@ endsnippet
 
 snippet a "Array" b
 [
-	${VISUAL}$0
+    ${VISUAL}$0
 ],
 endsnippet
 
 snippet na "Named array" b
 "${1:key}": [
-	${VISUAL}$0
+    ${VISUAL}$0
 ],
 endsnippet
 
 snippet o "Object" b
 {
-	${VISUAL}$0
+    ${VISUAL}$0
 },
 endsnippet
 
 snippet no "Named object" b
 "${1:key}": {
-	${VISUAL}$0
+    ${VISUAL}$0
 },
 endsnippet
 
@@ -39,11 +39,11 @@ endsnippet
 
 global !p
 def compB(t, opts):
-	if t:
-		opts = [m[len(t):] for m in opts if m.startswith(t)]
-	if len(opts) == 1:
-		return opts[0]
-	return "(" + '|'.join(opts) + ')'
+    if t:
+        opts = [m[len(t):] for m in opts if m.startswith(t)]
+    if len(opts) == 1:
+        return opts[0]
+    return "(" + '|'.join(opts) + ')'
 endglobal
 
 snippet b "Bool" b

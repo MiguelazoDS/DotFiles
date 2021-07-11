@@ -32,13 +32,13 @@ endsnippet
 
 snippet if "if"
 if (${1:condition}) {
-	${2:${VISUAL:body...}}
+    ${2:${VISUAL:body...}}
 }
 endsnippet
 
 snippet wh "while"
 while (${1:condition}) {
-	${2:${VISUAL:body...}}
+    ${2:${VISUAL:body...}}
 }
 endsnippet
 
@@ -53,26 +53,26 @@ endsnippet
 snippet main "main() (main)"
 int main(int argc, char *argv[])
 {
-	${VISUAL}$0
-	return 0;
+    ${VISUAL}$0
+    return 0;
 }
 endsnippet
 
 snippet for "for"
 for (${2:int} ${1:i} = 0; $1 ${5:<} ${3:count}; ${4:++$1}) {
-	${6:${VISUAL:body...}}
+    ${6:${VISUAL:body...}}
 }
 endsnippet
 
 snippet once "Include header once only guard"
 #ifndef ${1:`!p
 if not snip.c:
-	import random, string
-	name = re.sub(r'[^A-Za-z0-9]+','_', snip.fn).upper()
-	rand = ''.join(random.sample(string.ascii_letters+string.digits, 8))
-	snip.rv = ('%s_%s' % (name,rand)).upper()
+    import random, string
+    name = re.sub(r'[^A-Za-z0-9]+','_', snip.fn).upper()
+    rand = ''.join(random.sample(string.ascii_letters+string.digits, 8))
+    snip.rv = ('%s_%s' % (name,rand)).upper()
 else:
-	snip.rv = snip.c`}
+    snip.rv = snip.c`}
 #define $1
 
 ${VISUAL}$0
@@ -86,28 +86,28 @@ endsnippet
 
 snippet eli "else if .. (eli)"
 else if (${1:/* condition */}) {
-	${VISUAL}$0
+    ${VISUAL}$0
 }
 endsnippet
 
 snippet pd "print()"
 void print(${1:int} **m, int n){
-	for (int i = 0; i < n; ++i) {
-		for (int j = 0; j < n; ++j) {
-			printf("%d ", m[i][j]);
-		}
-		printf("\n");
-	}
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            printf("%d ", m[i][j]);
+        }
+        printf("\n");
+    }
 }
 $0
 endsnippet
 
 snippet fd "free_double()"
 void free_double(${1:char} **m, int n){
-	for (int i = 0; i < n; ++i) {
-		free(*(m+i));
-	}
-	free(m);
+    for (int i = 0; i < n; ++i) {
+        free(*(m+i));
+    }
+    free(m);
 }
 $0
 endsnippet
@@ -129,43 +129,43 @@ endsnippet
 
 snippet st "struct"
 typedef struct ${1} {
-	${2:/* data */}
+    ${2:/* data */}
 }$1;
 endsnippet
 
 snippet cn "Check NULL"
 if(${1:condition}){
-	${2:fprintf(stderr, "${3:Error message}\n");
-	exit(1);}
+    ${2:fprintf(stderr, "${3:Error message}\n");
+    exit(1);}
 }
 $0
 endsnippet
 
 snippet ad "Allocate double pointer"
 void allocate_matrix(${1:char} ***matrix, int n, int l){
-	*matrix = ($1**)malloc(n*sizeof($1*));
-	for (int i = 0; i < n; ++i) {
-		(*matrix)[i] = ($1*)calloc(l, sizeof($1));
-	}
+    *matrix = ($1**)malloc(n*sizeof($1*));
+    for (int i = 0; i < n; ++i) {
+        (*matrix)[i] = ($1*)calloc(l, sizeof($1));
+    }
 }
 $0
 endsnippet
 
 snippet rnl "Remove Newline string"
 void replace_new_line(char *input, int n){
-	for(int i = 0; i < n; i++){
-		if(input[i] == '\n'){
-			input[i] = '\0';
-			break;
-		}
-	}
+    for(int i = 0; i < n; i++){
+        if(input[i] == '\n'){
+            input[i] = '\0';
+            break;
+        }
+    }
 }
 endsnippet
 
 snippet fun "function" b
 ${1:void} ${2:function_name}($3)
 {
-	${VISUAL}$0
+    ${VISUAL}$0
 }
 endsnippet
 
@@ -175,18 +175,18 @@ endsnippet
 
 global !p
 def split_line(text):
-	import textwrap
-	lines = textwrap.wrap(text, 78 - 19)
-	output = list()
-	for line in lines:
-		output.append('*' + ' '*19 + line)
-	snip_line = snip.tabstops[4].end[0]
-	snip.buffer.append(output, snip_line + 1)
-	del snip.buffer[snip_line]
+    import textwrap
+    lines = textwrap.wrap(text, 78 - 19)
+    output = list()
+    for line in lines:
+        output.append('*' + ' '*19 + line)
+    snip_line = snip.tabstops[4].end[0]
+    snip.buffer.append(output, snip_line + 1)
+    del snip.buffer[snip_line]
 
 def get_args(arglist):
-	args = [arg.strip() for arg in arglist.split(',') if arg]
-	return args
+    args = [arg.strip() for arg in arglist.split(',') if arg]
+    return args
 endglobal
 
 post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[4].current_text)"
@@ -212,15 +212,15 @@ snip >> 2
 
 args = get_args(t[2])
 if args:
-	for arg in args:
-		snip.rv += '\n' + '*' + ' '*19 + arg + ' - TODO'
+    for arg in args:
+        snip.rv += '\n' + '*' + ' '*19 + arg + ' - TODO'
 snip << 2
 `
 * Return:           $5
 * Error:            $6
 *****************************************************************************/
 ${1}($2){
-	${0}
+    ${0}
 }
 endsnippet
 # vim:ft=snippets:
