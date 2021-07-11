@@ -125,7 +125,7 @@ set shiftwidth=4
 set showcmd
 
 filetype off
-syntax on
-
 "Enable plugins
 filetype plugin indent on
+
+syntax on
