@@ -6,21 +6,26 @@ scriptencoding utf-8
 
 "Disable for some file types
 augroup file_types
-	autocmd Filetype json :IndentLinesDisable
-	autocmd Filetype tex :IndentLinesDisable
-	autocmd FileType tex let b:coc_pairs_disabled = ['"']
-	autocmd FileType tex let b:coc_pairs_disabled = ["'"]
-	autocmd FileType haskell let b:coc_pairs_disabled = ['<']
- 	autocmd FileType tex set conceallevel=0
+    autocmd Filetype json :IndentLinesDisable
+    autocmd Filetype tex :IndentLinesDisable
+    autocmd FileType tex let b:coc_pairs_disabled = ['"']
+    autocmd FileType tex let b:coc_pairs_disabled = ["'"]
+    autocmd FileType haskell let b:coc_pairs_disabled = ['<']
+    autocmd FileType tex set conceallevel=0
 augroup END
 
 augroup text_filetype
-	autocmd BufEnter * if &filetype == "" || &filetype == "zsh" | setlocal ft=text | endif
+    autocmd BufEnter * if &filetype == "" || &filetype == "zsh" | setlocal ft=text | endif
 augroup END
 
 augroup remove_trailing_spaces
-	autocmd BufEnter * :%s/\s\+$//e
-	autocmd BufWrite * :%s/\s\+$//e
+    autocmd BufEnter * :%s/\s\+$//e
+    autocmd BufWrite * :%s/\s\+$//e
+augroup END
+
+augroup change_tabs_spaces
+    autocmd BufEnter * :set et|retab
+    autocmd BufWrite * :set et|retab
 augroup END
 
 "Show the first bar
@@ -30,7 +35,7 @@ let g:indentLine_showFirstIndentLevel = 1
 "============================================================
 set autoread
 augroup updatefile
-	au CursorHold * checktime
+    au CursorHold * checktime
 augroup END
 
 "Suda config
@@ -58,8 +63,8 @@ let g:NERDCommentEmptyLines = 1
 "File type configuration
 "===========================================================
 augroup indentation
-	autocmd FileType haskell setlocal tabstop=4 expandtab softtabstop=4 shiftwidth=4 shiftround
-	autocmd FileType java setlocal tabstop=2 softtabstop=2 shiftwidth=2 shiftround
+    autocmd FileType haskell setlocal tabstop=4 expandtab softtabstop=4 shiftwidth=4 shiftround
+    autocmd FileType java setlocal tabstop=2 softtabstop=2 shiftwidth=2 shiftround
 augroup END
 
 "Clang_complete configuration
@@ -93,7 +98,7 @@ let g:ale_fixers = {
 "============================================================
 "Start newline without comment
 augroup noComment
-	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 augroup END
 
 "Ignore case when searching
