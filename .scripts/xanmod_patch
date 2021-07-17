@@ -107,10 +107,10 @@ function patching {
     echo "$linux_dir"
     hash wget 2>/dev/null
     [[ $? -eq 1 ]] && (printf "\nwget not installed\nInstalling"; yay -S wget)
-    wget -q "$url_patch"
-    xz --decompress ./*.xz
+    wget -q "$url_patch" -P /tmp
+    xz -d /tmp/*.xz
     printf "\n\nPatching kernel\n"
-    old_path=$(pwd)
+    old_path="/tmp"
     cd "$linux_dir" || exit
     file=$(ls "$old_path"/*--*)
     echo file "$file"
@@ -168,7 +168,7 @@ nvidia_version="$(dkms status | awk '/nvidia/ {print $2}' | sed 's/.$//' | head 
 vboxhost_version="$(dkms status | awk '/vboxhost/ {print $2}' | sed 's/.$//' | head -n 1)"
 info=$(curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases")
 if [[ "$kernel" != "lts" ]]; then
-    url_patch=$(echo "$info" | grep -E "browser_download_url.*${major}[0-9]{2}-xanmod[0-9]{1}\/patch-${major}[0-9]{2}.*--.*" | cut -d'"' -f4)
+    url_patch=$(echo "$info" | grep -E "browser_download_url.*${major}[0-9]{2}-xanmod[0-9]{1}\/patch-${major}${release}.*--.*" | cut -d'"' -f4)
 fi
 url_xanmod=$(echo "$info" | grep -E "tarball_url.*${major}[0-9]{2}-.*" | head -1 | cut -d '"' -f4)
 bn_xanmod=$(basename "$url_xanmod")
