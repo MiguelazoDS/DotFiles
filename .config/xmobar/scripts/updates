@@ -37,9 +37,9 @@ case "$1" in
         fi
 
         if [ "$n_updates" -eq 0 ]; then
-            echo "<fn=1> </fn>"
+            echo "<fn=2> </fn>"
         else
-            echo "<fn=1> </fn>$n_updates"
+            echo "<fn=2> </fn>$n_updates"
         fi
         ;;
 esac

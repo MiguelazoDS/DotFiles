@@ -5,26 +5,26 @@ state=$(acpi | cut -d ' ' -f 3 | cut -d ',' -f 1)
 
 if [[ $state =~ "Charging" ]]; then
     if [[ $((perc)) -ge 0 && $((perc)) -le 20 ]]; then
-        echo "<fn=1></fn> "
+        echo "<fn=2></fn> "
     elif [[ $((perc)) -gt 20 && $((perc)) -le 40 ]]; then
-        echo "<fn=1></fn> "
+        echo "<fn=2></fn> "
     elif [[ $((perc)) -gt 40 && $((perc)) -le 60 ]]; then
-        echo "<fn=1></fn> "
+        echo "<fn=2></fn> "
     elif [[ $((perc)) -gt 60 && $((perc)) -le 80 ]]; then
-        echo "<fn=1></fn> "
+        echo "<fn=2></fn> "
     else
-        echo "<fn=1></fn> "
+        echo "<fn=2></fn> "
     fi
 else
     if [[ $((perc)) -ge 0 && $((perc)) -le 20 ]]; then
-        echo "<fn=1></fn> "
+        echo "<fn=2></fn> "
     elif [[ $((perc)) -gt 20 && $((perc)) -le 40 ]]; then
-        echo "<fn=1></fn> "
+        echo "<fn=2></fn> "
     elif [[ $((perc)) -gt 40 && $((perc)) -le 60 ]]; then
-        echo "<fn=1></fn> "
+        echo "<fn=2></fn> "
     elif [[ $((perc)) -gt 60 && $((perc)) -le 80 ]]; then
-        echo "<fn=1></fn> "
+        echo "<fn=2></fn> "
     else
-        echo "<fn=1></fn> "
+        echo "<fn=2></fn> "
     fi
 fi
