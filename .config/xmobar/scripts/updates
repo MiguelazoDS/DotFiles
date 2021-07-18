@@ -29,7 +29,7 @@ case "$1" in
         n_updates=$(("$n_updates_arch" + "$n_xanmod_patch"))
 
         if [ -f /tmp/updates ]; then
-            cp /tmp/updates/ /tmp/updates.bk
+            cp /tmp/updates /tmp/updates.bk
             printf "%s\n%s" "$updates_arch" "$xanmod_update" > /tmp/updates
             rm /tmp/updates.bk
         else
