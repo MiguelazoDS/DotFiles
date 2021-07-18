@@ -27,9 +27,9 @@ Config { font    = "xft:JetBrainsMono Nerd Font:bold:size=9.5:antialias=true:hin
         , Run Cpu ["-t","<fn=1> </fn><total>%","-H","75","--high","#ac4142"] 10
         , Run Com "/home/miguel/.config/xmobar/scripts/mem" [] "memory" 10
         , Run Com "/home/miguel/.config/xmobar/scripts/volume" [] "volume" 1
-        , Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 300
-        , Run Com "/home/miguel/.config/xmobar/scripts/moc" [] "moc" 10
-        , Run Com "/home/miguel/.config/xmobar/scripts/weather" [] "weather" 300
+        , Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 200
+        , Run Com "/home/miguel/.config/xmobar/scripts/moc" [] "moc" 5
+        , Run Com "/home/miguel/.config/xmobar/scripts/weather" [] "weather" 200
         , Run Com "/home/miguel/.config/xmobar/scripts/padding" [] "trayerpad" 1
         , Run Locks
         , Run UnsafeStdinReader
