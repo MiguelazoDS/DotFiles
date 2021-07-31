@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+disconnected=$(xrandr --query | awk '/HDMI.*disconnected/ {print $1}')
+
+if [ -z "$disconnected" ]; then
+    xrandr --output HDMI-1-0 --mode 1920x1080 --rate 144 --primary --same-as eDP-1
+fi
