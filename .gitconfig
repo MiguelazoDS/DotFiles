@@ -18,3 +18,7 @@
     old = red bold
     new = green bold
     whitespace = red reverse
+[diff]
+	tool = nvimdiff
+[difftool]
+	prompt = false
