@@ -12,6 +12,7 @@ algif_skcipher
 ata_generic
 atkbd
 atl1c
+auth_rpcgss
 blake2b_generic
 bluetooth
 bnep
@@ -38,6 +39,7 @@ cryptd
 crypto_simd
 crypto_user
 dm_mod
+dns_resolver
 drm
 drm_kms_helper
 ecc
@@ -51,9 +53,11 @@ ext4
 fam15h_power
 fat
 fb_sys_fops
+fscache
 fuse
 ghash_clmulni_intel
 glue_helper
+grace
 hfs
 hfsplus
 hid
@@ -84,6 +88,8 @@ intel_powerclamp
 intel_rapl_common
 intel_rapl_msr
 intel_soc_dts_iosf
+intel_spi
+intel_spi_pci
 intel_uncore
 intel_wmi_thunderbolt
 ip6table_filter
@@ -114,6 +120,7 @@ libcrc32c
 libphy
 libps2
 llc
+lockd
 mac80211
 mac_hid
 mbcache
@@ -125,6 +132,7 @@ mei_me
 minix
 mousedev
 msdos
+mtd
 nct6775
 nf_conntrack
 nf_conntrack_broadcast
@@ -141,6 +149,9 @@ nf_nat_ftp
 nfnetlink
 nf_reject_ipv4
 nf_reject_ipv6
+nfs
+nfs_ssc
+nfsv4
 nls_ascii
 nls_cp437
 nls_iso8859_1
@@ -159,6 +170,7 @@ realtek
 rfcomm
 rfkill
 rng_core
+rpcsec_gss_krb5
 scsi_mod
 sd_mod
 serio
@@ -205,7 +217,9 @@ soundwire_generic_allocation
 soundwire_intel
 sp5100_tco
 sparse_keymap
+spi_nor
 stp
+sunrpc
 syscopyarea
 sysfillrect
 sysimgblt
