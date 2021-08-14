@@ -4,6 +4,12 @@
 scriptencoding utf-8
 :set list lcs=tab:\¦\
 
+"Yank highlights
+augroup highlightYankedText
+    autocmd!
+    autocmd TextYankPost *  silent! lua require'vim.highlight'.on_yank()
+augroup END
+
 "Disable for some file types
 augroup file_types
     autocmd Filetype json :IndentLinesDisable
@@ -85,13 +91,13 @@ let g:SuperTabDefaultCompletionType = '<c-n>'
 "ALE configuration
 "============================================================
 "Enable Perl syntax checker
-let b:ale_linters = {'perl': ['perl']}
-let b:ale_linters = ['proselint','write-good','languagetool']
+let b:ale_linters = {'perl': ['perl'], 'python': ['autopep8']}
 
 "Fixers
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'C': ['clangtidy', 'clang-format', 'uncrustify'],
+\   'python': ['autopep8']
 \}
 
 "Others
@@ -100,6 +106,9 @@ let g:ale_fixers = {
 augroup noComment
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 augroup END
+
+"Let switch between buffers with save changes
+set hidden
 
 "Ignore case when searching
 set ignorecase
