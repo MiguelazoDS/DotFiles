@@ -8,10 +8,13 @@ agpgart
 algif_hash
 algif_skcipher
 atkbd
+auth_rpcgss
 blake2b_generic
 bluetooth
 bnep
 bpf_preload
+bridge
+br_netfilter
 btbcm
 btintel
 btrfs
@@ -32,6 +35,7 @@ cryptd
 crypto_simd
 crypto_user
 dm_mod
+dns_resolver
 drm
 drm_kms_helper
 ecc
@@ -40,9 +44,11 @@ ee1004
 ext4
 fat
 fb_sys_fops
+fscache
 fuse
 ghash_clmulni_intel
 glue_helper
+grace
 hfs
 hfsplus
 hid_multitouch
@@ -77,6 +83,7 @@ ip6_tables
 ip6t_REJECT
 ip6t_rt
 iptable_filter
+iptable_nat
 ip_tables
 ipt_REJECT
 irqbypass
@@ -94,6 +101,8 @@ libarc4
 libcrc32c
 libphy
 libps2
+llc
+lockd
 mac80211
 mac_hid
 mbcache
@@ -110,6 +119,7 @@ nf_conntrack
 nf_conntrack_broadcast
 nf_conntrack_ftp
 nf_conntrack_netbios_ns
+nf_conntrack_netlink
 nf_defrag_ipv4
 nf_defrag_ipv6
 nf_log_common
@@ -117,8 +127,12 @@ nf_log_ipv4
 nf_log_ipv6
 nf_nat
 nf_nat_ftp
+nfnetlink
 nf_reject_ipv4
 nf_reject_ipv6
+nfs
+nfs_ssc
+nfsv4
 processor_thermal_device
 r8169
 raid6_pq
@@ -127,6 +141,7 @@ realtek
 rfcomm
 rfkill
 rng_core
+rpcsec_gss_krb5
 serio
 serio_raw
 snd
@@ -164,6 +179,8 @@ soundwire_generic_allocation
 soundwire_intel
 sparse_keymap
 spi_nor
+stp
+sunrpc
 syscopyarea
 sysfillrect
 sysimgblt
@@ -176,6 +193,7 @@ typec_ucsi
 ucsi_acpi
 ucsi_ccg
 ufs
+uinput
 usbhid
 uvcvideo
 vfat
@@ -198,4 +216,5 @@ xt_conntrack
 xt_hl
 xt_limit
 xt_LOG
+xt_MASQUERADE
 xt_tcpudp
