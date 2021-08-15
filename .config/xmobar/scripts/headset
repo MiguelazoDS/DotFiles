@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+connected=$(bluetoothctl -- info | awk '/Connected/ {print $2}')
+if [[ $connected == "yes" ]]; then
+    echo "<fn=2><fc=#2c633b> </fc></fn>"
+else
+    echo "<fn=2><fc=#eb4034> </fc></fn>"
+fi

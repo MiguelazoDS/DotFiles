@@ -11,14 +11,14 @@ augroup highlightYankedText
 augroup END
 
 "Disable for some file types
-augroup file_types
-    autocmd Filetype json :IndentLinesDisable
-    autocmd Filetype tex :IndentLinesDisable
-    autocmd FileType tex let b:coc_pairs_disabled = ['"']
-    autocmd FileType tex let b:coc_pairs_disabled = ["'"]
-    autocmd FileType haskell let b:coc_pairs_disabled = ['<']
-    autocmd FileType tex set conceallevel=0
-augroup END
+" augroup file_types
+    " autocmd Filetype json :IndentLinesDisable
+    " autocmd Filetype tex :IndentLinesDisable
+    " autocmd FileType tex let b:coc_pairs_disabled = ['"']
+    " autocmd FileType tex let b:coc_pairs_disabled = ["'"]
+    " autocmd FileType haskell let b:coc_pairs_disabled = ['<']
+    " autocmd FileType tex set conceallevel=0
+" augroup END
 
 augroup text_filetype
     autocmd BufEnter * if &filetype == "" || &filetype == "zsh" | setlocal ft=text | endif

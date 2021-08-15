@@ -31,16 +31,19 @@ source $HOME/.config/nvim/configuration/terminal.vim
 source $HOME/.config/nvim/configuration/hasktags.vim
 
 "UltiSnips
+"==================================================
 source $HOME/.config/nvim/configuration/ultisnips.vim
 
-"Coc configuration
+"Git blame
 "==================================================
-" source $HOME/.vim/$HOME/.config/nvim/configuration/coc.vim
+source $HOME/.config/nvim/configuration/blamer.vim
 
 source $HOME/.config/nvim/configuration/markdown.vim
 :lua require('evilline')
 :lua require('treesitter')
 :lua require('lsp')
 :lua require('nvim-compe')
+:lua require('telescope_config')
+:lua require('lsp_icons')
 source $HOME/.config/nvim/configuration/barbar.vim
 

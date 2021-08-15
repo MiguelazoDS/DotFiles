@@ -7,14 +7,11 @@ noremap Y "+y
 nnoremap yl 0"+y$
 noremap P o<Esc>"+p
 nnoremap dl 0d$
-nnoremap ? :BLines<cr>
 
 "Buffer movements
 map gn :BufferNext<cr>
 map gp :BufferPrevious<cr>
-map gc :BufferClose!<cr>
-"Close buffer and fixed unexpected nerdtree behavior
-" map gc :bp\|bd#<cr>
+map gc :BufferClose<cr>
 
 "Others
 "=========================================================

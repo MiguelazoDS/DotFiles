@@ -1,51 +1,55 @@
 call plug#begin('~/.config/nvim/plugged')
-Plug 'morhetz/gruvbox'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+" Color/Style
+Plug 'tomasiser/vim-code-dark'
 Plug 'frazrepo/vim-rainbow'
 Plug 'ryanoasis/vim-devicons'
+Plug 'onsails/lspkind-nvim'
+Plug 'romgrk/barbar.nvim'
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+Plug 'kyazdani42/nvim-web-devicons'
+"==============================
+Plug 'folke/trouble.nvim'
+Plug 'folke/lsp-colors.nvim'
+"==============================
+" Latex/Markdown/vagrant
 Plug 'lervag/vimtex'
-Plug '907th/vim-auto-save'
-Plug 'dense-analysis/ale'
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'hashivim/vim-vagrant'
+" Snippets
 Plug 'SirVer/ultisnips'
+" Git
 Plug 'airblade/vim-gitgutter'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-repeat'
-Plug 'preservim/nerdcommenter'
+Plug 'APZelos/blamer.nvim'
+" Misc
+Plug '907th/vim-auto-save'
 Plug 'tpope/vim-surround'
 Plug 'lambdalisue/suda.vim'
 Plug 'qpkorr/vim-renamer'
-Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'preservim/tagbar'
 Plug 'MarcWeber/hasktags'
 Plug 'psliwka/vim-smoothie'
 Plug 'justinmk/vim-sneak'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'godlygeek/tabular'
 Plug 'ervandew/supertab'
-" Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
-" Plug 'pearofducks/ansible-vim'
-Plug 'hashivim/vim-vagrant'
+" Terminal
 Plug 'voldikss/vim-floaterm'
-" Plug 'skywind3000/asynctasks.vim'
-" Plug 'skywind3000/asyncrun.vim'
-" Plug 'cdelledonne/vim-cmake'
-Plug 'plasticboy/vim-markdown'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'romgrk/barbar.nvim'
+Plug 'akinsho/nvim-toggleterm.lua'
+" Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+" LSP/Diagnostic
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
 Plug 'kabouzeid/nvim-lspinstall'
+Plug 'dense-analysis/ale'
+" Autocompletion
+Plug 'hrsh7th/nvim-compe'
 " Telescope
-" Plug 'nvim-lua/popup.nvim'
-" Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope-fzf-native.nvim'
-" Plug 'nvim-telescope/telescope-frecency.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim'
+Plug 'nvim-telescope/telescope-frecency.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 call plug#end()

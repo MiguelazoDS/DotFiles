@@ -11,7 +11,11 @@ let g:gruvbox_improved_warnings=1
 
 "Set colorscheme (should be after the other config)
 set background=dark
-colorscheme gruvbox
+
+set t_Co=256
+set t_ut=
+" colorscheme gruvbox
+colorscheme codedark
 
 "Rainbow colors
 "============================================================
