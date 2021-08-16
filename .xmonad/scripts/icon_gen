@@ -10,7 +10,7 @@ for i in "$HOME"/.config/xmobar/images/*
     if [[ "$i" =~ "haskell" ]]; then
         ffmpeg -loglevel error -i "$i" -vf scale=25:15 "$(basename "$i")"
     else
-        ffmpeg -loglevel error -i "$i" -vf scale=14:14 "$(basename "$i")"
+        ffmpeg -loglevel error -i "$i" -vf scale=18:14 "$(basename "$i")"
     fi
     convert "$(basename "$i")" "$name.xpm"
     mv ./*.xpm "$icons_dir"
