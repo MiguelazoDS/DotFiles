@@ -9,7 +9,7 @@ Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kosayoda/nvim-lightbulb'
 "==============================
-Plug 'folke/trouble.nvim'
+Plug 'folke/trouble.nvim', {'tag':'*'}
 Plug 'folke/lsp-colors.nvim'
 "==============================
 " Latex/Markdown/vagrant
@@ -22,6 +22,7 @@ Plug 'SirVer/ultisnips'
 " Git
 Plug 'airblade/vim-gitgutter'
 Plug 'APZelos/blamer.nvim'
+Plug 'tpope/vim-fugitive'
 " Misc
 Plug 'simrat39/symbols-outline.nvim'
 Plug '907th/vim-auto-save'
@@ -37,6 +38,9 @@ Plug 'psliwka/vim-smoothie'
 Plug 'justinmk/vim-sneak'
 Plug 'godlygeek/tabular'
 Plug 'ervandew/supertab'
+Plug 'tpope/vim-repeat'
+Plug 'preservim/nerdcommenter'
+Plug 'kyazdani42/nvim-tree.lua'
 " Terminal
 Plug 'voldikss/vim-floaterm'
 Plug 'akinsho/nvim-toggleterm.lua'
