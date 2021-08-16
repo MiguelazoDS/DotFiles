@@ -46,4 +46,3 @@ source $HOME/.config/nvim/configuration/markdown.vim
 :lua require('telescope_config')
 :lua require('lsp_icons')
 source $HOME/.config/nvim/configuration/barbar.vim
-

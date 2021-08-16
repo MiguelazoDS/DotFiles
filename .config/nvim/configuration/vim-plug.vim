@@ -7,6 +7,7 @@ Plug 'onsails/lspkind-nvim'
 Plug 'romgrk/barbar.nvim'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kosayoda/nvim-lightbulb'
 "==============================
 Plug 'folke/trouble.nvim'
 Plug 'folke/lsp-colors.nvim'
@@ -22,6 +23,7 @@ Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
 Plug 'APZelos/blamer.nvim'
 " Misc
+Plug 'simrat39/symbols-outline.nvim'
 Plug '907th/vim-auto-save'
 Plug 'tpope/vim-surround'
 Plug 'lambdalisue/suda.vim'
