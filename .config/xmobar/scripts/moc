@@ -14,7 +14,7 @@ if [[ ! "$state" =~ "FATAL" ]]; then
             if [[ "${#song_name}" -gt 34 ]]; then
                 song_name=${song_name:0:35}"..."
             fi
-            printf "            <fn=1> </fn>%s" "$song_name "
+            printf "            <fn=3> %s</fn>" "$song_name "
         fi
 
         if [ "$1" == "moc" ]; then
