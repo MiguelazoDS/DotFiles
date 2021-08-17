@@ -143,3 +143,5 @@ syntax on
 autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 
 set modifiable
+
+au BufReadPost .zshrc set filetype=sh
