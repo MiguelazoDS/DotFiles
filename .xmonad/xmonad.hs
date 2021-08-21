@@ -21,11 +21,11 @@ main = do
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
               { ppOutput = hPutStrLn xmproc
-              , ppCurrent = xmobarColor "#445e02" "" . wrap "<{" "}>" -- Current workspace in xmobar
-              , ppHidden = xmobarColor "#803d26" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-              , ppHiddenNoWindows = xmobarColor "#d0d0d0" ""        -- Hidden workspaces (no windows)
-              , ppSep =  "<fc=#FFD700> </fc>"                     -- Separators in xmobar
-              , ppUrgent = xmobarColor "#000000" "" . wrap "!" "!"  -- Urgent workspace
+              , ppCurrent = xmobarColor "#717733" "" . wrap "<{" "}>" -- Current workspace in xmobar
+              , ppHidden = xmobarColor "#a54242" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+              , ppHiddenNoWindows = xmobarColor "#ebdbb2" ""        -- Hidden workspaces (no windows)
+              , ppSep =  "<fc=#d79921> </fc>"                     -- Separators in xmobar
+              , ppUrgent = xmobarColor "#191919" "" . wrap "!" "!"  -- Urgent workspace
               , ppOrder  = \(ws:l:_) -> [ws,l]
               }
         , modMask            = M.myModMask M.custom
@@ -34,6 +34,6 @@ main = do
         , layoutHook         = myLayoutHook
         , workspaces         = myWorkspaces
         , borderWidth        = M.myBorderWidth M.custom
-        , normalBorderColor  = "#313442"
-        , focusedBorderColor = "#803d26"
+        , normalBorderColor  = "#67686a"
+        , focusedBorderColor = "#458588"
         } `additionalKeysP` myKeys

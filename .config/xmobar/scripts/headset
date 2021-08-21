@@ -2,7 +2,7 @@
 
 connected=$(bluetoothctl -- info | awk '/Connected/ {print $2}')
 if [[ $connected == "yes" ]]; then
-    echo "<fn=2><fc=#2c633b> </fc></fn>"
+    echo "<fn=2><fc=#717733> </fc></fn>"
 else
-    echo "<fn=2><fc=#eb4034> </fc></fn>"
+    echo "<fn=2><fc=#a54242> </fc></fn>"
 fi
