@@ -8,6 +8,7 @@ Plug 'romgrk/barbar.nvim'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kosayoda/nvim-lightbulb'
+Plug 'norcalli/nvim-colorizer.lua'
 "==============================
 Plug 'folke/trouble.nvim', {'tag':'*'}
 Plug 'folke/lsp-colors.nvim'
@@ -41,6 +42,8 @@ Plug 'ervandew/supertab'
 Plug 'tpope/vim-repeat'
 Plug 'preservim/nerdcommenter'
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'skywind3000/asynctasks.vim'
+Plug 'skywind3000/asyncrun.vim'
 " Terminal
 Plug 'voldikss/vim-floaterm'
 Plug 'akinsho/nvim-toggleterm.lua'
