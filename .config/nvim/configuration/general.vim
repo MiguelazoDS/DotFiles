@@ -147,3 +147,5 @@ set modifiable
 au BufReadPost .zshrc set filetype=sh
 
 lua require'colorizer'.setup()
+
+let g:asyncrun_open = 7

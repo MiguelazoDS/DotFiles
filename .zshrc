@@ -215,6 +215,8 @@ alias rename='perl-rename'
 alias unzip='echo "Use uz instead"'
 alias youtube-dl-mp3="noglob youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 -o %(title)s.%(ext)s"
 alias youtube-dl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
+alias ssh="ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=3"
+alias sshfs="sshfs -o auto_cache,reconnect,ServerAliveInterval=5,ServerAliveCountMax=3"
 
 function dotf (){
     branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
