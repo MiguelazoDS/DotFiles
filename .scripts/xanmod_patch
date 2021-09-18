@@ -152,7 +152,7 @@ do
     esac
 done
 
-major="5.10."
+major="5.13."
 #Two digits number
 release="$(uname -r | sed "s/$major\([0-9]*\)-.*/\1/")"
 #lts or xanmod? (? = 1 or 2)
