@@ -19,7 +19,7 @@
     new = green bold
     whitespace = red reverse
 [diff]
-	tool = nvimdiff
+    tool = nvimdiff
 [difftool]
-	prompt = false
-	trustExitCode = true
+    prompt = false
+    trustExitCode = true
