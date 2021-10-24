@@ -63,6 +63,9 @@ function install {
     patch="$(echo $xanmod_version | sed "s/$major.\([0-9]*\)-.*/\1/g")"
     linux_dir=$(find $HOME/Documents/ -maxdepth 1 -name "linux*xanmod*")
 
+    hash flex 2> /dev/null
+    [[ $? -eq 1 ]] && (printf "\nInstalling flex\n"; yay -S flex)
+
     sudo bash -c ""
     cd "$linux_dir" || exit
     make olddefconfig
@@ -87,28 +90,48 @@ function install {
 }
 
 function patching {
-    url_patch=$1
-    linux_dir=$2
+    major="$1"
+    xanmod_info="$2"
+    linux_dir="$3"
+    release="$(uname -r | sed "s/$major\.\([0-9]*\)-xanmod.*/\1/")"
+    IFS=$'\n' patches=("$(jq -r --arg reg_exp "$major.[0-9]{1,2}-xanmod[0-9]*$" 'select(.tag_name|test($reg_exp)) | .tag_name' "$xanmod_info")")
+    x_patch="$(uname -r | sed "s/$major\.[0-9]*-xanmod\(.*\)/\1/")"
+    patches_dir="/tmp/patches"
 
-    echo "$url_patch"
-    echo "$linux_dir"
-    hash wget 2>/dev/null
-    [[ $? -eq 1 ]] && (printf "\nwget not installed\nInstalling"; yay -S wget)
-    wget -q "$url_patch" -P /tmp
-    xz -d /tmp/*.xz
+    backup_file="/tmp/backup_$(basename linux_dir).tar.gz"
+    if [ ! -f "$backup_file" ]; then
+        tar cfv "$backup_file" "$linux_dir"
+    fi
+
+    for patch in ${patches[@]}
+    do
+        temp_version="$(echo "$patch" | sed "s/$major\.\([0-9]*\)-xanmod.*/\1/")"
+        temp_patch="$(echo "$patch" | sed "s/$major\.[0-9]*-xanmod\(.*\)/\1/")"
+
+        if [[ $((temp_version)) -gt $((release)) || $((temp_patch)) -gt $((x_patch)) ]] ; then
+            patch_url="$(jq -r --arg reg_exp "patch.*--${patch}.xz" '.assets[]|select(.name|test($reg_exp))|.browser_download_url' "$xanmod_info")"
+            if [ ! -d "$patches_dir" ]; then
+                mkdir "$patches_dir"
+            fi
+            wget -q "$patch_url" -P "$patches_dir"
+        fi
+    done
+
+    xz -d $patches_dir/*.xz
     printf "\n\nPatching kernel\n"
-    old_path="/tmp"
     cd "$linux_dir" || exit
-    file=$(ls "$old_path"/*--*)
-    echo file "$file"
-    echo linux dir "$linux_dir"
-    patch -p1 < "$file"
+    patch_files=($(ls -v "$patches_dir"))
+    for i in $(seq 0 $((${#patch_files[@]}-1)))
+    do
+        printf "\nApplying %s\n" ${patch_files[$i]}
+        patch -p1 < "/tmp/patches/${patch_files[$i]}"
+    done
     head -n 5 Makefile
-    cd "$old_path" || exit
-    printf "\n\nRemove patch\n"
-    trm ./*--*
-    patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
-    output
+    printf "\n\nclean temp patch folder"
+    rm -rf "$patches_dir"
+    printf "\nUpdating Xanmod kernel...\n"
+    #Needs revision
+    install "$major" "$xanmod_info"
 }
 
 function download_xanmod {
@@ -118,7 +141,7 @@ function download_xanmod {
     printf "\nDownloading kernel tarball\n"
     old_path=$(pwd)
     cd "$HOME/Documents" || exit
-    hash wget
+    hash wget 2> /dev/null
     [[ $? -eq 1 ]] && (printf "\nInstalling wget\n"; yay -S wget)
     wget "$latest_release"
     tar xfv "$release_basename"
@@ -142,45 +165,23 @@ function get_info {
 # ===========================================================================================
 # START
 # ===========================================================================================
-# ===========================================================================================
-# Variables declaration
-# ===========================================================================================
 major="5.14"
-exist="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*")"
+linux_dir="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*$")"
 xanmod_info="/tmp/xanmod_info"
-if [ -z "$exist" ]; then
+if [ -z "$linux_dir" ]; then
     get_info "$xanmod_info"
     download_xanmod "$xanmod_info"
 fi
-is_lts="$([[ $(uname -r) =~ "lts" ]] && echo $?)"
-if [ "$is_lts" -eq 0 ]; then
+[[ $(uname -r) =~ "lts" ]]
+if [ $? -eq 0 ]; then
     grep "xanmod" "/boot/grub/grub.cfg" > /dev/null
     if [ $? -eq 1 ]; then
         install "$major" "$xanmod_info"
     fi
-    release="$(uname -r | sed "s/$major\([0-9]*\)-.*/\1/")"
+else
+    get_info "$xanmod_info"
+    patching "$major" "$xanmod_info" "$linux_dir"
 fi
-
-# Array
-# array=($(jq -r --arg reg_exp "$major.[0-9]{1,2}-xanmod[0-9]*$" '.[].tag_name | select(test($reg_exp))' /tmp/xanmod_info | tr '\n' ' '))
-#Two digits number
-release="$(uname -r | sed "s/$major\([0-9]*\)-.*/\1/")"
-#lts or xanmod? (? = 1 or 2)
-kernel="$(uname -r | sed "s/$major$release.*-\(.*\)/\1/")"
-#Directories to clean
-#================================================================
-nvidia_dir="/var/lib/dkms/nvidia"
-boot_dir="/boot"
-modules_dir="/usr/lib/modules"
-mkinitcpio_dir="/etc/mkinitcpio.d"
-#===================================================================
-nvidia_version="$(nvidia-smi | awk '/NVIDIA-SMI/ {printf $3}')"
-vboxversion="$(virtualbox --help | head -n 1 | sed 's/.*v\([0-9]*\)/\1/')_OSE"
-info=$(curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases")
-
-# ===========================================================================================
-# Input parsing
-# ===========================================================================================
 
 if [ "$#" -lt 2 ]; then
     usage
