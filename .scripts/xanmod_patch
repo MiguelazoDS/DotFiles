@@ -53,15 +53,13 @@ function enable_nvme {
 function install {
     major="$1"
     xanmod_info="$2"
+    linux_dir="$3"
     nvidia_version="$(nvidia-smi | awk '/NVIDIA-SMI/ {printf $3}')"
     vboxhost_version="$(virtualbox --help | head -n 1 | sed 's/.*v\([0-9]*\)/\1/')_OSE"
-
-    get_info "$xanmod_info"
 
     xanmod_version="$(jq -r --arg reg_exp "$major.[0-9]{1,2}-xanmod[0-9]*$" 'select(.tag_name|test($reg_exp)) | .tag_name' "$xanmod_info" | head -n 1)"
     version="$(echo $xanmod_version | cut -d '-' -f 1 | sed 's/\.//g')"
     patch="$(echo $xanmod_version | sed "s/$major.\([0-9]*\)-.*/\1/g")"
-    linux_dir=$(find $HOME/Documents/ -maxdepth 1 -name "linux*xanmod*")
 
     hash flex 2> /dev/null
     [[ $? -eq 1 ]] && (printf "\nInstalling flex\n"; yay -S flex)
@@ -83,7 +81,9 @@ function install {
     sudo dkms install vboxhost/"$vboxhost_version" -k "$xanmod_version"
     sudo grub-mkconfig -o /boot/grub/grub.cfg
     cd "$HOME" || exit
-    if [[ "$linux_dir" != "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")" ]]; then
+    #Needs revision
+    latest_linux_dir=$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")
+    if [[ "$linux_dir" != "$latest_linux_dir" ]]; then
         mv "$linux_dir" "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")"
     fi
     printf "\nNeeds reboot\n"
@@ -144,13 +144,16 @@ function download_xanmod {
     hash wget 2> /dev/null
     [[ $? -eq 1 ]] && (printf "\nInstalling wget\n"; yay -S wget)
     wget "$latest_release"
-    tar xfv "$release_basename"
+    printf "\nExtracting kernel tarball\n"
+    tar xf "$release_basename"
     mv xanmod-linux* linux-"$release_basename"
     rm "$release_basename"
     cp linux-"$release_basename"/CONFIGS/xanmod/gcc/config linux-"$release_basename"/.config
     printf "\nIce Lake Processor Family Set\n"
     sed -i 's/\(CONFIG_GENERIC_CPU\)=.*/\# \1 is not set/g' linux-"$release_basename"/.config
     sed -i 's/.*\(CONFIG_MSKYLAKE\) is not set/\1=y/' linux-"$release_basename"/.config
+    temp=$(echo $(basename "$latest_release") | sed "s/\([0-9]\{1\}\)\.\([0-9]\{2\}\)\.\([0-9]\{2\}\).*/\1\2\3/")
+    echo "$temp" > /tmp/temp_file
     cd "$old_path" || exit
 }
 
@@ -171,17 +174,18 @@ xanmod_info="/tmp/xanmod_info"
 if [ -z "$linux_dir" ]; then
     get_info "$xanmod_info"
     download_xanmod "$xanmod_info"
-fi
-[[ $(uname -r) =~ "lts" ]]
-if [ $? -eq 0 ]; then
-    grep "xanmod" "/boot/grub/grub.cfg" > /dev/null
-    if [ $? -eq 1 ]; then
-        install "$major" "$xanmod_info"
+    installed_version=$(cat "/boot/grub/grub.cfg" | awk '/Loading Linux xanmod/ {print $4}' | head -n 1 | cut -d '-' -f2)
+    downloaded_version=$(cat /tmp/temp_file)
+    if [ ! -z "$installed_version" ] && [ $((downloaded_version)) > $((installed_version)) ]; then
+        rm /tmp/temp_file
+        linux_dir="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*$")"
+        install "$major" "$xanmod_info" "$linux_dir"
+    else
+        get_info "$xanmod_info"
+        patching "$major" "$xanmod_info" "$linux_dir"
     fi
-else
-    get_info "$xanmod_info"
-    patching "$major" "$xanmod_info" "$linux_dir"
 fi
+
 
 if [ "$#" -lt 2 ]; then
     usage
