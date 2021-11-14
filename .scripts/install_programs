@@ -1,8 +1,42 @@
 #!/usr/bin/env bash
 
+function usage {
+    printf "Usage: \n\t./$0 [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-i <value> --input <value>\n"
+}
+
+if [ "$#" -lt 2 ]; then
+    usage
+    exit 0
+fi
+
+short=i:
+long=input:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -i | --input )
+            shift
+            input=$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
+done
+
 #Install programs
 while read -r program
 do
     hash "$program"
     [[ $? -eq 1 ]] && (printf "\n$program is not installed\nInstalling...\n"; yay -S "$program" --noconfirm)
-done < programs
+done < "$input"

@@ -1,0 +1,7 @@
+nvidia-lts
+nvidia-dkms
+nvidia-utils
+nvidia-settings
+nvidia-prime
+glxinfo
+inxi
