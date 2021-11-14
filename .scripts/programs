@@ -5,3 +5,10 @@ speedtest-cli
 dropbox
 moc
 steam
+nvidia-lts
+nvidia-dkms
+nvidia-utils
+nvidia-settings
+glxinfo
+inxi
+nvidia-prime
