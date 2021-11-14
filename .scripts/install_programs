@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+#Install programs
+while read -r program
+do
+    hash "$program"
+    [[ $? -eq 1 ]] && (printf "\n$program is not installed\nInstalling...\n"; yay -S "$program" --noconfirm)
+done < programs
