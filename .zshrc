@@ -194,7 +194,7 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 if [[ ! -d $ZSH_CUSTOM/plugins/fast-syntax-highlighting ]]; then
-    git clone https://github.com/zdharma/fast-syntax-highlighting.git ~ZSH_CUSTOM/plugins/fast-syntax-highlighting
+    git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ~ZSH_CUSTOM/plugins/fast-syntax-highlighting
 fi
 if [[ ! -d $ZSH_CUSTOM/plugins/zsh-autosuggestions ]]; then
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
