@@ -1,7 +1,7 @@
 "Indent lines
 "============================================================
 "scriptencoding error due to ¦
-scriptencoding utf-8
+" scriptencoding utf-8
 :set list lcs=tab:\¦\
 
 "Yank highlights
@@ -25,13 +25,7 @@ augroup text_filetype
 augroup END
 
 augroup remove_trailing_spaces
-    autocmd BufEnter * :%s/\s\+$//e
     autocmd BufWrite * :%s/\s\+$//e
-augroup END
-
-augroup change_tabs_spaces
-    autocmd BufEnter * :set et|retab
-    autocmd BufWrite * :set et|retab
 augroup END
 
 "Show the first bar
@@ -139,13 +133,44 @@ filetype plugin indent on
 
 syntax on
 
-"Lightbulb
-autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-
-set modifiable
-
 au BufReadPost .zshrc set filetype=sh
 
 lua require'colorizer'.setup()
 
 let g:asyncrun_open = 7
+
+" Files + devicons
+function! Fzf_dev()
+  function! s:files()
+    let files = split(system($FZF_DEFAULT_COMMAND), '\n')
+    return s:prepend_icon(files)
+  endfunction
+
+  function! s:prepend_icon(candidates)
+    let result = []
+    for candidate in a:candidates
+      let filename = fnamemodify(candidate, ':p:t')
+      let icon = WebDevIconsGetFileTypeSymbol(filename, isdirectory(filename))
+      call add(result, printf("%s %s", icon, candidate))
+    endfor
+
+    return result
+  endfunction
+
+  function! s:edit_file(item)
+    let parts = split(a:item, ' ')
+    let file_path = get(parts, 1, '')
+    execute 'silent e' file_path
+  endfunction
+
+  call fzf#run({
+        \ 'source': <sid>files(),
+        \ 'sink':   function('s:edit_file'),
+        \ 'options': '-m -x +s',
+        \ 'down':    '40%' })
+endfunction
+
+"Exclude file name match
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+
+set et|retab

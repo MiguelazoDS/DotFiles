@@ -9,9 +9,10 @@ noremap P o<Esc>"+p
 nnoremap dl 0d$
 
 "Buffer movements
-map gn :BufferNext<cr>
-map gp :BufferPrevious<cr>
-map gc :BufferClose<cr>
+map gn :BufferLineCycleNext<cr>
+map gp :BufferLineCyclePrev<cr>
+map gc :bdelete<cr>
+map gP :BufferLinePick<cr>
 
 "Others
 "=========================================================
@@ -22,13 +23,13 @@ map <leader>fc gg=G <cr>
 nnoremap <leader>; :noh<CR>:<backspace>
 
 "Open Ranger
-map <leader>n :Ranger<CR>
+map <leader>n :RnvimrToggle<CR>
+
+"Toggle nvim-tree
+map <leader>N :NvimTreeToggle<CR>
 
 "Execute renamer
 nnoremap <leader>R :Ren<CR>
-
-"Compile C code.
-map <leader>gg :!gcc -g %<CR>
 
 "Suda save
 "=========================================================
@@ -74,6 +75,8 @@ nmap <leader>cm <Plug>NERDCommenterMinimal
 "==========================================================
 nnoremap <C-p> :FZF<CR>
 nnoremap <C-f> :Rg<CR>
+nnoremap ? :BLines<CR>
+nnoremap ¿ :Lines<CR>
 
 "GitGutter keybindings
 "==========================================================
@@ -88,7 +91,7 @@ nmap <localleader>hh :GitGutterLineHighlightsToggle<CR>
 
 "TagBar Toogle
 "============================================================
-nmap <leader>t :TagbarToggle<CR>
+nmap <leader>t :SymbolsOutline<CR>
 
 "Sneak bindings
 " ===========================================================
@@ -106,21 +109,6 @@ map T <Plug>Sneak_T
 nmap <leader>T :Tabularize /
 vmap <leader>T :Tabularize /
 
-"REVISE
-" ====================================================
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+"Markdown preview
+"==============================================================
+nmap <leader>m <Plug>MarkdownPreviewToggle

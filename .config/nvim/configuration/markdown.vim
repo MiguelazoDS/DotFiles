@@ -95,3 +95,5 @@ let g:vim_markdown_folding_disabled = 1
 set nofoldenable
 
 let g:vim_markdown_conceal = 0
+
+let g:markdown_enable_insert_mode_mappings = 0

@@ -43,6 +43,6 @@ source $HOME/.config/nvim/configuration/markdown.vim
 :lua require('treesitter')
 :lua require('lsp')
 :lua require('nvim-compe')
-:lua require('telescope_config')
-:lua require('lsp_icons')
-source $HOME/.config/nvim/configuration/barbar.vim
+" :lua require('lsp_icons')
+:lua require('style')
+" :lua require('which-key').setup{}
