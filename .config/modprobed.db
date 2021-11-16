@@ -26,6 +26,7 @@ btrtl
 btusb
 ccm
 ccp
+cdrom
 cec
 cfg80211
 cmac
@@ -223,6 +224,7 @@ sunrpc
 syscopyarea
 sysfillrect
 sysimgblt
+thunderbolt
 tpm
 tpm_crb
 tpm_tis
@@ -261,4 +263,5 @@ xt_limit
 xt_LOG
 xt_MASQUERADE
 xt_nat
+xt_recent
 xt_tcpudp

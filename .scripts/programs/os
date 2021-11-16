@@ -9,7 +9,7 @@ xfce4-notifyd
 trash-cli
 trayer
 ranger
-pcmanfm-qt
+pcmanfm
 picom-ibhagwan-git
 notify-send.sh
 nohang
@@ -19,3 +19,4 @@ cronie
 ufw
 flex
 intel-ucode
+cronie
