@@ -176,7 +176,7 @@ if [ -z "$linux_dir" ]; then
     download_xanmod "$xanmod_info"
     installed_version=$(cat "/boot/grub/grub.cfg" | awk '/Loading Linux xanmod/ {print $4}' | head -n 1 | cut -d '-' -f2)
     downloaded_version=$(cat /tmp/temp_file)
-    if [ ! -z "$installed_version" ] && [ $((downloaded_version)) > $((installed_version)) ]; then
+    if ([ ! -z "$installed_version" ] && [ $((downloaded_version)) > $((installed_version)) ]) || [ -z "$installed_version" ]; then
         rm /tmp/temp_file
         linux_dir="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*$")"
         install "$major" "$xanmod_info" "$linux_dir"
