@@ -33,7 +33,7 @@ nnoremap <leader>R :Ren<CR>
 
 "Suda save
 "=========================================================
-nmap <leader>ws :w suda://%
+nmap <leader>ws :w suda://%<CR>
 
 "Ultisnips bindings
 "=========================================================
