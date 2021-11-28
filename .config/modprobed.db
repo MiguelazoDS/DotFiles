@@ -262,6 +262,7 @@ videobuf2_memops
 videobuf2_v4l2
 videobuf2_vmalloc
 videodev
+virt_dma
 wmi
 wmi_bmof
 x86_pkg_temp_thermal
