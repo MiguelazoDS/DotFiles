@@ -82,10 +82,10 @@ function install {
     sudo grub-mkconfig -o /boot/grub/grub.cfg
     cd "$HOME" || exit
     #Needs revision
-    latest_linux_dir=$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")
-    if [[ "$linux_dir" != "$latest_linux_dir" ]]; then
-        mv "$linux_dir" "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")"
-    fi
+    # latest_linux_dir=$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")
+    # if [[ "$linux_dir" != "$latest_linux_dir" ]]; then
+        # mv "$linux_dir" "$(echo "$linux_dir" | sed "s/\(\.*\)$release\(-xanmod1\)/\1$patch\2/g")"
+    # fi
     printf "\nNeeds reboot\n"
 }
 
@@ -168,7 +168,7 @@ function get_info {
 # ===========================================================================================
 # START
 # ===========================================================================================
-major="5.14"
+major="5.10"
 linux_dir="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*$")"
 xanmod_info="/tmp/xanmod_info"
 if [ -z "$linux_dir" ]; then
@@ -184,94 +184,7 @@ if [ -z "$linux_dir" ]; then
         get_info "$xanmod_info"
         patching "$major" "$xanmod_info" "$linux_dir"
     fi
-fi
-
-
-if [ "$#" -lt 2 ]; then
-    usage
-    exit 0
-fi
-
-short=o:
-long=option:
-
-if ! getopt -n "$0" -o $short --long $long -- "$@" >/dev/null
-then
-    exit 1
-fi
-
-while true;
-do
-    case "$1" in
-        -o | --option )
-            shift
-            option=$1
-            shift
-            ;;
-        * )
-            shift
-            break
-            ;;
-    esac
-done
-
-# ==============================================================================================
-
-if [[ "$kernel" != "lts" ]]; then
-    url_patch=$(echo "$info" | grep -E "browser_download_url.*${major}[0-9]{2}-xanmod[0-9]{1}\/patch-${major}${release}.*--.*" | cut -d'"' -f4)
-fi
-url_xanmod=$(echo "$info" | grep -E "tarball_url.*${major}[0-9]{2}-.*" | head -1 | cut -d '"' -f4)
-bn_xanmod=$(basename "$url_xanmod")
-exist=$(ls "$HOME"/Documents/linux-*xanmod* 2>/dev/null)
-if [[ -z $exist ]]; then
-    printf "\nThere's no kernel folder\n"
-    new "$url_xanmod" "$bn_xanmod"
-fi
-    linux_dir=$(find $HOME/Documents/ -maxdepth 1 -name "linux*xanmod*")
-    patch=$(head -n 5 "$linux_dir"/Makefile | awk '/SUBLEVEL/ {print $3}')
-
-if [[ "$option" == "p" ]]; then
-    if [[ "$release" == "$patch" ]] && [[ -n "$url_patch" ]]; then
-        patching "$url_patch" "$linux_dir"
-    else
-        printf "\nNothing to do\n"
-        output
-    fi
-elif [[ $option == "d" ]]; then
-    if [[ "$kernel" != "lts" ]]; then
-        if [[ -n "$url_patch" ]]; then
-            printf "\nPatch available\n\n%s\n" "$url_patch"
-        else
-            printf "\nThere's no patch available\n"
-        fi
-        output
-    else
-        printf "\nCurrently not running any version of xanmod kernel\n"
-    fi
-elif [[ "$option" == "i" ]]; then
-    if [[ "$release" != "$patch" ]] || [[ "$kernel" == "lts" ]]; then
-        install "$linux_dir" "$major" "$patch" "$nvidia_version" "$release" "$vboxhost_version"
-    else
-        printf "\nNothing to do\n"
-        output
-    fi
-elif [[ "$option" == "c" ]]; then
-    #Clean every first day of the month at 20:00
-    #0 20 1 * * /home/miguel/.scripts/xanmod_patch -o c   AS ROOT
-    #1 20 1 * * /home/miguel/.scripts/xanmod_patch -o l   AS USER
-    # exec 3>&1 &> >(tee -a /tmp/xanmod_clean_logs)
-    # version="$(echo "$major$release" | sed 's/\.//g')"
-    # find "$modules_dir" -maxdepth 1 -mindepth 1 ! -name "*${major}${release}*xanmod*" ! -name "*lts*" -exec rm -rv {} +
-    # find "$boot_dir" -maxdepth 1 -mindepth 1 ! -name '*grub*' ! -name '*amd*' ! -name '*lts*' ! -name "*$version*" -exec rm -rv {} +
-    # find "$nvidia_dir" -maxdepth 1 -mindepth 1 ! -name "*$nvidia_version*" ! -name '*original*' ! -name '*lts*' ! -name "*$major$release*" -delete
-    # find "$nvidia_dir/$nvidia_version" -maxdepth 1 -mindepth 1 ! -name 'source' ! -name '*lts*' ! -name "*$major$release*" -exec rm -rv {}
-    # find "$mkinitcpio_dir" -maxdepth 1 -mindepth 1 ! -name "*$version*" ! -name '*lts*' -delete
-    # trash-empty
-    sudo grub-mkconfig -o /boot/grub/grub.cfg 2>&3
-elif [[ "$option" == "l" ]]; then
-    [[ -f /tmp/xanmod_clean_logs ]] && (notify-send.sh -t 5000 "Clean Xanmod Kernel Directories" "$(cat /tmp/xanmod_clean_logs)"; trm /tmp/xanmod_clean_logs)
 else
-    printf "\nThe option is not valid.\n"
-    exit 1
+    get_info "$xanmod_info"
+    patching "$major" "$xanmod_info" "$linux_dir"
 fi
-
