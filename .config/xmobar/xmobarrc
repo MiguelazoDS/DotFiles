@@ -15,14 +15,14 @@ Config { font    = "xft:JetBrainsMono Nerd Font:bold:size=9:antialias=true:hinti
         , allDesktops = True
         , persistent = True
         , commands = [ Run Com "/home/miguel/.config/xmobar/scripts/battery" [] "bat" 10
-        , Run BatteryP ["BAT0"]
+        , Run BatteryP ["BAT1"]
         ["-t", "<acstatus>"
         , "-L", "10", "-H", "80"
             , "-l", "#a54242", "-h", "#717733"
             , "--", "-O", "<left>%", "-o", "<left>%"
         ] 10
         , Run Date "<fn=1> </fn> %a %_d %b %Y %H:%M" "date" 10
-        , Run Network "enp7s0" ["-t", "<fn=1> </fn>  <rx>kb| <tx>kb"] 10
+        , Run Network "enp66s0" ["-t", "<fn=1> </fn>  <rx>kb| <tx>kb"] 10
         , Run Network "wlp0s20f3" ["-t", "<fn=1> </fn>  <rx>kb| <tx>kb"] 10
         , Run Cpu ["-t","<fn=1> </fn><total>%","-H","75","--high","#a54242"] 10
         , Run Com "/home/miguel/.config/xmobar/scripts/mem" [] "memory" 10
@@ -37,5 +37,5 @@ Config { font    = "xft:JetBrainsMono Nerd Font:bold:size=9:antialias=true:hinti
         ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = " <icon=haskell.xpm/> %UnsafeStdinReader% <fc=#d79921>%moc%</fc> } <fc=#ebdbb2>%headset%</fc> <fc=#ebdbb2>%locks%</fc> <fc=#ebdbb2>%weather%</fc> <fc=#ebdbb2>%date%</fc> { <fc=#ebdbb2>%updates%</fc> <fc=#ebdbb2>%volume%</fc> <fc=#ebdbb2>%enp7s0%</fc> <fc=#ebdbb2>%wlp0s20f3%</fc> <fc=#ebdbb2>%cpu%</fc> <fc=#ebdbb2>%memory%</fc> <fc=#ebdbb2>%bat%</fc><fc=#ebdbb2>%battery%</fc> <fc=#ebdbb2>%trayerpad%</fc>"
+        , template = " <icon=haskell.xpm/> %UnsafeStdinReader% <fc=#d79921>%moc%</fc> } <fc=#ebdbb2>%headset%</fc> <fc=#ebdbb2>%locks%</fc> <fc=#ebdbb2>%weather%</fc> <fc=#ebdbb2>%date%</fc> { <fc=#ebdbb2>%updates%</fc> <fc=#ebdbb2>%volume%</fc> <fc=#ebdbb2>%enp66s0%</fc> <fc=#ebdbb2>%wlp0s20f3%</fc> <fc=#ebdbb2>%cpu%</fc> <fc=#ebdbb2>%memory%</fc> <fc=#ebdbb2>%bat%</fc><fc=#ebdbb2>%battery%</fc> <fc=#ebdbb2>%trayerpad%</fc>"
 }
