@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+function usage {
+    printf "Usage: \n\t./$0 [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-c <value> --cpu_frec_scaling <value> (powersave|performance)\n"
+    printf "\t-t <value> --no_turbo <value> (0|1)\n"
+    printf "\t-n <value> --nvidia_performance <value> (1 performance|2 auto)\n"
+}
+
+if [ "$#" -lt 6 ]; then
+    usage
+    exit 0
+fi
+
+short=ctn:
+long=cpu_frec_scaling,no_turbo,nvidia_performance:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -c | --cpu_frec_scaling )
+            shift
+            cpu_frec_scaling=$1
+            shift
+            ;;
+        -t | --no_turbo )
+            shift
+            no_turbo=$1
+            shift
+            ;;
+        -n | --nvidia_performance )
+            shift
+            nvidia_performance=$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
+done
+
+sudo sh -c "echo $no_turbo > /sys/devices/system/cpu/intel_pstate/no_turbo"
+sudo cpupower frequency-set -g $cpu_frec_scaling 2&>1 /dev/null
+nvidia-settings -a "[gpu:0]/GpuPowerMizerMode=$nvidia_performance" 2&>1 /dev/null
+
+printf "\nConfiguration set:\n"
+printf "\nno_turbo: "
+cat /sys/devices/system/cpu/intel_pstate/no_turbo
+printf "\nnvidia_performance: "
+nvidia-settings -q GPUPowerMizerMode
+printf "\ncpu frequency scaling: "
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
