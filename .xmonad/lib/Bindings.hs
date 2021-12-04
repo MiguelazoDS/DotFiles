@@ -38,7 +38,7 @@ myKeys =
 -- Applications
         , ("M-o", spawn $ M.myBrowser M.applications)
         , ("M-x", spawn "kill -9 $(pidof mocp)")
-        , ("M-d", spawn "rofi -show drun -show-icons -drun-icon-theme arthur.rasi")
+        , ("M-d", spawn "rofi -show drun -show-icons")
         , ("M-n", spawn $ M.myTerminal M.applications ++ " -e 'ranger'")
         , ("M-<Return>", spawn $ M.myTerminal M.applications ++ " --title Kitty")
 
