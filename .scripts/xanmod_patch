@@ -93,6 +93,14 @@ function patching {
     major="$1"
     xanmod_info="$2"
     linux_dir="$3"
+    installed_version="$4"
+    latest_release="$(jq -r --arg reg_exp "$major.[0-9]{1,2}-xanmod[0-9]*$" 'select(.tag_name|test($reg_exp)) | .tarball_url' "$xanmod_info" | head -n 1 | awk -F '[/-]' '{print $8}' | sed 's/\.//g')"
+
+    if [ $((installed_version)) == $((latest_release)) ]; then
+        printf "\nXanmod kernel is up to date\n"
+        exit 0
+    fi
+
     release="$(uname -r | sed "s/$major\.\([0-9]*\)-xanmod.*/\1/")"
     IFS=$'\n' patches=("$(jq -r --arg reg_exp "$major.[0-9]{1,2}-xanmod[0-9]*$" 'select(.tag_name|test($reg_exp)) | .tag_name' "$xanmod_info")")
     x_patch="$(uname -r | sed "s/$major\.[0-9]*-xanmod\(.*\)/\1/")"
@@ -100,7 +108,7 @@ function patching {
 
     backup_file="/tmp/backup_$(basename linux_dir).tar.gz"
     if [ ! -f "$backup_file" ]; then
-        tar cfv "$backup_file" "$linux_dir"
+        tar cfv "$backup_file" "$linux_dir" 2&>1 /dev/null
     fi
 
     for patch in ${patches[@]}
@@ -130,7 +138,6 @@ function patching {
     printf "\n\nclean temp patch folder"
     rm -rf "$patches_dir"
     printf "\nUpdating Xanmod kernel...\n"
-    #Needs revision
     install "$major" "$xanmod_info"
 }
 
@@ -158,8 +165,8 @@ function download_xanmod {
 }
 
 function get_info {
-    xanmod_releases="/tmp/xanmod_releases"
     xanmod_info="$1"
+    xanmod_releases="/tmp/xanmod_releases"
     curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases" > "$xanmod_releases"
     jq -r --arg reg_exp "$major.[0-9]{1,2}-xanmod[0-9]*$" '.[] | select(.tag_name|test($reg_exp))' "$xanmod_releases" > "$xanmod_info"
     rm "$xanmod_releases"
@@ -171,20 +178,21 @@ function get_info {
 major="5.10"
 linux_dir="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*$")"
 xanmod_info="/tmp/xanmod_info"
+# Install latest version if directory not found.
 if [ -z "$linux_dir" ]; then
     get_info "$xanmod_info"
     download_xanmod "$xanmod_info"
-    installed_version=$(cat "/boot/grub/grub.cfg" | awk '/Loading Linux xanmod/ {print $4}' | head -n 1 | cut -d '-' -f2)
-    downloaded_version=$(cat /tmp/temp_file)
-    if ([ ! -z "$installed_version" ] && [ $((downloaded_version)) > $((installed_version)) ]) || [ -z "$installed_version" ]; then
-        rm /tmp/temp_file
-        linux_dir="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*$")"
-        install "$major" "$xanmod_info" "$linux_dir"
-    else
-        get_info "$xanmod_info"
-        patching "$major" "$xanmod_info" "$linux_dir"
-    fi
+    install "$major" "$xanmod_info" "$linux_dir"
 else
+    installed_version=$(cat "/boot/grub/grub.cfg" | awk '/Loading Linux xanmod/ {print $4}' | head -n 1 | cut -d '-' -f2)
+    cd "$linux_dir" || exit
+    patch_version=$(head -n 5 Makefile | awk '/^VERSION|PATCHLEVEL|SUBLEVEL/ {print $3}' | tr -d '\n')
+    # Installs if the patch was applied but not installed.
+    if [[ ! -z "$installed_version" && $((patch_version)) > $((installed_version)) ]]; then
+        get_info "$xanmod_info"
+        install "$major" "$xanmod_info" "$linux_dir"
+    fi
+    # Tries to patch.
     get_info "$xanmod_info"
-    patching "$major" "$xanmod_info" "$linux_dir"
+    patching "$major" "$xanmod_info" "$linux_dir" "$installed_version"
 fi
