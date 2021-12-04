@@ -5,3 +5,9 @@ biber
 neovim-remote
 mupdf
 npm
+efm-langserver
+haskell-language-server
+vscode-langservers-extracted
+tailwindcss-language-server
+yaml-language-server
+ansible-language-server
