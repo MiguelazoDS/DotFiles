@@ -47,8 +47,8 @@ do
 done
 
 sudo sh -c "echo $no_turbo > /sys/devices/system/cpu/intel_pstate/no_turbo"
-sudo cpupower frequency-set -g $cpu_frec_scaling 2&>1 /dev/null
-nvidia-settings -a "[gpu:0]/GpuPowerMizerMode=$nvidia_performance" 2&>1 /dev/null
+sudo cpupower frequency-set -g $cpu_frec_scaling 2> /dev/null
+nvidia-settings -a "[gpu:0]/GpuPowerMizerMode=$nvidia_performance" 2> /dev/null
 
 printf "\nConfiguration set:\n"
 printf "\nno_turbo: "
