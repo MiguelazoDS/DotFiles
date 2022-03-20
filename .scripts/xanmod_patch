@@ -57,7 +57,7 @@ function install {
     nvidia_version="$(nvidia-smi | awk '/NVIDIA-SMI/ {printf $3}')"
     vboxhost_version="$(virtualbox --help | head -n 1 | sed 's/.*v\([0-9]*\)/\1/')_OSE"
 
-    xanmod_version="$(jq -r --arg reg_exp "$major.[0-9]{1,2}-xanmod[0-9]*$" 'select(.tag_name|test($reg_exp)) | .tag_name' "$xanmod_info" | head -n 1)"
+    xanmod_version="$(jq -r --arg reg_exp "$major.[0-9]{1,3}-xanmod[0-9]*$" 'select(.tag_name|test($reg_exp)) | .tag_name' "$xanmod_info" | head -n 1)"
     version="$(echo $xanmod_version | cut -d '-' -f 1 | sed 's/\.//g')"
     patch="$(echo $xanmod_version | sed "s/$major.\([0-9]*\)-.*/\1/g")"
 
@@ -94,7 +94,7 @@ function patching {
     xanmod_info="$2"
     linux_dir="$3"
     installed_version="$4"
-    latest_release="$(jq -r --arg reg_exp "$major.[0-9]{1,2}-xanmod[0-9]*$" 'select(.tag_name|test($reg_exp)) | .tarball_url' "$xanmod_info" | head -n 1 | awk -F '[/-]' '{print $8}' | sed 's/\.//g')"
+    latest_release="$(jq -r --arg reg_exp "$major.[0-9]{1,3}-xanmod[0-9]*$" 'select(.tag_name|test($reg_exp)) | .tarball_url' "$xanmod_info" | head -n 1 | awk -F '[/-]' '{print $8}' | sed 's/\.//g')"
 
     if [ $((installed_version)) == $((latest_release)) ]; then
         printf "\nXanmod kernel is up to date\n"
@@ -102,7 +102,7 @@ function patching {
     fi
 
     release="$(uname -r | sed "s/$major\.\([0-9]*\)-xanmod.*/\1/")"
-    IFS=$'\n' patches=("$(jq -r --arg reg_exp "$major.[0-9]{1,2}-xanmod[0-9]*$" 'select(.tag_name|test($reg_exp)) | .tag_name' "$xanmod_info")")
+    IFS=$'\n' patches=("$(jq -r --arg reg_exp "$major.[0-9]{1,3}-xanmod[0-9]*$" 'select(.tag_name|test($reg_exp)) | .tag_name' "$xanmod_info")")
     x_patch="$(uname -r | sed "s/$major\.[0-9]*-xanmod\(.*\)/\1/")"
     patches_dir="/tmp/patches"
 
@@ -143,7 +143,7 @@ function patching {
 
 function download_xanmod {
     xanmod_info="$1"
-    latest_release="$(jq -r --arg reg_exp "$major.[0-9]{1,2}-xanmod[0-9]*$" 'select(.tag_name|test($reg_exp)) | .tarball_url' "$xanmod_info" | head -n 1)"
+    latest_release="$(jq -r --arg reg_exp "$major.[0-9]{1,3}-xanmod[0-9]*$" 'select(.tag_name|test($reg_exp)) | .tarball_url' "$xanmod_info" | head -n 1)"
     release_basename=$(basename "$latest_release")
     printf "\nDownloading kernel tarball\n"
     old_path=$(pwd)
@@ -168,7 +168,7 @@ function get_info {
     xanmod_info="$1"
     xanmod_releases="/tmp/xanmod_releases"
     curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases" > "$xanmod_releases"
-    jq -r --arg reg_exp "$major.[0-9]{1,2}-xanmod[0-9]*$" '.[] | select(.tag_name|test($reg_exp))' "$xanmod_releases" > "$xanmod_info"
+    jq -r --arg reg_exp "$major.[0-9]{1,3}-xanmod[0-9]*$" '.[] | select(.tag_name|test($reg_exp))' "$xanmod_releases" > "$xanmod_info"
     rm "$xanmod_releases"
 }
 
@@ -182,6 +182,7 @@ xanmod_info="/tmp/xanmod_info"
 if [ -z "$linux_dir" ]; then
     get_info "$xanmod_info"
     download_xanmod "$xanmod_info"
+    linux_dir="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*$")"
     install "$major" "$xanmod_info" "$linux_dir"
 else
     installed_version=$(cat "/boot/grub/grub.cfg" | awk '/Loading Linux xanmod/ {print $4}' | head -n 1 | cut -d '-' -f2)
