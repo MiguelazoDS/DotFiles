@@ -39,4 +39,4 @@ if [ ! -d "$HOME/.Smartphone/SD card" ]; then
     sleep 1
 fi
 
-find . -maxdepth 1 -regex $regex -exec rsync -auvP {} ~/.Smartphone/SD\ card \;
+find . -maxdepth 1 -regex ".*/$regex" -exec rsync -auvP {} ~/.Smartphone/SD\ card \;
