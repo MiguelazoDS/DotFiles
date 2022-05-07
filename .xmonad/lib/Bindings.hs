@@ -92,7 +92,7 @@ myKeys =
 -- Scratchpads
         , ("M-a", namedScratchpadAction myScratchPads "moc")
         , ("M-u", namedScratchpadAction myScratchPads "terminal")
-        , ("M-p", namedScratchpadAction myScratchPads "pulseeffects")
+        , ("M-p", namedScratchpadAction myScratchPads "easyeffects")
 
 -- Multimedia Keys
         , ("M-S-b", spawn "$HOME/.xmonad/scripts/bt_headset_toggle")
