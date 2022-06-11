@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+function usage {
+    printf "Usage: \n\t./$0 [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-p <value> --name_prefix <value>\n"
+    printf "\t-r <value> --regex <value>\n"
+    printf "\t-f <value> --file <value>\n"
+}
+
+if [ "$#" -lt 6 ]; then
+    usage
+    exit 0
+fi
+
+short=prf:
+long=name_prefix,regex,file:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -p | --name_prefix )
+            shift
+            name_prefix=$1
+            shift
+            ;;
+        -r | --regex )
+            shift
+            regex=$1
+            shift
+            ;;
+        -f | --file )
+            shift
+            file=$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
+done
+
+index=1
+output_file_name=${name_prefix}-${index}.log
+printf "\nCreating new file ${output_file_name}\n"
+while read -r line
+do
+    echo "$line" >> "$output_file_name"
+    echo "$line" | grep "$regex" > /dev/null
+    if [ $? -eq 0 ]; then
+       index=$((index + 1))
+       output_file_name=${name_prefix}-${index}.log
+       printf "\nNew file created ${output_file_name}\n"
+    fi
+done < "$file"
