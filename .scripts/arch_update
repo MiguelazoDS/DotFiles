@@ -9,15 +9,8 @@ function clean {
     temp=$(yay -Qtdq | tr '\n' ' ')
     if [ -n "$temp" ]; then
         printf "\nThe following packages are going to be removed\n%s" "$temp"
-        read -r -p "Continue [Y/N]: " var
-        if [ "${var,,}" = "n" ]; then
-            exit 0
-        elif [ "${var,,}" = "y" ]; then
-            yay -Rns $(echo "$temp") --noconfirm
-            paccache -r
-        else
-            echo "The option is not valid"
-        fi
+        yay -Rns $(echo "$temp") --noconfirm
+        paccache -r
     fi
 }
 
@@ -60,6 +53,7 @@ do
         -a | --all )
             shift
             update
+            clean
             shift
             ;;
         -c | --clean )
