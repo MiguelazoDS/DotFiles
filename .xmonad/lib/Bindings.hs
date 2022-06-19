@@ -40,7 +40,7 @@ myKeys =
         , ("M-x", spawn "kill -9 $(pidof mocp)")
         , ("M-d", spawn "rofi -show drun -show-icons")
         , ("M-n", spawn $ M.myTerminal M.applications ++ " -e 'ranger'")
-        , ("M-<Return>", spawn $ M.myTerminal M.applications ++ " --title Kitty")
+        , ("M-<Return>", spawn $ M.myTerminal M.applications ++ " -o allow_remote_control=yes --title Kitty")
 
 -- Notifications
         , ("M-S-u", spawn "$HOME/.config/xmobar/scripts/updates updates")
