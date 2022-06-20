@@ -7,12 +7,14 @@ icons_dir="$HOME/.config/xmobar/icons"
 for i in "$HOME"/.config/xmobar/images/*
     do
     name=$(basename "$i" | cut -d '.' -f 1)
-    if [[ "$i" =~ "haskell" ]]; then
-        ffmpeg -loglevel error -i "$i" -vf scale=25:15 "$(basename "$i")"
-    else
-        ffmpeg -loglevel error -i "$i" -vf scale=18:14 "$(basename "$i")"
+    if [[ ! -f "$icons_dir/$name.xpm" ]]; then
+        if [[ "$i" =~ "haskell" ]]; then
+            ffmpeg -loglevel error -i "$i" -vf scale=25:15 "$(basename "$i")"
+        else
+            ffmpeg -loglevel error -i "$i" -vf scale=18:14 "$(basename "$i")"
+        fi
+        convert "$(basename "$i")" "$name.xpm"
+        mv ./*.xpm "$icons_dir"
+        rm ./*png
     fi
-    convert "$(basename "$i")" "$name.xpm"
-    mv ./*.xpm "$icons_dir"
-    rm ./*png
 done
