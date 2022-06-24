@@ -11,7 +11,7 @@ function capture {
     ffmpeg -video_size "$1" -threads 2 -framerate ntsc -f x11grab -i :0.0+"$2","$3" -f pulse -ac 2 -i $device "$HOME/Videos/$date.mkv"
 }
 
-device=$(pactl list sources | awk '/bluez_sink/ {print $2}' | head -1)
+device=$(pactl list sources | awk '/bluez_output/ {print $2}' | head -1)
 if [[ -z $device ]]; then
     device=$(pactl list sources | head -3 | tail -1 | cut -d':' -f2)
 fi
