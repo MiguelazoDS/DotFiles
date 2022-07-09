@@ -1,13 +1,16 @@
 CC = g
-CFLAGS = -I.
+CFLAGS = -g -Wall -Werror -pedantic -I.
 DEPS = .h
 OBJ = .o
-
-%.o: %.c $(DEPS)
-    $(CC) -c -o $@ $< $(CFLAGS)
+BUILD = output
 
 output: $(OBJ)
-    $(CC) -o $@ $^ $(CFLAGS)
+	$(CC) $(CFLAGS) -o $@ $^
 
+%.o: %.c $(DEPS)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+.PHONY: clean
 clean:
-    rm -f *.o output
+	rm -f $(BUILD) $(OBJ)
+
