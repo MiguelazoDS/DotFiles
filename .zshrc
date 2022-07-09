@@ -31,6 +31,10 @@ if [[ ! -f /usr/share/nvim/runtime/autoload/plug.vim ]]; then
   nvim +PlugInstall +qa!
 fi
 
+#Verify if bear is installed
+hash bear 2> /dev/null
+[[ $? -eq 1 ]] && (printf "\nbear is not installed\nInstalling..."; yay -S bear --noconfirm)
+
 #Plugins
 command -v zplug >/dev/null
 [[ $? -eq 1 ]] && (printf "\nzplug is not installed\nInstalling"; yay -S zplug --noconfirm)
@@ -219,6 +223,7 @@ alias youtube-dl-mp3="noglob youtube-dl --extract-audio --audio-format mp3 --aud
 alias youtube-dl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
 alias ssh="ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=3"
 alias sshfs="sshfs -o auto_cache,reconnect,ServerAliveInterval=5,ServerAliveCountMax=3"
+alias make="bear -- make"
 
 function dotf (){
     branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
