@@ -5,7 +5,7 @@
  *******************************************************************************/
 
 configuration {
-    font            : "JetBrainsMono Nerd Font 12";
+    font            : "MesloLGS Nerd Font 11";
     display-ssh     : "";
     display-run     : "";
     display-drun    : "";
@@ -18,18 +18,17 @@ configuration {
     fg-color: #EBDBB2;
     background-color:  transparent;
     tooltip-fg-color: #7E7E7E;
-    selected-bg-color: #458588;
+    selected-bg-color: #717333;
     selected-fg-color: #FFFFFF;
     insensitive-bg-color: #7E7E7E80;
     insensitive-fg-color: #7E7E7E;
-
     text-color          : @fg-color;
 }
 #window {
     location            : center;
     y-offset            : -200;
     width               : 640;
-    border-radius       : 8;
+    border-radius       : 10;
     background-color    : @bg-color;
 }
 #mainbox {
@@ -37,7 +36,7 @@ configuration {
     background-color    : transparent;
 }
 #inputbar {
-    font                : "Montserrat 24";
+    font                : "MesloLGS Nerd Font 18";
     background-color    : transparent;
 }
 #prompt {
@@ -79,7 +78,7 @@ configuration {
     border-color        : @insensitive-bg-color;
 }
 #element {
-    padding             : 8 24;
+    padding             : 5 20;
     background-color    : transparent;
 }
 #element normal normal {
@@ -92,6 +91,8 @@ configuration {
 #element selected normal {
     background-color    : @selected-bg-color;
     text-color          : @selected-fg-color;
+    border              : 5 0 0;
+    border-radius       : 20;
 }
 #element selected urgent {
 }
@@ -101,6 +102,6 @@ configuration {
 }
 #element-icon {
     size                : 2em;
-    margin              : 0 16 0 0;
+    margin              : 0 10 0 0;
 }
 
