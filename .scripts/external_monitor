@@ -1,7 +1,18 @@
 #!/usr/bin/bash
 
+# Auto mode.
+nvidia-settings -a '[gpu:0]/GpuPowerMizerMode=2'
+
+# Full composition pipeline
+nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
+
 disconnected=$(xrandr --query | awk '/HDMI.*disconnected/ {print $1}')
 
 if [ -z "$disconnected" ]; then
-    xrandr --output HDMI-1-0 --mode 1920x1080 --rate 144 --primary --same-as eDP-1
+    hash optimus-manager
+    if [[ $? -eq 0 ]]; then
+        xrandr --output HDMI-0 --mode 1920x1080 --rate 144
+    else
+        xrandr --output HDMI-1-0 --mode 1920x1080 --rate 144 --primary --same-as eDP-1
+    fi
 fi
