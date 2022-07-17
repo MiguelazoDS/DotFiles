@@ -75,6 +75,8 @@ nmap <leader>cm <Plug>NERDCommenterMinimal
 "==========================================================
 nnoremap <C-p> :FZF<CR>
 nnoremap <C-f> :Rg<CR>
+" nnoremap <C-f> :Telescope live_grep<CR>
+" nnoremap ? :Telescope current_buffer_fuzzy_find<CR>
 nnoremap ? :BLines<CR>
 nnoremap ¿ :Lines<CR>
 

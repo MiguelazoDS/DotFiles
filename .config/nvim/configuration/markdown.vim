@@ -97,3 +97,8 @@ set nofoldenable
 let g:vim_markdown_conceal = 0
 
 let g:markdown_enable_insert_mode_mappings = 0
+
+let g:gfm_syntax_enable_always = 1
+let g:gfm_syntax_enable_filetypes = ['markdown.gfm']
+autocmd BufRead,BufNew,BufNewFile README.md setlocal ft=markdown.gfm
+let g:markdown_fenced_languages = ['cpp', 'bash', 'json']

@@ -2,6 +2,17 @@
 -- nvim devicons configuration
 -- ===========================================================
 
+-- Lua:
+-- For dark theme
+vim.g.vscode_style = "dark"
+-- Enable transparent background
+vim.g.vscode_transparent = 1
+-- Enable italic comment
+vim.g.vscode_italic_comment = 1
+-- Disable nvim-tree background color
+vim.g.vscode_disable_nvimtree_bg = true
+vim.cmd([[colorscheme vscode]])
+
 require'nvim-web-devicons'.setup {
  -- your personnal icons can go here (to override)
  -- DevIcon will be appended to `name`
@@ -22,10 +33,15 @@ require'nvim-web-devicons'.setup {
 -- ===========================================================
 
 require('lspkind').init({
-    -- enables text annotations
+    -- DEPRECATED (use mode instead): enables text annotations
     --
     -- default: true
-    with_text = true,
+    -- with_text = true,
+
+    -- defines how annotations are shown
+    -- default: symbol
+    -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+    mode = 'symbol_text',
 
     -- default symbol map
     -- can be either 'default' (requires nerd-fonts font) or

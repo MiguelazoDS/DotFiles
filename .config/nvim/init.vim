@@ -13,6 +13,15 @@ source $HOME/.config/nvim/configuration/markdown.vim
 :lua require('evilline')
 :lua require('treesitter')
 :lua require('lsp')
-:lua require('nvim-compe')
-" :lua require('lsp_icons')
-" :lua require('which-key').setup{}
+:lua require('nvim-tree').setup{}
+":lua require('diff')
+":lua require('lsp_icons')
+"" :lua require('which-key').setup{}
+": lua require('nvim-tree').setup({view = {number = true, relativenumber = true}})
+:lua require('hlargs').setup()
+":lua require('gitsigns').setup()
+:lua require('git')
+:lua require('nvim-cmp')
+":lua require("nvim-gps").setup()
+:lua require('cursor_hl')
+":lua require('neoscroll').setup()

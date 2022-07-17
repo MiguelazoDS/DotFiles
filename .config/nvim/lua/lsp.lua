@@ -1,6 +1,9 @@
 require'lspconfig'.bashls.setup{}
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.ccls.setup{}
+require'lspconfig'.ansiblels.setup{}
+require'lspconfig'.sqls.setup{}
+require'lspconfig'.yamlls.setup {}
 require 'lspconfig'.hls.setup{
     root_dir = vim.loop.cwd,
     settings = {
@@ -68,3 +71,26 @@ vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts
 vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+require("nvim-lsp-installer").setup({
+    ensure_installed = { "ccls",
+                         "bashls",
+                         "hls",
+                         "vimls",
+                         "lua",
+                         "cmake",
+                         "jsonls",
+                         "texlab",  --Also markdown
+                         "pyright",
+                         "sqls",
+                         "lemminx", --XML
+                         "yamlls"}, -- ensure these servers are always installed
+    automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+})
