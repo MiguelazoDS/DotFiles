@@ -10,7 +10,7 @@ import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), Toggle(..), (??))
-import XMonad.Prompt (XPrompt, XPConfig, defaultXPConfig, XPConfig(..), XPPosition(CenteredAt), Direction1D(..))
+import XMonad.Prompt (XPrompt, XPConfig, defaultXPKeymap, XPConfig(..), XPPosition(CenteredAt), Direction1D(..))
 import Misc as M
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
 import XMonad.Actions.CopyWindow (kill1, copyToAll, killAllOtherCopies, runOrCopy)
