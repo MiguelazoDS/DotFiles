@@ -13,7 +13,7 @@ require 'lspconfig'.hls.setup{
 require'lspconfig'.flow.setup{}
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.jsonls.setup{}
-
+require'lspconfig'.marksman.setup{}
 require "lspconfig".efm.setup {
     init_options = {documentFormatting = true},
     settings = {
@@ -81,6 +81,7 @@ require("nvim-lsp-installer").setup({
                          "cmake",
                          "jsonls",
                          "texlab",  --Also markdown
+                         "marksman",
                          "pyright",
                          "sqls",
                          "lemminx", --XML
