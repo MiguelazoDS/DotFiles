@@ -11,7 +11,7 @@ require 'lspconfig'.hls.setup{
     }
   }
 require'lspconfig'.flow.setup{}
-require'lspconfig'.tailwindcss.setup{}
+require'lspconfig'.tsserver.setup{}
 require'lspconfig'.jsonls.setup{}
 
 require "lspconfig".efm.setup {
