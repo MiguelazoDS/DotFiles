@@ -1,4 +1,5 @@
 require'lspconfig'.bashls.setup{}
+require'lspconfig'.cmake.setup{}
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.ccls.setup{}
 require'lspconfig'.ansiblels.setup{}
