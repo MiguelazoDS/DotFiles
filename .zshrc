@@ -26,9 +26,15 @@ hash xclip
 [[ $? -eq 1 ]] && (printf "\nxclip is not installed\nInstalling..."; yay -S xclip --noconfirm)
 
 #Verify if neovim-plug is installed
-if [[ ! -f /usr/share/nvim/runtime/autoload/plug.vim ]]; then
-  printf "\nneovim-plug is not installed\nInstalling..."; yay -S neovim-plug --noconfirm
-  nvim +PlugInstall +qa!
+#if [[ ! -f /usr/share/nvim/runtime/autoload/plug.vim ]]; then
+#  printf "\nneovim-plug is not installed\nInstalling..."; yay -S neovim-plug --noconfirm
+#  nvim +PlugInstall +qa!
+#fi
+
+#Verify if nvim-packer-git is installed
+if [[ ! -d /usr/share/nvim/site/pack/packer/start/packer.nvim ]]; then
+  printf "\nnvim-packer-git is not installed\nInstalling..."; yay -S nvim-packer-git --noconfirm
+  nvim +PackerSync +qa!
 fi
 
 #Verify if bear is installed
