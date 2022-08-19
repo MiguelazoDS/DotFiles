@@ -1,52 +1,30 @@
-
-# Verify if oh-my-zsh and powerlevel10k is installed
-[[ ! -d $HOME/.oh-my-zsh ]] && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-if [[ -d $HOME/.oh-my-zsh ]] && [[ ! -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]]; then
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-fi
-
 # Verify fzf is installed
 [[ ! -d $HOME/.fzf ]] && (git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install)
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-#zplug path
+# zplug path
 source /usr/share/zsh/scripts/zplug/init.zsh
-
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 export TERMINFO="/usr/share/terminfo"
 
 hash xclip
 [[ $? -eq 1 ]] && (printf "\nxclip is not installed\nInstalling..."; yay -S xclip --noconfirm)
 
-#Verify if neovim-plug is installed
-#if [[ ! -f /usr/share/nvim/runtime/autoload/plug.vim ]]; then
-#  printf "\nneovim-plug is not installed\nInstalling..."; yay -S neovim-plug --noconfirm
-#  nvim +PlugInstall +qa!
-#fi
-
-#Verify if nvim-packer-git is installed
+# Verify if nvim-packer-git is installed
 if [[ ! -d /usr/share/nvim/site/pack/packer/start/packer.nvim ]]; then
   printf "\nnvim-packer-git is not installed\nInstalling..."; yay -S nvim-packer-git --noconfirm
   nvim +PackerSync +qa!
 fi
 
-#Verify if bear is installed
+# Verify if bear is installed
 hash bear 2> /dev/null
 [[ $? -eq 1 ]] && (printf "\nbear is not installed\nInstalling..."; yay -S bear --noconfirm)
 
-#Plugins
+# Plugins
 command -v zplug >/dev/null
 [[ $? -eq 1 ]] && (printf "\nzplug is not installed\nInstalling"; yay -S zplug --noconfirm)
 zplug "wfxr/forgit"
 
-#Use the vi navigation keys in menu completion
+# Use the vi navigation keys in menu completion
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
@@ -54,45 +32,42 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-#fzf default command to see hidden files
+# fzf default command to see hidden files
 export FZF_DEFAULT_COMMAND='find . -printf "%P\\n"'
 
-#Wine32
+# Wine32
 export WINEPREFIX=~/.wine32 winetricks winecfg winefile wine
 
-#Set colors
+# Set colors
 export TERM="screen-256color"
 
-#Fixed % symbol after print
+# Fixed % symbol after print
 export PROMPT_EOL_MARK=""
 
-#If you come from bash you might have to change your $PATH.
+# If you come from bash you might have to change your $PATH.
 ghcupPath="$HOME/.ghcup/bin"
 export PATH=$ghcupPath:$HOME/.local/bin:$PATH
 
+# Verify pip, imosum, imagemagick, exa, and ripgrep are installed
 hash pip 2> /dev/null
 [[ $? -eq 1 ]] && (printf "\npip is not installed\nInstalling..."; yay -S python-pip --noconfirm)
-
 hash imosum 2>/dev/null
 [[ $? -eq 1 ]] && (printf "\nimosum is not installed\nInstalling..."; pip install imohash)
-
 hash convert
 [[ $? -eq 1 ]] && (printf "\nimagemagick is not installed\nInstalling..."; yay -S imagemagick --noconfirm)
-
 hash exa
 [[ $? -eq 1 ]] && (printf "\nexa is not installed\nInstalling..."; yay -S exa --noconfirm)
-
 hash rg
 [[ $? -eq 1 ]] && (printf "\nripgrep is not installed\nInstalling..."; yay -S ripgrep --noconfirm)
 
-#Path to your oh-my-zsh installation.
+# Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-#Cuda
+# Cuda
 export LD_LIBRARY_PATH=/opt/cuda-10.0/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/opt/cuda-10.0/lib64:$LD_LIBRARY_PATH
 
-#Open new terminal same directory
+# Open new terminal same directory
 function cd {
     builtin cd $@
     pwd > ~/.last_dir
@@ -101,72 +76,27 @@ if [ -f ~/.last_dir ]; then
     cd "$(cat ~/.last_dir)"
 fi
 
-#Find inside files
+# Find inside files
 function fif {
     if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
     local file
     file="$(rga --hidden --max-count=1 --ignore-case --files-with-matches --no-messages "$@" | fzf-tmux +m --preview="rga --ignore-case --pretty --context 10 '"$@"' {}")" && xdg-open "$file"
 }
 
-#Create folder before unzip
+# Create folder before unzip
 function uz {
     name=$(echo "$1" | cut -d '.' -f 1)
     mkdir "$name"
     unzip "$1" -d "$name"
 }
 
-#Disable warnings
+# Disable warnings
 ZSH_DISABLE_COMPFIX=true
 
-#Disable autosetting terminal title.
+# Disable autosetting terminal title.
 DISABLE_AUTO_TITLE=true
 
-#POWERLEVEL10K CONFIGURATION
-#===========================================================================================
-ZSH_THEME="powerlevel10k/powerlevel10k"
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_name dir vcs custom_arrow)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_branch background_jobs)
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-POWERLEVEL9K_CUSTOM_NAME="name"
-POWERLEVEL9K_CUSTOM_ARROW="arrow"
-POWERLEVEL9K_CUSTOM_BRANCH="branch"
-if [ $USER = "root" ]
-then
-    POWERLEVEL9K_CUSTOM_NAME_BACKGROUND="black"
-    POWERLEVEL9K_CUSTOM_NAME_FOREGROUND="red"
-else
-    POWERLEVEL9K_CUSTOM_NAME_BACKGROUND="250"
-    POWERLEVEL9K_CUSTOM_NAME_FOREGROUND="060"
-fi
-POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="060"
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="250"
-POWERLEVEL9K_DIR_HOME_BACKGROUND="060"
-POWERLEVEL9K_DIR_HOME_FOREGROUND="250"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="060"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="250"
-POWERLEVEL9K_CUSTOM_ARROW_BACKGROUND="249"
-POWERLEVEL9K_CUSTOM_ARROW_FOREGROUND="060"
-POWERLEVEL9K_CUSTOM_BRANCH_BACKGROUND="058"
-POWERLEVEL9K_CUSTOM_BRANCH_FOREGROUND="237"
-POWERLEVEL9K_VCS_CLEAN_FOREGROUND='237'
-POWERLEVEL9K_VCS_CLEAN_BACKGROUND='058'
-POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='237'
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='058'
-POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='237'
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='094'
-name(){
-    if [ $USER = "root" ]
-    then
-        echo "\uf21b"
-    else
-        echo "\uf007"
-    fi
-}
-arrow(){
-    echo "\uf0a9"
-}
-branch(){
+function branch(){
     if [ ! $USER = "root" ]
     then
         all=$(dotfile status)
@@ -204,6 +134,7 @@ plugins=(
     rake-fast
     zsh-autosuggestions
 )
+
 source $ZSH/oh-my-zsh.sh
 if [[ ! -d $ZSH_CUSTOM/plugins/fast-syntax-highlighting ]]; then
     git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ~ZSH_CUSTOM/plugins/fast-syntax-highlighting
@@ -276,8 +207,10 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-#Anaconda workaround curl
+# Anaconda workaround curl
 hash conda 2> /dev/null
 [[ $? -eq 0 ]] && export PATH=/usr/bin:$PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(starship init zsh)"
