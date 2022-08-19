@@ -1,0 +1,71 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Do not inserts a blank line between shell prompts
+add_newline = false
+
+# Custom prompt
+format = """\
+[](fg:#FDD29E)\
+[ ](bg:#FDD29E fg:#1E4862)\
+[](bg:#1E4862 fg:#FDD29E)\
+$username\
+[](bg:#B56807 fg:#1E4862)\
+$directory\
+[](bg:#717733 fg:#B56807)\
+$git_branch\
+$git_status\
+$git_commit\
+$git_state\
+[](fg:#717733 bg:#FDD29E)\
+[  ](bg:#FDD29E fg:#1E4862)\
+[ ](fg:#FDD29E)\
+"""
+
+[username]
+show_always = true
+style_user = "bg:#1E4862"
+style_root = "bg:#A54242"
+format = '[ $user ]($style)'
+
+[directory]
+truncation_length = 2
+truncation_symbol = ""
+home_symbol = "~"
+style = "bg:#B56807"
+format = "[ $path ]($style)"
+
+[directory.substitutions]
+"Documents" = " Documents"
+"Downloads" = " Downloads"
+"Music" = " Music"
+"Pictures" = "  Pictures"
+"Videos" = "  Videos"
+"Dropbox" = " Dropbox"
+
+[git_branch]
+symbol = ""
+style = "bg:#717733"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "bg:#717733"
+conflicted=""
+ahead=""
+behind=""
+diverged=""
+untracked=""
+up_to_date=""
+stashed=""
+modified=""
+staged=""
+format = '[$all_status$ahead_behind ]($style)'
+
+[git_commit]
+style = "bg:#717733"
+format = '[$hash]($style)'
+
+[git_state]
+style = "bg:#717733"
+format = '[$state]($style)'
+
