@@ -22,10 +22,10 @@ main = do
         , logHook = dynamicLogWithPP xmobarPP
               { ppOutput = hPutStrLn xmproc
               , ppCurrent = xmobarColor "#717733" "" . wrap "<{" "}>" -- Current workspace in xmobar
-              , ppHidden = xmobarColor "#a54242" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-              , ppHiddenNoWindows = xmobarColor "#ebdbb2" ""        -- Hidden workspaces (no windows)
-              , ppSep =  "<fc=#d79921> </fc>"                     -- Separators in xmobar
-              , ppUrgent = xmobarColor "#191919" "" . wrap "!" "!"  -- Urgent workspace
+              , ppHidden = xmobarColor "#A54242" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+              , ppHiddenNoWindows = xmobarColor "#DEB88D" ""        -- Hidden workspaces (no windows)
+              , ppSep =  "<fc=#FBA02F> </fc>"                     -- Separators in xmobar
+              , ppUrgent = xmobarColor "#303030" "" . wrap "!" "!"  -- Urgent workspace
               , ppOrder  = \(ws:l:_) -> [ws,l]
               }
         , modMask            = M.myModMask M.custom
@@ -34,6 +34,6 @@ main = do
         , layoutHook         = myLayoutHook
         , workspaces         = myWorkspaces
         , borderWidth        = M.myBorderWidth M.custom
-        , normalBorderColor  = "#67686a"
-        , focusedBorderColor = "#458588"
+        , normalBorderColor  = "#424B52"
+        , focusedBorderColor = "#67A0CD"
         } `additionalKeysP` myKeys

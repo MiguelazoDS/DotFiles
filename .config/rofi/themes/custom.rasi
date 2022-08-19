@@ -1,9 +1,3 @@
-/*******************************************************************************
- * MACOS SPOTLIGHT LIKE DARK THEME FOR ROFI
- * User                 : LR-Tech
- * Theme Repo           : https://github.com/lr-tech/rofi-themes-collection
- *******************************************************************************/
-
 configuration {
     font            : "MesloLGS Nerd Font 11";
     display-ssh     : "";
@@ -14,19 +8,19 @@ configuration {
 
 }
 * {
-    bg-color: #3C3836;
-    fg-color: #EBDBB2;
+    bg-color: #303030;
+    fg-color: #DEB88D;
     background-color:  transparent;
-    tooltip-fg-color: #7E7E7E;
+    tooltip-fg-color: #424B52;
     selected-bg-color: #717333;
-    selected-fg-color: #FFFFFF;
-    insensitive-bg-color: #7E7E7E80;
-    insensitive-fg-color: #7E7E7E;
+    selected-fg-color: #FEE3CD;
+    insensitive-bg-color: #424B5280;
+    insensitive-fg-color: #424B52;
     text-color          : @fg-color;
 }
 #window {
     location            : center;
-    y-offset            : -200;
+    y-offset            : 0;
     width               : 640;
     border-radius       : 10;
     background-color    : @bg-color;

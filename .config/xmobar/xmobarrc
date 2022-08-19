@@ -3,12 +3,12 @@ Config { font    = "xft:MesloLGS Nerd Font:bold:size=9.5:antialias=true:hinting=
                         , "xft:MesloLGS Nerd Font:bold:size=15:antialias=true:hinting=true"
     ]
     , iconRoot = "/home/miguel/.config/xmobar/icons"
-    , bgColor = "#212223"
-    , fgColor = "#ebdbb2"
+    , bgColor = "#08131A"
+    , fgColor = "#FDD29E"
     , alpha = 220
     , border = FullBM 0
-    , borderColor = "#202020"
-    , borderWidth = 2
+    , borderColor = "#08131A"
+    , borderWidth = 1
     , position = Static{xpos = 0, ypos= 0, width = 1920, height = 29}
     , lowerOnStart = True
         , hideOnStart = False
@@ -18,13 +18,13 @@ Config { font    = "xft:MesloLGS Nerd Font:bold:size=9.5:antialias=true:hinting=
         , Run BatteryP ["BAT1"]
         ["-t", "<acstatus>"
         , "-L", "10", "-H", "80"
-            , "-l", "#a54242", "-h", "#717733"
+            , "-l", "#A54242", "-h", "#717733"
             , "--", "-O", "<left>%", "-o", "<left>%"
         ] 10
         , Run Date "<fn=1> </fn> %a %_d %b %Y %H:%M" "date" 10
         , Run Network "enp66s0" ["-t", "<fn=1> </fn>  <rx>kb| <tx>kb"] 10
         , Run Network "wlp0s20f3" ["-t", "<fn=1> </fn>  <rx>kb| <tx>kb"] 10
-        , Run Cpu ["-t","<fn=1> </fn><total>%","-H","75","--high","#a54242"] 10
+        , Run Cpu ["-t","<fn=1> </fn><total>%","-H","75","--high","#A54242"] 10
         , Run Com "/home/miguel/.config/xmobar/scripts/mem" [] "memory" 10
         , Run Com "/home/miguel/.config/xmobar/scripts/volume" [] "volume" 1
         , Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 200
@@ -37,5 +37,5 @@ Config { font    = "xft:MesloLGS Nerd Font:bold:size=9.5:antialias=true:hinting=
         ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = " <icon=haskell.xpm/> %UnsafeStdinReader% <fc=#d79921>%moc%</fc> } <fc=#ebdbb2>%headset%</fc> <fc=#ebdbb2>%locks%</fc> <fc=#ebdbb2>%weather%</fc> <fc=#ebdbb2>%date%</fc> { <fc=#ebdbb2>%updates%</fc> <fc=#ebdbb2>%volume%</fc> <fc=#ebdbb2>%enp66s0%</fc> <fc=#ebdbb2>%wlp0s20f3%</fc> <fc=#ebdbb2>%cpu%</fc> <fc=#ebdbb2>%memory%</fc> <fc=#ebdbb2>%bat%</fc><fc=#ebdbb2>%battery%</fc> <fc=#ebdbb2>%trayerpad%</fc>"
+        , template = " <icon=haskell.xpm/> %UnsafeStdinReader% <fc=#FF8A39>%moc%</fc> } <fc=#FDD29E>%headset%</fc> <fc=#FDD29E>%locks%</fc> <fc=#FDD29E>%weather%</fc> <fc=#FDD29E>%date%</fc> { <fc=#FDD29E>%updates%</fc> <fc=#FDD29E>%volume%</fc> <fc=#FDD29E>%enp66s0%</fc> <fc=#FDD29E>%wlp0s20f3%</fc> <fc=#FDD29E>%cpu%</fc> <fc=#FDD29E>%memory%</fc> <fc=#FDD29E>%bat%</fc><fc=#FDD29E>%battery%</fc> <fc=#FDD29E>%trayerpad%</fc>"
 }

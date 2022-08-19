@@ -24,7 +24,7 @@ function update {
 function gpu_mem {
     perc=$(nvidia-smi | head -n 10 | tail -n 1 | cut -d '|' -f 3 | awk '{used=($1+0)*100/($3+0); printf "%.f", used}')
     if [[ $((perc)) -ge 75 ]]; then
-        echo "|<fc=#a54242>GPU:${perc}%</fc>"
+        echo "|<fc=#A54242>GPU:${perc}%</fc>"
     else
         echo "|GPU:${perc}%"
     fi

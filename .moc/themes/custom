@@ -9,12 +9,21 @@
 #
 ##############################################################################
 
-colordef magenta = 800 561 400 #Orange
-colordef blue = 271 522 533
-colordef cyan = 522 400 561    #Purple
+#HEX->255/255/255(RGB)->1000/1000/1000
+
+#orange=#FF8A39=255,138,57=1000,541,224
+#blue=#1E4862=30,72,98=118,282,384
+#purple=#4F344A=79,52,74=310,204,290
+#green=#717733=113,119,51=443,467,200
+#red=#A54242=165,66,66=647,259,259
+#yellow=#FBA02F=251,160,47=984,627,184
+
+colordef magenta = 1000 541 224 #Orange
+colordef blue = 118 282 384
+colordef cyan = 310 204 290    #Purple
 colordef green = 443 467 200
 colordef red = 647 259 259
-colordef yellow = 843 600 129
+colordef yellow = 984 627 184
 
 background           = default default normal
 frame                = black  default bold
@@ -42,9 +51,9 @@ sound_parameters     = magenta  default bold
 legend               = green  default bold
 disabled             = black  default bold
 enabled              = cyan  default bold
-empty_mixer_bar      = cyan  black bold
+empty_mixer_bar      = magenta  black bold
 filled_mixer_bar     = black  green bold
-empty_time_bar       = cyan  black bold
+empty_time_bar       = magenta  black bold
 filled_time_bar      = black  green bold
 entry                = blue  black normal
 entry_title          = magenta  black bold
