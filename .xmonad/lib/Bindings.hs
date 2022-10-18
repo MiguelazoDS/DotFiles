@@ -52,7 +52,9 @@ myKeys =
         , ("M-S-q", killAll)                                                                -- Kill all the windows on current workspace
         , ("M-r", spawn "xrandr --output DVI-D-0 --scale 1x1")
         , ("M-<Delete>", withFocused $ windows . W.sink)                                    -- Push floating window back to tile.
-        , ("M-S-<Delete>", withFocused $ windows . flip W.float (W.RationalRect 0 0 1 1))   -- Put current windows to full float
+        , ("M-S-<Delete>", withFocused $ windows . flip W.float (W.RationalRect 0 0 1 1))   -- Put current windows to full float.
+        , ("M-S-d", windows copyToAll)                                                      -- Copy focused windows to all workspaces.
+        , ("M-S-x", killAllOtherCopies)                                                     -- Kill all copies except focused window.
 
 -- Windows navigation
         , ("M-l", windows W.focusMaster)             -- Move focus to the master window
