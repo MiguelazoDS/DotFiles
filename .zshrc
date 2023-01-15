@@ -1,6 +1,10 @@
 # Verify fzf is installed
 [[ ! -d $HOME/.fzf ]] && (git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install)
 
+# Verify starship is installed
+hash starship
+[[ $? -eq 1 ]] && (curl -sS https://starship.rs/install.sh | sh)
+
 # zplug path
 source /usr/share/zsh/scripts/zplug/init.zsh
 
@@ -156,8 +160,8 @@ alias mv="mv -iv"
 alias rm="echo rm command is discourage, use trm instead. If you still want to run it, use backslash to escape it"
 alias rename='perl-rename'
 alias unzip='echo "Use uz instead"'
-alias youtube-dl-mp3="noglob youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 -o %(title)s.%(ext)s"
-alias youtube-dl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
+alias yt-dlp-mp3="noglob yt-dlp --extract-audio --audio-format mp3 --audio-quality 0 -o %(title)s.%(ext)s"
+alias yt-dlp="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
 alias ssh="ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=3"
 alias sshfs="sshfs -o auto_cache,reconnect,ServerAliveInterval=5,ServerAliveCountMax=3"
 alias make="bear -- make"
