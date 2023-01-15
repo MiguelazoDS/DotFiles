@@ -40,6 +40,7 @@ cryptd
 crypto_simd
 crypto_user
 dm_mod
+dm_multipath
 dns_resolver
 drm
 drm_kms_helper
@@ -156,6 +157,11 @@ nf_reject_ipv6
 nfs
 nfs_ssc
 nfsv4
+nf_tables
+nft_chain_nat
+nft_compat
+nft_counter
+nft_limit
 nls_ascii
 nls_cp437
 nls_iso8859_1
@@ -197,6 +203,7 @@ snd_hda_codec_realtek
 snd_hda_core
 snd_hda_ext_core
 snd_hda_intel
+snd_hrtimer
 snd_hwdep
 snd_intel_dspcfg
 snd_intel_nhlt
@@ -239,6 +246,7 @@ syscopyarea
 sysfillrect
 sysimgblt
 thunderbolt
+tls
 tpm
 tpm_crb
 tpm_tis
