@@ -185,7 +185,7 @@ if [ -z "$linux_dir" ]; then
     linux_dir="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*$")"
     install "$major" "$xanmod_info" "$linux_dir"
 else
-    installed_version=$(cat "/boot/grub/grub.cfg" | awk '/Loading Linux xanmod/ {print $4}' | head -n 1 | cut -d '-' -f2)
+    installed_version=$(sudo cat "/boot/grub/grub.cfg" | awk '/Loading Linux xanmod/ {print $4}' | head -n 1 | cut -d '-' -f2)
     cd "$linux_dir" || exit
     patch_version=$(head -n 5 Makefile | awk '/^VERSION|PATCHLEVEL|SUBLEVEL/ {print $3}' | tr -d '\n')
     # Installs if the patch was applied but not installed.
