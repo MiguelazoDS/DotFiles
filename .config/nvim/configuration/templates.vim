@@ -8,4 +8,5 @@ augroup languages
     autocmd BufNewFile *.sh 0r ~/.config/nvim/templates/template.sh
     autocmd BufNewFile Makefile 0r ~/.config/nvim/templates/Makefile
     autocmd BufNewFile *.asm 0r ~/.config/nvim/templates/template.asm
+    autocmd BufNewFile CMakeLists.txt 0r ~/.config/nvim/templates/CMakeLists.txt
 augroup END
