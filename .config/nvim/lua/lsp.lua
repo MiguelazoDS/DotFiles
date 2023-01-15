@@ -1,10 +1,12 @@
 require'lspconfig'.bashls.setup{}
 require'lspconfig'.cmake.setup{}
 require'lspconfig'.pyright.setup{}
-require'lspconfig'.ccls.setup{}
+require'lspconfig'.clangd.setup{}
 require'lspconfig'.ansiblels.setup{}
-require'lspconfig'.sqls.setup{}
+--require'lspconfig'.sqls.setup{}
+require'lspconfig'.sqlls.setup{}
 require'lspconfig'.yamlls.setup {}
+require'lspconfig'.asm_lsp.setup{}
 require 'lspconfig'.hls.setup{
     root_dir = vim.loop.cwd,
     settings = {
@@ -26,6 +28,14 @@ require "lspconfig".efm.setup {
         }
     }
 }
+
+--lua <<EOF
+--    let g:LanguageClient_serverCommands = {
+--        \ 'sql': ['sql-language-server', 'up', '--method', 'stdio'],
+--        \ }
+--EOF
+
+vim.g['LanguageClient_serverCommands'] = { 'sql',  {'sql-language-server', 'up', '--method', 'stdio'} }
 
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
 local sumneko_root_path = "/usr"
@@ -74,7 +84,8 @@ vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclis
 vim.api.nvim_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
 require("nvim-lsp-installer").setup({
-    ensure_installed = { "ccls",
+    ensure_installed = { "clangd",
+                         "asm_lsp",
                          "bashls",
                          "hls",
                          "vimls",
@@ -84,7 +95,7 @@ require("nvim-lsp-installer").setup({
                          "texlab",  --Also markdown
                          "marksman",
                          "pyright",
-                         "sqls",
+                         "sqlls",
                          "lemminx", --XML
                          "yamlls"}, -- ensure these servers are always installed
     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
@@ -95,4 +106,54 @@ require("nvim-lsp-installer").setup({
             server_uninstalled = "✗"
         }
     }
+})
+
+require('lspkind').init({
+    -- DEPRECATED (use mode instead): enables text annotations
+    --
+    -- default: true
+    -- with_text = true,
+
+    -- defines how annotations are shown
+    -- default: symbol
+    -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+    mode = 'symbol_text',
+
+    -- default symbol map
+    -- can be either 'default' (requires nerd-fonts font) or
+    -- 'codicons' for codicon preset (requires vscode-codicons font)
+    --
+    -- default: 'default'
+    preset = 'codicons',
+
+    -- override preset symbols
+    --
+    -- default: {}
+    symbol_map = {
+      Text = "",
+      Method = "",
+      Function = "",
+      Constructor = "",
+      Field = "ﰠ",
+      Variable = "",
+      Class = "ﴯ",
+      Interface = "",
+      Module = "",
+      Property = "ﰠ",
+      Unit = "塞",
+      Value = "",
+      Enum = "",
+      Keyword = "",
+      Snippet = "",
+      Color = "",
+      File = "",
+      Reference = "",
+      Folder = "",
+      EnumMember = "",
+      Constant = "",
+      Struct = "פּ",
+      Event = "",
+      Operator = "",
+      TypeParameter = ""
+    },
 })
