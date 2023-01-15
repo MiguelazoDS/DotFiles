@@ -1,6 +1,6 @@
-Config { font    = "xft:MesloLGS Nerd Font:bold:size=9.5:antialias=true:hinting=true"
-    , additionalFonts = [ "xft:MesloLGS Nerd Font:bold:size=12:antialias=true:hinting=true"
-                        , "xft:MesloLGS Nerd Font:bold:size=15:antialias=true:hinting=true"
+Config { font    = "xft:FiraCode Nerd Font:bold:size=11:antialias=true:hinting=true"
+    , additionalFonts = [ "xft:FiraCode Nerd Font:bold:size=13:antialias=true:hinting=true"
+                        , "xft:FiraCode Nerd Font:bold:size=15:antialias=true:hinting=true"
     ]
     , iconRoot = "/home/miguel/.config/xmobar/icons"
     , bgColor = "#08131A"
