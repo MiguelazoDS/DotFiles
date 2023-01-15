@@ -102,7 +102,7 @@ if [[ ! -d "$spleeter_dir" ]]; then
     printf "%s environment does not exist\nCreating environment ...\n" $env_name
     conda create -n $env_name python=3.8
     printf "It's needed to close the terminal before env activation\n"
-    printf "\nAlso remember to type \"conda activate %$1s\" and install with \"conda install -c conda-forge %$1s\"\n" $env_name
+    printf "\nInstall with \"conda install -c conda-forge %$1s\" and remember to type \"conda activate %$1\"\n" $env_name
     read -n 1 -r -s -p $'Press enter to continue...\n'
     exit 0
 fi
