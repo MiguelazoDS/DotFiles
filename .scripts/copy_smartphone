@@ -35,7 +35,7 @@ do
 done
 
 if [ ! -d "$HOME/.Smartphone/SD card" ]; then
-    go-mtpfs -usb-timeout=60000 $HOME/.Smartphone 2>/dev/null &disown
+    go-mtpfs -usb-timeout=3600000 $HOME/.Smartphone 2>/dev/null &disown
     sleep 1
 fi
 
