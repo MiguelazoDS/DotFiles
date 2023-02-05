@@ -48,11 +48,14 @@ export TERM="screen-256color"
 # Fixed % symbol after print
 export PROMPT_EOL_MARK=""
 
+# Add .local/bin to path
+export PATH=$HOME/.local/bin:$PATH
+
 # Verify pip, imosum, imagemagick, exa, and ripgrep are installed
 hash pip 2> /dev/null
 [[ $? -eq 1 ]] && (printf "\npip is not installed\nInstalling..."; yay -S python-pip --noconfirm)
-hash imosum 2>/dev/null
-[[ $? -eq 1 ]] && (printf "\nimosum is not installed\nInstalling..."; pip install imohash)
+# hash imosum 2>/dev/null
+# [[ $? -eq 1 ]] && (printf "\nimosum is not installed\nInstalling..."; pip install imohash)
 hash convert
 [[ $? -eq 1 ]] && (printf "\nimagemagick is not installed\nInstalling..."; yay -S imagemagick --noconfirm)
 hash exa

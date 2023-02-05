@@ -19,7 +19,7 @@ import           XMonad.Hooks.StatusBar.PP           (PP (..), filterOutWsPP,
 import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat)
 import XMonad.Hooks.EwmhDesktops   -- required for xcomposite in obs to work
-import Basement.Types.Char7 (c7_1)
+-- import Basement.Types.Char7 (c7_1)
 
 wrapSep :: String -> String
 wrapSep = wrap (xmobarColor "#717733" "" (xmobarFont 5 "\xe0b6"))

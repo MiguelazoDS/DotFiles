@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-temp="$PATH"
-export PATH=/usr/bin:$PATH
-xmonad --recompile && xmonad --restart
-export PATH="$temp"
