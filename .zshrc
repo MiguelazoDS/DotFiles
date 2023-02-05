@@ -48,10 +48,6 @@ export TERM="screen-256color"
 # Fixed % symbol after print
 export PROMPT_EOL_MARK=""
 
-# If you come from bash you might have to change your $PATH.
-ghcupPath="$HOME/.ghcup/bin"
-export PATH=$ghcupPath:$HOME/.local/bin:$PATH
-
 # Verify pip, imosum, imagemagick, exa, and ripgrep are installed
 hash pip 2> /dev/null
 [[ $? -eq 1 ]] && (printf "\npip is not installed\nInstalling..."; yay -S python-pip --noconfirm)
