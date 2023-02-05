@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+lightdm_config_file=/etc/lightdm/lightdm-gtk-greeter.conf
+lightdm_config_file2=/etc/lightdm/lightdm.conf
+
+sudo sed -i 's/#background=/background = \/home\/miguel\/.Wallpapers\/1920x1080\/mountains_sunset_lake_133861_1920x1080.jpg/g' "$lightdm_config_file"
+sudo sed -i 's/#position=/position = 5% 60%/g' "$lightdm_config_file"
+sudo sed -i 's/#icon-theme-name=/icon-theme-name = Obsidian-Amber/g' "$lightdm_config_file"
+sudo sed -i 's/#font-name=/font-name = JetBrainsMono Nerd Font Mono 12/g' "$lightdm_config_file"
+sudo sed -i 's/#theme-name=/theme-name = Aurora-Nuevo-Azul/g' "$lightdm_config_file"
+
+sudo sed -i 's/#display-setup-script=/display-setup-script=\/home\/miguel\/.scripts\/external_monitor/' "$lightdm_config_file2"
+
+cursor_theme_config_file=/usr/share/icons/default/index.theme
+
+sudo sed -i 's/\(Inherits=\).*/\1Breeze_Obsidian/' "$cursor_theme_config_file"
+

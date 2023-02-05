@@ -1,5 +1,8 @@
 moc
+alsa-utils
 mpv
+pipewire-pulse
+pipewire-alsa
 mp3gain
 youtube-dl
 flameshot
@@ -11,8 +14,8 @@ mtn
 pamixer
 pavucontrol
 python-ueberzug-git
-pulseaudio-modules-bt
-pulseeffects-legacy-git
+easyeffects
 bluez
 bluez-utils
 calf
+lsp-plugins

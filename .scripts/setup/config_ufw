@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+hash ufw
+[ $? -eq 1 ] && (printf "\nufw not installed.\nInstalling..."; yay -S ufw --noconfirm)
+
+sudo ufw enable
+sudo ufw status verbose
+
+sudo systemctl enable --now ufw.service
+
+sudo systemctl status ufw.service

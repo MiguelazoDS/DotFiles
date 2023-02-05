@@ -1,7 +1,7 @@
+snapper
 snap-pac
 snap-pac-grub
 grub-btrfs
-snapper
 rofi
 acpi
 betterlockscreen
@@ -10,6 +10,7 @@ trash-cli
 trayer
 ranger
 pcmanfm
+highlight
 picom-ibhagwan-git
 notify-send.sh
 nohang
@@ -20,3 +21,4 @@ ufw
 flex
 intel-ucode
 cronie
+network-manager-applet

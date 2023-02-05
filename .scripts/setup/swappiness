@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+conf_file=/etc/sysctl.d/99-sysctl.conf
+
+sudo bash -c ""
+
+{
+    echo vm.swappiness=10
+    echo vm.vfs_cache_pressure=50
+} >> /tmp/file
+
+sudo mv /tmp/file $conf_file
+
+sudo sysctl -w vm/swappiness=10

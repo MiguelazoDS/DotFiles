@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+hash git > /dev/null
+[ $? -eq 1 ] && (printf "\ngit not installed.\n Installing..."; sudo pacman -S git --noconfirm)
+
+cd /tmp
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si

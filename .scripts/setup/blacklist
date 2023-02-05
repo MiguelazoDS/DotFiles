@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+sudo sh -c 'echo "blacklist pcspkr" >> /etc/modprobe.d/blacklist.conf'
+sudo sh -c 'echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf'
+sudo sh -c 'echo "blacklist iTCO_wdt" >> /etc/modprobe.d/blacklist.conf'
+sudo sh -c 'echo "blacklist joydev" >> /etc/modprobe.d/blacklist.conf'
+sudo sh -c 'echo "blacklist mousedev" >> /etc/modprobe.d/blacklist.conf'
+sudo sh -c 'echo "blacklist mac_hid" >> /etc/modprobe.d/blacklist.conf'
+sudo sh -c 'echo "blacklist hp_wmi" >> /etc/modprobe.d/blacklist.conf'

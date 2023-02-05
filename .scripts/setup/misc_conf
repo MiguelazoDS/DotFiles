@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+makepkg_config_file=/etc/makepkg.conf
+pacman_config_file=/etc/pacman.conf
+
+sudo sed -i 's/#MAKEFLAGS.*/MAKEFLAGS=-j\$\(nproc\)/g' "$makepkg_config_file"
+sudo sed -i "s/\(.*\.tar\).*/\1'/" "$makepkg_config_file"
+
+sudo sed -i 's/#Color/Color/g' "$pacman_config_file"
+sudo sed -i 's/#ParallelDownloads.*/ParallelDownloads=10/g' "$pacman_config_file"
+
+sudo sh -c 'echo "Defaults env_reset,pwfeedback" >> /etc/sudoers'
+
+sudo sed -i 's/#\[multilib\]/\[multilib\]/g' "$pacman_config_file"
+sudo sed -i 's/#Include = \/etc\/pacman.d\/mirrorlist/Include = \/etc\/pacman.d\/mirrorlist/g' "$pacman_config_file"

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+hash zsh
+[ $? -eq 1 ] && (printf "\nzsh not installed;\nInstalling..."; yay -S zsh)
+
+chsh -s /bin/zsh &&
+sudo chsh -s /bin/zsh

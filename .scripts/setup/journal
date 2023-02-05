@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+conf_file=/etc/systemd/journald.conf
+
+sudo sed -i 's/#SystemMaxUse=/SystemMaxUse=50M/' $conf_file
+
+sudo journalctl --vacuum-size=100M
+sudo journalctl --vacuum-time=2weeks
+sudo journalctl --disk-usage
+sudo systemctl restart systemd-journald.service
+
+

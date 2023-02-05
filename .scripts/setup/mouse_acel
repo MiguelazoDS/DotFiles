@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+config_file=/etc/X11/xorg.conf.d/50-mouse-aceleration.conf
+
+sudo sh -c 'echo "Section \"InputClass\"" >> /etc/X11/xorg.conf.d/50-mouse-aceleration.conf'
+sudo sh -c 'echo "    Identifier \"My Mouse\"" >> /etc/X11/xorg.conf.d/50-mouse-aceleration.conf'
+sudo sh -c 'echo "    Driver \"libinput\"" >> /etc/X11/xorg.conf.d/50-mouse-aceleration.conf'
+sudo sh -c 'echo "    MatchIsPointer \"yes\"" >> /etc/X11/xorg.conf.d/50-mouse-aceleration.conf'
+sudo sh -c 'echo "    Option \"AccelProfile\" \"flat\"" >> /etc/X11/xorg.conf.d/50-mouse-aceleration.conf'
+sudo sh -c 'echo "EndSection" >> /etc/X11/xorg.conf.d/50-mouse-aceleration.conf'
+

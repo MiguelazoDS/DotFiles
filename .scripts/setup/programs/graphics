@@ -1,7 +1,7 @@
-nvidia-lts
 nvidia-dkms
 nvidia-utils
 nvidia-settings
 nvidia-prime
+lib32-nvidia-utils
 glxinfo
 inxi

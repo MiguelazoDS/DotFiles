@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# echo mq-deadline > /sys/block/sda/queue/scheduler -> cat /sys/block/sda/queue/scheduler
+#none for nvme
+sudo bash -c ""
+echo none > /sys/block/nvme0n1/queue/scheduler
+
+rules_file=/etc/udev/rules.d/60-ioschedulers.rules
+
+# set scheduler for NVMe
+echo "ACTION==\"add|change\", KERNEL==\"nvme[0-9]*\", ATTR{queue/scheduler}=\"none\"" > $rules_file
+# set scheduler for SSD and eMMC
+#ACTION=="add|change", KERNEL=="sd[a-z]|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="mq-deadline"
+# set scheduler for rotating disks
+#ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"

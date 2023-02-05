@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+fstab_file=/etc/fstab
+
+sudo sed -i 's/subvolid=[0-9]\+,//g' "$fstab_file"
+sudo sed -i 's/relatime/noatime/g' "$fstab_file"

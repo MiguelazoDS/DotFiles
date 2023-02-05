@@ -16,7 +16,6 @@ modprobed-db
 ripgrep
 ntfs-3g
 w3m
-xdotool
 zplug
 imagemagick
 zsh
@@ -31,3 +30,5 @@ rar
 zip
 unzip
 downgrade
+gperftools
+flatpak
