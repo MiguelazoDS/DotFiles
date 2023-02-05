@@ -6,14 +6,8 @@ profile=${profile:1:-1}
 
 if [[ $connected == "yes" ]]; then
     headset="<fn=2><fc=#717733> </fc></fn>"
-    if [[ $profile == "a2dp_sink_ldac" ]]; then
-        mic="<fn=1><fc=#A54242> </fc></fn>"
-    else
-        mic="<fn=1><fc=#717733> </fc></fn>"
-    fi
 else
     headset="<fn=2><fc=#A54242> </fc></fn>"
-    mic="<fn=1><fc=#A54242> </fc></fn>"
 fi
 
 printf "$headset$mic"
