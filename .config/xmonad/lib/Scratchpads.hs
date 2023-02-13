@@ -13,10 +13,10 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 ]
 
     where
-    spawnTerm  = M.myTerminal M.applications ++  " --name=scratchpad --title='SP terminal'"
+    spawnTerm  = M.myTerminal M.applications ++ " start --class scratchpad"
     findTerm   = resource =? "scratchpad"
     manageTerm = customFloating $ W.RationalRect l t w h
-    spawnMocp  = M.myTerminal M.applications ++  " --name=moc --title='MOCP' -e 'mocp'"
+    spawnMocp  = M.myTerminal M.applications ++  " start --class=moc --always-new-process 'mocp'"
     findMocp   = resource =? "moc"
     manageMocp = customFloating $ W.RationalRect l t w h
     spawnEffects = "easyeffects"

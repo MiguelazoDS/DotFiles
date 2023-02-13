@@ -39,8 +39,8 @@ myKeys =
         , ("M-o", spawn $ M.myBrowser M.applications)
         , ("M-x", spawn "kill -9 $(pidof mocp)")
         , ("M-d", spawn "rofi -show drun -show-icons")
-        , ("M-n", spawn $ M.myTerminal M.applications ++ " -e 'ranger'")
-        , ("M-<Return>", spawn $ M.myTerminal M.applications ++ " -o allow_remote_control=yes --title Kitty")
+        , ("M-n", spawn $ M.myTerminal M.applications ++ " start --always-new-process 'ranger'")
+        , ("M-<Return>", spawn $ M.myTerminal M.applications)
 
 -- Notifications
         , ("M-S-u", spawn "$HOME/.config/xmobar/scripts/updates updates")

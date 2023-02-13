@@ -22,7 +22,7 @@ data Custom = Custom
     }
 
 applications = Applications
-    { myTerminal = "kitty"
+    { myTerminal = "wezterm"
     , myTextEditor = "nvim"
     , myBrowser = "firefox"
     , myMusicPlayer = "mocp"
