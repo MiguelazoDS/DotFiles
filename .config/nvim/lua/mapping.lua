@@ -1,12 +1,12 @@
 -- Remaping
 local map = vim.keymap.set
-local opts = { noremap=true, silent=true }
+local opts = { noremap=true, silent=false }
 local api = vim.api
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 map('i', 'ii', '<ESC>')
-map('n', 'Y', '"+y', opts)
+map({'n','v'}, 'Y', '"+y')
 map('n', 'yl', '0"+y$', opts)
 map('n', 'P', 'o<ESC>"+p', opts)
 map('n', 'dl', '0d$', opts)
