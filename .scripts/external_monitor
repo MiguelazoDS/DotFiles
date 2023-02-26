@@ -8,7 +8,8 @@ if [ -z "$disconnected" ]; then
         if [[ $(envycontrol -q | cut -d ' ' -f 5) == "nvidia" ]]; then
             # Auto mode.
             nvidia-settings -a '[gpu:0]/GpuPowerMizerMode=2'
-
+            # Reduce lag with GLX backend
+            nvidia-settings -a 'AllowFlipping=0'
             # Full composition pipeline
             nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
             xrandr --output HDMI-0 --mode 1920x1080 --rate 144
