@@ -3,28 +3,30 @@
 perc=$(acpi | cut -d ' ' -f 4 | cut -d '%' -f 1)
 state=$(acpi | cut -d ' ' -f 3 | cut -d ',' -f 1)
 
+leftCorner="<fc=#222222><fn=1></fn></fc>"
+
 if [[ $state =~ "Charging" ]]; then
     if [[ $((perc)) -ge 0 && $((perc)) -le 20 ]]; then
-        echo "<fn=1> </fn> "
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1> </fn></fc>"
     elif [[ $((perc)) -gt 20 && $((perc)) -le 40 ]]; then
-        echo "<fn=1> </fn> "
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1> </fn></fc>"
     elif [[ $((perc)) -gt 40 && $((perc)) -le 60 ]]; then
-        echo "<fn=1> </fn> "
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1> </fn></fc>"
     elif [[ $((perc)) -gt 60 && $((perc)) -le 80 ]]; then
-        echo "<fn=1> </fn> "
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1> </fn></fc>"
     else
-        echo "<fn=1> </fn> "
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1> </fn></fc>"
     fi
 else
     if [[ $((perc)) -ge 0 && $((perc)) -le 20 ]]; then
-        echo "<fn=1>  </fn> "
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1>  </fn></fc>"
     elif [[ $((perc)) -gt 20 && $((perc)) -le 40 ]]; then
-        echo "<fn=1>  </fn> "
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1>  </fn></fc>"
     elif [[ $((perc)) -gt 40 && $((perc)) -le 60 ]]; then
-        echo "<fn=1>  </fn> "
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1>  </fn></fc>"
     elif [[ $((perc)) -gt 60 && $((perc)) -le 80 ]]; then
-        echo "<fn=1>  </fn> "
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1>  </fn></fc>"
     else
-        echo "<fn=1>  </fn>"
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1>  </fn></fc>"
     fi
 fi

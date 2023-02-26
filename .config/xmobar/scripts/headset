@@ -5,9 +5,9 @@ profile=$(pacmd list-cards | awk '/active profile: <a2dp_sink_ldac>|headset_head
 profile=${profile:1:-1}
 
 if [[ $connected == "yes" ]]; then
-    headset="<fn=2><fc=#717733> </fc></fn>"
+    headset="<fc=#222222><fn=1></fn></fc><fc=#7B9246,#222222> </fc><fc=#222222><fn=1></fn></fc>"
 else
-    headset="<fn=2><fc=#A54242> </fc></fn>"
+    headset="<fc=#222222><fn=1></fn></fc><fc=#A54242,#222222> ﳌ</fc><fc=#222222><fn=1></fn></fc>"
 fi
 
 printf "$headset$mic"

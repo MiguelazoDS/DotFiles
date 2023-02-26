@@ -5,19 +5,19 @@ MUTE=$(pamixer --get-mute)
 if [ "$MUTE" == "true" ]; then
     COLOUR="#A54242"
 else
-    COLOUR="#FDD29E"
+    COLOUR="#6C99BB"
 fi
 
 VALUE=$(pamixer --get-volume)
 
 if [ "$MUTE" == "false" ]; then
     if [[ $((VALUE)) -ge 0 && $((VALUE)) -le 33 ]]; then
-        echo "<fn=2>奄</fn> <fc=$COLOUR>$VALUE</fc>%"
+        echo "<fc=#222222><fn=1></fn></fc><fn=0><fc=#6C99BB,#222222> </fc></fn><fc=$COLOUR,#222222>$VALUE%</fc><fc=#222222><fn=1></fn></fc>"
     elif [[ $((VALUE)) -gt 33 && $((VALUE)) -le 66 ]]; then
-        echo "<fn=2>奔</fn> <fc=$COLOUR>$VALUE</fc>%"
+        echo "<fc=#222222><fn=1></fn></fc><fn=0><fc=#6C99BB,#222222> </fc></fn><fc=$COLOUR,#222222>$VALUE%</fc><fc=#222222><fn=1></fn></fc>"
     else
-        echo "<fn=2>墳</fn> <fc=$COLOUR>$VALUE</fc>%"
+        echo "<fc=#222222><fn=1></fn></fc><fn=0><fc=#6C99BB,#222222> </fc></fn><fc=$COLOUR,#222222>$VALUE%</fc><fc=#222222><fn=1></fn></fc>"
     fi
 else
-    echo "<fn=2>婢</fn> <fc=$COLOUR>Mute</fc>"
+    echo "<fc=#222222><fn=1></fn></fc><fn=0><fc=#6C99BB,#222222>婢 </fc></fn><fc=$COLOUR,#222222>Mute</fc><fc=#222222><fn=1></fn></fc>"
 fi

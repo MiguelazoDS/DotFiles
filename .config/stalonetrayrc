@@ -5,9 +5,9 @@ transparent true
 kludges force_icons_size
 grow_gravity E
 icon_gravity E
-icon_size 18
+icon_size 21
 sticky true
 no_shrink false
-skip_taskbar true
-tint_level 200
-tint_color "#08131A"
+#skip_taskbar true
+tint_level 220
+tint_color "#31336E"

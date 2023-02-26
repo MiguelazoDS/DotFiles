@@ -16,9 +16,9 @@ if [[ ! "$state" =~ "FATAL" ]]; then
             if [[ "$song_name_length" -ge 30 ]]; then
                 song_name=${song_name:0:30}"..."
             fi
-            result=$(((total_length - song_name_length - 3 - 15)/2))
+            result=$(( (total_length - song_name_length - 3 - 15)/2 ))
             for i in $(seq 1 $result); do echo -n " "; done
-            printf " <fn=2><fc=#717733> </fc></fn>%s <fc=#67A0CD>[%s][%s]</fc>" "$song_name" $(mocp -Q %ct) $(mocp -Q %tt)
+            printf " <fc=#222222><fn=1></fn></fc><fn=0><fc=#7B9246,#222222> </fc></fn><fc=#6C99BB,#222222>%s </fc><fc=#D0D0D0,#222222>[%s][%s]</fc><fc=#222222><fn=1></fn></fc>" "$song_name" $(mocp -Q %ct) $(mocp -Q %tt)
             for i in $(seq 1 $result); do echo -n " "; done
         fi
 

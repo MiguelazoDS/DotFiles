@@ -27,7 +27,7 @@ function icon {
         50? ) icon=" "
             ;;
     esac
-    echo "<fn=1>$icon</fn>"
+    echo "<fc=#222222><fn=1></fn></fc><fn=0><fc=#6C99BB,#222222>$icon</fc></fn>"
 }
 
 function save_to_file {
@@ -61,7 +61,7 @@ case "$1" in
         weather_icon_code=$(echo "$weather_info" | jq '.weather' | jq '.[0].icon' | sed -e 's/^"//' -e 's/"$//')
         weather_temp=$(echo "$weather_info" | jq '.main' | jq '.temp' | sed -e 's/^"//' -e 's/"$//')
         weather_icon=$(icon "$weather_icon_code")
-        printf "%s %.0fºC, %s" "$weather_icon" "$(echo "$weather_temp"|bc)" "$weather_desc"
+        printf "%s<fc=#F5DFC1,#222222> %.0fºC, %s</fc><fc=#222222><fn=1></fn></fc>" "$weather_icon" "$(echo "$weather_temp"|bc)" "$weather_desc"
 
         # Extended
         weather_feels_like="$(echo "$(echo "$weather_info" | jq '.main' | jq '.feels_like' | sed -e 's/^"//' -e 's/"$//')"|bc)"

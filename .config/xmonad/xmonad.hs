@@ -33,7 +33,7 @@ main = do
               { -- ppSep = wrapSep " "
               ppOutput = hPutStrLn xmproc
               , ppCurrent = xmobarColor "#717733" "" . xmobarBorder "Bottom" "#717733" 4 -- . wrap "<{" "}>" -- Current workspace in xmobar
-              , ppHidden = xmobarColor "#A54242" "" . xmobarBorder "Bottom" "#A54242" 4 --wrap "*" ""   -- Hidden workspaces in xmobar
+              , ppHidden = xmobarColor "#A53C23" "" . xmobarBorder "Bottom" "#A53C23" 4 --wrap "*" ""   -- Hidden workspaces in xmobar
               , ppHiddenNoWindows = xmobarColor "#DEB88D" ""        -- Hidden workspaces (no windows)
               , ppSep =  "<fc=#FBA02F> </fc>"                     -- Separators in xmobar
               , ppUrgent = xmobarColor "#303030" "" . wrap "!" "!"  -- Urgent workspace

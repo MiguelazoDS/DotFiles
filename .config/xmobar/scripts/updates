@@ -45,9 +45,9 @@ case "$1" in
         fi
 
         if [ "$n_updates" -eq 0 ]; then
-            echo "<fn=2> </fn>"
+            echo "<fc=#222222><fn=1></fn></fc><fc=#7B9246,#222222><fn=0> </fn></fc><fc=#222222><fn=1></fn></fc>"
         else
-            echo "<fn=2> </fn>$n_updates"
+            echo "<fc=#222222><fn=1></fn></fc><fc=#D3A04D,#222222><fn=0> </fn>${n_updates}</fc><fc=#222222><fn=1></fn></fc>"
         fi
         ;;
 esac
