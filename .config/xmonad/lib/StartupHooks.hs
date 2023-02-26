@@ -15,7 +15,7 @@ myStartupHook = do
             spawnOnce "nitrogen --restore &"
             spawnOnce "sleep 5; killall -q picom; picom --config $HOME/.config/picom/picom.conf"
             spawnOnce "setxkbmap es"
-            spawnOnce "sleep 10; trayer --edge top --transparent true --alpha 75 --tint 0x181818 --align right --widthtype request --height 20 --margin 5 --distance 5"
+            spawnOnce "sleep 10; stalonetray"
             spawnOnce "xsetroot -cursor_name left_ptr"
             spawnOnce "/usr/lib/xfce4/notifyd/xfce4-notifyd"
             spawnOnce "$HOME/.xmonad/scripts/icon_gen"

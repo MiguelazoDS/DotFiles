@@ -38,7 +38,7 @@ EOF
 }
 
 # panel window name
-pname=${1:-panel}
+pname=${1:-stalonetray}
 
 # Width of the trayer window
 width=$(xprop -name $pname | grep 'program specified minimum size' | cut -d ' ' -f 5)
