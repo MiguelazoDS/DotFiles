@@ -1,0 +1,13 @@
+geometry 1x1+1900+4
+background "#08131A"
+decorations border
+transparent true
+kludges force_icons_size
+grow_gravity E
+icon_gravity E
+icon_size 18
+sticky true
+no_shrink false
+skip_taskbar true
+tint_level 200
+tint_color "#08131A"
