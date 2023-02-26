@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+recompile=$HOME/.config/xmonad/recompile
+
 function update {
-    yay -Syyu --devel --noconfirm; $HOME/.xmonad/recompile
+    yay -Syyu --devel --noconfirm; ${recompile}
 }
 
 function clean {
@@ -16,7 +18,7 @@ function clean {
 
 function ignore {
     pkgs="$(yay -Qsq "$1" | tr '\n' ',')"
-    yay -Syyu --ignore $pkgs --devel --noconfirm; "$HOME"/.xmonad/recompile
+    yay -Syyu --ignore $pkgs --devel --noconfirm; ${recompile}
 }
 
 function usage {
