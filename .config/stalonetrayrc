@@ -9,5 +9,5 @@ icon_size 21
 sticky true
 no_shrink false
 #skip_taskbar true
-tint_level 220
+tint_level 255
 tint_color "#31336E"
