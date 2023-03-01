@@ -16,7 +16,7 @@ Config { font    =  "FiraCode Semi-Bold Normal 11"
     , persistent = True
     , commands = [ Run Com "/home/miguel/.config/xmobar/scripts/battery" [] "bat" 10
     , Run BatteryP ["BAT1"]
-    ["-t", "<fn=1><acstatus></fn>"
+    ["-t", "<fc=#F5DFC1,#222222><fn=1><acstatus></fn></fc>"
     , "-L", "10", "-H", "80"
         , "-l", "#A54242,#222222", "-h", "#717733,#222222"
         , "--", "-O", "<left>%", "-o", "<left>%"
