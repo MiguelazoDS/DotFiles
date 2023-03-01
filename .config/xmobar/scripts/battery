@@ -7,15 +7,15 @@ leftCorner="<fc=#222222><fn=1></fn></fc>"
 
 if [[ $state =~ "Charging" ]]; then
     if [[ $((perc)) -ge 0 && $((perc)) -le 20 ]]; then
-        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1> </fn></fc>"
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1>  </fn></fc>"
     elif [[ $((perc)) -gt 20 && $((perc)) -le 40 ]]; then
-        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1> </fn></fc>"
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1>  </fn></fc>"
     elif [[ $((perc)) -gt 40 && $((perc)) -le 60 ]]; then
-        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1> </fn></fc>"
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1>  </fn></fc>"
     elif [[ $((perc)) -gt 60 && $((perc)) -le 80 ]]; then
-        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1> </fn></fc>"
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1>  </fn></fc>"
     else
-        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1> </fn></fc>"
+        echo "<fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=1>  </fn></fc>"
     fi
 else
     if [[ $((perc)) -ge 0 && $((perc)) -le 20 ]]; then

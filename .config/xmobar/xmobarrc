@@ -4,7 +4,7 @@ Config { font    =  "FiraCode Semi-Bold Normal 11"
                         , "FiraCode Semi-Bold Normal 20"               -- Haskell logo size
     ]
     , iconRoot = "/home/miguel/.config/xmobar/icons"
-    , bgColor = "#31336E"
+    , bgColor = "#383d54"
     , alpha = 255
     , border = FullBM 0
     , borderColor = "#222222"
@@ -22,7 +22,7 @@ Config { font    =  "FiraCode Semi-Bold Normal 11"
         , "--", "-O", "<left>%", "-o", "<left>%"
     ] 10
     , Run Date "<fc=#222222><fn=1></fn></fc><fc=#6C99BB,#222222><fn=0> </fn></fc>%a %_d/%m/%Y %H:%M" "date" 10
-    , Run Cpu ["-t","<fc=#222222><fn=1></fn></fc><fc=#6C99BB,#222222><fn=0> </fn><total>%</fc><fc=#222222><fn=1></fn></fc>","-H","75","--high","#A54242"] 10
+    , Run Cpu ["-t","<fc=#222222><fn=1></fn></fc><fc=#6C99BB,#222222><fn=0> </fn><total>%</fc><fc=#222222><fn=1></fn></fc>","-H","75","--high","#A54242,#222222"] 10
     , Run Com "/home/miguel/.config/xmobar/scripts/mem" [] "memory" 10
     , Run Com "/home/miguel/.config/xmobar/scripts/volume" [] "volume" 1
     , Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 200
