@@ -57,24 +57,24 @@ case "$1" in
 
         # Current weather
         weather_info=$(curl "$weather_url")
-        weather_desc=$(echo "$weather_info" | jq '.weather' | jq '.[].description' | sed -e 's/^"//' -e 's/"$//')
-        weather_icon_code=$(echo "$weather_info" | jq '.weather' | jq '.[0].icon' | sed -e 's/^"//' -e 's/"$//')
-        weather_temp=$(echo "$weather_info" | jq '.main' | jq '.temp' | sed -e 's/^"//' -e 's/"$//')
+        weather_desc=$(echo "$weather_info" | jq '.weather[0].description' | sed -e 's/^"//' -e 's/"$//')
+        weather_icon_code=$(echo "$weather_info" | jq '.weather[0].icon' | sed -e 's/^"//' -e 's/"$//')
+        weather_temp=$(echo "$weather_info" | jq '.main.temp' | sed -e 's/^"//' -e 's/"$//')
         weather_icon=$(icon "$weather_icon_code")
-        printf "%s<fc=#F5DFC1,#222222> %.0fºC, %s</fc><fc=#222222><fn=1></fn></fc>" "$weather_icon" "$(echo "$weather_temp"|bc)" "$weather_desc"
+        printf "%s<fc=#F5DFC1,#222222> %.0fºC, %s</fc><fc=#222222><fn=1></fn></fc>" "$weather_icon" "$(echo "$weather_temp"|bc)" "${weather_desc}"
 
         # Extended
-        weather_feels_like="$(echo "$(echo "$weather_info" | jq '.main' | jq '.feels_like' | sed -e 's/^"//' -e 's/"$//')"|bc)"
-        weather_wind_speed="$(echo "$(echo "$weather_info" | jq '.wind' | jq '.speed' | sed -e 's/^"//' -e 's/"$//')*3.6"|bc)"
-        weather_humidity=$(echo "$weather_info" | jq '.main' | jq '.humidity' | sed -e 's/^"//' -e 's/"$//')
+        weather_feels_like="$(echo "$(echo "$weather_info" | jq '.main.feels_like' | sed -e 's/^"//' -e 's/"$//')"|bc)"
+        weather_wind_speed="$(echo "$(echo "$weather_info" | jq '.wind.speed' | sed -e 's/^"//' -e 's/"$//')*3.6"|bc)"
+        weather_humidity=$(echo "$weather_info" | jq '.main.humidity' | sed -e 's/^"//' -e 's/"$//')
 
         # Forecast
         forecast_info=$(curl "$forecast_url")
-        forecast_temp=$(echo "$forecast_info" | jq '.list' | jq '.[0].main' | jq '.temp')
-        forecast_desc=$(echo "$forecast_info" | jq '.list' | jq '.[0].weather' | jq '.[].description' | sed -e 's/^"//' -e 's/"$//')
-        forecast_feels_like=$(echo "$forecast_info" | jq '.list' | jq '.[0].main' | jq '.feels_like')
-        forecast_humidity=$(echo "$forecast_info" | jq '.list' | jq '.[0].main' | jq '.humidity')
-        forecast_wind_speed=$(echo "$forecast_info" | jq '.list' | jq '.[0].wind' | jq '.speed')
+        forecast_temp=$(echo "$forecast_info" | jq '.list[0].main.temp')
+        forecast_desc=$(echo "$forecast_info" | jq '.list[0].weather[].description' | sed -e 's/^"//' -e 's/"$//')
+        forecast_feels_like=$(echo "$forecast_info" | jq '.list[0].main.feels_like')
+        forecast_humidity=$(echo "$forecast_info" | jq '.list[0].main.humidity')
+        forecast_wind_speed=$(echo "$forecast_info" | jq '.list[0].wind.speed')
 
         if [ -f /tmp/weather ]; then
             cp /tmp/weather /tmp/weather.bk
