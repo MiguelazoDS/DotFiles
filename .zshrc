@@ -163,7 +163,7 @@ alias yt-dlp-mp3="noglob yt-dlp --extract-audio --audio-format mp3 --audio-quali
 alias yt-dlp="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
 alias ssh="ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=3"
 alias sshfs="sshfs -o auto_cache,reconnect,ServerAliveInterval=5,ServerAliveCountMax=3"
-alias make="bear -- make"
+alias make="bear -- make -j$(nproc)"
 
 function dotf (){
     branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
