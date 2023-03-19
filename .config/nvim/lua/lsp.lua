@@ -1,5 +1,6 @@
 require'lspconfig'.asm_lsp.setup{
-    root_dir = require('lspconfig.util').root_pattern('*.asm')
+    root_dir = require('lspconfig.util').root_pattern('./'),
+    filetypes = {"nasm"}
 }
 require'lspconfig'.bashls.setup{}
 require'lspconfig'.clangd.setup{}

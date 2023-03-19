@@ -45,12 +45,20 @@ api.nvim_command('set showcmd')
 -- Convert tab into spaces
 api.nvim_command('set et|retab')
 
--- Set sh file typo for .zshrc
+-- Set sh file type for .zshrc
 local zshGrp = api.nvim_create_augroup("ZSHFileType", { clear = true})
-api.nvim_create_autocmd("BufReadPost", {
+api.nvim_create_autocmd({"BufNewFile", "BufReadPost"}, {
     pattern = {".zshrc"},
-    command = "set filetype=sh",
+    command = "setfiletype sh",
     group = zshGrp
+})
+
+-- Set nasm file type for .asm
+local asmGrp = api.nvim_create_augroup("NASMFileType", { clear = true})
+api.nvim_create_autocmd({"BufNewFile","BufReadPost"}, {
+    pattern = {"*.asm"},
+    command = "setfiletype nasm",
+    group = asmGrp
 })
 
 -- Clean command bar automatically

@@ -51,6 +51,9 @@ export PROMPT_EOL_MARK=""
 # Add .local/bin to path
 export PATH=$HOME/.local/bin:$PATH
 
+# Add cargo binaries
+export PATH=$HOME/.cargo/bin:$PATH
+
 # Verify pip, imosum, imagemagick, exa, and ripgrep are installed
 hash pip 2> /dev/null
 [[ $? -eq 1 ]] && (printf "\npip is not installed\nInstalling..."; yay -S python-pip --noconfirm)
