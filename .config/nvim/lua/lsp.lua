@@ -38,7 +38,6 @@ require'lspconfig'.marksman.setup{}
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.sqlls.setup{}
 require'lspconfig'.texlab.setup{}
-require'lspconfig'.textlsp.setup{}
 require'lspconfig'.yamlls.setup {}
 
 vim.g['LanguageClient_serverCommands'] = { 'sql',  {'sql-language-server', 'up', '--method', 'stdio'} }
@@ -58,7 +57,6 @@ require("nvim-lsp-installer").setup({
                          "pyright",
                          "sqlls",
                          "texlab",
-                         "textlsp",
                          "yamlls"}, -- ensure these servers are always installed
     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
     ui = {

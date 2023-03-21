@@ -85,3 +85,15 @@ api.nvim_create_autocmd("VimEnter,WinEnter,BufWinEnter", {
     group = lineGrp
 })
 
+-- Disable autosave globally
+vim.g.auto_save = 0
+-- Enable enable autosave for tex and assembly files only
+local saveGrp = api.nvim_create_augroup("AutoSave", { clear = true })
+api.nvim_create_autocmd("FileType", {
+    pattern = {"tex","nasm"},
+    callback = function()
+        vim.b.auto_save = 1
+    end,
+    group = saveGrp
+})
+
