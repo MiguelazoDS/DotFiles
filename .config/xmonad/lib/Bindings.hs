@@ -97,8 +97,7 @@ myKeys =
         , ("M-p", namedScratchpadAction myScratchPads "easyeffects")
 
 -- Multimedia Keys
-        , ("M-S-b", spawn "$HOME/.xmonad/scripts/bt_headset_toggle")
-        , ("M-S-p", spawn "$HOME/.xmonad/scripts/bt_profile_toggle")
+        , ("M-S-b", spawn "$HOME/.config/xmonad/scripts/bt_headset_toggle")
         , ("M-f", spawn "flameshot gui")
         , ("M-S-f", spawn "flameshot full")
         , ("<XF86MonBrightnessUp>", spawn "light -A 5")
