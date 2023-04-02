@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+backing_tracks_folder="$HOME/Music/08- Backing_tracks"
+
 function name_ext(){
     name=$(echo "$1" | cut -d '.' -f1)
     ext=$(echo "$1" | cut -d '.' -f2)
@@ -9,7 +11,6 @@ function convert {
     printf "\nNormalize volume\n\n"
     check_program "mp3gain"
     mp3gain -c -r -p -d 6 "$1".mp3
-    backing_tracks_folder="$HOME/Music/08- Backing_tracks"
     printf "\nMoving file to $backing_tracks_folder\n\n"
     [ ! -d "$backing_tracks_folder" ] && (mkdir "$backing_tracks_folder")
     mv "$1".mp3 "$backing_tracks_folder"
@@ -30,7 +31,9 @@ function without_vocals {
 }
 
 function clean {
-    trm -rf output
+    ffmpeg -i output/"$name"/other.wav output/"$name"/other.mp3 2> /dev/null
+    mv output/"$name"/other.wav "${backing_tracks_folder}/${name}_other.mp3"
+    rm -rf output
 }
 
 function usage {
@@ -102,7 +105,7 @@ if [[ ! -d "$spleeter_dir" ]]; then
     printf "%s environment does not exist\nCreating environment ...\n" $env_name
     conda create -n $env_name python=3.8
     printf "It's needed to close the terminal before env activation\n"
-    printf "\nInstall with \"conda install -c conda-forge %$1s\" and remember to type \"conda activate %$1\"\n" $env_name
+    printf "\nInstall with \"conda install -c conda-forge %s\" and remember to type \"conda activate %s\"\n" $env_name $env_name
     read -n 1 -r -s -p $'Press enter to continue...\n'
     exit 0
 fi
