@@ -1,9 +1,9 @@
 global _start
 
-section .data:
+section .data
 
-section .bss:
+section .bss
 
-section .text:
+section .text
 
 _start:
