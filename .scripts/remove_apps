@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-{ yay -Qqe & yay -Qqtt; } | sort | uniq |  fzf-tmux --bind 'ctrl-l:deselect-all' -m -r --print0 | xargs -r yay -Rs --noconfirm
+{ yay -Qqe & yay -Qqtt; } | sort | uniq |  fzf-tmux --bind 'ctrl-l:deselect-all' -m -r | xargs -r yay -Rs --noconfirm
