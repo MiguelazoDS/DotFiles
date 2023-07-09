@@ -71,6 +71,7 @@ hid_generic
 hid_multitouch
 hwmon_vid
 i2c_algo_bit
+i2c_ccgx_ucsi
 i2c_hid
 i2c_hid_acpi
 i2c_i801
