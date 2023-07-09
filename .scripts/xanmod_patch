@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 # Functions definition
 # ======================================================================
 
@@ -155,7 +157,11 @@ function download_xanmod {
     tar xf "$release_basename"
     mv xanmod-linux* linux-"$release_basename"
     rm "$release_basename"
-    cp linux-"$release_basename"/CONFIGS/xanmod/gcc/config linux-"$release_basename"/.config
+    config="config_x86-64-v1"
+    cp linux-"$release_basename"/CONFIGS/xanmod/gcc/${config} linux-"$release_basename"/.config
+    [ $? -eq 1 ] && (exit 1)
+    printf "\nUnset local version"
+    sed -i 's/\(CONFIG_LOCALVERSION=\).*/\1""/g' linux-"$release_basename"/.config
     printf "\nIce Lake Processor Family Set\n"
     sed -i 's/\(CONFIG_GENERIC_CPU\)=.*/\# \1 is not set/g' linux-"$release_basename"/.config
     sed -i 's/.*\(CONFIG_MSKYLAKE\) is not set/\1=y/' linux-"$release_basename"/.config
