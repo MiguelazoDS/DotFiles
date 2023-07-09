@@ -3,7 +3,7 @@
 recompile=$HOME/.config/xmonad/recompile
 
 function update {
-    yay -Syyu --devel --noconfirm; ${recompile}
+    yay -Syy && yay -Syyu --devel --noconfirm; ${recompile}
 }
 
 function clean {
@@ -14,6 +14,7 @@ function clean {
         yay -Rns $(echo "$temp") --noconfirm
         paccache -r
     fi
+    setxkbmap es
 }
 
 function ignore {
