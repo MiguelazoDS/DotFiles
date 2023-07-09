@@ -110,13 +110,13 @@ endsnippet
 
 snippet val_input "Input validation using getopt" b
 function usage {
-    printf "Usage: \n\t./${1:program.sh} [Options]\n"
+    printf "Usage: \n\t./\${0} [Options]\n"
     printf "\nOptions: \n"
     printf "\t${2:-l} <value> ${3:--long} <value>\n"
     printf "\t${4:-o} <value> ${5:--long2} <value>\n"
 }
 
-if [ "$#" -lt 6 ]; then
+if [ "$#" -lt 4 ]; then
     usage
     exit 0
 fi
