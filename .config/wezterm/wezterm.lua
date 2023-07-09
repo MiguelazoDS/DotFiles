@@ -1,8 +1,9 @@
 local wezterm = require 'wezterm'
 
 return {
+    front_end = "OpenGL",
     font = wezterm.font("FiraCode Nerd Font", {weight="Medium", stretch="Normal", style="Normal"}),
-    font_size = 11,
+    font_size = 12,
     color_scheme = "Afterglow (Gogh)",
     hide_tab_bar_if_only_one_tab = true,
     window_close_confirmation = 'AlwaysPrompt',
