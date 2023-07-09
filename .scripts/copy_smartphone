@@ -34,9 +34,9 @@ do
     esac
 done
 
-if [ ! -d "$HOME/.Smartphone/SD card" ]; then
+if [ ! -d "$HOME/.Smartphone/SanDisk SD card" ]; then
     go-mtpfs -usb-timeout=3600000 $HOME/.Smartphone 2>/dev/null &disown
     sleep 1
 fi
 
-find . -maxdepth 1 -regex ".*/$regex" -exec rsync -auvP {} ~/.Smartphone/SD\ card \;
+find . -maxdepth 1 -regex ".*/$regex" -exec rsync -auvP {} ~/.Smartphone/SanDisk\ SD\ card \;
