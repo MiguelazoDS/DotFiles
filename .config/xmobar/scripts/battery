@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-perc=$(acpi | cut -d ' ' -f 4 | cut -d '%' -f 1)
-state=$(acpi | cut -d ' ' -f 3 | cut -d ',' -f 1)
+perc=$(acpi | cut -d ' ' -f5- | cut -d '%' -f1)
+state=$(acpi | cut -d ':' -f2 | cut -d ',' -f1)
 
 leftCorner="<fc=#222222><fn=1></fn></fc>"
 
