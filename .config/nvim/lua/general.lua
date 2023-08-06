@@ -97,3 +97,10 @@ api.nvim_create_autocmd("FileType", {
     group = saveGrp
 })
 
+local idlGrp = api.nvim_create_augroup("IDLSetFileType", { clear = true })
+api.nvim_create_autocmd("VimEnter,WinEnter,BufNewFile,BufReadPost", {
+    pattern = {"*.fbs"},
+    command = [[setfiletype fbs]],
+    group = idlGrp
+})
+
