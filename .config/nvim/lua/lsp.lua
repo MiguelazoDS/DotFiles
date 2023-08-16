@@ -39,7 +39,10 @@ require'lspconfig'.pyright.setup{}
 require'lspconfig'.sqlls.setup{}
 require'lspconfig'.texlab.setup{}
 require'lspconfig'.yamlls.setup{}
-require'lspconfig'.verible.setup{}
+require'lspconfig'.verible.setup{
+    root_dir = require('lspconfig.util').root_pattern('./'),
+    filetypes = {"verilog"}
+}
 
 vim.g['LanguageClient_serverCommands'] = { 'sql',  {'sql-language-server', 'up', '--method', 'stdio'} }
 
