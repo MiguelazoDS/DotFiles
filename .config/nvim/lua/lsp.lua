@@ -38,7 +38,8 @@ require'lspconfig'.marksman.setup{}
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.sqlls.setup{}
 require'lspconfig'.texlab.setup{}
-require'lspconfig'.yamlls.setup {}
+require'lspconfig'.yamlls.setup{}
+require'lspconfig'.verible.setup{}
 
 vim.g['LanguageClient_serverCommands'] = { 'sql',  {'sql-language-server', 'up', '--method', 'stdio'} }
 
