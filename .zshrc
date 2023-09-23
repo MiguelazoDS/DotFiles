@@ -54,15 +54,15 @@ export PATH=$HOME/.local/bin:$PATH
 # Add cargo binaries
 export PATH=$HOME/.cargo/bin:$PATH
 
-# Verify pip, imosum, imagemagick, exa, and ripgrep are installed
+# Verify pip, imosum, imagemagick, eza, and ripgrep are installed
 hash pip 2> /dev/null
 [[ $? -eq 1 ]] && (printf "\npip is not installed\nInstalling..."; yay -S python-pip --noconfirm)
 # hash imosum 2>/dev/null
 # [[ $? -eq 1 ]] && (printf "\nimosum is not installed\nInstalling..."; pip install imohash)
 hash convert
 [[ $? -eq 1 ]] && (printf "\nimagemagick is not installed\nInstalling..."; yay -S imagemagick --noconfirm)
-hash exa
-[[ $? -eq 1 ]] && (printf "\nexa is not installed\nInstalling..."; yay -S exa --noconfirm)
+hash eza
+[[ $? -eq 1 ]] && (printf "\neza is not installed\nInstalling..."; yay -S eza --noconfirm)
 hash rg
 [[ $? -eq 1 ]] && (printf "\nripgrep is not installed\nInstalling..."; yay -S ripgrep --noconfirm)
 
@@ -156,7 +156,7 @@ zplug load
 
 #ALIASES
 #==========================================================================================
-alias ls='exa --icons'
+alias ls='eza --icons'
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="echo rm command is discourage, use trm instead. If you still want to run it, use backslash to escape it"
