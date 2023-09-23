@@ -33,13 +33,11 @@ require'lspconfig'.lua_ls.setup {
   },
 }
 require'lspconfig'.marksman.setup{}
--- optional cmake
---require'lspconfig'.neocmake.setup{}
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.sqlls.setup{}
 require'lspconfig'.texlab.setup{}
 require'lspconfig'.yamlls.setup{}
-require'lspconfig'.verible.setup{
+require'lspconfig'.veridian.setup{
     root_dir = require('lspconfig.util').root_pattern('./'),
     filetypes = {"verilog"}
 }
@@ -71,7 +69,6 @@ require("nvim-lsp-installer").setup({
         }
     }
 })
-
 
 require('lspkind').init({
     -- DEPRECATED (use mode instead): enables text annotations
