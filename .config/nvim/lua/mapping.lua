@@ -62,7 +62,6 @@ map('n', 'T', '<Plug>Sneak_T')
 map('n', '<LEADER>m', '<Plug>MarkdownPreviewToggle')
 
 -- LSP mapping
-
 api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 api.nvim_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 api.nvim_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
@@ -70,3 +69,8 @@ api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 api.nvim_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+-- Vimtex
+map('n', '<LEADER>ll', '<Plug>(vimtex-compile)')
+map('n', '<LEADER>lv', '<Plug>(vimtex-view)')
+
