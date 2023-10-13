@@ -80,7 +80,7 @@ cmd[[set shiftwidth=4]]
 -- Enable current cursor line highlight
 cmd[[set cursorline]]
 local lineGrp = api.nvim_create_augroup("HighlightCurrentLine", { clear = true })
-api.nvim_create_autocmd("VimEnter,WinEnter,BufWinEnter", {
+api.nvim_create_autocmd({"VimEnter","WinEnter","BufWinEnter"}, {
     command = [[hi CursorLine term=bold cterm=bold guibg=#203d39]],
     group = lineGrp
 })
@@ -98,7 +98,7 @@ api.nvim_create_autocmd("FileType", {
 })
 
 local idlGrp = api.nvim_create_augroup("IDLSetFileType", { clear = true })
-api.nvim_create_autocmd("VimEnter,WinEnter,BufNewFile,BufReadPost", {
+api.nvim_create_autocmd({"VimEnter","WinEnter","BufNewFile","BufReadPost"}, {
     pattern = {"*.fbs"},
     command = [[setfiletype fbs]],
     group = idlGrp
