@@ -59,6 +59,7 @@ fam15h_power
 fat
 fb_sys_fops
 fscache
+ftdi_sio
 fuse
 gf128mul
 ghash_clmulni_intel
