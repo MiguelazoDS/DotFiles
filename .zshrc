@@ -156,7 +156,7 @@ zplug load
 
 #ALIASES
 #==========================================================================================
-alias ls='eza --icons'
+alias ls='eza --icons=always'
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="echo rm command is discourage, use trm instead. If you still want to run it, use backslash to escape it"
@@ -167,6 +167,7 @@ alias yt-dlp="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/bes
 alias ssh="ssh -o ServerAliveInterval=5 -o ServerAliveCountMax=3"
 alias sshfs="sshfs -o auto_cache,reconnect,ServerAliveInterval=5,ServerAliveCountMax=3"
 alias make="bear -- make -j$(nproc)"
+alias fix_fonts='echo -e "\033c"'
 
 function dotf (){
     branch=$(echo "$(dotfile status)" | head -1 | cut -d ' ' -f3)
