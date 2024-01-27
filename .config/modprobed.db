@@ -288,6 +288,7 @@ videobuf2_vmalloc
 videodev
 virt_dma
 vivaldi_fmap
+vmmon
 wmi
 wmi_bmof
 x86_pkg_temp_thermal
