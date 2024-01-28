@@ -1,13 +1,13 @@
-require'lspconfig'.asm_lsp.setup{
-    root_dir = require('lspconfig.util').root_pattern('./'),
-    filetypes = {"nasm"}
-}
+--require'lspconfig'.asm_lsp.setup{
+    --root_dir = require('lspconfig.util').root_pattern('./'),
+    --filetypes = {"nasm"}
+--}
 require'lspconfig'.bashls.setup{}
 require'lspconfig'.clangd.setup{}
 require'lspconfig'.cmake.setup{}
 require'lspconfig'.diagnosticls.setup{}
 require'lspconfig'.grammarly.setup{}
-require'lspconfig'.hls.setup{}
+--require'lspconfig'.hls.setup{}
 require'lspconfig'.jsonls.setup{}
 require'lspconfig'.lemminx.setup{}
 require'lspconfig'.lua_ls.setup {
@@ -41,25 +41,27 @@ require'lspconfig'.veridian.setup{
     root_dir = require('lspconfig.util').root_pattern('./'),
     filetypes = {"verilog"}
 }
+require'lspconfig'.autotools_ls.setup{}
 
 vim.g['LanguageClient_serverCommands'] = { 'sql',  {'sql-language-server', 'up', '--method', 'stdio'} }
 
-require("nvim-lsp-installer").setup({
-    ensure_installed = { "asm_lsp",
+require("mason").setup()
+require("mason-lspconfig").setup {
+    ensure_installed = { "autotools_ls",
+                         --"asm_lsp",
                          "bashls",
                          "clangd",
                          "cmake",
                          "diagnosticls",
                          "grammarly",
-                         "hls",
+                         --"hls",
                          "jsonls",
                          "lemminx",
-                         "lua",
+                         "lua_ls",
                          "marksman",
                          "pyright",
-                         "sqlls",
-                         "texlab",
-                         "yamlls"}, -- ensure these servers are always installed
+                         --"sqlls",
+                         "texlab"}, -- ensure these servers are always installed
     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
     ui = {
         icons = {
@@ -68,7 +70,7 @@ require("nvim-lsp-installer").setup({
             server_uninstalled = "✗"
         }
     }
-})
+}
 
 require('lspkind').init({
     -- DEPRECATED (use mode instead): enables text annotations
