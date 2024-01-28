@@ -8,9 +8,7 @@ vim.g.vscode_style = "dark"
 vim.g.vscode_transparent = 1
 -- Enable italic comment
 vim.g.vscode_italic_comment = 1
--- Disable nvim-tree background color
-vim.g.vscode_disable_nvimtree_bg = true
-vim.cmd([[colorscheme vscode]])
+vim.cmd([[colorscheme kanagawa]])
 
 require'nvim-web-devicons'.setup {
  -- your personnal icons can go here (to override)
