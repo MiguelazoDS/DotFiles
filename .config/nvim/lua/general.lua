@@ -69,10 +69,10 @@ api.nvim_create_autocmd("CursorMoved", {
 })
 
 -- Tab 4 spaces
-cmd[[set tabstop=4]]
+cmd[[set tabstop=2]]
 
 -- Indent
-cmd[[set shiftwidth=4]]
+cmd[[set shiftwidth=2]]
 
 -- gitgutter
 --vim.api.nvim_command('set updatetime=100')
