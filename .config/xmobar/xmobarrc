@@ -1,7 +1,7 @@
-Config { font    =  "FiraCode Semi-Bold Normal 11"
-    , additionalFonts = [ "FiraCode Semi-Bold Normal 11.8"             -- Rounded corners for fn=0
-                        , "FiraCode Semi-Bold Normal 15"
-                        , "FiraCode Semi-Bold Normal 20"               -- Haskell logo size
+Config { font    =  "FiraCode Nerd Font Medium Normal 12"
+    , additionalFonts = [ "FiraCode Nerd Font Medium Normal 11.5"             -- Rounded corners for fn=0
+                        , "FiraCode Nerd Font Medium Normal 15"
+                        , "FiraCode Nerd Font Medium Normal 20"               -- Haskell logo size
     ]
     , iconRoot = "/home/miguel/.config/xmobar/icons"
     , bgColor = "#383d54"
