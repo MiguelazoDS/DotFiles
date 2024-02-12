@@ -12,7 +12,7 @@ xmobarEscape = concatMap doubleLts
         doubleLts x   = [x]
 
 myWorkspaces :: [String]
-myWorkspaces = clickable $ replicate n $ xmobarEscape "<fc=#FDD29E,#222222><fn=2>\986705</fn></fc>"
+myWorkspaces = clickable $ replicate n $ xmobarEscape "<fc=#FDD29E><fn=2>\987396</fn></fc>"
    where
          clickable l = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>" |
                        (i,ws) <- zip [1..n] l, let n = i ]

@@ -1,7 +1,7 @@
-Config { font    =  "FiraCode Nerd Font Medium Normal 12"
-    , additionalFonts = [ "FiraCode Nerd Font Medium Normal 11.5"             -- Rounded corners for fn=0
-                        , "FiraCode Nerd Font Medium Normal 15"
-                        , "FiraCode Nerd Font Medium Normal 20"               -- Haskell logo size
+Config { font    =  "FiraCode Nerd Font Medium Normal 11.5"
+    , additionalFonts = [ "FiraCode Nerd Font Semi-Bold Normal 12"      -- Rounded corners for fn=0
+                        , "FiraCode Nerd Font Semi-Bold Normal 15"
+                        , "FiraCode Nerd Font Semi-Bold Normal 20"      -- Haskell logo size
     ]
     , iconRoot = "/home/miguel/.config/xmobar/icons"
     , bgColor = "#383d54"
@@ -35,4 +35,4 @@ Config { font    =  "FiraCode Nerd Font Medium Normal 12"
     ]
     , sepChar = "%"
     , alignSep = "}{"
-    , template = "<fc=#9F4E85,#222222><fn=3>  </fn></fc><fn=3></fn>%UnsafeStdinReader% <fc=#FF8A39>%moc%</fc> } <fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=0>%locks%</fn></fc><fc=#222222><fn=1></fn></fc>  <fc=#F5DFC1>%headset%</fc> <fc=#F5DFC1>%weather%</fc> <fc=#F5DFC1,#222222>%date%</fc><fc=#222222><fn=1></fn></fc> { <fc=#F5DFC1>%updates%</fc> <fc=#F5DFC1>%volume%</fc> <fc=#F5DFC1>%cpu%</fc> <fc=#F5DFC1>%memory%</fc> <fc=#F5DFC1>%bat%</fc><fc=#F5DFC1>%battery%</fc><fc=#222222><fn=1></fn></fc> <fc=#E8DED1>%trayerpad%</fc>"
+    , template = "<fc=#9F4E85,#222222><fn=3>  </fn></fc><fn=3></fn>%UnsafeStdinReader% <fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=0>%locks%</fn></fc><fc=#222222><fn=1></fn></fc><fc=#F5DFC1>%headset%</fc><fc=#FF8A39>%moc%</fc>}<fc=#F5DFC1>%weather%</fc><fc=#F5DFC1,#222222>%date%</fc><fc=#222222><fn=1></fn></fc>{<fc=#F5DFC1>%updates%</fc><fc=#F5DFC1>%volume%</fc><fc=#F5DFC1>%cpu%</fc><fc=#F5DFC1>%memory%</fc><fc=#F5DFC1>%bat%</fc><fc=#F5DFC1>%battery%</fc><fc=#222222><fn=1></fn></fc> <fc=#E8DED1>%trayerpad%</fc>"

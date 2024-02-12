@@ -205,6 +205,8 @@ scsi_mod
 sd_mod
 serio
 serio_raw
+sha1_ssse3
+sha256_ssse3
 sha512_ssse3
 snd
 snd_compress
@@ -238,6 +240,7 @@ snd_sof
 snd_sof_intel_byt
 snd_sof_intel_hda
 snd_sof_intel_hda_common
+snd_sof_intel_hda_mlink
 snd_sof_intel_ipc
 snd_sof_pci
 snd_sof_pci_intel_cnl
@@ -277,6 +280,7 @@ ufs
 uinput
 usbhid
 usb_storage
+uvc
 uvcvideo
 veth
 vfat
@@ -289,6 +293,7 @@ videodev
 virt_dma
 vivaldi_fmap
 vmmon
+vmw_vmci
 wmi
 wmi_bmof
 x86_pkg_temp_thermal

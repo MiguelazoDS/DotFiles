@@ -26,14 +26,14 @@ wrapSep = wrap (xmobarColor "#717733" "" (xmobarFont 5 "\xe0b6"))
                (xmobarColor "#717733" "" (xmobarFont 5 "\xe0b4"))
 
 main = do
-    xmproc <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
+    xmproc <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc.hs"
     xmonad $ ewmh desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
               { -- ppSep = wrapSep " "
               ppOutput = hPutStrLn xmproc
-              , ppCurrent = xmobarColor "#717733" "" . xmobarBorder "Bottom" "#717733" 4 -- . wrap "<{" "}>" -- Current workspace in xmobar
-              , ppHidden = xmobarColor "#A53C23" "" . xmobarBorder "Bottom" "#A53C23" 4 --wrap "*" ""   -- Hidden workspaces in xmobar
+              , ppCurrent = xmobarColor "#717733" "" . xmobarBorder "Bottom" "#717733" 3 -- . wrap "<{" "}>" -- Current workspace in xmobar
+              , ppHidden = xmobarColor "#A53C23" "" . xmobarBorder "Bottom" "#A53C23" 3 --wrap "*" ""   -- Hidden workspaces in xmobar
               , ppHiddenNoWindows = xmobarColor "#DEB88D" ""        -- Hidden workspaces (no windows)
               , ppSep =  "<fc=#FBA02F> </fc>"                     -- Separators in xmobar
               , ppUrgent = xmobarColor "#303030" "" . wrap "!" "!"  -- Urgent workspace
