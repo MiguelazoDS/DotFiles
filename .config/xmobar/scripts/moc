@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 state="$(mocp -Q %state 2>&1)"
-total_length=56
+total_length=30
+limit=15
 
 if [[ ! "$state" =~ "FATAL" ]]; then
     if [ "$(mocp -Q %state)" != "STOP" ];then
@@ -13,8 +14,8 @@ if [[ ! "$state" =~ "FATAL" ]]; then
             name=$(basename "$(mocp -Q %file)")
             song_name=$(echo "$name" | cut -d '.' -f 1)
             song_name_length=${#song_name}
-            if [[ "$song_name_length" -ge 30 ]]; then
-                song_name=${song_name:0:30}"..."
+            if [[ "$song_name_length" -ge $limit ]]; then
+                song_name=${song_name:0:$limit}"..."
             fi
             result=$(( (total_length - song_name_length - 3 - 15)/2 ))
             for i in $(seq 1 $result); do echo -n " "; done
