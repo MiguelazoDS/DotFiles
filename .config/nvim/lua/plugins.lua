@@ -27,9 +27,7 @@ return require('packer').startup(function(use)
   -- Tabline
   use 'akinsho/bufferline.nvim'
   -- Colorscheme
-  use 'Mofiqul/vscode.nvim'
-  use { "catppuccin/nvim", as = "catppuccin" }
-  use "rebelot/kanagawa.nvim"
+  use 'luisiacc/gruvbox-baby'
   -- Icons
   use 'nvim-tree/nvim-web-devicons'
   -- Fuzzy finder
