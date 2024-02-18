@@ -2,25 +2,61 @@
 -- nvim devicons configuration
 -- ===========================================================
 
-vim.cmd([[set termguicolors]])
-local config = require("gruvbox-baby.config")
-vim.g.function_style = "NONE"
-vim.g.variable_style = "NONE"
+-- Overrides highlights custom config. Othewise things like diagnostics do not reflect changes.
+local colors = require("gruvbox-baby.colors").config({
+  color_overrides = {
+    background = "#202020",
+    medium_gray = "#78797a",
+    soft_yellow = "#db9a27",
+    soft_green = "#8d8f18",
+    bright_yellow = "#f2ce79",
+    orange = "#b04c0b",
+    red = "#db3e2c",
+    error_red = "#8a1e1e",
+    magenta = "#7c76cf",
+    pink = "#e37f7f",
+    light_blue = "#5ac1db",
+    dark_gray = "#3a495c",
+    blue_gray = "#386eab",
+    forest_green = "#4f734b",
+    clean_green = "#81a668"
+  }
+})
 
--- Color overrides gruvbox_baby
--- It does not work when using with colors.<color>.
+-- Overrides local highlights. Otherwise it is not updated.
 vim.g.gruvbox_baby_color_overrides = {
-  --https://github.com/luisiacc/gruvbox-baby/blob/bd52e62d8134647090108189e69c8b3cd18bdbbf/lua/gruvbox-baby/colors.lua#L103
+  background = "#202020",
+  medium_gray = "#78797a",
+  soft_yellow = "#db9a27",
+  soft_green = "#8d8f18",
+  bright_yellow = "#f2ce79",
+  orange = "#b04c0b",
+  red = "#db3e2c",
+  error_red = "#8a1e1e",
+  magenta = "#7c76cf",
+  pink = "#e37f7f",
+  light_blue = "#5ac1db",
+  dark_gray = "#3a495c",
+  blue_gray = "#386eab",
+  forest_green = "#4f734b",
+  clean_green = "#498742"
 }
 
-local colors = require("gruvbox-baby.colors").config()
+
+-- Custom highlights
 local util = require("gruvbox-baby.util")
+local config = require("gruvbox-baby.config")
 vim.g.gruvbox_baby_highlights = {
   ["@function.builtin"] = { fg = colors.orange, style = config.function_style },
+  ["@punctuation.bracket"] = { fg = colors.milk },
   DiagnosticError = { fg = colors.error_red },
   DiagnosticVirtualTextError = { fg = colors.error_red, bg = util.darken(colors.error_red, 0.1, colors.dark) },
-  DiagnosticVirtualTextWarn = { fg = colors.soft_yellow, bg = util.darken(colors.soft_yellow, 0.1, colors.dark) }
+  DiagnosticVirtualTextWarn = { fg = colors.soft_yellow, bg = util.darken(colors.soft_yellow, 0.1, colors.dark) },
+  ["@lsp.type.enumMember.c"] = { fg = colors.pink },
+  ["@Comment"] = { fg = colors.medium_gray }
 }
+
+-- Select color scheme
 vim.cmd([[colorscheme gruvbox-baby]])
 
 require 'nvim-web-devicons'.setup {
@@ -30,7 +66,7 @@ require 'nvim-web-devicons'.setup {
   override = {
     zsh = {
       icon = "",
-      color = "#428850",
+      color = "#8d8f18",
       cterm_color = "65",
       name = "Zsh"
     }
@@ -51,7 +87,7 @@ require 'nvim-web-devicons'.setup {
   override_by_filename = {
     [".gitignore"] = {
       icon = "",
-      color = "#f1502f",
+      color = "#8a1e1e",
       name = "Gitignore"
     }
   },
@@ -60,7 +96,7 @@ require 'nvim-web-devicons'.setup {
   override_by_extension = {
     ["log"] = {
       icon = "",
-      color = "#81e043",
+      color = "#8d8f18",
       name = "Log"
     }
   },
@@ -79,17 +115,6 @@ require("bufferline").setup {
   }
 }
 
-require 'colorizer'.setup()
-
---[[require('nvim-cursorline').setup {
-  cursorline = {
-    enable = true,
-    timeout = 100,
-    number = false,
-  },
-  cursorword = {
-    enable = true,
-    min_length = 3,
-    hl = { underline = true },
-  }
-}]]
+require 'colorizer'.setup({
+  filetypes = { 'lua' }
+})

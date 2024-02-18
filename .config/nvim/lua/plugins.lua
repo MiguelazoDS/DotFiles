@@ -60,7 +60,7 @@ return require('packer').startup(function(use)
   use 'justinmk/vim-sneak'
   use 'preservim/nerdcommenter'
   -- Style
-  use 'norcalli/nvim-colorizer.lua'
+  use 'NvChad/nvim-colorizer.lua'
   use 'lukas-reineke/indent-blankline.nvim'
   -- Misc
   use 'lambdalisue/suda.vim'

@@ -6,18 +6,19 @@ local lualine = require('lualine')
 -- Color table for highlights
 -- stylua: ignore
 local colors = {
-  bg       = '#202328',
-  fg       = '#bbc2cf',
-  yellow   = '#ECBE7B',
-  cyan     = '#008080',
-  darkblue = '#081633',
-  green    = '#98be65',
-  orange   = '#FF8800',
-  violet   = '#a9a1e1',
-  magenta  = '#c678dd',
-  blue     = '#51afef',
-  red      = '#ec5f67',
+  bg       = '#101010',
+  fg       = '#E7D7AD',
+  yellow   = '#db9a27',
+  cyan     = '#5ac1db',
+  darkblue = '#386eab',
+  green    = '#8d8f18',
+  orange   = '#b04c0b',
+  violet   = '#7c76cf',
+  magenta  = '#e37f7f',
+  blue     = '#3a495c',
+  red      = '#8a1e1e',
 }
+
 
 local conditions = {
   buffer_not_empty = function()
@@ -129,7 +130,7 @@ ins_left {
 ins_left {
   'filename',
   cond = conditions.buffer_not_empty,
-  color = { fg = colors.magenta, gui = 'bold' },
+  color = { fg = colors.green, gui = 'bold' },
 }
 
 ins_left { 'location' }
@@ -158,7 +159,7 @@ ins_left {
 ins_left {
   -- Lsp server name .
   function()
-    local msg = 'No Active Lsp'
+    local msg = 'No Active Lsp          '
     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
     local clients = vim.lsp.get_active_clients()
     if next(clients) == nil then
@@ -167,13 +168,13 @@ ins_left {
     for _, client in ipairs(clients) do
       local filetypes = client.config.filetypes
       if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return client.name
+        return client.name .. '          '
       end
     end
     return msg
   end,
-  icon = ' LSP:',
-  color = { fg = '#ffffff', gui = 'bold' },
+  icon = '           LSP:',
+  color = { fg = colors.darkblue, bg = colors.fg, gui = 'bold' },
 }
 
 -- Add components to right sections
