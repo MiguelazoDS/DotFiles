@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source $HOME/.config/xmobar/scripts/colors
+
 function icon {
     case "$1" in
         01d ) icon=" "
@@ -27,7 +29,7 @@ function icon {
         50? ) icon=" "
             ;;
     esac
-    echo "<fc=#222222><fn=1></fn></fc><fn=0><fc=#6C99BB,#222222>$icon</fc></fn>"
+    echo "<fc=$bg><fn=1></fn></fc><fn=0><fc=$fg,$bg>$icon</fc></fn>"
 }
 
 function save_to_file {
@@ -61,7 +63,7 @@ case "$1" in
         weather_icon_code=$(echo "$weather_info" | jq '.weather[0].icon' | sed -e 's/^"//' -e 's/"$//')
         weather_temp=$(echo "$weather_info" | jq '.main.temp' | sed -e 's/^"//' -e 's/"$//')
         weather_icon=$(icon "$weather_icon_code")
-        printf "%s<fc=#F5DFC1,#222222> %.0fºC, %s</fc><fc=#222222><fn=1></fn></fc>" "$weather_icon" "$(echo "$weather_temp"|bc)" "${weather_desc}"
+        printf "%s<fc=$textColor,$bg> %.0fºC, %s</fc><fc=$bg><fn=1></fn></fc>" "$weather_icon" "$(echo "$weather_temp"|bc)" "${weather_desc}"
 
         # Extended
         weather_feels_like="$(echo "$(echo "$weather_info" | jq '.main.feels_like' | sed -e 's/^"//' -e 's/"$//')"|bc)"

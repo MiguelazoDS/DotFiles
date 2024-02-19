@@ -12,14 +12,14 @@ local colors = require("gruvbox-baby.colors").config({
     bright_yellow = "#f2ce79",
     orange = "#b04c0b",
     red = "#db3e2c",
-    error_red = "#8a1e1e",
+    error_red = "#b32727",
     magenta = "#7c76cf",
     pink = "#e37f7f",
     light_blue = "#5ac1db",
     dark_gray = "#3a495c",
     blue_gray = "#386eab",
-    forest_green = "#4f734b",
-    clean_green = "#81a668"
+    forest_green = "#3d7037",
+    clean_green = "#438c3b"
   }
 })
 
@@ -32,14 +32,14 @@ vim.g.gruvbox_baby_color_overrides = {
   bright_yellow = "#f2ce79",
   orange = "#b04c0b",
   red = "#db3e2c",
-  error_red = "#8a1e1e",
+  error_red = "#b32727",
   magenta = "#7c76cf",
   pink = "#e37f7f",
   light_blue = "#5ac1db",
   dark_gray = "#3a495c",
   blue_gray = "#386eab",
-  forest_green = "#4f734b",
-  clean_green = "#498742"
+  forest_green = "#3d7037",
+  clean_green = "#438c3b"
 }
 
 

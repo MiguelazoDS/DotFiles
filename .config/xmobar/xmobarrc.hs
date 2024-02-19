@@ -4,10 +4,10 @@ Config { font    =  "FiraCode Nerd Font Medium Normal 11.5"
                         , "FiraCode Nerd Font Semi-Bold Normal 20"      -- Haskell logo size
     ]
     , iconRoot = "/home/miguel/.config/xmobar/icons"
-    , bgColor = "#383d54"
+    , bgColor = "#504945"
     , alpha = 255
     , border = FullBM 0
-    , borderColor = "#222222"
+    , borderColor = "#242424"
     , borderWidth = 3
     , position = Static{xpos = 0, ypos= 0, width = 1920, height = 29}
     , lowerOnStart = True
@@ -16,13 +16,13 @@ Config { font    =  "FiraCode Nerd Font Medium Normal 11.5"
     , persistent = True
     , commands = [ Run Com "/home/miguel/.config/xmobar/scripts/battery" [] "bat" 10
     , Run BatteryP ["BAT1"]
-    ["-t", "<fc=#F5DFC1,#222222><fn=1><acstatus></fn></fc>"
+    ["-t", "<fc=#E7D7AD,#242424><fn=1><acstatus></fn></fc>"
     , "-L", "10", "-H", "80"
-        , "-l", "#A54242,#222222", "-h", "#717733,#222222"
+        , "-l", "#db3e2c,#242424", "-h", "#8d8f18,#242424"
         , "--", "-O", "<left>%", "-o", "<left>%"
     ] 10
-    , Run Date "<fc=#222222><fn=1></fn></fc><fc=#6C99BB,#222222><fn=0> </fn></fc>%a %_d/%m/%Y %H:%M" "date" 10
-    , Run Cpu ["-t","<fc=#222222><fn=1></fn></fc><fc=#6C99BB,#222222><fn=0> </fn><total>%</fc><fc=#222222><fn=1></fn></fc>","-H","75","--high","#A54242,#222222"] 10
+    , Run Date "<fc=#242424><fn=1></fn></fc><fc=#386eab,#242424><fn=0> </fn></fc>%a %_d/%m/%Y %H:%M" "date" 10
+    , Run Cpu ["-t","<fc=#242424><fn=1></fn></fc><fc=#386eab,#242424><fn=0> </fn><total>%</fc><fc=#242424><fn=1></fn></fc>","-H","75","--high","#db3e2c,#242424"] 10
     , Run Com "/home/miguel/.config/xmobar/scripts/mem" [] "memory" 10
     , Run Com "/home/miguel/.config/xmobar/scripts/volume" [] "volume" 1
     , Run Com "/home/miguel/.config/xmobar/scripts/updates" [] "updates" 200
@@ -35,4 +35,4 @@ Config { font    =  "FiraCode Nerd Font Medium Normal 11.5"
     ]
     , sepChar = "%"
     , alignSep = "}{"
-    , template = "<fc=#9F4E85,#222222><fn=3>  </fn></fc><fn=3></fn>%UnsafeStdinReader% <fc=#222222><fn=1></fn></fc><fc=#F5DFC1,#222222><fn=0>%locks%</fn></fc><fc=#222222><fn=1></fn></fc><fc=#F5DFC1>%headset%</fc><fc=#FF8A39>%moc%</fc>}<fc=#F5DFC1>%weather%</fc><fc=#F5DFC1,#222222>%date%</fc><fc=#222222><fn=1></fn></fc>{<fc=#F5DFC1>%updates%</fc><fc=#F5DFC1>%volume%</fc><fc=#F5DFC1>%cpu%</fc><fc=#F5DFC1>%memory%</fc><fc=#F5DFC1>%bat%</fc><fc=#F5DFC1>%battery%</fc><fc=#222222><fn=1></fn></fc> <fc=#E8DED1>%trayerpad%</fc>"
+    , template = "<fc=#7c76cf,#242424><fn=3>  </fn></fc><fn=3></fn>%UnsafeStdinReader% <fc=#242424><fn=1></fn></fc><fc=#E7D7AD,#242424><fn=0>%locks%</fn></fc><fc=#242424><fn=1></fn></fc><fc=#E7D7AD>%headset%</fc><fc=#db9a27>%moc%</fc>}<fc=#E7D7AD>%weather%</fc><fc=#E7D7AD,#242424>%date%</fc><fc=#242424><fn=1></fn></fc>{<fc=#E7D7AD>%updates%</fc><fc=#E7D7AD>%volume%</fc><fc=#E7D7AD>%cpu%</fc><fc=#E7D7AD>%memory%</fc><fc=#E7D7AD>%bat%</fc><fc=#E7D7AD>%battery%</fc><fc=#242424><fn=1></fn></fc> <fc=#E7D7AD>%trayerpad%</fc>"

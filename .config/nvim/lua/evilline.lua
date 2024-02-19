@@ -10,12 +10,12 @@ local colors = {
   fg       = '#E7D7AD',
   yellow   = '#db9a27',
   cyan     = '#5ac1db',
-  darkblue = '#386eab',
+  darkblue = '#3a495c',
   green    = '#8d8f18',
   orange   = '#b04c0b',
   violet   = '#7c76cf',
   magenta  = '#e37f7f',
-  blue     = '#3a495c',
+  blue     = '#386eab',
   red      = '#8a1e1e',
 }
 
@@ -83,7 +83,7 @@ ins_left {
   function()
     return '▊'
   end,
-  color = { fg = colors.blue }, -- Sets highlighting of component
+  color = { fg = colors.blue },      -- Sets highlighting of component
   padding = { left = 0, right = 1 }, -- We don't need space before this
 }
 
@@ -174,12 +174,12 @@ ins_left {
     return msg
   end,
   icon = '           LSP:',
-  color = { fg = colors.darkblue, bg = colors.fg, gui = 'bold' },
+  color = { fg = colors.blue, bg = colors.fg, gui = 'bold' },
 }
 
 -- Add components to right sections
 ins_right {
-  'o:encoding', -- option component same as &encoding in viml
+  'o:encoding',       -- option component same as &encoding in viml
   fmt = string.upper, -- I'm not sure why it's upper case either ;)
   cond = conditions.hide_in_width,
   color = { fg = colors.green, gui = 'bold' },

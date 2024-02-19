@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source $HOME/.config/xmobar/scripts/colors
+
 state="$(mocp -Q %state 2>&1)"
 total_length=30
 limit=15
@@ -19,7 +21,7 @@ if [[ ! "$state" =~ "FATAL" ]]; then
             fi
             result=$(( (total_length - song_name_length - 3 - 15)/2 ))
             for i in $(seq 1 $result); do echo -n " "; done
-            printf " <fc=#222222><fn=1></fn></fc><fn=0><fc=#7B9246,#222222> </fc></fn><fc=#6C99BB,#222222>%s </fc><fc=#D0D0D0,#222222>[%s][%s]</fc><fc=#222222><fn=1></fn></fc>" "$song_name" $(mocp -Q %ct) $(mocp -Q %tt)
+            printf " <fc=$bg><fn=1></fn></fc><fn=0><fc=$fgAlt,$bg> </fc></fn><fc=$songName,$bg>%s </fc><fc=$textColor,$bg>[%s][%s]</fc><fc=$bg><fn=1></fn></fc>" "$song_name" $(mocp -Q %ct) $(mocp -Q %tt)
             for i in $(seq 1 $result); do echo -n " "; done
         fi
 

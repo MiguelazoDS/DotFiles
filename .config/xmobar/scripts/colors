@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+bg="#242424"
+fg="#386eab"
+fgAlt="#8d8f18"
+fgYellow="#db9a27"
+fgRed="#db3e2c"
+songName="#b04c0b"
+textColor="#e7d7ad"

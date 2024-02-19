@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
+source $HOME/.config/xmobar/scripts/colors
+
 connected=$(bluetoothctl -- info | awk '/Connected/ {print $2}')
 profile=$(pacmd list-cards | awk '/active profile: <a2dp_sink_ldac>|headset_head_unit>/ {print $3}')
 profile=${profile:1:-1}
 
 if [[ $connected == "yes" ]]; then
-    headset="<fc=#222222><fn=1></fn></fc><fc=#7B9246,#222222> </fc><fc=#222222><fn=1></fn></fc>"
+    headset="<fc=$bg><fn=1></fn></fc><fc=$fgAlt,$bg> </fc><fc=$bg><fn=1></fn></fc>"
 else
-    headset="<fc=#222222><fn=1></fn></fc><fc=#A54242,#222222> ﳌ</fc><fc=#222222><fn=1></fn></fc>"
+    headset="<fc=$bg><fn=1></fn></fc><fc=$fgRed,$bg> ﳌ</fc><fc=$bg><fn=1></fn></fc>"
 fi
 
 printf "$headset$mic"

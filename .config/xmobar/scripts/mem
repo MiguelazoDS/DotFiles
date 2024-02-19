@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source $HOME/.config/xmobar/scripts/colors
+
 function format {
     total=$(free -m| awk '/^Mem:/ {printf "%.3f", $2}')
     line_length="                         "
@@ -24,9 +26,9 @@ function update {
 function gpu_mem {
     perc=$(nvidia-smi | head -n 10 | tail -n 1 | cut -d '|' -f 3 | awk '{used=($1+0)*100/($3+0); printf "%.f", used}')
     if [[ $((perc)) -ge 75 ]]; then
-        echo "<fc=#A54242,#222222>GPU:${perc}%</fc><fc=#222222><fn=1></fn></fc>"
+        echo "<fc=$fgRed,$bg>GPU:${perc}%</fc><fc=$bg><fn=1></fn></fc>"
     else
-        echo "<fc=#6C99BB,#222222>GPU:${perc}%</fc><fc=#222222><fn=1></fn></fc>"
+        echo "<fc=$fg,$bg>GPU:${perc}%</fc><fc=$bg><fn=1></fn></fc>"
     fi
 }
 
@@ -44,7 +46,7 @@ case "$1" in
         done
         ;;
     *)
-        free | awk '/^Mem:/ { used=(100*$3)/($2); printf "<fc=#222222><fn=1></fn></fc><fc=#6C99BB,#222222><fn=0> </fn>%.1f%%.2fGi</fc>", used, $2/(1024*1024)}'
+        free | awk -v bg="$bg" -v fg="$fg" '/^Mem:/ { used=(100*$3)/($2); printf "<fc=%s><fn=1></fn></fc><fc=%s,%s><fn=0> </fn>%.1f%%.2fGi</fc>", bg, fg, bg, used, $2/(1024*1024)}'
         gpu_mem
         ;;
 esac

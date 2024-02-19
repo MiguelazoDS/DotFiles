@@ -10,4 +10,4 @@ sticky true
 no_shrink false
 #skip_taskbar true
 tint_level 255
-tint_color "#383d54"
+tint_color "#504945"

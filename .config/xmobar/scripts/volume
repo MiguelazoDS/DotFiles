@@ -1,23 +1,25 @@
 #!/usr/bin/env bash
 
+source $HOME/.config/xmobar/scripts/colors
+
 MUTE=$(pamixer --get-mute)
 
 if [ "$MUTE" == "true" ]; then
-    COLOUR="#A54242"
+    COLOUR="$fgRed"
 else
-    COLOUR="#6C99BB"
+    COLOUR="$fg"
 fi
 
 VALUE=$(pamixer --get-volume)
 
 if [ "$MUTE" == "false" ]; then
     if [[ $((VALUE)) -ge 0 && $((VALUE)) -le 33 ]]; then
-        echo "<fc=#222222><fn=1></fn></fc><fn=0><fc=#6C99BB,#222222> </fc></fn><fc=$COLOUR,#222222>$VALUE%</fc><fc=#222222><fn=1></fn></fc>"
+        echo "<fc=$bg><fn=1></fn></fc><fn=0><fc=$fg,$bg> </fc></fn><fc=$COLOUR,$bg>$VALUE%</fc><fc=$bg><fn=1></fn></fc>"
     elif [[ $((VALUE)) -gt 33 && $((VALUE)) -le 66 ]]; then
-        echo "<fc=#222222><fn=1></fn></fc><fn=0><fc=#6C99BB,#222222> </fc></fn><fc=$COLOUR,#222222>$VALUE%</fc><fc=#222222><fn=1></fn></fc>"
+        echo "<fc=$bg><fn=1></fn></fc><fn=0><fc=$fg,$bg> </fc></fn><fc=$COLOUR,$bg>$VALUE%</fc><fc=$bg><fn=1></fn></fc>"
     else
-        echo "<fc=#222222><fn=1></fn></fc><fn=0><fc=#6C99BB,#222222> </fc></fn><fc=$COLOUR,#222222>$VALUE%</fc><fc=#222222><fn=1></fn></fc>"
+        echo "<fc=$bg><fn=1></fn></fc><fn=0><fc=$fg,$bg> </fc></fn><fc=$COLOUR,$bg>$VALUE%</fc><fc=$bg><fn=1></fn></fc>"
     fi
 else
-    echo "<fc=#222222><fn=1></fn></fc><fn=0><fc=#6C99BB,#222222>婢 </fc></fn><fc=$COLOUR,#222222>Mute</fc><fc=#222222><fn=1></fn></fc>"
+    echo "<fc=$bg><fn=1></fn></fc><fn=0><fc=$fg,$bg>婢 </fc></fn><fc=$COLOUR,$bg>Mute</fc><fc=$bg><fn=1></fn></fc>"
 fi

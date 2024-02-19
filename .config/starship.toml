@@ -6,33 +6,33 @@ add_newline = false
 
 # Custom prompt
 format = """\
-[](fg:#FDD29E)\
-[ ](bg:#FDD29E fg:#1E4862)\
-[](bg:#1E4862 fg:#FDD29E)\
+[](fg:#E7D7AD)\
+[ ](bg:#E7D7AD fg:#3a495c)\
+[](bg:#3a495c fg:#E7D7AD)\
 $username\
-[](bg:#B56807 fg:#1E4862)\
+[](bg:#b04c0b fg:#3a495c)\
 $directory\
-[](bg:#717733 fg:#B56807)\
+[](bg:#285423 fg:#b04c0b)\
 $git_branch\
 $git_status\
 $git_commit\
 $git_state\
-[](fg:#717733 bg:#FDD29E)\
-[  ](bg:#FDD29E fg:#1E4862)\
-[ ](fg:#FDD29E)\
+[](fg:#285423 bg:#E7D7AD)\
+[  ](bg:#E7D7AD fg:#3a495c)\
+[ ](fg:#E7D7AD)\
 """
 
 [username]
 show_always = true
-style_user = "bg:#1E4862"
-style_root = "bg:#A54242"
+style_user = "bg:#3a495c"
+style_root = "bg:#db3e2c"
 format = '[ $user ]($style)'
 
 [directory]
 truncation_length = 2
 truncation_symbol = ""
 home_symbol = "~"
-style = "bg:#B56807"
+style = "bg:#b04c0b"
 format = "[ $path ]($style)"
 
 [directory.substitutions]
@@ -45,11 +45,11 @@ format = "[ $path ]($style)"
 
 [git_branch]
 symbol = ""
-style = "bg:#717733"
+style = "bg:#285423"
 format = '[ $symbol $branch ]($style)'
 
 [git_status]
-style = "bg:#717733"
+style = "bg:#285423"
 conflicted=""
 ahead=""
 behind=""
@@ -62,10 +62,10 @@ staged=""
 format = '[$all_status$ahead_behind ]($style)'
 
 [git_commit]
-style = "bg:#717733"
+style = "bg:#285423"
 format = '[$hash]($style)'
 
 [git_state]
-style = "bg:#717733"
+style = "bg:#285423"
 format = '[$state]($style)'
 

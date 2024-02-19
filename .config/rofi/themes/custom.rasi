@@ -8,14 +8,14 @@ configuration {
 
 }
 * {
-    bg-color: #303030;
-    fg-color: #DEB88D;
+    bg-color: #242424;
+    fg-color: #E7D7AD;
     background-color:  transparent;
-    tooltip-fg-color: #424B52;
-    selected-bg-color: #717333;
-    selected-fg-color: #FEE3CD;
-    insensitive-bg-color: #424B5280;
-    insensitive-fg-color: #424B52;
+    tooltip-fg-color: #665C54;
+    selected-bg-color: #3a495c;
+    selected-fg-color: #E7D7AD;
+    insensitive-bg-color: #665C5480;
+    insensitive-fg-color: #665C54;
     text-color          : @fg-color;
 }
 #window {

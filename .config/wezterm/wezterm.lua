@@ -1,4 +1,5 @@
 local wezterm = require 'wezterm'
+local my_default = wezterm.color.get_default_colors()
 
 return {
   scrollback_lines = 10000,
@@ -7,7 +8,7 @@ return {
   font = wezterm.font("FiraCode Nerd Font", { weight = "Regular", stretch = "Normal", style = "Normal" }),
   font_size = 13,
   display_pixel_geometry = "RGB",
-  color_scheme = "Gruvbox Dark (Gogh)",
+  color_scheme = 'Gruvbox Material (Gogh)',
   hide_tab_bar_if_only_one_tab = true,
   window_close_confirmation = 'AlwaysPrompt',
   window_frame = {
