@@ -92,7 +92,7 @@ myKeys =
         , ("M-;", sendMessage ZoomFullToggle)
 
 -- Scratchpads
-        , ("M-a", namedScratchpadAction myScratchPads "moc")
+        , ("M-a", namedScratchpadAction myScratchPads $ M.myMusicPlayer M.applications)
         , ("M-u", namedScratchpadAction myScratchPads "terminal")
         , ("M-p", namedScratchpadAction myScratchPads "easyeffects")
 

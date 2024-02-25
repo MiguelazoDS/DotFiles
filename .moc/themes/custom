@@ -10,20 +10,21 @@
 ##############################################################################
 
 #HEX->255/255/255(RGB)->1000/1000/1000
+# Convertion factor 3.921568627451
 
-#orange=#FF8A39=255,138,57=1000,541,224
-#blue=#1E4862=30,72,98=118,282,384
-#purple=#4F344A=79,52,74=310,204,290
-#green=#717733=113,119,51=443,467,200
-#red=#A54242=165,66,66=647,259,259
-#yellow=#FBA02F=251,160,47=984,627,184
+#orange="#b04c0b"=rgb(176, 76, 11)=690,298,43
+#blue_gray="#386eab"=rgb(56, 110, 171)=220,431,671
+#magenta="#7c76cf"=rgb(124, 118, 207)=486,463,812
+#soft_green="#8d8f18"=rgb(141, 143, 24)=553,561,94
+#error_red="#b32727"=rgb(179, 39, 39)=702,153,153
+#soft_yellow="#db9a27"=rgb(219, 154, 39)=859,604,153
 
-colordef magenta = 1000 541 224 #Orange
-colordef blue = 118 282 384
-colordef cyan = 310 204 290    #Purple
-colordef green = 443 467 200
-colordef red = 647 259 259
-colordef yellow = 984 627 184
+colordef magenta = 690 298 43 #Orange
+colordef blue = 220 431 671
+colordef cyan = 486 463 812 #Purple
+colordef green = 553 561 94
+colordef red = 702 153 153
+colordef yellow = 859 604 153
 
 background           = default default normal
 frame                = black  default bold
