@@ -1,4 +1,10 @@
 return require('packer').startup(function(use)
+  use "nvim-lua/plenary.nvim" -- don't forget to add this one if you don't have it yet!
+  use {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    requires = { { "nvim-lua/plenary.nvim" } }
+  }
   -- Plugin manager
   use 'wbthomason/packer.nvim'
   -- LSP

@@ -22,6 +22,7 @@ map('n', '<C-p>', ':FZF<CR>', opts)
 map('n', '<C-f>', ':Rg<CR>', opts)
 map('n', '?', ':BLines<CR>', opts)
 map('n', '¿', ':Lines<CR>', opts)
+vim.g.fzf_preview_window = {'right:hidden', 'ctrl-h'}
 
 -- Format code
 map('n', '<LEADER>fc', 'gg=G')
@@ -73,4 +74,17 @@ api.nvim_set_keymap('n', '<space>ff', '<cmd>lua vim.lsp.buf.format({async = fals
 -- Vimtex
 map('n', '<LEADER>ll', '<Plug>(vimtex-compile)')
 map('n', '<LEADER>lv', '<Plug>(vimtex-view)')
+
+-- Harpoon
+local harpoon = require("harpoon")
+harpoon:setup()
+
+vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
+vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
+vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
