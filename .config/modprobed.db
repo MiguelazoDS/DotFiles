@@ -173,6 +173,7 @@ nft_limit
 nls_ascii
 nls_cp437
 nls_iso8859_1
+nls_ucs2_utils
 ntfs
 nvidia_wmi_ec_backlight
 nvme
@@ -190,8 +191,11 @@ polyval_generic
 processor_thermal_device
 processor_thermal_device_pci_legacy
 processor_thermal_mbox
+processor_thermal_power_floor
 processor_thermal_rapl
 processor_thermal_rfim
+processor_thermal_wt_hint
+processor_thermal_wt_req
 r8169
 raid6_pq
 rapl
