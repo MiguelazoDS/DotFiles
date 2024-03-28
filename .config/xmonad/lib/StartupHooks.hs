@@ -19,3 +19,4 @@ myStartupHook = do
             spawnOnce "xsetroot -cursor_name left_ptr"
             spawnOnce "/usr/lib/xfce4/notifyd/xfce4-notifyd"
             spawnOnce "$HOME/.xmonad/scripts/icon_gen"
+            spawnOnce "$HOME/.scripts/mouse_accel"
