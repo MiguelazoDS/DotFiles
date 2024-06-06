@@ -15,6 +15,7 @@ function clean {
         paccache -r
     fi
     setxkbmap es
+    $HOME/.scripts/mouse_accel
 }
 
 function ignore {
