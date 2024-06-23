@@ -24,7 +24,7 @@ data Custom = Custom
 applications = Applications
     { myTerminal = "wezterm"
     , myTextEditor = "nvim"
-    , myBrowser = "floorp"
+    , myBrowser = "brave"
     , myMusicPlayer = "moc"
     , myVideoPlayer = "mpv"
     }
