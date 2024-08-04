@@ -1,7 +1,25 @@
 #!/usr/bin/env bash
 
-sudo ln -s /usr/share/fontconfig/conf.avail/70-no-bitmaps.conf /etc/fonts/conf.d
+#https://github.com/dajeed/arch-linux-font-improvement-guide
+
+set x
+
+yay -S noto-fonts noto-fonts-cjk noto-color-emoji-fontconfig noto-fonts-extra ttf-liberation ttf-dejavu ttf-roboto ttf-symbola ttf-jetbrains-mono ttf-fira-code ttf-hack adobe-source-code-pro-fonts --noconfirm
+
+echo "Xft.lcdfilter: lcddefault" >> ~/.Xresources
+echo "Xft.hintstyle: hintslight" >> ~/.Xresources
+echo "Xft.hinting: 1" >> ~/.Xresources
+echo "Xft.antialias: 1" >> ~/.Xresources
+echo "Xft.rgba: rgb" >> ~/.Xresources
+
+xrdb -merge ~/.Xresources
+
+#This breaks emojis chrome based browsers
+#sudo ln -s /usr/share/fontconfig/conf.avail/70-no-bitmaps.conf /etc/fonts/conf.d
 sudo ln -s /usr/share/fontconfig/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d
+sudo ln -s /usr/share/fontconfig/conf.avail/10-hinting-slight.conf /etc/fonts/conf.d/
 sudo ln -s /usr/share/fontconfig/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d
 
 sudo sed -i 's/#export/export/' /etc/profile.d/freetype2.sh
+
+sudo fc-cache -fv
