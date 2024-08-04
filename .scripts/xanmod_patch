@@ -181,7 +181,7 @@ function get_info {
 # ===========================================================================================
 # START
 # ===========================================================================================
-major="6.8"
+major="6.9"
 linux_dir="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*$")"
 xanmod_info="/tmp/xanmod_info"
 # Install latest version if directory not found.
