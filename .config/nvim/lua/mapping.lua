@@ -19,7 +19,7 @@ map('n', 'gP', ':BufferLinePick<CR>')
 
 -- Fzf mapping
 map('n', '<C-p>', ':FZF<CR>', opts)
-map('n', '<C-f>', ':Rg<CR>', opts)
+map('n', '<C-f>', ':RG<CR>', opts)
 map('n', '?', ':BLines<CR>', opts)
 map('n', '¿', ':Lines<CR>', opts)
 vim.g.fzf_preview_window = {'right:hidden', 'ctrl-h'}
