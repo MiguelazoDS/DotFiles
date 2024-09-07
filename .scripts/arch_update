@@ -3,6 +3,7 @@
 recompile=$HOME/.config/xmonad/recompile
 
 function update {
+    sudo snapper -c root create -d "Before upgrade"
     yay -Syy && yay -Syyu --devel --noconfirm; ${recompile}
 }
 
@@ -20,7 +21,25 @@ function clean {
 
 function ignore {
     pkgs="$(yay -Qsq "$1" | tr '\n' ',')"
+    sudo snapper -c root create -d "Before upgrade"
     yay -Syyu --ignore $pkgs --devel --noconfirm; ${recompile}
+}
+
+function delete_snapshots {
+  readarray -t var < <(sudo snapper list)
+
+  array=()
+  for i in "${var[@]}"
+  do
+    if [[ "$i" =~ "Before upgrade" ]]; then
+      id=$(echo "$i" | cut -d ' ' -f 1)
+      array+=("$id")
+    fi
+  done
+
+  # Without quotes so it does not consider as a unique value
+  sudo snapper -c root delete ${array[*]}
+  sudo snapper list
 }
 
 function usage {
@@ -28,6 +47,7 @@ function usage {
     printf "\nOptions: \n"
     printf "\t-c --clean \n"
     printf "\t-i <value> --ignore <value>\n"
+    printf "\t-d --delete \n"
 }
 
 args=("$@")
@@ -35,7 +55,7 @@ args=("$@")
 if [ "$#" -lt 2 ]; then
     if [ "$#" -eq 0 ]; then
         args+=("-a")
-    elif [ ! "$1" = "-c" ]; then
+    elif [ ! "$1" = "-c" ] && [ ! "$1" = "-d" ]; then
         usage
         exit 0
     fi
@@ -43,8 +63,9 @@ fi
 
 set -- ${args[*]}
 
-short=aci:
-long=clean,ignore:
+# This order is important to make c and d option work.
+short=acdi:
+long=clean,delete,ignore:
 
 if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
 then
@@ -63,6 +84,11 @@ do
         -c | --clean )
             shift
             clean
+            shift
+            ;;
+        -d | --delete )
+            shift
+            delete_snapshots
             shift
             ;;
         -i | --ignore )
