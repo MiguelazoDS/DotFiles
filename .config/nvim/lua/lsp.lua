@@ -7,7 +7,7 @@ require 'lspconfig'.clangd.setup {}
 require 'lspconfig'.cmake.setup {}
 require 'lspconfig'.diagnosticls.setup {}
 require 'lspconfig'.grammarly.setup {}
---require'lspconfig'.hls.setup{}
+require'lspconfig'.hls.setup{}
 require 'lspconfig'.jsonls.setup {}
 require 'lspconfig'.lemminx.setup {}
 require 'lspconfig'.lua_ls.setup {
@@ -56,7 +56,7 @@ require("mason-lspconfig").setup {
     "cmake",
     "diagnosticls",
     "grammarly",
-    --"hls",
+    "hls",
     "jsonls",
     "lemminx",
     "lua_ls",
