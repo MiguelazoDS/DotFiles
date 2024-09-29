@@ -14,6 +14,7 @@ data Applications = Applications
     , myBrowser :: String
     , myMusicPlayer :: String
     , myVideoPlayer :: String
+    , myFileManager :: String
     } deriving (Eq, Show)
 
 data Custom = Custom
@@ -27,6 +28,7 @@ applications = Applications
     , myBrowser = "brave"
     , myMusicPlayer = "moc"
     , myVideoPlayer = "mpv"
+    , myFileManager = "Thunar"
     }
 
 custom = Custom

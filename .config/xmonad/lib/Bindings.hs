@@ -41,6 +41,7 @@ myKeys =
         , ("M-d", spawn "rofi -show drun -show-icons")
         , ("M-n", spawn $ M.myTerminal M.applications ++ " start --always-new-process 'ranger'")
         , ("M-<Return>", spawn $ M.myTerminal M.applications)
+        , ("M-t", spawn $ M.myFileManager M.applications)
 
 -- Notifications
         , ("M-S-u", spawn "$HOME/.config/xmobar/scripts/updates updates")
