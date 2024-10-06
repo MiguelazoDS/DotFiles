@@ -47,6 +47,7 @@ drm
 drm_buddy
 drm_display_helper
 drm_kms_helper
+drm_ttm_helper
 ecc
 ecdh_generic
 edac_mce_amd
