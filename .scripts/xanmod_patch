@@ -53,6 +53,7 @@ function enable_nvme {
 }
 
 function install {
+    sudo snapper -c root create -d "Before upgrade"
     major="$1"
     xanmod_info="$2"
     linux_dir="$3"
@@ -181,7 +182,7 @@ function get_info {
 # ===========================================================================================
 # START
 # ===========================================================================================
-major="6.10"
+major="$(curl https://xanmod.org/ | grep -A 1 "Stable Mainline" | tail -n 1 | sed 's/<td>\(.*\)<\/td>/\1/')"
 linux_dir="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*$")"
 xanmod_info="/tmp/xanmod_info"
 # Install latest version if directory not found.

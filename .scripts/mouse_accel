@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+id=$(xinput| awk '/Gaming Mouse\s+id/ {print $8}' | cut -d'=' -f2)
+accelProfileId=$(xinput list-props $id | awk '/Accel Profile Enabled \(/ {print $5}' | grep -E -o "[0-9]+")
+accelSpeedId=$(xinput list-props $id | awk '/Accel Speed \(/ {print $4}' | grep -E -o "[0-9]+")
+transMatrix=$(xinput list-props $id | awk '/Coordinate Transformation Matrix \(/ {print $4}' | grep -E -o "[0-9]+")
+
+xinput set-prop ${id} ${accelProfileId} 0 1 0
+xinput set-prop ${id} ${accelSpeedId} 1
+xinput set-prop ${id} ${transMatrix} 4 0 0 0 4 0 0 0 10
+

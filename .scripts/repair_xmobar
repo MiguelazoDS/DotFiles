@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-yay -R xmobar --noconfirm
-yay -Sc --noconfirm
-paccache -r
-yay -S xmobar --noconfirm
-$HOME/.xmonad/recompile
