@@ -7,7 +7,7 @@ import ManageHooks
 import Layouts
 import XMonad
 import XMonad.Config.Desktop
-import System.IO -- (hPutStrLn)
+import System.IO
 import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)
 import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, pad, xmobarPP, xmobarColor, xmobarBorder, shorten, PP(..))
@@ -18,8 +18,7 @@ import           XMonad.Hooks.StatusBar.PP           (PP (..), filterOutWsPP,
                                                       xmobarFont, xmobarStrip)
 import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat)
-import XMonad.Hooks.EwmhDesktops   -- required for xcomposite in obs to work
--- import Basement.Types.Char7 (c7_1)
+import XMonad.Hooks.EwmhDesktops
 
 ppCurrentColor :: String
 ppCurrentColor = "#8d8f18"
