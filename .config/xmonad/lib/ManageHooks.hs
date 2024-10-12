@@ -16,12 +16,12 @@ myManageHook = composeAll
 myManageHook' = composeAll
     [ placeHook $ fixed (0.5,0.5)                               -- Set floating windows at the center
      , className =? "ffplay"             --> doFloat
-     , appName =? "nomacs"               --> doFloat
+     , appName =? "sxiv"                 --> doFloat
      , className =? "mpv"                --> doFloat
      , title =? "gitk"                   --> doFloat
      , className =? "JDownloader"        --> doFloat
      , className =? "Yad"                --> doFloat
-     , (className =? "floorp" <&&> appName =? "Places") --> doFloat
-     , (className =? "floorp" <&&> resource =? "Dialog") --> doFloat
-     , (className =? "floorp" <&&> title =? "About Ablaze Floorp") --> doFloat
+     , (className =? "firefox" <&&> appName =? "Places") --> doFloat
+     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat
+     , (className =? "firefox" <&&> title =? "About Mozilla Firefox") --> doFloat
      ]
