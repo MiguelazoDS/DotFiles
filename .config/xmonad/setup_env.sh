@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+set -e
+
+function setup_ghcup() {
+  regex="ghc|cabal|hls"
+
+  hash ghcup &> /dev/null
+  if [ $? -eq 1 ]; then
+    yay -S ghcup-hs-bin --noconfirm
+  fi
+
+  readarray -t to_install < <(ghcup list | awk '/✗.*recommended/ {print $0}' | grep -E -o ".*\s+(${regex}).*" | tr -s ' ' | cut -d ' ' -f 3,4)
+
+  echo "Install ghc, cabal and hls"
+  for pkg in "${to_install[@]}"; do
+    ghcup install $pkg
+  done
+}
+
+function copy_ghc_executables() {
+  sudo cp ~/.ghcup/ghc/9.4.8/bin/ghc-9.4.8 /usr/bin/ghc
+  sudo cp ~/.ghcup/ghc/9.4.8/bin/ghci-9.4.8 /usr/bin/ghci
+  sudo cp ~/.ghcup/ghc/9.4.8/bin/ghc-pkg-9.4.8 /usr/bin/ghc-pkg
+}
+
+function create_project_file() {
+  echo "packages: */*.cabal" > cabal.project
+}
+
+function install_xmonad_xmobar() {
+  echo "Update Cabal"
+  cabal update
+
+  echo "Install xmonad"
+  cabal install --package-env=$HOME/.config/xmonad xmonad
+  cabal install --package-env=$HOME/.config/xmonad --lib base xmonad xmonad-contrib
+  cabal install --flags="all_extensions" --package-env=$HOME/.config/xmobar xmobar
+
+  echo "Install xmobar"
+  cabal install --flags="all_extensions" --package-env=$HOME/.config/xmobar xmobar
+}
+
+function copy_xmonad_executables() {
+  sudo cp ~/.local/bin/xmonad /usr/bin
+  sudo cp ~/.local/bin/xmobar /usr/bin
+}
+
+function create_build_file() {
+  {
+    echo "#!/bin/sh"
+    echo
+    echo "/usr/bin/ghc \\"
+    echo "  --make xmonad.hs \\"
+    echo "  -i               \\"
+    echo "  -ilib            \\"
+    echo "  -fforce-recomp   \\"
+    echo "  -main-is main    \\"
+    echo "  -v0              \\"
+    echo "  -o \"\$1\""
+    echo
+  } > build
+  chmod +x build
+}
+
+function recompile() {
+  ./recompile
+}
+
+function add_hie_file() {
+  {
+    echo "cradle:"
+    echo "  cabal:"
+    echo "    - path: \"xmonad.hs\""
+    echo "      component: \"lib:xmonad\""
+    echo "    - path: \"xmonad.hs\""
+    echo "      component: \"xmonad:exe:xmonad\""
+    echo
+  } > hie.yaml
+}
+
+setup_ghcup
+copy_ghc_executables
+create_project_file
+install_xmonad_xmobar
+copy_xmonad_executables
+create_build_file
+recompile
+add_hie_file
