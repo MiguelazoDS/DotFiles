@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-set -e
+set -x
+
+function clone_repositories() {
+  git clone https://github.com/xmonad/xmonad
+  git clone https://github.com/xmonad/xmonad-contrib
+  git clone https://codeberg.org/xmobar/xmobar.git
+}
 
 function setup_ghcup() {
   regex="ghc|cabal|hls"
@@ -79,6 +85,7 @@ function add_hie_file() {
   } > hie.yaml
 }
 
+clone_repositories
 setup_ghcup
 copy_ghc_executables
 create_project_file

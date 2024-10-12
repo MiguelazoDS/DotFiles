@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-xmonad --recompile && xmonad --restart > ~/.config/xmonad/logs.log
+xmonad --recompile && xmonad --restart
 pkill stalonetray
 pkill nm-applet
 stalonetray& disown; nm-applet --indicator & disown
