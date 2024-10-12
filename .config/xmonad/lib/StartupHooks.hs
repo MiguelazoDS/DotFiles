@@ -8,15 +8,13 @@ import XMonad.Util.NamedScratchpad
 import Scratchpads
 
 myStartupHook = do
-            setWMName "sleep 10; LG3D"
-            spawnOnce "sleep 30; dropbox"
+            setWMName "sleep 10; LG3D" -- Needed for Java programs (i.e JDownloader)
+            spawnOnce "stalonetray"
+            spawnOnce "dropbox"
+            spawnOnce "sleep 20; nm-applet --indicator"
             spawnOnce "numlockx on"
-            spawnOnce "sleep 15; nm-applet"
             spawnOnce "nitrogen --restore &"
             spawnOnce "sleep 5; killall -q picom; picom --config $HOME/.config/picom/picom.conf"
             spawnOnce "setxkbmap es"
-            spawnOnce "sleep 10; stalonetray"
-            spawnOnce "xsetroot -cursor_name left_ptr"
-            spawnOnce "/usr/lib/xfce4/notifyd/xfce4-notifyd"
-            spawnOnce "$HOME/.xmonad/scripts/icon_gen"
+            spawnOnce "xsetroot -cursor_name left_ptr"  -- Set cursor theme
             spawnOnce "$HOME/.scripts/mouse_accel"
