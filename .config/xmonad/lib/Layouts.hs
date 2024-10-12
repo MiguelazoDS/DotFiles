@@ -17,9 +17,10 @@ import XMonad
 
 myLayoutHook = avoidStruts $ smartBorders $ mouseResize $ windowArrange $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
           where
-          myDefaultLayout = grid ||| noBorders monocle
+          myDefaultLayout = grid ||| noBorders monocle -- ||| tall
 
 mySpacing = spacingRaw True (Border 0 0 0 0) True (Border 2 2 2 2) True
 
 grid       = renamed [Replace "\64111"] $ limitWindows 12 $ mySpacing $ mkToggle (single MIRROR) $ Grid (16/10)
 monocle    = renamed [Replace "<fn=1>\63378</fn>"] $ limitWindows 20 Full
+--tall       = renamed [Replace "Hor"] $ limitWindows 12 $ mySpacing $ Mirror $ Tall 1 (3/100) (1/2)
