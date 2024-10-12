@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.config/xmobar/scripts/colors
+source $HOME/.config/xmonad/xmobar_scripts/colors
 
 function format {
     total=$(free -m| awk '/^Mem:/ {printf "%.3f", $2}')

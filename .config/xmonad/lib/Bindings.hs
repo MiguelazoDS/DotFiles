@@ -44,9 +44,9 @@ myKeys =
         , ("M-t", spawn $ M.myFileManager M.applications)
 
 -- Notifications
-        , ("M-S-u", spawn "$HOME/.config/xmobar/scripts/updates updates")
-        , ("M-m", spawn "$HOME/.config/xmobar/scripts/mem --details")
-        , ("M-w", spawn "$HOME/.config/xmobar/scripts/weather extended")
+        , ("M-S-u", spawn "$HOME/.config/xmonad/xmobar_scripts/updates updates")
+        , ("M-m", spawn "$HOME/.config/xmonad/xmobar_scripts/mem --details")
+        , ("M-w", spawn "$HOME/.config/xmonad/xmobar_scripts/weather extended")
 
 -- Windows
         , ("M-q", kill1)                                                                    -- Kill the currently focused client
@@ -98,7 +98,7 @@ myKeys =
         , ("M-p", namedScratchpadAction myScratchPads "easyeffects")
 
 -- Multimedia Keys
-        , ("M-S-b", spawn "$HOME/.config/xmonad/scripts/bt_headset_toggle")
+        , ("M-S-b", spawn "$HOME/.scripts/bt_headset_toggle")
         , ("M-f", spawn "flameshot gui")
         , ("M-S-f", spawn "flameshot full")
         , ("<XF86MonBrightnessUp>", spawn "light -A 5")

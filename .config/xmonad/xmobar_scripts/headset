@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.config/xmobar/scripts/colors
+source $HOME/.config/xmonad/xmobar_scripts/colors
 
 connected=$(bluetoothctl -- info | awk '/Connected/ {print $2}')
 profile=$(pacmd list-cards | awk '/active profile: <a2dp_sink_ldac>|headset_head_unit>/ {print $3}')

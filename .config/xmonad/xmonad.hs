@@ -37,7 +37,7 @@ ppUrgentColor :: String
 ppUrgentColor = "#202020"
 
 main = do
-    xmproc <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc.hs"
+    xmproc <- spawnPipe "xmobar $HOME/.config/xmonad/xmobarrc.hs"
     xmonad $ ewmh desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP

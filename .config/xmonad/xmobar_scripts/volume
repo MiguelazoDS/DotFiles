@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.config/xmobar/scripts/colors
+source $HOME/.config/xmonad/xmobar_scripts/colors
 
 MUTE=$(pamixer --get-mute)
 
