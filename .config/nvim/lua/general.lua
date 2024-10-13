@@ -104,3 +104,7 @@ api.nvim_create_autocmd({"VimEnter","WinEnter","BufNewFile","BufReadPost"}, {
     group = idlGrp
 })
 
+vim.g.ale_linters = {
+  haskell = {'cabal_ghc', 'ghc-mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc'}
+}
+
