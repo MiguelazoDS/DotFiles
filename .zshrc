@@ -10,6 +10,7 @@ source /usr/share/zsh/scripts/zplug/init.zsh
 
 export TERMINFO="/usr/share/terminfo"
 
+# Verify xclip is installed
 hash xclip
 [[ $? -eq 1 ]] && (printf "\nxclip is not installed\nInstalling..."; yay -S xclip --noconfirm)
 
@@ -57,11 +58,9 @@ export PATH=$HOME/.cargo/bin:$PATH
 # Add ghcup path
 export PATH=$HOME/.ghcup/bin:$PATH
 
-# Verify pip, imosum, imagemagick, eza, and ripgrep are installed
+# Verify pip, imagemagick, eza, and ripgrep are installed.
 hash pip 2> /dev/null
 [[ $? -eq 1 ]] && (printf "\npip is not installed\nInstalling..."; yay -S python-pip --noconfirm)
-# hash imosum 2>/dev/null
-# [[ $? -eq 1 ]] && (printf "\nimosum is not installed\nInstalling..."; pip install imohash)
 hash convert
 [[ $? -eq 1 ]] && (printf "\nimagemagick is not installed\nInstalling..."; yay -S imagemagick --noconfirm)
 hash eza
