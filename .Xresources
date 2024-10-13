@@ -1,0 +1,9 @@
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintslight
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+Sxiv.background: #000000
+Sxiv.foreground: #778899
+Sxiv.font: Fira code-8
