@@ -2,46 +2,70 @@
 
 # Detects the width of running window with name given as first
 # argument (xprop name '$1') and creates an XPM icon of that width,
-# 1px height, and transparent.  Outputs an <icon>-tag for use in
+# panel icon_size height.  Outputs an <icon>-tag for use in
 # xmobar to display the generated XPM icon.
 #
 # Run script from xmobar and trayer:
-# `Run Com "/where/ever/padding-icon.sh" ["panel"] "trayerpad" 10`
+# `Run Com "/where/ever/padding" ["panel"] "trayerpad" 10`
 # and use `%trayerpad%` in your template.
 # or, if you're using for instance stalonetray:
-# `Run Com "/where/ever/padding-icon.sh" ["stalonetray"] "tray" 10`
+# `Run Com "/where/ever/padding" ["stalonetray"] "tray" 10`
 
 # Very heavily based on Jonas Camillus Jeppensen code
 # https://github.com/jaor/xmobar/issues/239#issuecomment-233206552
 
-# Function to create a transparent Wx1 px XPM icon
+# Function to create a XPM icon
+# =============================
+# Brief: This function will create a rectangle icon of width $1 and height $3
+# The last four lines will be transparent to match the font in xmobar.
 create_xpm_icon () {
 timestamp=$(date)
-pixels=$(for i in `seq $1`; do echo -n "."; done)
+pixels=$(
+  for j in `seq $3`; do
+    echo -n ""\"
+    for i in `seq $1`; do
+      if [ $j = $3 ] ||
+         [ $j = $(( $3 - 1 )) ] ||
+         [ $j = $(( $3 - 2 )) ] ||
+         [ $j = $(( $3 - 3 )) ]; then
+        echo -n "@"
+      else
+        echo -n "."
+      fi
+    done;
+    if [ $j = $3 ]; then
+      echo "\""
+    else
+      echo "\","
+    fi
+  done;)
 
 cat << EOF > "$2"
 /* XPM *
 static char * trayer_pad_xpm[] = {
-/* This XPM icon is used for padding in xmobar to */
-/* leave room for trayer-srg. It is dynamically   */
-/* updated by by trayer-pad-icon.sh which is run  */
-/* by xmobar.                                     */
-/* Created: ${timestamp} */
-/* <w/cols>  <h/rows>  <colors>  <chars per pixel> */
-"$1 1 1 1",
+/* This XPM icon is used for padding in xmobar to    */
+/* leave room for systray program. It is dynamically */
+/* updated by padding which is run by xmobar.        */
+/* Created: ${timestamp}                             */
+/* <w/cols>  <h/rows>  <colors>  <chars per pixel>   */
+"$1 $3 2 1",
 /* Colors (none: transparent) */
-". c none",
+". c #242424",
+"@ c none",
 /* Pixels */
-"$pixels"
+$pixels
 };
 EOF
 }
 
-# panel window name
+# Panel window name
 pname=${1:-stalonetray}
 
 # Width of the trayer window
 width=$(xprop -name $pname | grep 'program specified minimum size' | cut -d ' ' -f 5)
+
+# Height of the trayer window
+height=$(( $(cat $HOME/.config/stalonetrayrc | awk '/icon_size/ {print $2}') + 4))
 
 # Icon file name
 iconfile="/tmp/$pname-padding-${width:-0}px.xpm"
@@ -49,7 +73,7 @@ iconfile="/tmp/$pname-padding-${width:-0}px.xpm"
 # If the desired icon does not exist create it
 if [ ! -f $iconfile ]
 then
-    create_xpm_icon $width $iconfile
+    create_xpm_icon $width $iconfile $height
 fi
 
 # Output the icon tag for xmobar

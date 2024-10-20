@@ -2,13 +2,13 @@ Config { font    =  "FiraCode Nerd Font Medium Normal 11.5"
     , additionalFonts = [ "FiraCode Nerd Font Semi-Bold Normal 12"      -- Rounded corners for fn=0
                         , "FiraCode Nerd Font Semi-Bold Normal 15"
                         , "FiraCode Nerd Font Semi-Bold Normal 20"      -- Haskell logo size
+                        , "FiraCode Nerd Font Semi-Bold Normal 12.7"
     ]
-    --, iconRoot = "/home/miguel/.config/xmonad/icons"
-    , bgColor = "#504945"
-    , alpha = 255
+    , bgColor = "#000000"
+    , alpha = 75
     , border = FullBM 0
     , borderColor = "#242424"
-    , borderWidth = 3
+    , borderWidth = 0
     , position = Static{xpos = 0, ypos= 0, width = 1920, height = 29}
     , lowerOnStart = True
     , hideOnStart = False
@@ -32,8 +32,7 @@ Config { font    =  "FiraCode Nerd Font Medium Normal 11.5"
     , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/headset" [] "headset" 3
     , Run Locks
     , Run UnsafeStdinReader
-    , Run UnsafeXMonadLog
     ]
     , sepChar = "%"
     , alignSep = "}{"
-    , template = "<fc=#7c76cf,#242424><fn=3>  </fn></fc><fn=3></fn>%UnsafeStdinReader% <fc=#242424><fn=1></fn></fc><fc=#E7D7AD,#242424><fn=0>%locks%</fn></fc><fc=#242424><fn=1></fn></fc><fc=#E7D7AD>%headset%</fc><fc=#db9a27>%moc%</fc> }<fc=#E7D7AD>%weather%</fc><fc=#E7D7AD,#242424>%date%</fc><fc=#242424><fn=1></fn></fc>{<fc=#E7D7AD>%updates%</fc><fc=#E7D7AD>%volume%</fc><fc=#E7D7AD>%cpu%</fc><fc=#E7D7AD>%memory%</fc><fc=#E7D7AD>%bat%</fc><fc=#E7D7AD>%battery%</fc><fc=#242424><fn=1></fn></fc> <fc=#E7D7AD>%trayerpad%</fc> "
+    , template = "<fc=#7c76cf,#242424><fn=3>  </fn></fc><fn=3></fn>%UnsafeStdinReader%<fc=#db9a27>%moc%</fc> }<fc=#E7D7AD>%weather%</fc><fc=#E7D7AD,#242424>%date%</fc><fc=#242424><fn=1></fn></fc>{<fc=#242424><fn=1></fn></fc><fc=#E7D7AD,#242424><fn=0>%locks%</fn></fc><fc=#242424><fn=1></fn></fc><fc=#E7D7AD>%headset%</fc><fc=#E7D7AD>%updates%</fc><fc=#E7D7AD>%volume%</fc><fc=#E7D7AD>%cpu%</fc><fc=#E7D7AD>%memory%</fc><fc=#E7D7AD>%bat%</fc><fc=#E7D7AD>%battery%</fc><fc=#242424><fn=1></fn></fc> <fc=#242424><fn=4></fn></fc><fc=#E7D7AD>%trayerpad%</fc><fc=#242424><fn=4></fn></fc>"

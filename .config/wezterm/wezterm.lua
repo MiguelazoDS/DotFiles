@@ -38,6 +38,6 @@ return {
   freetype_load_target = "Normal",
   freetype_render_target = 'Normal',
   freetype_load_flags = 'NO_BITMAP',
-  window_background_opacity = 0.75,
+  window_background_opacity = 0.8,   -- Required since WM_NAME is mangled when multiple tabs are open.
   text_background_opacity = 1,
 }

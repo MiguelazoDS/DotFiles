@@ -1,4 +1,4 @@
-geometry 1x1+1890+4
+geometry 1x1+1889+3
 background "#08131A"
 decorations border
 transparent true
@@ -10,4 +10,4 @@ sticky true
 no_shrink false
 #skip_taskbar true
 tint_level 255
-tint_color "#504945"
+tint_color "#242424"

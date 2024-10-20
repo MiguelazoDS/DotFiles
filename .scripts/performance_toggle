@@ -5,7 +5,7 @@ function usage {
     printf "\nOptions: \n"
     printf "\t-c <value> --cpu_frec_scaling <value> (powersave|performance)\n"
     printf "\t-t <value> --no_turbo <value> (0|1)\n"
-    printf "\t-n <value> --nvidia_performance <value> (1 performance|2 auto)\n"
+    printf "\t-n <value> --nvidia_performance <value> (1 performance|2 adaptative)\n"
     printf "\t-m <value> --conservative_mode <value> (0 disabled | 1 enabled)\n"
 }
 
