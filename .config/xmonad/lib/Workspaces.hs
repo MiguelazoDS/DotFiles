@@ -15,10 +15,16 @@ xmobarEscape = concatMap doubleLts
         doubleLts x   = [x]
 
 workspaceColor :: String
-workspaceColor = "#5ac1db"
+workspaceColor = "#5ac1db,#242424"
+
+open :: String
+open = "<fc=#242424><fn=1>\57526</fn></fc>"
+
+close :: String
+close = "<fc=#242424><fn=1>\57524</fn></fc>"
 
 myWorkspaces :: [String]
-myWorkspaces = clickable $ replicate workspaceNumber $ xmobarEscape "<fc=" ++ workspaceColor ++ "><fn=2>" ++ icon ++ "</fn></fc>"
+myWorkspaces = clickable $ replicate workspaceNumber $ xmobarEscape $ open ++ "<fc=" ++ workspaceColor ++ "><fn=1>" ++ icon ++ "</fn></fc>" ++ close
    where
          clickable l = [ "<action=xdotool key super+" ++ show workspaceNumber ++ ">" ++ ws ++ "</action>" |
                        (i,ws) <- zip [1..workspaceNumber] l, let workspaceNumber = i ]

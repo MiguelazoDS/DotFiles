@@ -21,6 +21,18 @@ myLayoutHook = avoidStruts $ smartBorders $ mouseResize $ windowArrange $ mkTogg
 
 mySpacing = spacingRaw True (Border 0 0 0 0) True (Border 2 2 2 2) True
 
-grid       = renamed [Replace "\64111"] $ limitWindows 12 $ mySpacing $ mkToggle (single MIRROR) $ Grid (16/10)
-monocle    = renamed [Replace "<fn=1>\63378</fn>"] $ limitWindows 20 Full
+lOpen :: String
+lOpen = "<fc=#242424><fn=1>\57526</fn></fc>"
+
+lClose :: String
+lClose = "<fc=#242424><fn=1>\57524</fn></fc>"
+
+gridIcon :: String
+gridIcon = lOpen ++ "<fc=#E7D7AD,#242424> \64111 </fc>" ++ lClose
+
+monocleIcon :: String
+monocleIcon = lOpen ++ "<fc=#E7D7AD,#242424><fn=1> \63378 </fn></fc>" ++ lClose
+
+grid       = renamed [Replace gridIcon] $ limitWindows 12 $ mySpacing $ mkToggle (single MIRROR) $ Grid (16/10)
+monocle    = renamed [Replace monocleIcon] $ limitWindows 20 Full
 --tall       = renamed [Replace "Hor"] $ limitWindows 12 $ mySpacing $ Mirror $ Tall 1 (3/100) (1/2)
