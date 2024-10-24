@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+function usage {
+    printf "Usage: \n\t${0} [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-r <value> --regex <value>\t     Expression to match files to group.\n"
+    printf "\t-s <value> --size  <value>\t     Size of each group.\n"
+}
+
+if [ "$#" -lt 4 ]; then
+    usage
+    exit 0
+fi
+
+short=rs:
+long=regex,size:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -r | --regex )
+            shift
+            regex=$1
+            shift
+            ;;
+        -s | --size )
+            shift
+            size=$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
+done
+
+counter=0
+folder=0
+for i in ${regex}; do
+  [ ! -d "$folder" ] && mkdir "$folder"
+  mv "$i" "$folder"
+  counter=$(($counter+1))
+  if [ $counter == $size ]; then
+    folder=$(($folder+1))
+    counter=0
+  fi
+done
+
