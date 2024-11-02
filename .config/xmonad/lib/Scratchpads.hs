@@ -22,8 +22,8 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
     spawnEffects = "easyeffects"
     findEffects = resource =? "easyeffects"
     manageEffects = customFloating $ W.RationalRect x y w h
-    x = 0.01
-    y = 0.01
-    w = 0.98
-    h = 0.98
+    x = 0.02
+    y = 0.02
+    w = 0.96
+    h = 0.96
 
