@@ -43,7 +43,7 @@ function install_xmonad_xmobar() {
   cabal install --package-env=$HOME/.config/xmonad --lib base xmonad xmonad-contrib
 
   echo "Install xmobar"
-  cabal install --flags="all_extensions" --package-env=$HOME/.config/xmobar xmobar
+  cabal install --flags="with_xpm with_xrender -with_weather -with_rtsopts" --package-env=$HOME/.config/xmobar xmobar
 }
 
 function copy_xmonad_executables() {
