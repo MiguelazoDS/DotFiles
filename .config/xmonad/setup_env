@@ -31,7 +31,40 @@ function copy_ghc_executables() {
 }
 
 function create_project_file() {
-  echo "packages: */*.cabal" > cabal.project
+  echo "packages: ./*.cabal xmonad/xmonad.cabal xmonad-contrib/xmonad-contrib.cabal xmobar/xmobar.cabal" > cabal.project
+}
+
+function create_cabal_file() {
+  {
+    echo "cabal-version:      3.0"
+    echo "name:               xmonad-config"
+    echo "version:            0.1.0.0"
+    echo ""
+    echo "common warnings"
+    echo "    ghc-options: -Wall"
+    echo ""
+    echo "executable xmonad-config"
+    echo "    import:           warnings"
+    echo "    main-is:          xmonad.hs"
+    echo "    build-depends:"
+    echo "        base ^>=4.17.2.1,"
+    echo "        xmonad ^>=0.18.0.9,"
+    echo "        xmonad-contrib ^>=0.18.1"
+    echo ""
+    echo "    other-modules:"
+    echo "        Misc,"
+    echo "        Bindings,"
+    echo "        Layouts,"
+    echo "        ManageHooks,"
+    echo "        Scratchpads,"
+    echo "        StartupHooks,"
+    echo "        Workspaces"
+    echo ""
+    echo "    hs-source-dirs: . lib"
+    echo ""
+    echo "    default-language: Haskell2010"
+
+  } > xmonad-config.cabal
 }
 
 function install_xmonad_xmobar() {
@@ -53,22 +86,16 @@ function copy_xmonad_executables() {
 
 function create_build_file() {
   {
-    echo "#!/bin/sh"
-    echo
-    echo "/usr/bin/ghc \\"
-    echo "  --make xmonad.hs \\"
-    echo "  -i               \\"
-    echo "  -ilib            \\"
-    echo "  -fforce-recomp   \\"
-    echo "  -main-is main    \\"
-    echo "  -v0              \\"
-    echo "  -o \"\$1\""
-    echo
+    echo "cabal build"
   } > build
   chmod +x build
 }
 
 function recompile() {
+  if [ ! -d ~/.cache/xmonad ]; then
+    mkdir ~/.cache/xmonad
+  fi
+  ln -s ~/.config/xmonad/dist-newstyle/build/x86_64-linux/ghc-9.4.8/xmonad-config-0.1.0.0/x/xmonad-config/build/xmonad-config/xmonad-config ~/.cache/xmonad/xmonad-x86_64-linux
   ./recompile
 }
 
@@ -76,20 +103,41 @@ function add_hie_file() {
   {
     echo "cradle:"
     echo "  cabal:"
-    echo "    - path: \"xmonad.hs\""
-    echo "      component: \"lib:xmonad\""
-    echo "    - path: \"xmonad.hs\""
-    echo "      component: \"xmonad:exe:xmonad\""
+    echo "    - path: ".""
+    echo "      component: "xmonad-config:exe:xmonad-config""
     echo
   } > hie.yaml
+}
+
+function create_desktop_file() {
+  if [ ! -f /usr/share/xsessions/xmonad.desktop ]; then
+    {
+      echo "[Desktop Entry]"
+      echo "Encoding=UTF-8"
+      echo "Type=Application"
+      echo "Name=Xmonad"
+      echo "Comment=Lightweight X11 tiled window manager written in Haskell"
+      echo "Exec=xmonad"
+      echo "Icon=xmonad"
+      echo "Terminal=false"
+      echo "StartupNotify=false"
+      echo "Categories=Application;"
+    } > xmonad.desktop
+    if [ ! -d /usr/share/xsessions/ ]; then
+      sudo mkdir /usr/share/xsessions/
+    fi
+    sudo mv ./xmonad.desktop /usr/share/xsessions/
+  fi
 }
 
 clone_repositories
 setup_ghcup
 copy_ghc_executables
 create_project_file
+create_cabal_file
 install_xmonad_xmobar
 copy_xmonad_executables
 create_build_file
 recompile
 add_hie_file
+create_desktop_file

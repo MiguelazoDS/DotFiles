@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+hash cabal 2> /dev/null
+if [ $? -eq 0 ]; then
+  cabal clean
+fi
+rm -rf .ghc*
+hash ghcup 2> /dev/null
+if [ $? -eq 0 ]; then
+  ghcup rm ghc 9.4.8
+  ghcup rm hls 2.9.0.1
+  ghcup rm cabal 3.10.3.0
+fi
+rm -rf *.cabal build cabal.project hie.yaml dist-newstyle/ xmobar xmonad-contrib xmonad
+rm -rf ~/.local/bin/xmo*
+sudo rm -rf /usr/share/xsessions/xmonad.desktop
+sudo rm -rf /usr/bin/ghc*
+sudo rm -rf /usr/bin/xmonad
+sudo rm -rf /usr/bin/xmobar
+rm -rf ~/.cache/cabal/
+rm -rf ~/.cache/xmonad
+rm -rf ~/.ghcup
+rm -rf ./xmonad.o
+rm -rf ./xmonad.hi
+
