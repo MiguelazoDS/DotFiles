@@ -6,8 +6,6 @@ if [ -z "$disconnected" ]; then
     hash envycontrol
     if [[ $? -eq 0 ]]; then
         if [[ $(envycontrol -q | cut -d ' ' -f 5) == "nvidia" ]]; then
-            # Auto mode.
-            nvidia-settings -a '[gpu:0]/GpuPowerMizerMode=2'
             # Reduce lag with GLX backend
             nvidia-settings -a 'AllowFlipping=0'
             # Full composition pipeline
