@@ -166,6 +166,8 @@ function download_xanmod {
     printf "\nIce Lake Processor Family Set\n"
     sed -i 's/\(CONFIG_GENERIC_CPU\)=.*/\# \1 is not set/g' linux-"$release_basename"/.config
     sed -i 's/.*\(CONFIG_MSKYLAKE\) is not set/\1=y/' linux-"$release_basename"/.config
+    printf "\nEnable MSR\n"
+    sed -i 's/.*\(CONFIG_X86_MSR\)=.*/\1=y/' linux-"$release_basename"/.config
     temp=$(echo $(basename "$latest_release") | sed "s/\([0-9]\{1\}\)\.\([0-9]\{2\}\)\.\([0-9]\{2\}\).*/\1\2\3/")
     echo "$temp" > /tmp/temp_file
     cd "$old_path" || exit
