@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+function usage {
+    printf "Usage: \n\t./${0} [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-f <value> --freq <value>\t Enter value in HZ (i.e 3500000)\n"
+}
+
+if [ "$#" -lt 2 ]; then
+    usage
+    exit 0
+fi
+
+short=f:
+long=freq:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -f | --freq )
+            shift
+            freq=$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
+done
+
+default_max_value=5000000
+default_min_value=800000
+
+if [ $((freq)) -lt $((default_min_value)) ]; then
+  echo "Invalid value. Too low. Setting to default max value: ${default_max_value}"
+  freq=$default_max_value
+fi
+
+if [ $((freq)) -gt $((default_max_value)) ]; then
+  echo "Invalid value. Too high. Setting to default max value: ${default_max_value}"
+  freq=$default_max_value
+fi
+
+# Limit CPU frequency
+sudo cpupower frequency-set -g performance
+sudo cpupower frequency-set -u "$freq"
+cpupower frequency-info
+
