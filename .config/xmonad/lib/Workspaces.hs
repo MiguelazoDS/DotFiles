@@ -1,8 +1,7 @@
 module Workspaces
-    ( myWorkspaces
-    ) where
-
-import Data.List as L
+  ( myWorkspaces,
+  )
+where
 
 workspaceNumber :: Int
 workspaceNumber = 7
@@ -10,9 +9,10 @@ workspaceNumber = 7
 icon :: String
 icon = "\62060 "
 
+xmobarEscape :: [b] -> [b]
 xmobarEscape = concatMap doubleLts
   where
-        doubleLts x   = [x]
+    doubleLts x = [x]
 
 workspaceColor :: String
 workspaceColor = "#5ac1db,#242424"
@@ -24,7 +24,9 @@ close :: String
 close = "<fc=#242424><fn=1>\57524</fn></fc>"
 
 myWorkspaces :: [String]
-myWorkspaces = clickable $ replicate workspaceNumber $ xmobarEscape $ open ++ "<fc=" ++ workspaceColor ++ "><fn=1>" ++ icon ++ "</fn></fc>" ++ close
-   where
-         clickable l = [ "<action=xdotool key super+" ++ show workspaceNumber ++ ">" ++ ws ++ "</action>" |
-                       (i,ws) <- zip [1..workspaceNumber] l, let workspaceNumber = i ]
+myWorkspaces =
+  [ "<action=xdotool key super+" ++ show i ++ ">" ++ ws ++ "</action>"
+    | (i, ws) <- zip [1 .. workspaceNumber] workspaceList
+  ]
+  where
+    workspaceList = replicate workspaceNumber $ xmobarEscape $ open ++ "<fc=" ++ workspaceColor ++ "><fn=1>" ++ icon ++ "</fn></fc>" ++ close

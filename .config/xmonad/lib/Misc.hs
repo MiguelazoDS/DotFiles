@@ -1,37 +1,43 @@
 module Misc
-    ( Applications (..)
-    , Custom (..)
-    , applications
-    , custom
-    ) where
+  ( Applications (..),
+    Custom (..),
+    applications,
+    custom,
+  )
+where
 
-import XMonad
 import GHC.Word
+import XMonad
 
 data Applications = Applications
-    { myTerminal :: String
-    , myTextEditor :: String
-    , myBrowser :: String
-    , myMusicPlayer :: String
-    , myVideoPlayer :: String
-    , myFileManager :: String
-    } deriving (Eq, Show)
+  { myTerminal :: String,
+    myTextEditor :: String,
+    myBrowser :: String,
+    myMusicPlayer :: String,
+    myVideoPlayer :: String,
+    myFileManager :: String
+  }
+  deriving (Eq, Show)
 
 data Custom = Custom
-    { myModMask :: KeyMask
-    , myBorderWidth :: GHC.Word.Word32
+  { myModMask :: KeyMask,
+    myBorderWidth :: GHC.Word.Word32
+  }
+
+applications :: Applications
+applications =
+  Applications
+    { myTerminal = "wezterm",
+      myTextEditor = "nvim",
+      myBrowser = "firefox",
+      myMusicPlayer = "moc",
+      myVideoPlayer = "mpv",
+      myFileManager = "pcmanfm"
     }
 
-applications = Applications
-    { myTerminal = "wezterm"
-    , myTextEditor = "nvim"
-    , myBrowser = "firefox"
-    , myMusicPlayer = "moc"
-    , myVideoPlayer = "mpv"
-    , myFileManager = "pcmanfm"
-    }
-
-custom = Custom
-    { myModMask = mod4Mask
-    , myBorderWidth = 2
+custom :: Custom
+custom =
+  Custom
+    { myModMask = mod4Mask,
+      myBorderWidth = 2
     }
