@@ -71,11 +71,11 @@ function install_xmonad_xmobar() {
   echo "Update Cabal"
   cabal update
 
-  echo "Install xmonad"
+  echo "Install Xmonad"
   cabal install --package-env=$HOME/.config/xmonad xmonad
   cabal install --package-env=$HOME/.config/xmonad --lib base xmonad xmonad-contrib
 
-  echo "Install xmobar"
+  echo "Install Xmobar"
   cabal install --flags="with_xpm with_xrender -with_weather -with_rtsopts" --package-env=$HOME/.config/xmobar xmobar
 }
 
@@ -127,6 +127,7 @@ function create_desktop_file() {
       sudo mkdir /usr/share/xsessions/
     fi
     sudo mv ./xmonad.desktop /usr/share/xsessions/
+    rm -rf ./xmonad.desktop
   fi
 }
 
