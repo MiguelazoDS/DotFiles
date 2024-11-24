@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+function usage {
+    printf "Usage: \n\t./${0} [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-v <value> --video <value>\n"
+    printf "\t-a <value> --audio <value>\n"
+    printf "\t-o <value> --output <value>\n"
+}
+
+if [ "$#" -lt 6 ]; then
+    usage
+    exit 0
+fi
+
+short=vao:
+long=video,audio,output:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -v | --video )
+            shift
+            video=$1
+            shift
+            ;;
+        -a | --audio )
+            shift
+            audio=$1
+            shift
+            ;;
+        -o | --output )
+            shift
+            output=$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
+done
+
+ffmpeg -i "$video" -i "$audio" -c:v copy -map 0:v:0 -map 1:a:0 "$output"
+
