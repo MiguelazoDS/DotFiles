@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+function usage {
+    printf "Usage: \n\t./${0} [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-f <value> --framerate <value>\n"
+    printf "\t-s <value> --sequence <value>\n"
+    printf "\t-r <value> --resolution <value>\n"
+    printf "\t-o <value> --output <value>\n"
+}
+
+if [ "$#" -lt 8 ]; then
+    usage
+    exit 0
+fi
+
+short=fsro:
+long=framerate,sequence,resolution,output:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -f | --framerate )
+            shift
+            framerate=$1
+            shift
+            ;;
+        -s | --sequence )
+            shift
+            sequence=$1
+            shift
+            ;;
+        -r | --resolution )
+            shift
+            resolution=$1
+            shift
+            ;;
+        -o | --output )
+            shift
+            output=$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
+done
+
+ffmpeg -framerate "$framerate" -pattern_type sequence -i "$sequence" -s:v "$resolution" -c:v libx264 -pix_fmt yuv420p "$output"
+
