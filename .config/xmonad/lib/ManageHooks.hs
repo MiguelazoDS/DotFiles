@@ -25,7 +25,7 @@ myManageHook' =
       title =? "gitk" --> doFloat,
       className =? "JDownloader" --> doFloat,
       className =? "Yad" --> doFloat,
-      (className =? "firefox" <&&> appName =? "Places") --> doFloat,
-      (className =? "firefox" <&&> resource =? "Dialog") --> doFloat,
-      (className =? "firefox" <&&> title =? "About Mozilla Firefox") --> doFloat
+      (className =? "floorp" <&&> appName =? "Places") --> doFloat,
+      (className =? "floorp" <&&> resource =? "Dialog") --> doFloat,
+      (className =? "floorp" <&&> title =? "About Ablaze Floorp") --> doFloat
     ]

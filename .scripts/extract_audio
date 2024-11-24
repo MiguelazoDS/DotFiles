@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+function usage {
+    printf "Usage: \n\t./${0} [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-f <value> --file <value>\n"
+    printf "\t-s <value> --sampling <value>\n"
+    printf "\t-e <value> --extension <value>\n"
+}
+
+if [ "$#" -lt 6 ]; then
+    usage
+    exit 0
+fi
+
+short=fse:
+long=file,sampling,extension:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -f | --file )
+            shift
+            file=$1
+            shift
+            ;;
+        -s | --sampling )
+            shift
+            sampling=$1
+            shift
+            ;;
+        -e | --extension )
+            shift
+            extension=$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
+done
+
+name=$(echo "${file}" | cut -d '.' -f 1)
+#ffmpeg -i "${file}" -vn -acodec copy "${name}.aac"
+ffmpeg -i "${file}" -vn -ac 2 -ar "${sampling}" "${name}.${extension}"
+

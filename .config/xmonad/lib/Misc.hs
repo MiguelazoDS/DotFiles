@@ -29,7 +29,7 @@ applications =
   Applications
     { myTerminal = "wezterm",
       myTextEditor = "nvim",
-      myBrowser = "firefox",
+      myBrowser = "floorp",
       myMusicPlayer = "moc",
       myVideoPlayer = "mpv",
       myFileManager = "pcmanfm"

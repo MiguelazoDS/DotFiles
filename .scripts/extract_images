@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+function usage {
+    printf "Usage: \n\t./${0} [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-f <value> --file <value>\n"
+}
+
+if [ "$#" -lt 2 ]; then
+    usage
+    exit 0
+fi
+
+short=f:
+long=file:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -f | --file )
+            shift
+            file=$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
+done
+
+#fps=$(mediainfo "$file" | awk '/Frame rate/ {print $0}' | grep -E -o ':.*([0-9]+.*)+FPS' | tr ' ' ',' | cut -d ',' -f 2 | head -n 1)
+
+[ ! -d Images ] && (mkdir Images)
+
+ffmpeg -i "$file" Images/image_%05d.png
+

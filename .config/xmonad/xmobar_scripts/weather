@@ -51,7 +51,7 @@ case "$1" in
         else
             temp="/tmp/weather"
         fi
-        notify-send.sh -R /tmp/id_file -t 3000 "Extended weather" "$(cat $temp)" -o "Openweather.org:firefox https://openweathermap.org/city/3860259"
+        notify-send.sh -R /tmp/id_file -t 3000 "Extended weather" "$(cat $temp)" -o "Openweather.org:floorp https://openweathermap.org/city/3860259"
         ;;
     * )
         weather_url="https://api.openweathermap.org/data/2.5/weather?id=3860259&appid=$(cat "$HOME"/.config/xmonad/xmobar_scripts/apikey)&units=metric"
