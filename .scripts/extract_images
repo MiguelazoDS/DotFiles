@@ -34,8 +34,6 @@ do
     esac
 done
 
-#fps=$(mediainfo "$file" | awk '/Frame rate/ {print $0}' | grep -E -o ':.*([0-9]+.*)+FPS' | tr ' ' ',' | cut -d ',' -f 2 | head -n 1)
-
 [ ! -d Images ] && (mkdir Images)
 
 ffmpeg -i "$file" Images/image_%05d.png

@@ -47,6 +47,5 @@ do
 done
 
 name=$(echo "${file}" | cut -d '.' -f 1)
-#ffmpeg -i "${file}" -vn -acodec copy "${name}.aac"
 ffmpeg -i "${file}" -vn -ac 2 -ar "${sampling}" "${name}.${extension}"
 
