@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+function usage {
+    printf "Usage: \n\t$0 [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-f <value> --folder <value>\n"
+}
+
+if [ "$#" -lt 2 ]; then
+    usage
+    exit 0
+fi
+
+short=f:
+long=folder:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -f | --folder )
+            shift
+            source_path=$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
+done
+
+base="$HOME/Documents/Thumbnails/"
+
+[ ! -d "$base" ] && mkdir "$base"
+
+folder="$(basename "$source_path")"
+
+[ ! -d "$base$folder" ] && mkdir "$base$folder"
+
+find "$source_path" -type f -size +50M -exec mtn -f /usr/share/fonts/liberation/LiberationSans-Regular.ttf --shadow=1 -g 10 -r 4 -c 3 -H {} -w 1024 -j 90 -O "$base$folder" \;
+
