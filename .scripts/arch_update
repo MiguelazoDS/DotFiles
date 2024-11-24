@@ -4,7 +4,7 @@ recompile=$HOME/.config/xmonad/recompile
 
 function update {
     sudo snapper -c root create -d "Before upgrade"
-    yay -Syy && yay -Syyu --devel --noconfirm; ${recompile}
+    yay -Syy && yay -Syyu --devel --noconfirm; ${recompile} 2> /dev/null
 }
 
 function clean {
@@ -22,7 +22,7 @@ function clean {
 function ignore {
     pkgs="$(yay -Qsq "$1" | tr '\n' ',')"
     sudo snapper -c root create -d "Before upgrade"
-    yay -Syyu --ignore $pkgs --devel --noconfirm; ${recompile}
+    yay -Syyu --ignore $pkgs --devel --noconfirm; ${recompile} 2> /dev/null
 }
 
 function delete_snapshots {
