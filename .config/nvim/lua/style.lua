@@ -46,6 +46,7 @@ vim.g.gruvbox_baby_color_overrides = {
 -- Custom highlights
 local util = require("gruvbox-baby.util")
 local config = require("gruvbox-baby.config")
+-- Use :Inspect to determine the group
 vim.g.gruvbox_baby_highlights = {
   ["@function.builtin"] = { fg = colors.orange, style = config.function_style },
   ["@punctuation.bracket"] = { fg = colors.milk },
@@ -111,7 +112,8 @@ require("bufferline").setup {
     diagnostics_indicator = function(count, level)
       local icon = level:match("error") and " " or " "
       return " " .. icon .. count
-    end
+    end,
+    separator_style = "slant"
   }
 }
 
