@@ -4,11 +4,7 @@ source $HOME/.config/xmonad/xmobar_scripts/colors
 
 case "$1" in
     updates)
-        if [ -f /tmp/updates.bk ]; then
-            file="/tmp/updates.bk"
-        else
-            file="/tmp/updates"
-        fi
+        file="/tmp/updates"
         if [[ -z $(cat $file) ]]; then
             notify-send.sh -R /tmp/id_file -i dialog-information "System up to date"
         else
@@ -17,33 +13,29 @@ case "$1" in
         fi
         ;;
     *)
-        major="6.7."
+        major="$(curl -L xanmod.org | grep -A 5 "Stable Mainline" | grep -o "key_text.*" | cut -d '=' -f2)"
         release="$(uname -r | sed "s/$major\(.*\)-xanmod1/\1/")"
 
-        url=$(curl -u MiguelazoDS:"$(cat ~/.scripts/github_token)" "https://api.github.com/repos/xanmod/linux/releases" | grep -E "browser_download_url.*${major}[0-9]{1,3}-xanmod[0-9]{1}\/.*$release.*--.*" | cut -d'"' -f4)
-
-        xanmod_update="$(basename "$url" | sed -e 's/--/ -> /g' -e 's/patch-\(.*\)\.xz/\1/g')"
-
-        updates_arch=$(checkupdates+aur 2> /dev/null)
-        n_updates_arch=$(echo "$updates_arch" | sed '/^$/d' | wc -l)
-        n_xanmod_patch=$(echo "$url" | sed '/^$/d' | wc -l)
-
-        n_updates=$(("$n_updates_arch" + "$n_xanmod_patch"))
-
-        if [ -f /tmp/updates ]; then
-            cp /tmp/updates /tmp/updates.bk
-            if [ -z "$updates_arch" ]; then
-                printf "%s" "$xanmod_update" > /tmp/updates
-            else
-                printf "%s\n%s" "$updates_arch" "$xanmod_update" > /tmp/updates
-            fi
-            rm /tmp/updates.bk
+        if [ ! "$major" == "$release" ]; then
+          n_update_xanmod=1
+          update_xanmod="xanmod-kernel ${release} -> ${major}"
         else
-            if [ -z "$updates_arch" ]; then
-                printf "%s" "$xanmod_update" > /tmp/updates
-            else
-                printf "%s\n%s" "$updates_arch" "$xanmod_update" > /tmp/updates
-            fi
+          n_update_xanmod=0
+          update_xanmod=""
+        fi
+
+        updates_arch=$(checkupdates 2> /dev/null)
+        n_updates_arch=$(echo "$updates_arch" | sed '/^$/d' | wc -l)
+
+        updates_aur=$(yay -Qua 2> /dev/null)
+        n_updates_aur=$(echo "$updates_aur" | sed '/^$/d' | wc -l)
+
+        n_updates=$(("$n_updates_arch" + "$n_updates_aur" + "$n_update_xanmod"))
+
+        if [ -z "$updates_arch" ]; then
+            printf "%s\n%s" "$updates_aur" "$update_xanmod" > /tmp/updates
+        else
+            printf "%s\n%s\n%s" "$updates_arch" "$updates_aur" "$update_xanmod" > /tmp/updates
         fi
 
         if [ "$n_updates" -eq 0 ]; then
