@@ -58,6 +58,9 @@ export PATH=$HOME/.cargo/bin:$PATH
 # Add ghcup path
 export PATH=$HOME/.ghcup/bin:$PATH
 
+# Colored man-pages
+export GROFF_NO_SGR=1
+
 # Verify pip, imagemagick, eza, and ripgrep are installed.
 hash pip 2> /dev/null
 [[ $? -eq 1 ]] && (printf "\npip is not installed\nInstalling..."; yay -S python-pip --noconfirm)
@@ -141,6 +144,7 @@ plugins=(
     cp
     rake-fast
     zsh-autosuggestions
+    colored-man-pages
 )
 
 source $ZSH/oh-my-zsh.sh
