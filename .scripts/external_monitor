@@ -10,7 +10,11 @@ if [ -z "$disconnected" ]; then
             nvidia-settings -a 'AllowFlipping=0'
             # Full composition pipeline
             nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
-            xrandr --output HDMI-0 --mode 1920x1080 --rate 144
+            # Avoid setting mode if it is already in 1920x1080
+            xrandr | awk '/HDMI/ {print $0}' | grep 1920
+            if [ $? -ne 0 ]; then
+              xrandr --output HDMI-0 --mode 1920x1080 --rate 144
+            fi
         else
             xrandr --output HDMI-1-0 --mode 1920x1080 --rate 144 --primary --same-as eDP-1
         fi
