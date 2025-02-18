@@ -111,12 +111,13 @@ function get_source_code {
 # ===========================================================================================
 major="$(curl https://xanmod.org/ | grep -A 1 "Stable Mainline" | tail -n 1 | sed 's/<td>\(.*\)<\/td>/\1/')"
 linux_dir=$HOME/Documents/linux
-if [ -d "$linux_dir" ]; then
-  rm -rf "$linux_dir"
-fi
+rm -rf "$linux_dir"
 mkdir "$linux_dir"
 
 url=$(get_source_code)
 download_and_configure_xanmod "$url"
 linux_dir="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*$")"
 build_and_install "$major" "$xanmod_info" "$linux_dir"
+
+rm -rf "$linux_dir"
+
