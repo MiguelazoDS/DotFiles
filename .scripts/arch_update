@@ -32,7 +32,7 @@ function delete_snapshots {
   array=()
   for i in "${var[@]}"
   do
-    if [[ "$i" =~ "Before upgrade" ]]; then
+    if [[ "$i" =~ "Before upgrade" ]] || [[ "$i" =~ "Before installing Xanmod kernel" ]]; then
       id=$(echo "$i" | cut -d ' ' -f 1)
       array+=("$id")
     fi
