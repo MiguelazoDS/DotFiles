@@ -89,9 +89,12 @@ function download_and_configure_xanmod {
     tar xfj "$release_basename" -C "linux"
     rm "$release_basename"
     cd linux/*
-    config_template="config_x86-64-v1"
-    cp CONFIGS/xanmod/gcc/${config_template} ${config_file}
-    [ $? -eq 1 ] && (exit 1)
+    config_template="CONFIGS/xanmod/gcc/config_x86-64-v1"
+    ls ${config_template} 2>& /dev/null
+    if [ $? -ne 0 ]; then
+      config_template="CONFIGS/x86_64/config"
+    fi
+    cp ${config_template} ${config_file}
     printf "\nUnset local version"
     sed -i 's/\(CONFIG_LOCALVERSION=\).*/\1""/g' ${config_file}
     printf "\nIce Lake Processor Family Set\n"
@@ -118,6 +121,4 @@ url=$(get_source_code)
 download_and_configure_xanmod "$url"
 linux_dir="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*$")"
 build_and_install "$major" "$xanmod_info" "$linux_dir"
-
-rm -rf "$linux_dir"
 
