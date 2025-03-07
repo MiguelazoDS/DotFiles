@@ -189,6 +189,7 @@ pcspkr
 platform_profile
 polyval_clmulni
 polyval_generic
+pps_core
 processor_thermal_device
 processor_thermal_device_pci_legacy
 processor_thermal_mbox
@@ -197,6 +198,7 @@ processor_thermal_rapl
 processor_thermal_rfim
 processor_thermal_wt_hint
 processor_thermal_wt_req
+ptp
 r8169
 raid6_pq
 rapl
@@ -237,8 +239,10 @@ snd_seq_device
 snd_seq_dummy
 snd_soc_acpi
 snd_soc_acpi_intel_match
+snd_soc_acpi_intel_sdca_quirks
 snd_soc_core
 snd_soc_hdac_hda
+snd_soc_sdca
 snd_soc_skl
 snd_soc_sst_dsp
 snd_soc_sst_ipc
