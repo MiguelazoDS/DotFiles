@@ -25,11 +25,11 @@ Config { font    =  "FiraCode Nerd Font Medium Normal 11.5"
     , Run Cpu ["-t","<fc=#242424><fn=1></fn></fc><fc=#386eab,#242424><fn=0> </fn><total>%</fc><fc=#242424><fn=1></fn></fc>","-H","75","--high","#db3e2c,#242424"] 10
     , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/mem" [] "memory" 10
     , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/volume" [] "volume" 1
-    , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/updates" [] "updates" 200
+    , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/updates" [] "updates" 600
     , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/moc" [] "moc" 5
     , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/weather" [] "weather" 200
     , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/padding" [] "trayerpad" 1
-    , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/headset" [] "headset" 3
+    , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/headset" [] "headset" 5
     , Run Locks
     , Run UnsafeStdinReader
     ]

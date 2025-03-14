@@ -13,29 +13,36 @@ case "$1" in
         fi
         ;;
     *)
-        major="$(curl -L xanmod.org | grep -A 5 "Stable Mainline" | grep -o "key_text.*" | cut -d '=' -f2)"
+        response="$(curl -m 3 -L xanmod.org)"
+        if [ $? -eq 0 ]; then
+          major=$(echo "$response" | grep -A 5 "Stable Mainline" | grep -o "key_text.*" | cut -d '=' -f2)
+        fi
         release="$(uname -r | sed "s/$major\(.*\)-xanmod1/\1/")"
 
-        if [ ! "$major" == "$release" ]; then
+        if [ ! -z "$major" ] && [ ! "$major" == "$release" ]; then
           n_update_xanmod=1
           update_xanmod="xanmod-kernel ${release} -> ${major}"
         else
           n_update_xanmod=0
           update_xanmod=""
         fi
-
         updates_arch=$(checkupdates 2> /dev/null)
         n_updates_arch=$(echo "$updates_arch" | sed '/^$/d' | wc -l)
 
+        updates_arch=$(checkupdates 2> /dev/null)
         updates_aur=$(yay -Qua 2> /dev/null)
         n_updates_aur=$(echo "$updates_aur" | sed '/^$/d' | wc -l)
 
         n_updates=$(("$n_updates_arch" + "$n_updates_aur" + "$n_update_xanmod"))
 
-        if [ -z "$updates_arch" ]; then
-            printf "%s\n%s" "$updates_aur" "$update_xanmod" > /tmp/updates
+        if [ -z "$updates_arch" ] && [ -z "$updates_aur" ]; then
+          printf "%s" "$update_xanmod" > /tmp/updates
+        elif [ -z "$updates_arch" ]; then
+          printf "%s\n%s" "$updates_aur" "$update_xanmod" > /tmp/updates
+        elif [ -z "$updates_aur" ]; then
+          printf "%s\n%s" "$updates_arch" "$update_xanmod" > /tmp/updates
         else
-            printf "%s\n%s\n%s" "$updates_arch" "$updates_aur" "$update_xanmod" > /tmp/updates
+          printf "%s\n%s\n%s" "$updates_arch" "$updates_aur" "$update_xanmod" > /tmp/updates
         fi
 
         if [ "$n_updates" -eq 0 ]; then
