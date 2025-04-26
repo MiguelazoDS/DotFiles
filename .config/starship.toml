@@ -6,8 +6,10 @@ add_newline = false
 
 # Custom prompt
 format = """\
-[](fg:#E7D7AD)\
-[ ](bg:#E7D7AD fg:#3a495c)\
+[](fg:color_red)\
+$conda\
+[](bg:#E7D7AD fg:color_red)\
+[  ](bg:#E7D7AD fg:#3a495c)\
 [](bg:#3a495c fg:#E7D7AD)\
 $username\
 [](bg:#b04c0b fg:#3a495c)\
@@ -19,8 +21,31 @@ $git_commit\
 $git_state\
 [](fg:#285423 bg:#E7D7AD)\
 [  ](bg:#E7D7AD fg:#3a495c)\
-[ ](fg:#E7D7AD)\
+[ ](fg:#E7D7AD)\
+$line_break $character\
 """
+
+palette = 'gruvbox_dark'
+
+[palettes.gruvbox_dark]
+color_fg0 = '#fbf1c7'
+color_bg1 = '#3c3836'
+color_bg3 = '#665c54'
+color_blue = '#458588'
+color_aqua = '#689d6a'
+color_green = '#98971a'
+color_orange = '#d65d0e'
+color_purple = '#b16286'
+color_red = '#cc241d'
+color_yellow = '#d79921'
+
+[line_break]
+disabled = false
+
+[conda]
+symbol = ' '
+style = 'bg:color_red'
+format = '[$symbol$environment]($style)'
 
 [username]
 show_always = true
@@ -69,3 +94,6 @@ format = '[$hash]($style)'
 style = "bg:#285423"
 format = '[$state]($style)'
 
+[character]
+success_symbol = '[](bold fg:color_green)'
+error_symbol = '[](bold fg:color_red)'

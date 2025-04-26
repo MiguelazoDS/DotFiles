@@ -1,5 +1,17 @@
 local wezterm = require 'wezterm'
-local my_default = wezterm.color.get_default_colors()
+-- https://github.com/wez/wezterm/blob/main/config/src/scheme_data.rs
+local my_color_scheme = wezterm.color.get_builtin_schemes()['Gnometerm (terminal.sexy)']
+my_color_scheme.cursor_bg = '#ab5324'
+my_color_scheme.background = '#303030'
+my_color_scheme.foreground = '#d1c3a5'
+--my_color_scheme.selection_fg = 'black'
+--my_color_scheme.selection_bg = '#000000'
+my_color_scheme.ansi = {
+  "#000000", "#b02a2a", "#4e9a06", "#c4a000", "#3465a4", "#75507b", "#06989a", "#d3d7cf"
+}
+my_color_scheme.brights = {
+  "#909090", "#ed4747", "#8ae234", "#fce94f", "#729fcf", "#ad7fa8", "#34e2e2", "#d1c3a5"
+}
 
 return {
   scrollback_lines = 10000,
@@ -8,14 +20,15 @@ return {
   font = wezterm.font("FiraCode Nerd Font", { weight = "Regular", stretch = "Normal", style = "Normal" }),
   font_size = 13.5,
   display_pixel_geometry = "RGB",
-  color_scheme = 'Gruvbox Material (Gogh)',
+  color_schemes = {
+    ['My Theme'] = my_color_scheme
+  },
+  color_scheme = 'My Theme',
   hide_tab_bar_if_only_one_tab = true,
   window_close_confirmation = 'AlwaysPrompt',
   use_resize_increments = true,
   window_frame = {
     active_titlebar_bg = '#333333',
-    -- The overall background color of the tab bar when
-    -- the window is not focused
     inactive_titlebar_bg = '#333333',
     border_left_width = '0cell',
     border_right_width = '0cell',
@@ -23,13 +36,16 @@ return {
     border_top_height = '0cell',
   },
   window_padding = {
-    left = 5,
+    left = 0,
     right = 0,
-    top = 5,
+    top = 0,
     bottom = 0,
   },
-  colors = {
-    cursor_bg = '#ab5324',
+  window_background_image = '/home/miguel/.Wallpapers/1920x1080/electric_guitar_guitar_white_160582_1920x1080.jpg',
+  window_background_image_hsb = {
+    hue = 1,
+    brightness = 0.05,
+    saturation = 0.75
   },
   keys = {
     { key = 'j', mods = 'CTRL|SHIFT', action = wezterm.action.ActivateTabRelative(-1) },
@@ -38,6 +54,6 @@ return {
   freetype_load_target = "Normal",
   freetype_render_target = 'Normal',
   freetype_load_flags = 'NO_BITMAP',
-  window_background_opacity = 0.8,   -- Required since WM_NAME is mangled when multiple tabs are open.
+  window_background_opacity = 1,
   text_background_opacity = 1,
 }

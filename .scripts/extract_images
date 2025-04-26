@@ -36,5 +36,6 @@ done
 
 [ ! -d Images ] && (mkdir Images)
 
-ffmpeg -i "$file" Images/image_%05d.png
+# -vsync vfr avoid duplicate frames
+ffmpeg -i "$file" -vsync vfr Images/image_%05d.png
 

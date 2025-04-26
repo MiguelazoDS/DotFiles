@@ -1,56 +1,60 @@
 #!/usr/bin/env bash
 
 function usage {
-    printf "Usage: \n\t./${0} [Options]\n"
-    printf "\nOptions: \n"
-    printf "\t-f <value> --framerate <value>\n"
-    printf "\t-s <value> --sequence <value>\n"
-    printf "\t-r <value> --resolution <value>\n"
-    printf "\t-o <value> --output <value>\n"
+  printf "Usage: \n\t./${0} [Options]\n"
+  printf "\nOptions: \n"
+  printf "\t-f <value> --framerate <value>\n"
+  printf "\t-s <value> --sequence <value>\n"
+  printf "\t-o <value> --output <value>\n"
+  printf "\t-i <value> --first_image_number <value>\n"
 }
 
 if [ "$#" -lt 8 ]; then
-    usage
-    exit 0
+  usage
+  exit 0
 fi
 
-short=fsro:
-long=framerate,sequence,resolution,output:
+short=fsoi:
+long=framerate,sequence,output,first_image_number:
 
 if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
 then
-    exit 1
+  exit 1
 fi
 
 while true;
 do
-    case "$1" in
-        -f | --framerate )
-            shift
-            framerate=$1
-            shift
-            ;;
-        -s | --sequence )
-            shift
-            sequence=$1
-            shift
-            ;;
-        -r | --resolution )
-            shift
-            resolution=$1
-            shift
-            ;;
-        -o | --output )
-            shift
-            output=$1
-            shift
-            ;;
-        * )
-            shift
-            break
-            ;;
-    esac
+  case "$1" in
+    -f | --framerate )
+      shift
+      framerate=$1
+      shift
+      ;;
+    -s | --sequence )
+      shift
+      sequence=$1
+      shift
+      ;;
+    -o | --output )
+      shift
+      output=$1
+      shift
+      ;;
+    -i | --first_image_number )
+      shift
+      first_image_number=$1
+      shift
+      ;;
+    * )
+      shift
+      break
+      ;;
+  esac
 done
 
-ffmpeg -framerate "$framerate" -pattern_type sequence -i "$sequence" -s:v "$resolution" -c:v libx264 -pix_fmt yuv420p "$output"
+if [ "$first_image_number" -eq 0 ]; then
+  ffmpeg -framerate "$framerate" -pattern_type sequence -i "$sequence" -c:v libx264 -pix_fmt yuv420p "$output"
+else
+  ffmpeg -framerate "$framerate" -pattern_type sequence -start_number ${first_image_number} -i "$sequence" -c:v libx264 -pix_fmt yuv420p "$output"
+fi
 
