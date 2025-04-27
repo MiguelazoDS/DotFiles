@@ -17,12 +17,6 @@ export TERMINFO="/usr/share/terminfo"
 hash xclip
 [[ $? -eq 1 ]] && (printf "\nxclip is not installed\nInstalling..."; yay -S xclip --noconfirm)
 
-# Verify if nvim-packer-git is installed
-if [[ ! -d /usr/share/nvim/site/pack/packer/start/packer.nvim ]]; then
-  printf "\nnvim-packer-git is not installed\nInstalling..."; yay -S nvim-packer-git --noconfirm
-  nvim +PackerSync +qa!
-fi
-
 # Verify if bear is installed
 hash bear 2> /dev/null
 [[ $? -eq 1 ]] && (printf "\nbear is not installed\nInstalling..."; yay -S bear --noconfirm)
