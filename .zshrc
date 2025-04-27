@@ -1,3 +1,6 @@
+# Verify ohmyzsh is installed
+[[ ! -d $HOME/.oh-my-zsh ]] && (sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)")
+
 # Verify fzf is installed
 [[ ! -d $HOME/.fzf ]] && (git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install)
 
