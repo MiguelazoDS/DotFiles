@@ -8,7 +8,7 @@ api.nvim_create_autocmd("TextYankPost", {
   group = yankGrp
 })
 
--- Remove trailing spaces
+-- Remove trailing spaces on save
 local spacesGrp = api.nvim_create_augroup("TrailingSpaces", { clear = true })
 api.nvim_create_autocmd("BufWrite", {
     command = [[%s/\s\+$//e]],
@@ -68,14 +68,11 @@ api.nvim_create_autocmd("CursorMoved", {
     group = cmdGrp
 })
 
--- Tab 4 spaces
+-- Tab 2 spaces
 cmd[[set tabstop=2]]
 
 -- Indent
 cmd[[set shiftwidth=2]]
-
--- gitgutter
---vim.api.nvim_command('set updatetime=100')
 
 -- Enable current cursor line highlight
 cmd[[set cursorline]]
@@ -97,13 +94,7 @@ api.nvim_create_autocmd("FileType", {
     group = saveGrp
 })
 
-local idlGrp = api.nvim_create_augroup("IDLSetFileType", { clear = true })
-api.nvim_create_autocmd({"VimEnter","WinEnter","BufNewFile","BufReadPost"}, {
-    pattern = {"*.fbs"},
-    command = [[setfiletype fbs]],
-    group = idlGrp
-})
-
+-- Enable linters for Haskell
 vim.g.ale_linters = {
   haskell = {'ghc-mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc'}
 }

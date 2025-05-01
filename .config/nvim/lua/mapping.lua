@@ -2,6 +2,7 @@
 local map = vim.keymap.set
 local opts = { noremap=true, silent=false }
 local api = vim.api
+local cmd = vim.cmd
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -14,6 +15,8 @@ map('n', 'dl', '0d$', opts)
 -- Buffer
 map('n', 'gn', ':BufferLineCycleNext<CR>')
 map('n', 'gp', ':BufferLineCyclePrev<CR>')
+-- Disabling default gcc commenting action
+cmd[[unmap gcc]]
 map('n', 'gc', ':bdelete<CR>')
 map('n', 'gP', ':BufferLinePick<CR>')
 
