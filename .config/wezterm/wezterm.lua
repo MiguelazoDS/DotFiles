@@ -41,7 +41,7 @@ return {
     top = 0,
     bottom = 0,
   },
-  window_background_image = '/home/miguel/.Wallpapers/1920x1080/electric_guitar_guitar_white_160582_1920x1080.jpg',
+  window_background_image = '/home/miguel/.Wallpapers/1920x1080/electric_guitar_guitar_white_160582_1920x1080.png',
   window_background_image_hsb = {
     hue = 1,
     brightness = 0.05,
