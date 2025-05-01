@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+SIZE_GB=50
+
 hash trash-put
 [[ $? -eq 1 ]] && (printf "\ntrash-cli is not installed\nInstalling ... \n"; yay -S trash-cli)
 
@@ -15,7 +17,7 @@ else
         trash-put "$@"
         echo deleted "$@"
     else
-        if [[ $((number)) -lt 20 ]]; then
+      if [[ $((number)) -lt $((SIZE_GB)) ]]; then
             trash-put "$@"
             echo deleted "$@"
         else
