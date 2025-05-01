@@ -16,18 +16,23 @@ function setup_ghcup() {
     yay -S ghcup-hs-bin --noconfirm
   fi
 
-  readarray -t to_install < <(ghcup list | awk '/✗.*recommended/ {print $0}' | grep -E -o ".*\s+(${regex}).*" | tr -s ' ' | cut -d ' ' -f 3,4)
+  ghcup install ghc 9.4.8
+  ghcup install cabal 3.10.3.0
+  ghcup install hls 2.9.0.1
+  #readarray -t to_install < <(ghcup list | awk '/✗.*recommended/ {print $0}' | grep -E -o ".*\s+(${regex}).*" | tr -s ' ' | cut -d ' ' -f 3,4)
 
-  echo "Install ghc, cabal and hls"
-  for pkg in "${to_install[@]}"; do
-    ghcup install $pkg
-  done
+  #echo "Install ghc, cabal and hls"
+  #for pkg in "${to_install[@]}"; do
+    #ghcup install $pkg
+  #done
 }
 
 function copy_ghc_executables() {
+  #version=$(ghcup list | grep -E -o "ghc\s+.*recommended" | awk '{print $2}')
   sudo cp ~/.ghcup/ghc/9.4.8/bin/ghc-9.4.8 /usr/bin/ghc
   sudo cp ~/.ghcup/ghc/9.4.8/bin/ghci-9.4.8 /usr/bin/ghci
   sudo cp ~/.ghcup/ghc/9.4.8/bin/ghc-pkg-9.4.8 /usr/bin/ghc-pkg
+  sudo cp ~/.ghcup/ghc/9.4.8/bin/hsc2hs-ghc-9.4.8 /usr/bin/hsc2hs
 }
 
 function create_project_file() {
@@ -47,7 +52,7 @@ function create_cabal_file() {
     echo "    import:           warnings"
     echo "    main-is:          xmonad.hs"
     echo "    build-depends:"
-    echo "        base ^>=4.17.2.1,"
+    echo "        base >=4.17.2.1,"
     echo "        xmonad ^>=0.18.0.9,"
     echo "        xmonad-contrib ^>=0.18.1"
     echo ""
@@ -95,8 +100,12 @@ function recompile() {
   if [ ! -d ~/.cache/xmonad ]; then
     mkdir ~/.cache/xmonad
   fi
+
+  version=$(ghcup list | grep -E -o "ghc\s+.*recommended" | awk '{print $2}')
+
+  /usr/bin/xmonad --recompile
   ln -s ~/.config/xmonad/dist-newstyle/build/x86_64-linux/ghc-9.4.8/xmonad-config-0.1.0.0/x/xmonad-config/build/xmonad-config/xmonad-config ~/.cache/xmonad/xmonad-x86_64-linux
-  ./recompile
+  /usr/bin/xmonad --restart
 }
 
 function add_hie_file() {

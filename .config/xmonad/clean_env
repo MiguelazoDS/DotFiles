@@ -1,24 +1,41 @@
 #!/usr/bin/env bash
 
+function get_version() {
+  package=$1
+  ghcup list | grep -E -o "${package}\s+.*recommended" | awk '{print $2}'
+}
+
 hash cabal 2> /dev/null
 if [ $? -eq 0 ]; then
   cabal clean
 fi
-rm -rf .ghc*
+
 hash ghcup 2> /dev/null
 if [ $? -eq 0 ]; then
+  #ghc_version=$(get_version "ghc")
+  #hls_version=$(get_version "hls")
+  #cabal_version=$(get_version "cabal")
   ghcup rm ghc 9.4.8
-  ghcup rm hls 2.9.0.1
   ghcup rm cabal 3.10.3.0
+  ghcup rm hls 2.9.0.1
+
 fi
-rm -rf *.cabal build cabal.project hie.yaml dist-newstyle/ xmobar xmonad-contrib xmonad
-rm -rf ~/.local/bin/xmo*
+
 sudo rm -rf /usr/share/xsessions/xmonad.desktop
 sudo rm -rf /usr/bin/ghc*
+sudo rm -rf /usr/bin/hsc2hs
 sudo rm -rf /usr/bin/xmonad
 sudo rm -rf /usr/bin/xmobar
+
+rm -rf .ghc*
+rm -rf *.cabal build cabal.project hie.yaml dist-newstyle/ xmobar xmonad-contrib xmonad
+rm -rf ~/.local/bin/xmo*
 rm -rf ~/.cache/cabal/
 rm -rf ~/.cache/xmonad
+rm -rf ~/.config/cabal
+rm -rf ~/.local/share/xmonad
+rm -rf ~/.local/state/cabal
+rm -rf ~/.config/ghc
 rm -rf ~/.ghcup
 rm -rf ./xmonad.o
 rm -rf ./xmonad.hi
