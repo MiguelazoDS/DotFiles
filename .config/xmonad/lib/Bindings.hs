@@ -40,7 +40,7 @@ myKeys =
     ("M-q", kill1), -- Kill the currently focused client
     ("M-S-q", killAll), -- Kill all the windows on current workspace
     ("M-r", spawn "$HOME/.scripts/external_monitor && picom --config $HOME/.config/picom/picom.conf"), -- Restore to 16:9
-    ("M-c", spawn "xrandr --output HDMI-0 --mode 1680x1050 --rate 144 && pkill picom"), -- Set resolution 16:10
+    ("M-c", spawn "xrandr --output HDMI-0 --mode 1920x1080 --rate 144 && pkill picom"), -- Set resolution 16:9 144hz stop picom
     ("M-<Delete>", withFocused $ windows . W.sink), -- Push floating window back to tile.
     ("M-S-<Delete>", withFocused $ windows . flip W.float (W.RationalRect 0 0 1 1)), -- Put current windows to full float.
     ("M-S-d", windows copyToAll), -- Copy focused windows to all workspaces.
