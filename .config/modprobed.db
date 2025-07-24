@@ -10,6 +10,7 @@ blake2b_generic
 bluetooth
 bnep
 bpf_preload
+bridge
 btbcm
 btintel
 btmtk
@@ -75,6 +76,7 @@ intel_vsec
 intel_wmi_thunderbolt
 ip6t_REJECT
 ip6t_rt
+ip_set
 ip_tables
 ipt_REJECT
 irqbypass
@@ -89,6 +91,7 @@ libarc4
 libcrc32c
 libphy
 libps2
+llc
 loop
 mac80211
 mbcache
@@ -102,13 +105,16 @@ minix
 msdos
 mtd
 nf_conntrack
+nf_conntrack_netlink
 nf_defrag_ipv4
 nf_defrag_ipv6
 nf_log_syslog
+nf_nat
 nfnetlink
 nf_reject_ipv4
 nf_reject_ipv6
 nf_tables
+nft_chain_nat
 nft_compat
 nft_limit
 nls_ucs2_utils
@@ -192,6 +198,7 @@ sparse_keymap
 spi_intel
 spi_intel_pci
 spi_nor
+stp
 thunderbolt
 tls
 ttm
@@ -207,6 +214,7 @@ usbhid
 usb_storage
 uvc
 uvcvideo
+veth
 vfat
 video
 videobuf2_common
@@ -218,6 +226,8 @@ vivaldi_fmap
 wmi
 wmi_bmof
 x86_pkg_temp_thermal
+xfrm_algo
+xfrm_user
 xfs
 xor
 x_tables
@@ -226,4 +236,6 @@ xt_conntrack
 xt_hl
 xt_limit
 xt_LOG
+xt_MASQUERADE
+xt_set
 xt_tcpudp
