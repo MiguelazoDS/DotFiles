@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+mkinitcpio=/etc/mkinitcpio.d
+boot=/boot
+modules=/usr/lib/modules
+dkms_nvidia=/var/lib/dkms/nvidia
+dkms_vbox=/var/lib/dkms/vboxhost
+
+uname=$(uname -r)
+version=$(echo $uname | cut -d '-' -f 1)
+version_no_dots=$(echo $version | sed 's/\.//g')
+
+files=()
+
+if [[ ! "${uname}" =~ "xanmod" ]]; then
+  echo "Xanmod kernel not running. Exiting..."
+  exit 0
+fi
+
+# Cleaning /etc/mkinitcpio folder
+for i in ${mkinitcpio}/*; do
+  if [[ "$i" =~ "xanmod" ]] && [[ ! "$i" =~ "$version_no_dots" ]]; then
+    files+=("$i")
+  fi
+done
+
+# Cleaning /boot folder
+for i in ${boot}/*; do
+  if [[ "$i" =~ "xanmod" ]] && [[ ! "$i" =~ "$version_no_dots" ]]; then
+    files+=("$i")
+  fi
+done
+
+# Cleaning /usr/lib/modules folder
+for i in ${modules}/*; do
+  if [[ "$i" =~ "xanmod" ]] && [[ ! "$i" =~ "$version" ]]; then
+    files+=("$i")
+  fi
+done
+
+# Cleaning /var/lib/dkms/nvidia folder
+while read -r i; do
+  if [[ "$i" =~ "xanmod" ]] && [[ ! "$i" =~ "$version" ]]; then
+    files+=("$i")
+  fi
+done < <(find "${dkms_nvidia}" -maxdepth 2)
+
+# Cleaning /var/lib/dkms/vboxhost folder
+while read -r i; do
+  if [[ "$i" =~ "xanmod" ]] && [[ ! "$i" =~ "$version" ]]; then
+    files+=("$i")
+  fi
+done < <(find "${dkms_vbox}" -maxdepth 2)
+
+echo "The following files will be deleted:"
+echo
+for i in ${files[@]}; do
+  echo "$i"
+done
+
+read -n 1 -p "Press y to continue: " choice
+echo
+case "$choice" in
+  [Yy]) sudo bash -c "";;
+  *)    echo "Files won't be deleted."; exit 0 ;;
+esac
+
+for i in ${files[@]}; do
+  sudo rm -rf $i
+done
+
+echo
+echo "Create initramfs and grub config"
+echo
+sudo mkinitcpio -p linux-xanmod-${version_no_dots}
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
