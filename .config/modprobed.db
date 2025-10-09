@@ -64,6 +64,7 @@ intel_lpss
 intel_lpss_pci
 intel_pch_thermal
 intel_pmc_core
+intel_pmc_ssram_telemetry
 intel_powerclamp
 intel_rapl_common
 intel_rapl_msr
@@ -96,6 +97,7 @@ loop
 mac80211
 mbcache
 mc
+mdio_bus
 mdio_devres
 mei
 mei_hdcp
@@ -125,6 +127,7 @@ nvme_core
 overlay
 pinctrl_cannonlake
 platform_profile
+platform_temperature_control
 pmt_class
 pmt_telemetry
 polyval_clmulni
@@ -237,5 +240,6 @@ xt_hl
 xt_limit
 xt_LOG
 xt_MASQUERADE
+xt_nat
 xt_set
 xt_tcpudp
