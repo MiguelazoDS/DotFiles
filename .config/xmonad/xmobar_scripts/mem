@@ -26,9 +26,9 @@ function update {
 function gpu_mem {
     perc=$(nvidia-smi | head -n 10 | tail -n 1 | cut -d '|' -f 3 | awk '{used=($1+0)*100/($3+0); printf "%.f", used}')
     if [[ $((perc)) -ge 75 ]]; then
-        echo "<fc=$fgRed,$bg>GPU:${perc}%</fc><fc=$bg><fn=1></fn></fc>"
+        echo "<fc=$fgRed,$bg><fc=$fgAlt,$bg> </fc><fn=1>${perc}%</fn></fc><fc=$bg><fn=1></fn></fc>"
     else
-        echo "<fc=$fg,$bg>GPU:${perc}%</fc><fc=$bg><fn=1></fn></fc>"
+        echo "<fc=$fg,$bg><fc=$fgAlt,$bg> </fc><fn=1>${perc}%</fn></fc><fc=$bg><fn=1></fn></fc>"
     fi
 }
 
@@ -46,7 +46,7 @@ case "$1" in
         done
         ;;
     *)
-        free | awk -v bg="$bg" -v fg="$fg" '/^Mem:/ { used=(100*$3)/($2); printf "<fc=%s><fn=1></fn></fc><fc=%s,%s><fn=0> </fn>%.1f%%.2fGi</fc>", bg, fg, bg, used, $2/(1024*1024)}'
+        free | awk -v bg="$bg" -v fg="$fg" -v fgAlt="$fgAlt" '/^Mem:/ { used=(100*$3)/($2); printf "<fc=%s><fn=4></fn></fc><fc=%s,%s><fn=0><fc=%s,%s> </fc></fn><fn=1>%.1f%</fn></fc>", bg, fg, bg, fgAlt, bg, used}'
         gpu_mem
         ;;
 esac

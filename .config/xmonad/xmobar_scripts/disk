@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+source $HOME/.config/xmonad/xmobar_scripts/colors
+
+home_usage=$(df -hT | awk '/ext4/ {print $6}')
+root_usage=$(df -hT | awk '/srv/ {print $6}')
+
+open="<fc=$bg><fn=1></fn></fc>"
+info="<fc=$fg,$bg><fc=$fgRed,$bg><fn=4>󰋊</fn></fc>${root_usage}<fc=$fgAlt,$bg><fn=4>󰋊</fn></fc>${home_usage}</fc>"
+close="<fc=$bg><fn=1></fn></fc>"
+
+echo "${open}${info}${close}"
+

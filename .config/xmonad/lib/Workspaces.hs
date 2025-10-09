@@ -6,27 +6,26 @@ where
 workspaceNumber :: Int
 workspaceNumber = 7
 
+defaultColor :: String
+defaultColor = "#242424"
+
 icon :: String
 icon = "\62060 "
 
-xmobarEscape :: [b] -> [b]
-xmobarEscape = concatMap doubleLts
-  where
-    doubleLts x = [x]
+workspaceColor :: String -> String
+workspaceColor color = "<fc=#e7d7ad," ++ color ++ "><fn=0>" ++ icon ++ "</fn></fc>"
 
-workspaceColor :: String
-workspaceColor = "#5ac1db,#242424"
+openIcon :: String -> String
+openIcon color = "<fc=" ++ color ++ "><fn=1>\57526</fn></fc>"
 
-open :: String
-open = "<fc=#242424><fn=1>\57526</fn></fc>"
-
-close :: String
-close = "<fc=#242424><fn=1>\57524</fn></fc>"
+closeIcon :: String -> String
+closeIcon color = "<fc=" ++ color ++ "><fn=1>\57524</fn></fc>"
 
 myWorkspaces :: [String]
 myWorkspaces =
   [ "<action=xdotool key super+" ++ show i ++ ">" ++ ws ++ "</action>"
-    | (i, ws) <- zip [1 .. workspaceNumber] workspaceList
+     | (i, ws) <- zip [1 .. workspaceNumber] workspaceList
   ]
   where
-    workspaceList = replicate workspaceNumber $ xmobarEscape $ open ++ "<fc=" ++ workspaceColor ++ "><fn=1>" ++ icon ++ "</fn></fc>" ++ close
+    workspaceList = replicate workspaceNumber $ openIcon defaultColor ++ workspaceColor defaultColor ++ closeIcon defaultColor
+

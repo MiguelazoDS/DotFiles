@@ -51,7 +51,7 @@ case "$1" in
         else
             temp="/tmp/weather"
         fi
-        notify-send.sh -R /tmp/id_file -t 3000 "Extended weather" "$(cat $temp)" -o "Openweather.org:floorp https://openweathermap.org/city/3860259"
+        notify-send.sh -R /tmp/id_file -t 3000 "Extended weather" "$(cat $temp)" -o "Openweather.org:firefox https://openweathermap.org/city/3860259"
         ;;
     * )
         weather_url="https://api.openweathermap.org/data/2.5/weather?id=3860259&appid=$(cat "$HOME"/.config/xmonad/xmobar_scripts/apikey)&units=metric"
@@ -59,11 +59,10 @@ case "$1" in
 
         # Current weather
         weather_info=$(curl "$weather_url")
-        weather_desc=$(echo "$weather_info" | jq '.weather[0].description' | sed -e 's/^"//' -e 's/"$//')
         weather_icon_code=$(echo "$weather_info" | jq '.weather[0].icon' | sed -e 's/^"//' -e 's/"$//')
         weather_temp=$(echo "$weather_info" | jq '.main.temp' | sed -e 's/^"//' -e 's/"$//')
         weather_icon=$(icon "$weather_icon_code")
-        printf "%s<fc=$textColor,$bg> %.0fºC, %s</fc><fc=$bg><fn=1></fn></fc>" "$weather_icon" "$(echo "$weather_temp"|bc)" "${weather_desc}"
+        printf "%s<fc=$textColor,$bg> %.0fºC </fc><fc=$bg><fn=1></fn></fc>" "$weather_icon" "$(echo "$weather_temp"|bc)"
 
         # Extended
         weather_feels_like="$(echo "$(echo "$weather_info" | jq '.main.feels_like' | sed -e 's/^"//' -e 's/"$//')"|bc)"

@@ -19,6 +19,13 @@ case "$1" in
         fi
         release="$(uname -r | sed "s/$major\(.*\)-xanmod1/\1/")"
 
+        # Check if using LTS kernel to not report updates for Xanmod
+        using_lts=false
+        uname -r | grep "lts" > /dev/null
+        if [ $? -eq 0 ]; then
+          using_lts=true
+        fi
+
         if [ ! -z "$major" ] && [ ! "$major" == "$release" ]; then
           n_update_xanmod=1
           update_xanmod="xanmod-kernel ${release} -> ${major}"
@@ -33,16 +40,30 @@ case "$1" in
         updates_aur=$(yay -Qua 2> /dev/null)
         n_updates_aur=$(echo "$updates_aur" | sed '/^$/d' | wc -l)
 
-        n_updates=$(("$n_updates_arch" + "$n_updates_aur" + "$n_update_xanmod"))
-
-        if [ -z "$updates_arch" ] && [ -z "$updates_aur" ]; then
-          printf "%s" "$update_xanmod" > /tmp/updates
-        elif [ -z "$updates_arch" ]; then
-          printf "%s\n%s" "$updates_aur" "$update_xanmod" > /tmp/updates
-        elif [ -z "$updates_aur" ]; then
-          printf "%s\n%s" "$updates_arch" "$update_xanmod" > /tmp/updates
+        if [ "$using_lts" == false ]; then
+          n_updates=$(("$n_updates_arch" + "$n_updates_aur" + "$n_update_xanmod"))
         else
-          printf "%s\n%s\n%s" "$updates_arch" "$updates_aur" "$update_xanmod" > /tmp/updates
+          n_updates=$(("$n_updates_arch" + "$n_updates_aur"))
+        fi
+
+        if [ "$using_lts" == false ]; then
+          if [ -z "$updates_arch" ] && [ -z "$updates_aur" ]; then
+            printf "%s" "$update_xanmod" > /tmp/updates
+          elif [ -z "$updates_arch" ]; then
+            printf "%s\n%s" "$updates_aur" "$update_xanmod" > /tmp/updates
+          elif [ -z "$updates_aur" ]; then
+            printf "%s\n%s" "$updates_arch" "$update_xanmod" > /tmp/updates
+          else
+            printf "%s\n%s\n%s" "$updates_arch" "$updates_aur" "$update_xanmod" > /tmp/updates
+          fi
+        else
+          if [ -z "$updates_arch" ]; then
+            printf "%s" "$updates_aur" > /tmp/updates
+          elif [ -z "$updates_aur" ]; then
+            printf "%s" "$updates_arch" > /tmp/updates
+          else
+            printf "%s\n%s" "$updates_arch" "$updates_aur" > /tmp/updates
+          fi
         fi
 
         if [ "$n_updates" -eq 0 ]; then
