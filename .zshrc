@@ -93,7 +93,9 @@ function fif {
 
 # Create folder before unzip
 function uz {
-    name=$(echo "$1" | cut -d '.' -f 1)
+    full_name=$1
+    # Removes last dot and everything after it.
+    name=${full_name%.*}
     mkdir "$name"
     unzip "$1" -d "$name"
 }
