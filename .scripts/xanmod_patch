@@ -40,6 +40,10 @@ function enable_nvme {
     sed -i "${line}iCONFIG_NVME_TARGET_TCP=m" .config
 }
 
+function enable_lz4 {
+  sed -i 's/# CONFIG_CRYPTO_LZ4 is not set/CONFIG_CRYPTO_LZ4=y/' .config
+}
+
 function build_and_install {
     ROOT=$(pwd)
     sudo snapper -c root create -d "Before installing Xanmod kernel"
@@ -58,6 +62,7 @@ function build_and_install {
     make olddefconfig
     make LSMOD="$HOME"/.config/modprobed.db localmodconfig
     enable_nvme
+    enable_lz4
     make -j"$(nproc)" bzImage
     make -j"$(nproc)" modules
     make -j"$(nproc)" headers
