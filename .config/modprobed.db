@@ -129,6 +129,7 @@ pinctrl_cannonlake
 platform_profile
 platform_temperature_control
 pmt_class
+pmt_discovery
 pmt_telemetry
 polyval_clmulni
 polyval_generic
@@ -158,9 +159,13 @@ snd
 snd_compress
 snd_ctl_led
 snd_hda_codec
+snd_hda_codec_alc269
 snd_hda_codec_generic
 snd_hda_codec_hdmi
+snd_hda_codec_intelhdmi
+snd_hda_codec_nvhdmi
 snd_hda_codec_realtek
+snd_hda_codec_realtek_lib
 snd_hda_core
 snd_hda_ext_core
 snd_hda_intel
