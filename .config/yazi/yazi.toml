@@ -1,0 +1,31 @@
+[mgr]
+linemode = "size"
+
+[preview]
+image_quality = 75
+ueberzug_scale = 1
+image_bound = [ 10000, 10000 ]
+
+[opener]
+play = [
+  { run = 'mpv "$@"', orphan = true, for = "unix" }
+]
+edit = [
+  { run = 'nvim "$@"', block = true, for = "unix" }
+]
+pdf = [
+  { run = 'masterpdfeditor4 "$@"', orphan = true, for = "unix" }
+]
+audio = [
+  { run = 'ffplay "$@"', orphan = true, for = "unix" }
+]
+
+[open]
+rules = [
+  { mime = "text/*", use = "edit" },
+  { mime = "video/*", use = "play" },
+  { mime = "*.json", use = "edit" },
+  { mime = "application/pdf", use = "pdf" }, # file --mime-type -b <pdf_file>
+  { mime = "audio/*", use = "audio" }
+]
+
