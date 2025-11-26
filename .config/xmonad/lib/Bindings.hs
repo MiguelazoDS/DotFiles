@@ -29,7 +29,7 @@ myKeys =
     ("M-o", spawn $ M.myBrowser M.applications),
     ("M-x", spawn "kill -9 $(pidof mocp)"),
     ("M-d", spawn "rofi -show drun -show-icons"),
-    ("M-n", spawn $ M.myTerminal M.applications ++ " start --always-new-process 'ranger'"),
+    ("M-n", spawn $ M.myTerminal M.applications ++ " start --always-new-process 'yazi'"),
     ("M-<Return>", spawn $ M.myTerminal M.applications),
     ("M-t", spawn $ M.myFileManager M.applications),
     -- Notifications

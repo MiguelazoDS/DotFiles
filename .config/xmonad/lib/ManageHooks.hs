@@ -8,6 +8,8 @@ import Scratchpads
 import XMonad
 import XMonad.Hooks.Place
 import XMonad.Util.NamedScratchpad
+import XMonad.Hooks.ManageHelpers (doRectFloat)
+import XMonad.StackSet (RationalRect(..))
 
 myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook =
@@ -20,7 +22,7 @@ myManageHook' =
   composeAll
     [ placeHook $ fixed (0.5, 0.5), -- Set floating windows at the center
       className =? "ffplay" --> doFloat,
-      appName =? "sxiv" --> doFloat,
+      appName =? "feh" --> doFloat,
       className =? "mpv" --> doFloat,
       title =? "gitk" --> doFloat,
       className =? "JDownloader" --> doFloat,
