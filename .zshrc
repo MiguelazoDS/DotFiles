@@ -183,7 +183,7 @@ function dotf (){
     elif [[ $1 =~ "pull" ]]; then
         dotfile pull
     elif [[ $1 =~ "add" ]]; then
-        find $HOME $HOME/.config -maxdepth 3 | sort | uniq | fzf-tmux --bind 'ctrl-l:deselect-all' -r -m --print0 | xargs -r -0 dotfile add
+        find $HOME $HOME/.config -maxdepth 5 | sort | uniq | fzf-tmux --bind 'ctrl-l:deselect-all' -r -m --print0 | xargs -r -0 dotfile add
     elif [[ $1 =~ "chkt" ]]; then
         dotfile ls-files $HOME -m | fzf-tmux --bind 'ctrl-l:deselect-all' -r -m --print0 | xargs -r -0 dotfile checkout
     elif [[ $1 =~ "st" ]]; then
