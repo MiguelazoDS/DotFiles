@@ -9,8 +9,8 @@ local get_paths = ya.sync(function()
   end
   -- if no files are selected, get current directory
   if #paths == 0 then
-    if cx.active.current.cwd then
-      paths[1] = tostring(cx.active.current.cwd)
+    if cx.active.current.hovered then
+      paths[1] = tostring(cx.active.current.hovered.url)
     else
       ya.err("what-size would return nil paths")
     end
@@ -96,7 +96,7 @@ return {
     ya.notify {
       title = "What size",
       content = notification_content,
-      timeout = 4,
+      timeout = 2,
     }
   end,
 }
