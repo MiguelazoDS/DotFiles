@@ -27,3 +27,12 @@ require("relative-motions"):setup({
   show_motion = true,
   enter_mode = "first"
 })
+
+-- show disk in status bar
+-- https://github.com/sxyazi/yazi/issues/2493#issuecomment-2875924677
+Status:children_add(function()
+    local command = "df -kh .|awk '!/^Filesystem/{printf \" %s / %s \", $3, $4}'"
+    local info = ui.Span(io.popen(command):read('*a')):fg("green")
+    return info
+end, 1500, Header.RIGHT)
+
