@@ -35,6 +35,9 @@ rules = [
 ]
 
 # Some videos do have mime type audio
+# TODO: Try mtn
+# mtn -f /usr/share/fonts/TTF/DejaVuSerif-Bold.ttf -r 3 -c 3 "${FILE_PATH}" -w 800 -j 50 -i -q -t -O "$(dirname "$IMAGE_CACHE_PATH")" -o .jpg
+
 [plugin]
 prepend_previewers = [
   { name = "*.mp4", run = "video" }
