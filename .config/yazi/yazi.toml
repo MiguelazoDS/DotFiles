@@ -34,3 +34,9 @@ rules = [
   { mime = "image/*", use = "image" }
 ]
 
+# Some videos do have mime type audio
+[plugin]
+prepend_previewers = [
+  { name = "*.mp4", run = "video" }
+]
+
