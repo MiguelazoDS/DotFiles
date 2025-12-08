@@ -34,9 +34,15 @@ PlaylistFullPaths = no
 OnSongChange = "/home/miguel/.config/xmobar/scripts/moc moc"
 
 # Self-describing ModPlug options (with 'yes' or 'no' values).
-ModPlug_Surround = yes
+ModPlug_Oversampling = yes
+ModPlug_NoiseReduction = yes
+ModPlug_ResamplingMode = FIR
+ModPlug_Channels = 2
+ModPlug_Bits = 16
+ModPlug_Frequency = 48000
 ModPlug_MegaBass = yes
-ModPlug_BassAmount = 80          # 0 (quiet) to 100 (loud).
-ModPlug_BassRange = 10            # Cutoff in Hz (10-100).
-ModPlug_SurroundDepth = 70        # Surround level 0(quiet)-100(heavy).
-ModPlug_SurroundDelay = 5        # Surround delay in ms, usually 5-40ms.
+ModPlug_BassAmount = 50          # 0 (quiet) to 100 (loud).
+ModPlug_BassRange = 40            # Cutoff in Hz (10-100).
+ModPlug_Surround = yes
+ModPlug_SurroundDepth = 30        # Surround level 0(quiet)-100(heavy).
+ModPlug_SurroundDelay = 15        # Surround delay in ms, usually 5-40ms.
