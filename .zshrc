@@ -187,7 +187,7 @@ function dotf (){
     elif [[ $1 =~ "chkt" ]]; then
         dotfile ls-files $HOME -m | fzf-tmux --bind 'ctrl-l:deselect-all' -r -m --print0 | xargs -r -0 dotfile checkout
     elif [[ $1 =~ "st" ]]; then
-        dotfile status
+        dotfile status -uno
     elif [[ $1 =~ "diff" ]]; then
         dotfile diff
     elif [[ $1 =~ "ct" ]]; then
