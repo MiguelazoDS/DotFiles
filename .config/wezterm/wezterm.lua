@@ -18,7 +18,7 @@ return {
   warn_about_missing_glyphs = false,
   front_end = "OpenGL",
   font = wezterm.font("FiraCode Nerd Font", { weight = "Regular", stretch = "Normal", style = "Normal" }),
-  font_size = 13.5,
+  font_size = 15,
   display_pixel_geometry = "RGB",
   color_schemes = {
     ['My Theme'] = my_color_scheme
