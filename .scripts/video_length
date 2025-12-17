@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+function usage {
+    printf "Usage: \n\t./${0} [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-v <value> --video <value>\n"
+}
+
+if [ "$#" -lt 2 ]; then
+    usage
+    exit 0
+fi
+
+short=v:
+long=video:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -v | --video )
+            shift
+            video=$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
+done
+
+ffprobe -v error -show_entries format=duration -of csv=p=0 "${video}"
+
