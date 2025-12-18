@@ -33,10 +33,31 @@ do
     esac
 done
 
-fps=$(mediainfo What\ It\ Is.mp4 | awk '/FPS/ {print $4}' | head -n 1)
+fps=$(mediainfo "$video" | awk '/FPS/ {print $4}' | head -n 1)
 fps_final=$(printf "%.0f" $fps)
 name=$(echo "$video" | cut -d '.' -f 1)
 ext=$(echo "$video" | cut -d '.' -f 2)
 
 ffmpeg -i "${video}" -vsync cfr -r "${fps_final}" -pix_fmt yuv420p "${name}_normalized.${ext}"
 
+fps_half=$(printf "%.1f" $(echo "$fps_final/2" | bc -l))
+
+ffmpeg -i "${name}_normalized.${ext}" -vf fps=${fps_half} -vsync cfr "${name}_reduced.${ext}"
+
+scenedetect -i "${name}_reduced.${ext}" split-video
+
+mkdir -p "${name}_scenes"
+mv *_reduced-Scene* "${name}_scenes"
+
+counter=1
+for i in "${name}_scenes"/*; do
+  dir=${i%/*}
+  file=${i##*/}
+  mkdir -p "${dir}/${counter}"
+  mv "$i" "${dir}/${counter}"
+  root=$(pwd)
+  cd "${dir}/${counter}"
+  $HOME/.scripts/extract_images -f *
+  cd "${root}"
+  counter=$((counter+1))
+done

@@ -1,0 +1,89 @@
+#!/usr/bin/env sh
+
+function usage {
+    printf "Usage: \n\t${0} [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-d <value> --directory <value>\t The directory containing upscaled scenes"
+    printf "\t-r <value> --rife_exp <value> \t The --exp parameter\n"
+}
+
+if [ "$#" -lt 4 ]; then
+    usage
+    exit 0
+fi
+
+short=dr:
+long=directory,rife:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -d | --directory )
+            shift
+            directory=$1
+            shift
+            ;;
+        -r | --rife )
+            shift
+            rife=$1
+            shift
+            ;;
+        * )
+            break
+            ;;
+    esac
+done
+
+grep "# Real-Time Intermediate Flow Estimation for Video Frame Interpolation" README.md &> /dev/null
+if [ $? -ne 0 ] && [ $? -ne 2 ]; then
+  echo "Move to RIFE directory"
+  exit 1
+fi
+
+function activate_env {
+  source "/home/miguel/Documents/conda/miniconda3/etc/profile.d/conda.sh" activate &&
+  conda activate 'rife' &&
+  sleep 0.2
+}
+
+activate_env
+
+function duplicate_images {
+  local last_image_id=$(ls Images | wc -l)
+  next_image_id=$((last_image_id+1))
+  local n_duplicate=$((2**rife-1))
+  local number_digits=5
+  pwd
+  last_image_name=$(ls Images/ | tail -n 1)
+  for n in $(seq 1 ${n_duplicate}); do
+    length=${#next_image_id}
+    number_padding=""
+    for i in $(seq 1 $((5-length))); do
+      number_padding+="0"
+    done
+    number_padding+=${next_image_id}
+    cp "Images/${last_image_name}" "Images/image_${number_padding}.png"
+    next_image_id=$((next_image_id+1))
+  done
+}
+
+counter=1
+for file in "${directory}"/*.*; do
+  filename=$(echo ${file##*/} | cut -d '.' -f 1)
+  dir=${file%/*}
+  python3 inference_video.py --exp=${rife} --video="${file}"
+  mkdir -p "${dir}/${counter}"
+  mv "${dir}"/*X*fps* "${dir}/${counter}"
+  root=$(pwd)
+  cd "${dir}/${counter}"
+  $HOME/.scripts/extract_images -f *
+  duplicate_images
+  cd "${root}"
+  counter=$((counter+1))
+done
+

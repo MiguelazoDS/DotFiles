@@ -46,5 +46,4 @@ do
     esac
 done
 
-ffmpeg -i "$video" -i "$audio" -c:v copy -map 0:v:0 -map 1:a:0 "$output"
-
+ffmpeg -i "$video" -i "$audio" -map 0:v:0 -map 1:a:0 -c:v copy -copyts -shortest "$output"
