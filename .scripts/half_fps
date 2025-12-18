@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+
+function usage {
+    printf "Usage: \n\t./${0} [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-v <value> --video <value>\n"
+}
+
+if [ "$#" -lt 2 ]; then
+    usage
+    exit 0
+fi
+
+short=v:
+long=video:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -v | --video )
+            shift
+            video="$1"
+            shift
+            ;;
+        * )
+            break
+            ;;
+    esac
+done
+
+fps=$(mediainfo "$video" | awk '/FPS/ {print $4}' | head -n 1)
+fps_final=$(printf "%.1f" $((fps/2)))
+name=$(echo "$video" | cut -d '.' -f 1)
+ext=$(echo "$video" | cut -d '.' -f 2)
+
+ffmpeg -i "$video" -vf fps=12.5 -vsync cfr "${name}_reduced.${ext}"
+
