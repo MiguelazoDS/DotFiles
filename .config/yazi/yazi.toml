@@ -21,7 +21,10 @@ pdf = [
   { run = 'masterpdfeditor4 "$@"', orphan = true, for = "unix" }
 ]
 image = [
-  { run = 'feh -g "1280x768" -. -B "#000000" --start-at "$@"', orphan = true, for = "unix" }
+  { run = 'feh -d -g "1280x768" -. -B "#000000" --start-at "$@"', orphan = true, for = "unix" }
+]
+docs = [
+  { run = 'libreoffice "$@"', orphan = true, for = "unix" }
 ]
 
 [open]
@@ -31,7 +34,8 @@ rules = [
   { mime = "*.json", use = "text" },
   { mime = "application/pdf", use = "pdf" }, # file --mime-type -b <pdf_file>
   { mime = "audio/*", use = "media" },
-  { mime = "image/*", use = "image" }
+  { mime = "image/*", use = "image" },
+  { mime = "application/vnd.oasis.opendocument*", use = "docs" }
 ]
 
 # Some videos do have mime type audio
