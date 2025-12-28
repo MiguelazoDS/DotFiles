@@ -1,31 +1,7 @@
--- Remaping
 local map = vim.keymap.set
-local opts = { noremap=true, silent=false }
+local mapd = vim.keymap.del
 local api = vim.api
-local cmd = vim.cmd
-
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-map('i', 'ii', '<ESC>')
-map({'n','v'}, 'Y', '"+y')
-map('n', 'yl', '0"+y$', opts)
-map('n', 'P', 'o<ESC>"+p', opts)
-map('n', 'dl', '0d$', opts)
-
--- Buffer
-map('n', 'gn', ':BufferLineCycleNext<CR>')
-map('n', 'gp', ':BufferLineCyclePrev<CR>')
--- Disabling default gcc commenting action
-cmd[[unmap gcc]]
-map('n', 'gc', ':bdelete<CR>')
-map('n', 'gP', ':BufferLinePick<CR>')
-
--- Fzf mapping
-map('n', '<C-p>', ':FZF<CR>', opts)
-map('n', '<C-f>', ':RG<CR>', opts)
-map('n', '?', ':BLines<CR>', opts)
-map('n', '¿', ':Lines<CR>', opts)
-vim.g.fzf_preview_window = {'right:hidden', 'ctrl-h'}
+local opts = { noremap=true, silent=false }
 
 -- Format code
 map('n', '<LEADER>fc', 'gg=G')
@@ -33,11 +9,31 @@ map('n', '<LEADER>fc', 'gg=G')
 -- This unsets the 'last search pattern'
 map('n', '<LEADER>;', ':noh<CR>:<backspace>', opts)
 
--- Toggle nvim-tree
-map('n', '<LEADER>N', ':NvimTreeToggle<CR>')
-
 -- Execute renamer
 map('n', '<LEADER>R', ':Ren<CR>', opts)
+
+-- Yank and Paste mapping
+map({'n','v'}, 'Y', '"+y')
+map('n', 'yl', '0"+y$', opts)
+map('n', 'P', 'o<ESC>"+p', opts)
+map('n', 'dl', '0d$', opts)
+
+-- NvimTree
+map('n', '<LEADER>N', ':NvimTreeToggle<CR>')
+
+-- Bufferline
+map('n', 'gn', ':BufferLineCycleNext<CR>')
+map('n', 'gp', ':BufferLineCyclePrev<CR>')
+-- Disable default gcc commenting action
+pcall(mapd, 'n', 'gcc')
+map('n', 'gc', ':bdelete<CR>')
+map('n', 'gP', ':BufferLinePick<CR>')
+
+-- Fzf
+map('n', '<C-p>', ':FzfLua files<CR>', opts)
+map('n', '<C-f>', ':FzfLua live_grep_native<CR>', opts)
+map('n', '?', ':FzfLua blines<CR>', opts)
+map('n', '<C-b>', ':FzfLua buffers<CR>', opts)
 
 -- Suda
 map('n', '<LEADER>ws', ':w suda://%<CR>')
@@ -46,24 +42,8 @@ map('n', '<LEADER>ws', ':w suda://%<CR>')
 --Toogle single line comment
 map('v', '++', '<plug>NERDCommenterToggle')
 map('n', '++', '<plug>NERDCommenterToggle')
-
 --Block comment
 map('n', '<LEADER>cm', '<Plug>NERDCommenterMinimal')
-
---Sneak bindings
---Motion bindings
-map('n', '<LEADER>s', '<Plug>Sneak_s')
-map('n', '<LEADER>S', '<Plug>Sneak_S')
-
---Replace f,F,t and T behavior with Sneak
-map('n', 'f', '<Plug>Sneak_f')
-map('n', 'F', '<Plug>Sneak_F')
-map('n', 't', '<Plug>Sneak_t')
-map('n', 'T', '<Plug>Sneak_T')
-
--- Markdown preview
---nmap <leader>m <Plug>MarkdownPreviewToggle
-map('n', '<LEADER>m', '<Plug>MarkdownPreviewToggle')
 
 -- LSP mapping
 api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
@@ -75,20 +55,10 @@ api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<
 api.nvim_set_keymap('n', '<space>ff', '<cmd>lua vim.lsp.buf.format({async = false})<CR>', opts)
 api.nvim_set_keymap('n', '<space>k', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 
+-- Markdown preview
+map('n', '<LEADER>m', '<Plug>MarkdownPreviewToggle')
+
 -- Vimtex
 map('n', '<LEADER>ll', '<Plug>(vimtex-compile)')
 map('n', '<LEADER>lv', '<Plug>(vimtex-view)')
-
--- Harpoon
-local harpoon = require("harpoon")
-harpoon:setup()
-
-map("n", "<leader>a", function() harpoon:list():append() end)
-map("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-map("n", "<C-h>", function() harpoon:list():select(1) end)
-map("n", "<C-t>", function() harpoon:list():select(2) end)
-map("n", "<C-n>", function() harpoon:list():select(3) end)
-map("n", "<C-s>", function() harpoon:list():select(4) end)
-map("n", "<C-S-P>", function() harpoon:list():prev() end)
-map("n", "<C-S-N>", function() harpoon:list():next() end)
 

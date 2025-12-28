@@ -1,16 +1,29 @@
-require 'lspconfig'.asm_lsp.setup {
+local config = vim.lsp.config
+
+config('asm_lsp', {
   root_dir = require('lspconfig.util').root_pattern('./'),
   filetypes = { "nasm" }
-}
-require 'lspconfig'.bashls.setup {}
-require 'lspconfig'.clangd.setup {}
-require 'lspconfig'.cmake.setup {}
-require 'lspconfig'.diagnosticls.setup {}
-require 'lspconfig'.grammarly.setup {}
-require'lspconfig'.hls.setup{}
-require 'lspconfig'.jsonls.setup {}
-require 'lspconfig'.lemminx.setup {}
-require 'lspconfig'.lua_ls.setup {
+})
+config('bashls', {})
+config('clangd', {})
+config('cmake', {})
+config('diagnosticls', {})
+config('dockerls', {
+	    settings = {
+        docker = {
+	    languageserver = {
+	        formatter = {
+		    ignoreMultilineInstructions = true,
+		},
+	    },
+	}
+    }
+})
+config('grammarly', {})
+config('hls', {})
+config('jsonls', {})
+config('lemminx', {})
+config('lua_ls', {
   settings = {
     Lua = {
       runtime = {
@@ -31,19 +44,19 @@ require 'lspconfig'.lua_ls.setup {
       },
     },
   },
-}
-require 'lspconfig'.marksman.setup {}
-require 'lspconfig'.pyright.setup {}
-require 'lspconfig'.sqlls.setup {
+})
+config('.marksman', {})
+config('.pyright', {})
+config('.sqlls', {
   root_dir = require('lspconfig.util').root_pattern('./'),
-}
-require 'lspconfig'.texlab.setup {}
-require 'lspconfig'.yamlls.setup {}
-require 'lspconfig'.veridian.setup {
+})
+config('.texlab', {})
+config('.yamlls', {})
+config('.veridian', {
   root_dir = require('lspconfig.util').root_pattern('./'),
   filetypes = { "verilog" }
-}
-require 'lspconfig'.autotools_ls.setup {}
+})
+config('.autotools_ls', {})
 
 vim.g['LanguageClient_serverCommands'] = { 'sql', { 'sql-language-server', 'up', '--method', 'stdio' } }
 
@@ -55,6 +68,7 @@ require("mason-lspconfig").setup {
     "clangd",
     "cmake",
     "diagnosticls",
+    "dockerls",
     "grammarly",
     "hls",
     "jsonls",

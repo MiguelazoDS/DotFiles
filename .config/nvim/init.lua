@@ -1,14 +1,15 @@
--- Modules
-require'general'
-require'mapping'
-require'plugins'
-require'lsp'
-require'style'
-require'evilline'
-require'nvim-cmp'
-require'templates'
-require'treesitter'
-require'git'
-require'nvim-tree'.setup({view = {number = true, relativenumber = true}})
-require'hlargs'.setup()
-require'tex'
+require("config.lazy")
+require("colorscheme")
+require("general")
+require("mapping")
+require("hlargs").setup()
+require("nvim-tree").setup({view = {number = true, relativenumber = true}})
+require("treesitter")
+require("nvim-cmp")
+require("style")
+require("templates")
+require("lualine-config")
+require("lazy-update")
+require("lsp")
+require("git")
+require("tex")

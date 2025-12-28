@@ -1,5 +1,12 @@
+-- Definitions
 local cmd = vim.cmd
 local api = vim.api
+local opt = vim.opt
+local modifiable = vim.bo.modifiable
+local g = vim.g
+local b = vim.b
+local o = vim.o
+local diagnostic = vim.diagnostic
 
 -- Highlight on yank
 local yankGrp = api.nvim_create_augroup("YankHighlight", { clear = true })
@@ -16,7 +23,7 @@ api.nvim_create_autocmd("BufWrite", {
 })
 
 -- Update file automatically if open
-cmd[[set autoread]]
+opt.autoread = true
 local reloadGrp = api.nvim_create_augroup("ReloadFile", { clear = true })
 api.nvim_create_autocmd("CursorHold", {
     command = "checktime",
@@ -31,19 +38,27 @@ api.nvim_create_autocmd("FileType", {
 })
 
 -- Switch between buffers without saving changes
-cmd[[set hidden]]
+opt.hidden = true
 
 -- Ignore case when searching
-cmd[[set ignorecase]]
+opt.ignorecase = true
 
 -- Show relative numbers
-cmd[[set number relativenumber]]
+opt.number = true
+opt.relativenumber = true
 
 -- Show commands
-api.nvim_command('set showcmd')
+opt.showcmd = true
 
 -- Convert tab into spaces
-api.nvim_command('set et|retab')
+opt.expandtab = true
+api.nvim_create_autocmd("BufWritePre", {
+  callback = function()
+    if vim.bo.modifiable then
+      cmd("retab")
+    end
+  end,
+})
 
 -- Set sh file type for .zshrc
 local zshGrp = api.nvim_create_augroup("ZSHFileType", { clear = true})
@@ -69,13 +84,13 @@ api.nvim_create_autocmd("CursorMoved", {
 })
 
 -- Tab 2 spaces
-cmd[[set tabstop=2]]
+opt.tabstop = 2
 
 -- Indent
-cmd[[set shiftwidth=2]]
+opt.shiftwidth = 2
 
 -- Enable current cursor line highlight
-cmd[[set cursorline]]
+opt.cursorline = true
 local lineGrp = api.nvim_create_augroup("HighlightCurrentLine", { clear = true })
 api.nvim_create_autocmd({"VimEnter","WinEnter","BufWinEnter"}, {
     command = [[hi CursorLine term=bold cterm=bold guibg=#203d39]],
@@ -83,19 +98,42 @@ api.nvim_create_autocmd({"VimEnter","WinEnter","BufWinEnter"}, {
 })
 
 -- Disable autosave globally
-vim.g.auto_save = 0
+g.auto_save = 0
 -- Enable enable autosave for tex and assembly files only
 local saveGrp = api.nvim_create_augroup("AutoSave", { clear = true })
 api.nvim_create_autocmd("FileType", {
     pattern = {"tex","nasm"},
+    group = saveGrp,
     callback = function()
-        vim.b.auto_save = 1
-    end,
-    group = saveGrp
+        b.auto_save = 1
+        -- Now add the CursorHold autocmd *only for this buffer*
+        api.nvim_create_autocmd({ "CursorHold", "CursorMoved" }, {
+            buffer = 0, -- apply to current buffer only
+            callback = function()
+                if api.nvim_buf_get_option(0, "modified") and api.nvim_buf_get_option(0, "modifiable") then
+                    cmd("silent! write")
+                end
+            end,
+            group = saveGrp,
+        })
+    end
 })
 
 -- Enable linters for Haskell
-vim.g.ale_linters = {
+g.ale_linters = {
   haskell = {'ghc-mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc'}
 }
 
+-- Show dots as spaces
+opt.list = true
+opt.listchars = {
+    lead = '·'
+}
+
+-- Show diagnostic on cursor hold
+o.updatetime = 300
+api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    diagnostic.open_float(nil, { focus = false })
+  end,
+})

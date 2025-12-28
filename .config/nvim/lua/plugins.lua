@@ -1,89 +1,64 @@
-return require('packer').startup(function(use)
-  use "nvim-lua/plenary.nvim" -- don't forget to add this one if you don't have it yet!
-  use {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    requires = { { "nvim-lua/plenary.nvim" } }
-  }
-  -- Plugin manager
-  use 'wbthomason/packer.nvim'
+return {
   -- LSP
-  use {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
-  }
-  use 'onsails/lspkind-nvim'
-  -- Completion
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-calc'
-  use 'hrsh7th/cmp-cmdline'
-  use 'quangnguyen30192/cmp-nvim-ultisnips'
-  use 'uga-rosa/cmp-dictionary'
-  -- Linters
-  use 'dense-analysis/ale'
-  -- Statusline
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-  }
-  -- Tabline
-  use 'akinsho/bufferline.nvim'
-  -- Colorscheme
-  use 'luisiacc/gruvbox-baby'
-  -- Icons
-  use 'nvim-tree/nvim-web-devicons'
-  -- Fuzzy finder
-  use { 'junegunn/fzf', run = './install --bin', }
-  use 'junegunn/fzf.vim'
-  -- Highlighting
-  use 'luochen1990/rainbow'
-  use 'mtdl9/vim-log-highlighting'
-  use {
-    'm-demare/hlargs.nvim',
-    requires = { 'nvim-treesitter/nvim-treesitter' }
-  }
-  -- Treesitter
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-  }
-  use 'nvim-treesitter/nvim-treesitter-textobjects'
-  -- Latex/Markdown/vagrant/plantuml
-  use 'lervag/vimtex'
-  use 'gabrielelana/vim-markdown'
-  use 'rhysd/vim-gfm-syntax'
-  use {
-    'iamcco/markdown-preview.nvim',
-    run = 'cd app && yarn install'
-  }
-  use 'hashivim/vim-vagrant'
-  -- Motion
-  use 'psliwka/vim-smoothie'
-  use 'justinmk/vim-sneak'
-  use 'preservim/nerdcommenter'
-  -- Style
-  use 'NvChad/nvim-colorizer.lua'
-  use 'lukas-reineke/indent-blankline.nvim'
-  -- Misc
-  use 'lambdalisue/suda.vim'
-  use 'SirVer/ultisnips'
-  use 'tpope/vim-surround'
-  use 'qpkorr/vim-renamer'
-  use 'ervandew/supertab'
-  use 'tpope/vim-repeat'
-  -- Git
-  use 'lewis6991/gitsigns.nvim'
-  -- File manager
-  use {
-    'nvim-tree/nvim-tree.lua',
-    requires = {
-      'nvim-tree/nvim-web-devicons', -- optional, for file icons
+  { "mason-org/mason.nvim",      opts = {} },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
     },
-    tag = 'nightly'                  -- optional, updated every week. (see issue #1193)
-  }
-  use '907th/vim-auto-save'
-end)
+  },
+  "onsails/lspkind-nvim",
+  -- Linters
+  "dense-analysis/ale",
+  -- File explorer
+  "nvim-tree/nvim-tree.lua",
+  -- Treesitter
+  { "nvim-treesitter/nvim-treesitter", lazy = false, build = ":TSUpdate" },
+  -- Bufferline
+  { "akinsho/bufferline.nvim",   version = "*",                                   dependencies = "nvim-tree/nvim-web-devicons" },
+  -- Statusline
+  { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
+  -- Colorscheme
+  "luisiacc/gruvbox-baby",
+  { "ibhagwan/fzf-lua",             dependencies = { "nvim-tree/nvim-web-devicons" }, opts = {} },
+  -- Highlighting
+  "luochen1990/rainbow",
+  "mtdl9/vim-log-highlighting",
+  "m-demare/hlargs.nvim",
+  -- Markdown
+  "gabrielelana/vim-markdown",
+  "rhysd/vim-gfm-syntax",
+  { "iamcco/markdown-preview.nvim", build = "cd app && yarn install" },
+  -- Misc
+  "lambdalisue/suda.vim",
+  { "preservim/nerdcommenter", init = function() vim.g.NERDCreateDefaultMappings = 0 end },
+  "ervandew/supertab",
+  -- Style
+  "NvChad/nvim-colorizer.lua",
+  -- Snippets
+  "SirVer/ultisnips",
+  -- Completion
+  "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-path",
+  "hrsh7th/cmp-calc",
+  "hrsh7th/cmp-cmdline",
+  "hrsh7th/nvim-cmp",
+  "quangnguyen30192/cmp-nvim-ultisnips",
+  "uga-rosa/cmp-dictionary",
+  -- Git
+  "lewis6991/gitsigns.nvim",
+  -- Latex
+  {
+    "lervag/vimtex",
+    lazy = false, -- we don"t want to lazy load VimTeX
+    -- tag = "v2.15", -- uncomment to pin to a specific release
+    init = function()
+      -- VimTeX configuration goes here, e.g.
+      vim.g.vimtex_view_method = "zathura"
+    end
+  },
+  "tpope/vim-repeat"
+}
