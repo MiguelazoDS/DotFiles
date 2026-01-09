@@ -46,44 +46,62 @@ if [ $? -ne 0 ] && [ $? -ne 2 ]; then
 fi
 
 function activate_env {
-  source "/home/miguel/Documents/conda/miniconda3/etc/profile.d/conda.sh" activate &&
+  source "/home/miguel/Documents/.Deepfake/miniconda3/etc/profile.d/conda.sh" activate &&
   conda activate 'rife' &&
   sleep 0.2
 }
 
 activate_env
 
+function get_padded_image_name {
+  local length=$1
+  local next_image_id=$2
+  local total_length=5
+  local number_padding=""
+
+  for i in $(seq 1 $((5-length))); do
+    number_padding+="0"
+  done
+  number_padding+=${next_image_id}
+  echo "image_${number_padding}.png"
+}
+
+# Duplicate last frame
 function duplicate_images {
   local last_image_id=$(ls Images | wc -l)
-  next_image_id=$((last_image_id+1))
+  local next_image_id=$((last_image_id+1))
   local n_duplicate=$((2**rife-1))
   local number_digits=5
   pwd
   last_image_name=$(ls Images/ | tail -n 1)
   for n in $(seq 1 ${n_duplicate}); do
-    length=${#next_image_id}
-    number_padding=""
-    for i in $(seq 1 $((5-length))); do
-      number_padding+="0"
-    done
-    number_padding+=${next_image_id}
-    cp "Images/${last_image_name}" "Images/image_${number_padding}.png"
+    cp "Images/${last_image_name}" "Images/$(get_padded_image_name ${#next_image_id} ${next_image_id})"
     next_image_id=$((next_image_id+1))
   done
 }
 
+subdir=1
 counter=1
+mkdir -p "${directory}/Images"
 for file in "${directory}"/*.*; do
   filename=$(echo ${file##*/} | cut -d '.' -f 1)
-  dir=${file%/*}
   python3 inference_video.py --exp=${rife} --video="${file}"
-  mkdir -p "${dir}/${counter}"
-  mv "${dir}"/*X*fps* "${dir}/${counter}"
+  # Original scene no longer needed
+  rm "${file}"
+  mkdir -p "${directory}/${subdir}"
+  mv "${directory}"/*X*fps* "${directory}/${subdir}"
   root=$(pwd)
-  cd "${dir}/${counter}"
+  cd "${directory}/${subdir}"
   $HOME/.scripts/extract_images -f *
   duplicate_images
+  cd ..
+  for image in "${subdir}"/Images/*; do
+    cp "${image}" "Images/$(get_padded_image_name ${#counter} ${counter})"
+    counter=$((counter+1))
+  done
+  # Sub directory no longer needed
+  rm -rf "${subdir}"
   cd "${root}"
-  counter=$((counter+1))
+  subdir=$((subdir+1))
 done
 
