@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+function usage {
+    printf "Usage: \n\t./${0} [Options]\n"
+    printf "\nOptions: \n"
+    printf "\t-v <value> --video <value>\n"
+    printf "\t-o <value> --output <value>\n"
+}
+
+if [ "$#" -lt 4 ]; then
+    usage
+    exit 0
+fi
+
+short=vo:
+long=video,output:
+
+if ! getopt -n "$0" -o $short --long "$long" -- "$@" >/dev/null
+then
+    exit 1
+fi
+
+while true;
+do
+    case "$1" in
+        -v | --video )
+            shift
+            video=$1
+            shift
+            ;;
+        -o | --output )
+            shift
+            output=$1
+            shift
+            ;;
+        * )
+            shift
+            break
+            ;;
+    esac
+done
+
+function activate_env {
+  source "/home/miguel/Documents/.Deepfake/miniconda3/etc/profile.d/conda.sh" activate &&
+  conda activate 'comfyui' &&
+  sleep 0.2
+}
+
+activate_env
+
+python3 inference_cli.py "${video}" \
+  --output "${output}" \
+  --video_backend ffmpeg \
+  --dit_model seedvr2_ema_3b_fp16.safetensors \
+  --resolution 432 \
+  --batch_size 21 \
+  --temporal_overlap 10 \
+  --color_correction lab \
+  --blocks_to_swap 16 \
+  --seed 42 \
+  --swap_io_components \
+  --attention_mode sdpa \
+  --dit_offload_device cpu \
+  --vae_offload_device cpu \
+  --cache_vae \
+  --vae_encode_tiled \
+  --vae_encode_tile_size 256 \
+  --vae_encode_tile_overlap 64 \
+  --vae_decode_tiled \
+  --vae_decode_tile_size 192 \
+  --vae_decode_tile_overlap 64 \
+  --uniform_batch_size \
+  --debug
+
