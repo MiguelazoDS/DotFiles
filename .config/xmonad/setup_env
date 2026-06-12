@@ -6,6 +6,8 @@ function clone_repositories() {
   git clone https://github.com/xmonad/xmonad
   git clone https://github.com/xmonad/xmonad-contrib
   git clone https://codeberg.org/xmobar/xmobar.git
+  # Move to 0.50 version
+  cd xmobar && git checkout 0.50 && cd ..
 }
 
 function setup_ghcup() {
