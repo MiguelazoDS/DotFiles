@@ -4,6 +4,10 @@
 # Verify fzf is installed
 [[ ! -d $HOME/.fzf ]] && (git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install)
 
+# Verify if tmux is installed
+hash tmux
+[[ $? -eq 1 ]] && (printf "\ntmux is not installed\nInstalling..."; yay -S tmux --noconfirm)
+
 # Verify starship is installed
 hash starship
 [[ $? -eq 1 ]] && (curl -sS https://starship.rs/install.sh | sh)
