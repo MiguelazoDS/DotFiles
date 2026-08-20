@@ -46,7 +46,7 @@ function enable_lz4 {
 
 function build_and_install {
     ROOT=$(pwd)
-    sudo snapper -c root create -d "Before installing Xanmod kernel"
+    sudo snapper --no-dbus -c root create -d "Before installing Xanmod kernel"
     nvidia_version="$(nvidia-smi | awk '/NVIDIA-SMI/ {printf $3}')"
     vboxhost_version="$(virtualbox --help | head -n 1 | sed 's/.*v\([0-9]*\)/\1/')_OSE"
     xanmod_version=$(grep -E "(VERSION =.*|PATCHLEVEL =.*|SUBLEVEL =.*)" Makefile | head -n 3 | grep -E -o '[0-9]*' | tr '\n' '.')
@@ -56,6 +56,9 @@ function build_and_install {
     hash flex 2> /dev/null
     [[ $? -eq 1 ]] && (printf "\nInstalling flex\n"; yay -S flex)
 
+    hash ccache 2> /dev/null
+    [[ $? -eq 1 ]] && (printf "\nInstalling ccache\n"; yay -S ccache)
+
     sudo bash -c ""
 
     # Build
@@ -63,11 +66,19 @@ function build_and_install {
     make LSMOD="$HOME"/.config/modprobed.db localmodconfig
     enable_nvme
     enable_lz4
-    make -j"$(nproc)" bzImage
-    make -j"$(nproc)" modules
-    make -j"$(nproc)" headers
+
+    start_bzimage=$(date +%s)
+    make -j"$(nproc)" CC="ccache gcc" HOSTCC="ccache gcc" bzImage
+    end_bzimage=$(date +%s)
+    start_modules=$(date +%s)
+    make -j"$(nproc)" CC="ccache gcc" HOSTCC="ccache gcc" modules
+    end_modules=$(date +%s)
+    start_headers=$(date +%s)
+    make -j"$(nproc)" CC="ccache gcc" HOSTCC="ccache gcc" headers
+    end_headers=$(date +%s)
 
     # Install
+    start_install=$(date +%s)
     sudo make -j"$(nproc)" modules_install
     sudo make -j"$(nproc)" headers_install
     sudo cp -i arch/x86/boot/bzImage /boot/vmlinuz-xanmod-"$version"
@@ -76,6 +87,17 @@ function build_and_install {
     sudo dkms install nvidia/"$nvidia_version" -k "$xanmod_version"
     sudo dkms install vboxhost/"$vboxhost_version" -k "$xanmod_version"
     sudo grub-mkconfig -o /boot/grub/grub.cfg
+    end_install=$(date +%s)
+
+    duration_bzimage=$((end_bzimage - start_bzimage))
+    duration_modules=$((end_modules - start_modules))
+    duration_headers=$((end_headers - start_headers))
+    duration_install=$((end_install - start_install))
+
+    printf "\nIt took: "$duration_bzimage" seconds to build bzimage.\n"
+    printf "\nIt took: "$duration_modules" seconds to build modules.\n"
+    printf "\nIt took: "$duration_headers" seconds to build headers.\n"
+    printf "\nIt took: "$duration_install" seconds to build install.\n"
 
     cd "$ROOT" || exit
     printf "\nNeeds reboot\n"
