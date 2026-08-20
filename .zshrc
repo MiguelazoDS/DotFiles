@@ -1,5 +1,8 @@
 # Verify ohmyzsh is installed
 [[ ! -d $HOME/.oh-my-zsh ]] && (sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)")
+# Verify git is installed
+hash git
+[[ $? -eq 1 ]] && (printf "\ngit is not installed\nInstalling..."; yay -S git --noconfirm)
 
 # Verify fzf is installed
 [[ ! -d $HOME/.fzf ]] && (git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install)
@@ -232,3 +235,4 @@ hash conda 2> /dev/null
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval "$(starship init zsh)"
+
