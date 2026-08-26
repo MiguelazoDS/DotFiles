@@ -6,7 +6,7 @@ path="$HOME/.local/bin/"
 
 for i in *
 do
-    if [  "$i" != "symbolic_links" ]
+    if [  "$i" != "symbolic_links" ] && [ "${i:0:1}" != "_" ] && [ -x "$i" ];
     then
         if [ -e "$path$i" ]
         then
