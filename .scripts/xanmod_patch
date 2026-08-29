@@ -1,9 +1,195 @@
 #!/usr/bin/env bash
 
+# Build and install the latest mainline XanMod kernel from xanmod.org.
+#
+# - Keeps a persistent vanilla git tree at $KERNEL_DIR (no more full-source
+#   tarball re-downloads); upgrades apply the small cumulative XanMod patch.
+# - Parses the patch's vanilla base from its Makefile hunk and ensures the
+#   tree is at that base (kernel.org cumulative patches, or full tarball as
+#   fallback), then builds and reverts the tree to clean vanilla.
+# - ccache is path-independent (CCACHE_BASEDIR + CCACHE_NOHASHDIR) so warm
+#   rebuilds hit the cache; without this the changing build dir caused 100%
+#   cache misses.
+# - SKIP_INSTALL=1 builds without the sudo install step.
+
 set -x
 
+# ============================================================
+# Config
+# ============================================================
+WORK_DIR="${XANMOD_WORK_DIR:-$HOME/.cache/xanmod}"
+KERNEL_DIR="${XANMOD_KERNEL_DIR:-$WORK_DIR/linux}"
+KERNEL_BASE_URL="https://cdn.kernel.org/pub/linux/kernel"
+
+# ============================================================
+# Helpers
+# ============================================================
+function die {
+    printf "ERROR: %s\n" "$1" >&2
+    exit 1
+}
+
+# Parse xanmod.org for the latest Stable Mainline release and its patch URL.
+# Usage: read -r RELEASE URL <<< "$(get_release_info [html])"
+function get_release_info {
+    local html="${1:-$(curl -L -s --max-time 30 https://xanmod.org/)}"
+    local one release patch_url
+    one="$(printf '%s' "$html" | tr -d '\n')"
+    release="$(printf '%s' "$html" | grep -A 5 "Stable Mainline" | grep -o "key_text.*" | cut -d '=' -f2)"
+    patch_url="$(printf '%s' "$one" | grep -o 'https://master\.dl\.sourceforge\.net/project/xanmod/releases/main/[^"]*\.xz' | head -n 1)"
+    printf '%s %s\n' "$release" "$patch_url"
+}
+
+# Version from the Makefile in the current dir, e.g. 7.1.10
+function tree_version {
+    local v
+    v="$(grep -E "^(VERSION|PATCHLEVEL|SUBLEVEL) = " Makefile | awk '{print $3}' | tr '\n' '.')"
+    printf '%s' "${v%.}"
+}
+
+function git_commit {
+    git -c user.name=xanmod-build -c user.email=xanmod-build@local commit -q -m "$1" || die "git commit failed: $1"
+}
+
+# Download and extract the full vanilla kernel tarball; init git baseline.
+function fetch_full_vanilla {
+    local base="$1" kmajor="${1%%.*}" tname tarball
+    tname="linux-${base}"
+    [ "${base##*.}" = "0" ] && tname="linux-${base%.*}"   # 7.1.0 -> linux-7.1
+    tarball="$WORK_DIR/${tname}.tar.xz"
+    printf "\nDownloading vanilla ${tname}\n"
+    wget -q "$KERNEL_BASE_URL/v${kmajor}.x/${tname}.tar.xz" -O "$tarball" || die "vanilla tarball download failed"
+    rm -rf "$KERNEL_DIR"
+    mkdir -p "$KERNEL_DIR"
+    tar xJf "$tarball" -C "$KERNEL_DIR" --strip-components=1 || die "vanilla tarball extract failed"
+    rm -f "$tarball"
+    cd "$KERNEL_DIR" || die "cannot cd $KERNEL_DIR"
+    git init -q
+    printf '.config\n' >> .git/info/exclude
+    git add -A
+    git_commit "vanilla ${base}"
+    printf "Vanilla %s tree ready\n" "$base"
+}
+
+# Bring the vanilla tree from $cur to $base using kernel.org cumulative
+# patches. Handles arbitrary version jumps within a series and falls back to
+# the full tarball when the patches cannot be applied.
+function apply_incremental_vanilla {
+    local cur="$1"
+    local base="$2"
+    local kmajor="${base%%.*}"
+    local pcur pbase
+    pcur="$WORK_DIR/patch-${cur}.xz"
+    pbase="$WORK_DIR/patch-${base}.xz"
+
+    printf "\nDownloading kernel.org cumulative patch-${base}\n"
+    wget -q "$KERNEL_BASE_URL/v${kmajor}.x/patch-${base}.xz" -O "$pbase" || die "vanilla patch download failed ($base)"
+    xz -dc "$pbase" > "${pbase%.xz}" || die "vanilla patch decompress failed ($base)"
+
+    # Attempt 1: apply the target patch directly (works when it is anchored at cur).
+    if patch -p1 --dry-run < "${pbase%.xz}" 2> /dev/null; then
+        patch -p1 < "${pbase%.xz}" || die "vanilla patch apply failed ($base)"
+        rm -f "$pbase" "${pbase%.xz}"
+        git add -A
+        git_commit "vanilla ${base}"
+        printf "Tree updated to vanilla %s\n" "$base"
+        return
+    fi
+
+    # Attempt 2: reverse the current cumulative patch back to the series base,
+    # then apply the target cumulative patch. Handles same-series jumps.
+    printf "Patch-${base} is not anchored at %s; reversing patch-${cur} then applying\n" "$cur"
+    wget -q "$KERNEL_BASE_URL/v${kmajor}.x/patch-${cur}.xz" -O "$pcur" || { rm -f "$pbase" "${pbase%.xz}"; die "vanilla patch download failed ($cur)"; }
+    xz -dc "$pcur" > "${pcur%.xz}" || die "vanilla patch decompress failed ($cur)"
+    if ! patch -p1 -R --dry-run < "${pcur%.xz}" 2> /dev/null; then
+        rm -f "$pcur" "$pbase" "${pcur%.xz}" "${pbase%.xz}"
+        printf "Could not reverse patch-${cur} either; falling back to full vanilla %s\n" "$base"
+        fetch_full_vanilla "$base"
+        return
+    fi
+    patch -p1 -R < "${pcur%.xz}" || die "reversing vanilla patch ($cur) failed"
+    if ! patch -p1 --dry-run < "${pbase%.xz}" 2> /dev/null; then
+        rm -f "$pcur" "$pbase" "${pcur%.xz}" "${pbase%.xz}"
+        printf "Patch-${base} does not apply after reversing; falling back to full vanilla\n"
+        fetch_full_vanilla "$base"
+        return
+    fi
+    patch -p1 < "${pbase%.xz}" || die "vanilla patch apply failed ($base)"
+    rm -f "$pcur" "$pbase" "${pcur%.xz}" "${pbase%.xz}"
+    git add -A
+    git_commit "vanilla ${base}"
+    printf "Tree updated to vanilla %s\n" "$base"
+}
+
+function tree_is_clean_vanilla {
+    git -C "$KERNEL_DIR" status --porcelain --untracked-files=no | grep -q . && return 1
+    [ -f "$KERNEL_DIR/localversion" ] && return 1
+    return 0
+}
+
+# Ensure $KERNEL_DIR holds clean vanilla source at $base.
+function setup_tree {
+    local base="$1"
+    if [ ! -d "$KERNEL_DIR/.git" ]; then
+        printf "\nNo existing tree; creating vanilla %s\n" "$base"
+        fetch_full_vanilla "$base"
+        return
+    fi
+    cd "$KERNEL_DIR" || die "cannot cd $KERNEL_DIR"
+    if ! tree_is_clean_vanilla; then
+        printf "\nTree not clean (leftover state); resetting from vanilla %s\n" "$base"
+        fetch_full_vanilla "$base"
+        return
+    fi
+    local cur
+    cur="$(tree_version)"
+    if [ "$cur" = "$base" ]; then
+        printf "\nTree already at vanilla %s\n" "$base"
+    elif [ "${cur%.*}" = "${base%.*}" ]; then
+        printf "\nUpgrading vanilla %s -> %s (same series)\n" "$cur" "$base"
+        apply_incremental_vanilla "$cur" "$base"
+    else
+        printf "\nTree at %s, need %s (cross-series); fetching full vanilla\n" "$cur" "$base"
+        fetch_full_vanilla "$base"
+    fi
+}
+
+# Parse the vanilla base version a git-format kernel patch is anchored at,
+# by reading the VERSION/PATCHLEVEL/SUBLEVEL lines of its Makefile hunk.
+# XanMod (and kernel.org) cumulative patches are anchored at the series base,
+# e.g. patch-7.1.10-xanmod1.xz is 7.1.0 -> 7.1.10-xanmod1 and returns 7.1.0.
+function patch_base_version {
+    local pf="$1" blk maj min sub
+    blk="$(grep -m1 -A9 '^diff --git a/Makefile' "$pf")"
+    maj="$(printf '%s\n' "$blk" | grep ' VERSION = ' | sed 's/.*= //')"
+    min="$(printf '%s\n' "$blk" | grep ' PATCHLEVEL = ' | sed 's/.*= //')"
+    sub="$(printf '%s\n' "$blk" | grep '^-SUBLEVEL = ' | sed 's/^-SUBLEVEL = //')"
+    if [ -n "$maj" ] && [ -n "$min" ] && [ -n "$sub" ]; then
+        printf '%s.%s.%s' "$maj" "$min" "$sub"
+    fi
+}
+
+# Apply the xanmod patchset (cumulative from the vanilla series base).
+function apply_xanmod_patch {
+    local pf="$1"
+    printf "\nApplying xanmod patch\n"
+    if ! patch -p1 --dry-run < "$pf" 2> /dev/null; then
+        die "xanmod patch does not apply cleanly to vanilla $(patch_base_version "$pf")"
+    fi
+    patch -p1 < "$pf" || die "xanmod patch apply failed"
+    printf "xanmod patch applied\n"
+}
+
+# Revert the xanmod patch to restore the clean vanilla tree.
+function revert_to_vanilla {
+    printf "\nReverting xanmod patch to clean vanilla\n"
+    git checkout -- . || die "git checkout failed"
+    git clean -fdx || die "git clean failed"
+}
+
+# ============================================================
 # Functions definition
-# ======================================================================
+# ============================================================
 function preset {
     printf "\nCreating mkinitcpio preset\n\n"
     {
@@ -44,14 +230,26 @@ function enable_lz4 {
   sed -i 's/# CONFIG_CRYPTO_LZ4 is not set/CONFIG_CRYPTO_LZ4=y/' .config
 }
 
+# Copy the xanmod config template and apply the usual tweaks.
+function configure_xanmod {
+    local config_file=./.config
+    local config_template="CONFIGS/x86_64/config"
+    printf "\nConfiguring xanmod\n"
+    [ -f "$config_template" ] || die "config template $config_template missing (patch not applied?)"
+    cp "$config_template" "$config_file"
+    printf "\nUnset local version\n"
+    sed -i 's/\(CONFIG_LOCALVERSION=\).*/\1""/g' "$config_file"
+    printf "\nIce Lake Processor Family Set\n"
+    sed -i 's/\(CONFIG_GENERIC_CPU\)=.*/\# \1 is not set/g' "$config_file"
+    sed -i 's/.*\(CONFIG_MSKYLAKE\) is not set/\1=y/' "$config_file"
+    printf "\nEnable MSR\n"
+    sed -i 's/.*\(CONFIG_X86_MSR\)=.*/\1=y/' "$config_file"
+}
+
 function build_and_install {
     ROOT=$(pwd)
-    sudo snapper --no-dbus -c root create -d "Before installing Xanmod kernel"
-    nvidia_version="$(nvidia-smi | awk '/NVIDIA-SMI/ {printf $3}')"
-    vboxhost_version="$(virtualbox --help | head -n 1 | sed 's/.*v\([0-9]*\)/\1/')_OSE"
-    xanmod_version=$(grep -E "(VERSION =.*|PATCHLEVEL =.*|SUBLEVEL =.*)" Makefile | head -n 3 | grep -E -o '[0-9]*' | tr '\n' '.')
-    xanmod_version=${xanmod_version:0:-1}$(cat localversion)
-    version="$(echo $xanmod_version | cut -d '-' -f 1 | sed 's/\.//g')"
+    export CCACHE_BASEDIR="$KERNEL_DIR"
+    export CCACHE_NOHASHDIR=1
 
     hash flex 2> /dev/null
     [[ $? -eq 1 ]] && (printf "\nInstalling flex\n"; yay -S flex)
@@ -59,7 +257,9 @@ function build_and_install {
     hash ccache 2> /dev/null
     [[ $? -eq 1 ]] && (printf "\nInstalling ccache\n"; yay -S ccache)
 
-    sudo bash -c ""
+    if [ -z "${SKIP_INSTALL:-}" ]; then
+        sudo bash -c ""   # cache sudo credentials before the long build
+    fi
 
     # Build
     make olddefconfig
@@ -77,6 +277,27 @@ function build_and_install {
     make -j"$(nproc)" CC="ccache gcc" HOSTCC="ccache gcc" headers
     end_headers=$(date +%s)
 
+    duration_bzimage=$((end_bzimage - start_bzimage))
+    duration_modules=$((end_modules - start_modules))
+    duration_headers=$((end_headers - start_headers))
+
+    printf "\nIt took: %s seconds to build bzimage.\n" "$duration_bzimage"
+    printf "\nIt took: %s seconds to build modules.\n" "$duration_modules"
+    printf "\nIt took: %s seconds to build headers.\n" "$duration_headers"
+
+    if [ -n "${SKIP_INSTALL:-}" ]; then
+        printf "\nSKIP_INSTALL set: build only, installation skipped.\n"
+        cd "$ROOT" || exit
+        return
+    fi
+
+    sudo snapper --no-dbus -c root create -d "Before installing Xanmod kernel"
+    nvidia_version="$(nvidia-smi | awk '/NVIDIA-SMI/ {printf $3}')"
+    vboxhost_version="$(virtualbox --help | head -n 1 | sed 's/.*v\([0-9]*\)/\1/')_OSE"
+    xanmod_version=$(grep -E "(VERSION =.*|PATCHLEVEL =.*|SUBLEVEL =.*)" Makefile | head -n 3 | grep -E -o '[0-9]*' | tr '\n' '.')
+    xanmod_version=${xanmod_version:0:-1}$(cat localversion)
+    version="$(echo $xanmod_version | cut -d '-' -f 1 | sed 's/\.//g')"
+
     # Install
     start_install=$(date +%s)
     sudo make -j"$(nproc)" modules_install
@@ -88,64 +309,43 @@ function build_and_install {
     sudo dkms install vboxhost/"$vboxhost_version" -k "$xanmod_version"
     sudo grub-mkconfig -o /boot/grub/grub.cfg
     end_install=$(date +%s)
-
-    duration_bzimage=$((end_bzimage - start_bzimage))
-    duration_modules=$((end_modules - start_modules))
-    duration_headers=$((end_headers - start_headers))
     duration_install=$((end_install - start_install))
-
-    printf "\nIt took: "$duration_bzimage" seconds to build bzimage.\n"
-    printf "\nIt took: "$duration_modules" seconds to build modules.\n"
-    printf "\nIt took: "$duration_headers" seconds to build headers.\n"
-    printf "\nIt took: "$duration_install" seconds to build install.\n"
+    printf "\nIt took: %s seconds to build install.\n" "$duration_install"
 
     cd "$ROOT" || exit
     printf "\nNeeds reboot\n"
 }
 
-function download_and_configure_xanmod {
-    local latest_release=$1
-    local config_file=./.config
-    printf "\nDownloading kernel source code\n"
-    cd "$HOME/Documents" || exit
-    hash wget 2> /dev/null
-    [[ $? -eq 1 ]] && (printf "\nInstalling wget\n"; yay -S wget)
-    wget "$latest_release"
-    printf "\nExtracting kernel source code\n"
-    release_basename=$(basename $latest_release)
-    tar xfj "$release_basename" -C "linux"
-    rm "$release_basename"
-    cd linux/*
-    config_template="CONFIGS/xanmod/gcc/config_x86-64-v1"
-    ls ${config_template} 2>& /dev/null
-    if [ $? -ne 0 ]; then
-      config_template="CONFIGS/x86_64/config"
-    fi
-    cp ${config_template} ${config_file}
-    printf "\nUnset local version"
-    sed -i 's/\(CONFIG_LOCALVERSION=\).*/\1""/g' ${config_file}
-    printf "\nIce Lake Processor Family Set\n"
-    sed -i 's/\(CONFIG_GENERIC_CPU\)=.*/\# \1 is not set/g' ${config_file}
-    sed -i 's/.*\(CONFIG_MSKYLAKE\) is not set/\1=y/' ${config_file}
-    printf "\nEnable MSR\n"
-    sed -i 's/.*\(CONFIG_X86_MSR\)=.*/\1=y/' ${config_file}
-}
+# ============================================================
+# Main
+# ============================================================
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    for cmd in curl wget xz patch git tar; do
+        hash "$cmd" 2> /dev/null || die "missing dependency: $cmd"
+    done
 
-function get_source_code {
-    local url=$(curl -L xanmod.org | grep -A 20 "Stable Mainline" | grep -B 1 "Source" | tr -d '\n' | grep -o "https.*\" ")
-    echo "${url:0:-2}"
-}
+    read -r release patch_url <<< "$(get_release_info)"
+    [ -n "$release" ] || die "could not determine latest xanmod release from xanmod.org"
+    [ -n "$patch_url" ] || die "could not determine xanmod patch URL from xanmod.org"
 
-# ===========================================================================================
-# START
-# ===========================================================================================
-major="$(curl https://xanmod.org/ | grep -A 1 "Stable Mainline" | tail -n 1 | sed 's/<td>\(.*\)<\/td>/\1/')"
-linux_dir=$HOME/Documents/linux
-rm -rf "$linux_dir"
-mkdir "$linux_dir"
+    printf "\nLatest xanmod release: %s\n" "$release"
 
-url=$(get_source_code)
-download_and_configure_xanmod "$url"
-linux_dir="$(find "$HOME"/Documents/ -maxdepth 1 -regex "$HOME/Documents/linux.*$")"
-build_and_install "$major" "$xanmod_info" "$linux_dir"
+    mkdir -p "$WORK_DIR"
+    pfile="$WORK_DIR/patch-${release}.xz"
+    printf "\nDownloading xanmod patch-${release}\n"
+    wget -q "$patch_url" -O "$pfile" || die "xanmod patch download failed"
+    xz -dc "$pfile" > "${pfile%.xz}" || die "xanmod patch decompress failed"
 
+    base="$(patch_base_version "${pfile%.xz}")"
+    [ -n "$base" ] || base="${release%%-*}"
+    printf "\nxanmod patch base vanilla: %s\n" "$base"
+
+    setup_tree "$base"
+    cd "$KERNEL_DIR" || die "cannot cd $KERNEL_DIR"
+    apply_xanmod_patch "${pfile%.xz}"
+    rm -f "$pfile" "${pfile%.xz}"
+    configure_xanmod
+    build_and_install
+    revert_to_vanilla
+    printf "\nDone. Reboot to use %s\n" "$release"
+fi
