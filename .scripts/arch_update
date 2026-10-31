@@ -3,7 +3,7 @@
 recompile=$HOME/.config/xmonad/recompile
 
 function update {
-    sudo snapper -c root create -d "Before upgrade"
+    sudo snapper --no-dbus -c root create -d "Before upgrade"
     yay -Syy && yay -Syyu --devel --noconfirm; ${recompile} 2> /dev/null
 }
 
@@ -16,13 +16,15 @@ function clean {
         paccache -r
     fi
     pip cache purge
-    setxkbmap es
-    $HOME/.scripts/mouse_accel
+    if [[ ! $XDG_SESSION_TYPE == "wayland" ]]; then
+      setxkbmap es
+      $HOME/.scripts/mouse_accel
+    fi
 }
 
 function ignore {
     pkgs="$(yay -Qsq "$1" | tr '\n' ',')"
-    sudo snapper -c root create -d "Before upgrade"
+    sudo snapper --no-dbus -c root create -d "Before upgrade"
     yay -Syyu --ignore $pkgs --devel --noconfirm; ${recompile} 2> /dev/null
 }
 
@@ -32,8 +34,10 @@ function delete_snapshots {
   array=()
   for i in "${var[@]}"
   do
-    if [[ "$i" =~ "Before upgrade" ]] || [[ "$i" =~ "Before installing Xanmod kernel" ]]; then
-      id=$(echo "$i" | cut -d ' ' -f 1)
+    if [[ "$i" =~ "Before upgrade" ]] || [[ "$i" =~ "Before installing Xanmod kernel" ]] || [[ "$i" =~ "timeline" ]] ; then
+      # Remove leading spaces
+      value=$(echo "$i" | sed 's/^\s*//')
+      id=$(echo "${value}" | cut -d ' ' -f 1)
       array+=("$id")
     fi
   done
