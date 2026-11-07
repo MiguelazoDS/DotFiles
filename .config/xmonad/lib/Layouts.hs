@@ -28,14 +28,17 @@ lClose :: String
 lClose = "<fc=#242424><fn=1>\57524</fn></fc>"
 
 gridIcon :: String
-gridIcon = lOpen ++ "<fc=#E7D7AD,#242424>\64111 </fc>" ++ lClose
+gridIcon = lOpen ++ "<fc=#E7D7AD,#242424>\984432 </fc>" ++ lClose
 
 monocleIcon :: String
-monocleIcon = lOpen ++ "<fc=#E7D7AD,#242424><fn=1>\63378 </fn></fc>" ++ lClose
+monocleIcon = lOpen ++ "<fc=#E7D7AD,#242424><fn=1>\60784 </fn></fc>" ++ lClose
+
+horizontalIcon :: String
+horizontalIcon = lOpen ++ "<fc=#E7D7AD,#242424><fn=1>\62731 </fn></fc>" ++ lClose
 
 grid = renamed [Replace gridIcon] $ limitWindows 12 $ mySpacing $ mkToggle (single MIRROR) $ Grid (16 / 10)
 
 monocle = renamed [Replace monocleIcon] $ limitWindows 20 Full
 
-tall = renamed [Replace "Hor"] $ limitWindows 12 $ mySpacing $ Mirror $ Tall 1 (3/100) (1/2)
+tall = renamed [Replace horizontalIcon] $ limitWindows 12 $ mySpacing $ Mirror $ Tall 1 (3/100) (1/2)
 

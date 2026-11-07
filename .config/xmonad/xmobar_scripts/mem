@@ -46,7 +46,7 @@ case "$1" in
         done
         ;;
     *)
-        free | awk -v bg="$bg" -v fg="$fg" -v fgAlt="$fgAlt" '/^Mem:/ { used=(100*$3)/($2); printf "<fc=%s><fn=4></fn></fc><fc=%s,%s><fn=0><fc=%s,%s> </fc></fn><fn=1>%.1f%</fn></fc>", bg, fg, bg, fgAlt, bg, used}'
+        free | awk -v bg="$bg" -v fg="$fg" -v fgAlt="$fgAlt" '/^Mem:/ { used=(100*$3)/($2); printf "<fc=%s><fn=4></fn></fc><fc=%s,%s><fn=0><fc=%s,%s> </fc></fn><fn=1>%.1f%󰇝</fn></fc>", bg, fg, bg, fgAlt, bg, used}'
         gpu_mem
         ;;
 esac

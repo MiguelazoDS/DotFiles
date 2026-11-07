@@ -33,10 +33,11 @@ Config {
     , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/padding" [] "trayerpad" 1
     , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/headset" [] "headset" 5
     , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/disk" [] "disk" 10
+    , Run Com "/home/miguel/.config/xmonad/xmobar_scripts/vpn" [] "vpn" 10
     , Run Locks
     , Run UnsafeStdinReader
     ]
     , sepChar = "%"
     , alignSep = "}{"
-    , template = "<fc=#7c76cf,#242424><fn=3>  </fn></fc><fn=3></fn>%UnsafeStdinReader%<fc=#db9a27>%moc%</fc> }<fc=#E7D7AD>%weather%</fc><fc=#E7D7AD,#242424>%date%</fc><fc=#242424><fn=1></fn></fc>{<fc=#242424><fn=1></fn></fc><fc=#E7D7AD,#242424><fn=0>%locks%</fn></fc><fc=#242424><fn=1></fn></fc><fc=#E7D7AD>%headset%</fc><fc=#E7D7AD>%updates%</fc><fc=#E7D7AD>%volume%</fc><fc=#E7D7AD>%disk%</fc><fc=#E7D7AD>%cpu%</fc><fc=#E7D7AD>%memory%</fc><fc=#E7D7AD>%bat%</fc><fc=#E7D7AD>%battery%</fc><fc=#242424><fn=1></fn></fc><fc=#242424><fn=4></fn></fc><fc=#E7D7AD>%trayerpad%</fc><fc=#242424><fn=4></fn></fc>"
+    , template = "<fc=#7c76cf,#242424><fn=3>  </fn></fc> %UnsafeStdinReader%<fc=#db9a27>%moc%</fc> }<fc=#E7D7AD>%weather%</fc><fc=#E7D7AD,#242424>%date%</fc><fc=#242424><fn=1></fn></fc>{%vpn%<fc=#242424><fn=1></fn></fc><fc=#E7D7AD,#242424><fn=0>%locks%</fn></fc><fc=#242424><fn=1></fn></fc><fc=#E7D7AD>%headset%</fc><fc=#E7D7AD>%updates%</fc><fc=#E7D7AD>%volume%</fc><fc=#E7D7AD>%disk%</fc><fc=#E7D7AD>%cpu%</fc><fc=#E7D7AD>%memory%</fc><fc=#E7D7AD>%bat%</fc><fc=#E7D7AD>%battery%</fc><fc=#242424><fn=1></fn></fc><fc=#242424><fn=4></fn></fc><fc=#E7D7AD>%trayerpad%</fc><fc=#242424><fn=4></fn></fc>"
 }

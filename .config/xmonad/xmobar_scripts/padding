@@ -71,9 +71,9 @@ height=$(( $(cat $HOME/.config/stalonetrayrc | awk '/icon_size/ {print $2}') + 4
 iconfile="/tmp/$pname-padding-${width:-0}px.xpm"
 
 # If the desired icon does not exist create it
-if [ ! -f $iconfile ]
+if [ -n "$width" ] && [ "$width" -gt 0 ] && [ ! -f "$iconfile" ]
 then
-    create_xpm_icon $width $iconfile $height
+    create_xpm_icon "$width" "$iconfile" "$height"
 fi
 
 # Output the icon tag for xmobar
