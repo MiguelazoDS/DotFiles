@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-export PATH=$HOME/.ghcup/bin:$PATH
-xmonad --recompile && xmonad --restart
-pkill stalonetray
-pkill nm-applet
-stalonetray& disown; nm-applet --indicator & disown
